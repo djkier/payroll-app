@@ -16,8 +16,8 @@ public class PayrollSystem {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-//            PasswordFrame frame = new PasswordFrame();
-            MainFrame frame = new MainFrame();
+            PasswordFrame frame = new PasswordFrame();
+//            MainFrame frame = new MainFrame();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });

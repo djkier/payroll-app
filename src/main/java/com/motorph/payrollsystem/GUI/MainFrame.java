@@ -4,6 +4,10 @@
  */
 package com.motorph.payrollsystem.GUI;
 
+import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
+import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
+import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeePanel;
+
 
 
 /**
