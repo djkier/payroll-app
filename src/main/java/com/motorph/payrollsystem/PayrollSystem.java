@@ -4,7 +4,7 @@
 
 package com.motorph.payrollsystem;
 
-import com.motorph.payrollsystem.GUI.MainFrame;
+import com.motorph.payrollsystem.GUI.PasswordFrame;
 import javax.swing.SwingUtilities;
 
 /**
@@ -15,7 +15,7 @@ public class PayrollSystem {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            MainFrame frame = new MainFrame();
+            PasswordFrame frame = new PasswordFrame();
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
