@@ -4,6 +4,8 @@
  */
 package com.motorph.payrollsystem.GUI;
 
+
+
 /**
  *
  * @author djjus
@@ -11,15 +13,18 @@ package com.motorph.payrollsystem.GUI;
 public class MainFrame extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainFrame.class.getName());
-
+    
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        setSize(800, 600);
+        setSize(1000, 640);
         setResizable(false);
         setLocationRelativeTo(null);
+        
+        rightPanel.setLayout(new java.awt.BorderLayout());
+ 
     }
 
     /**
@@ -31,26 +36,213 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        leftSidePanel = new javax.swing.JPanel();
+        navBar = new javax.swing.JPanel();
+        homeBtn = new javax.swing.JPanel();
+        homeLabel = new javax.swing.JLabel();
+        profileBtn = new javax.swing.JPanel();
+        profileLabel = new javax.swing.JLabel();
+        salaryBtn = new javax.swing.JPanel();
+        salaryLabel = new javax.swing.JLabel();
+        rightPanel = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 640));
+        setResizable(false);
+
+        leftSidePanel.setBackground(new java.awt.Color(153, 255, 255));
+        leftSidePanel.setPreferredSize(new java.awt.Dimension(240, 640));
+
+        navBar.setPreferredSize(new java.awt.Dimension(195, 380));
+
+        homeBtn.setBackground(new java.awt.Color(153, 153, 0));
+        homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeBtnMouseClicked(evt);
+            }
+        });
+
+        homeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        homeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        homeLabel.setText("HOME");
+        homeLabel.setNextFocusableComponent(homeBtn);
+
+        javax.swing.GroupLayout homeBtnLayout = new javax.swing.GroupLayout(homeBtn);
+        homeBtn.setLayout(homeBtnLayout);
+        homeBtnLayout.setHorizontalGroup(
+            homeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        homeBtnLayout.setVerticalGroup(
+            homeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(homeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        );
+
+        profileBtn.setBackground(new java.awt.Color(153, 153, 0));
+        profileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileBtnMouseClicked(evt);
+            }
+        });
+
+        profileLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        profileLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        profileLabel.setText("PROFILE");
+        profileLabel.setNextFocusableComponent(homeBtn);
+
+        javax.swing.GroupLayout profileBtnLayout = new javax.swing.GroupLayout(profileBtn);
+        profileBtn.setLayout(profileBtnLayout);
+        profileBtnLayout.setHorizontalGroup(
+            profileBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+        );
+        profileBtnLayout.setVerticalGroup(
+            profileBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        );
+
+        salaryBtn.setBackground(new java.awt.Color(153, 153, 0));
+        salaryBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salaryBtnMouseClicked(evt);
+            }
+        });
+
+        salaryLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        salaryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        salaryLabel.setText("SALARY");
+        salaryLabel.setNextFocusableComponent(homeBtn);
+
+        javax.swing.GroupLayout salaryBtnLayout = new javax.swing.GroupLayout(salaryBtn);
+        salaryBtn.setLayout(salaryBtnLayout);
+        salaryBtnLayout.setHorizontalGroup(
+            salaryBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+        );
+        salaryBtnLayout.setVerticalGroup(
+            salaryBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
+        navBar.setLayout(navBarLayout);
+        navBarLayout.setHorizontalGroup(
+            navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(profileBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(salaryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        navBarLayout.setVerticalGroup(
+            navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salaryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(194, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
+        leftSidePanel.setLayout(leftSidePanelLayout);
+        leftSidePanelLayout.setHorizontalGroup(
+            leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftSidePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(navBar, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        leftSidePanelLayout.setVerticalGroup(
+            leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leftSidePanelLayout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(navBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        rightPanel.setPreferredSize(new java.awt.Dimension(760, 640));
+        rightPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rightPanelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
+        rightPanel.setLayout(rightPanelLayout);
+        rightPanelLayout.setHorizontalGroup(
+            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 760, Short.MAX_VALUE)
+        );
+        rightPanelLayout.setVerticalGroup(
+            rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 640, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(leftSidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(leftSidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseClicked
+        // TODO add your handling code here:
+        rightPanel.removeAll();
+        rightPanel.add(new HomePanel(), java.awt.BorderLayout.CENTER);
+        rightPanel.revalidate();
+        rightPanel.repaint();
+        System.out.println("home button click");
+
+
+    }//GEN-LAST:event_homeBtnMouseClicked
+
+    private void rightPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightPanelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rightPanelMouseClicked
+
+    private void profileBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnMouseClicked
+        // TODO add your handling code here:
+        rightPanel.removeAll();
+        rightPanel.add(new EmployeePanel(), java.awt.BorderLayout.CENTER);
+        rightPanel.revalidate();
+        rightPanel.repaint();
+        System.out.println("profile button");
+    }//GEN-LAST:event_profileBtnMouseClicked
+
+    private void salaryBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salaryBtnMouseClicked
+        // TODO add your handling code here:
+        rightPanel.removeAll();
+        rightPanel.add(new SalaryPanel(), java.awt.BorderLayout.CENTER);
+        rightPanel.revalidate();
+        rightPanel.repaint();
+        System.out.println("salary button");
+    }//GEN-LAST:event_salaryBtnMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -71,7 +263,18 @@ public class MainFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
     }
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel homeBtn;
+    private javax.swing.JLabel homeLabel;
+    private javax.swing.JPanel leftSidePanel;
+    private javax.swing.JPanel navBar;
+    private javax.swing.JPanel profileBtn;
+    private javax.swing.JLabel profileLabel;
+    private javax.swing.JPanel rightPanel;
+    private javax.swing.JPanel salaryBtn;
+    private javax.swing.JLabel salaryLabel;
     // End of variables declaration//GEN-END:variables
 }
