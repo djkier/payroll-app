@@ -4,8 +4,9 @@
  */
 package com.motorph.payrollsystem.service;
 
-import com.motorph.payrollsystem.domain.auth.ReadCsvUserAccount;
+
 import com.motorph.payrollsystem.domain.auth.UserAccount;
+import com.motorph.payrollsystem.repository.UserRepository;
 import java.io.IOException;
 
 /**
@@ -13,9 +14,9 @@ import java.io.IOException;
  * @author djjus
  */
 public class AuthService {
-    private final ReadCsvUserAccount finder;
+    private final UserRepository finder;
     
-    public AuthService(ReadCsvUserAccount finder) {
+    public AuthService(UserRepository finder) {
         this.finder = finder;
     }
     

@@ -4,7 +4,8 @@
  */
 package com.motorph.payrollsystem.GUI;
 
-import com.motorph.payrollsystem.domain.auth.ReadCsvUserAccount;
+import com.motorph.payrollsystem.app.AppContext;
+
 import com.motorph.payrollsystem.domain.auth.UserAccount;
 import com.motorph.payrollsystem.service.AuthService;
 import javax.swing.ImageIcon;
@@ -19,7 +20,8 @@ public class PasswordFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public PasswordFrame() {
+    public PasswordFrame(AppContext appContext) {
+        this.appContext = appContext;
         initComponents();
         setSize(418, 500);
         setResizable(false);
@@ -58,7 +60,6 @@ public class PasswordFrame extends javax.swing.JFrame {
         customDialog.setBackground(new java.awt.Color(255, 255, 255));
         customDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         customDialog.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        customDialog.setPreferredSize(new java.awt.Dimension(190, 125));
 
         customDialogLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         customDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -204,13 +205,12 @@ public class PasswordFrame extends javax.swing.JFrame {
         }
         
         try {
-            ReadCsvUserAccount finder = new ReadCsvUserAccount("/csv-files/user-accounts.csv");
-            AuthService authService = new AuthService(finder);
+            AuthService authService = appContext.getAuthService();
+            UserAccount userAccount = authService.login(empNo, username, password);
             
-            UserAccount account = authService.login(empNo, username, password);
-            
-            if (account != null) {
-                MainFrame mainFrame = new MainFrame();
+            if (userAccount != null) {
+//                appContext.getSessionManager().startSession(userAccount);
+                MainFrame mainFrame = new MainFrame(appContext);
                 mainFrame.setVisible(true);
                 this.dispose();
             } else {
@@ -270,14 +270,15 @@ public class PasswordFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PasswordFrame().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new PasswordFrame(this.appContext).setVisible(true);
+//            }
+//        });
     }
     
     private javax.swing.JLabel imageLogo;
+    private AppContext appContext;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog customDialog;

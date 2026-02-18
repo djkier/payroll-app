@@ -7,6 +7,7 @@ package com.motorph.payrollsystem.GUI;
 import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeePanel;
+import com.motorph.payrollsystem.app.AppContext;
 
 
 
@@ -22,13 +23,14 @@ public class MainFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    public MainFrame(AppContext appContext) {
+        this.appContext = appContext;
         initComponents();
         setSize(1000, 640);
         setResizable(false);
         setLocationRelativeTo(null);
         
-        //Make the right panel to have a default screen
+        //Righ panel default screen after logging in
         rightPanel.setLayout(new java.awt.BorderLayout());
         homeScreenDefault();
  
@@ -279,7 +281,7 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void homeScreenDefault() {
         rightPanel.removeAll();
-        rightPanel.add(new HomePanel(), java.awt.BorderLayout.CENTER);
+        rightPanel.add(new HomePanel(this.appContext), java.awt.BorderLayout.CENTER);
         rightPanel.revalidate();
         rightPanel.repaint();
         System.out.println("home btn");
@@ -386,11 +388,11 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+//        java.awt.EventQueue.invokeLater(() -> new MainFrame(this.appContext).setVisible(true));
     }
     
 
-
+    private final AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel homeBtn;
     private javax.swing.JLabel homeLabel;

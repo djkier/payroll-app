@@ -4,6 +4,8 @@
  */
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
+import com.motorph.payrollsystem.app.AppContext;
+
 /**
  *
  * @author djjus
@@ -13,7 +15,8 @@ public class HomePanel extends javax.swing.JPanel {
     /**
      * Creates new form HomePanel
      */
-    public HomePanel() {
+    public HomePanel(AppContext appContext) {
+        this.appContext = appContext;
         initComponents();
     }
 
@@ -95,7 +98,7 @@ public class HomePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
