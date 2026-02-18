@@ -23,16 +23,6 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         this.appContext = appContext;
         initComponents();
         
-        SessionManager currSession = appContext.getSessionManager();
-        LocalDateTime loginTime = currSession.getLoginTime();
-        
-        employeeNoText.setText(currSession.getCurrentEmployee().getFullName());
-        loggedInTimeLabel.setText(Dates.formattedTime(loginTime));
-        
-        String dateLabelStr = Dates.dayOfWeek(loginTime) + 
-                ", " + 
-                Dates.fullDate(loginTime);
-        dateLabel.setText(dateLabelStr);
     }
 
     /**
@@ -44,36 +34,44 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateLabel = new javax.swing.JLabel();
+        decorLine = new javax.swing.JPanel();
+        personalInfoLabel = new javax.swing.JLabel();
+        lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
         employeeNoText = new javax.swing.JLabel();
-        preTimeLabel = new javax.swing.JLabel();
-        loggedInTimeLabel = new javax.swing.JLabel();
+        firstNameLabel = new javax.swing.JLabel();
+        birthdayLabel = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
-        decorLine = new javax.swing.JPanel();
-        loggedInTimeLabel1 = new javax.swing.JLabel();
-        loggedInTimeLabel2 = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
+        phoneLabel = new javax.swing.JLabel();
+        decorLine1 = new javax.swing.JPanel();
+        govIdLabel = new javax.swing.JLabel();
+        sssLabel = new javax.swing.JLabel();
+        philHealthLabel = new javax.swing.JLabel();
+        pagibigLabel = new javax.swing.JLabel();
+        tinLabel = new javax.swing.JLabel();
+        decorLine2 = new javax.swing.JPanel();
+        departmentLabel = new javax.swing.JLabel();
+        departmentNameLabel = new javax.swing.JLabel();
+        positionLabel = new javax.swing.JLabel();
+        supervisorLabel = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
+        lastNameText = new javax.swing.JLabel();
+        phoneNumberText = new javax.swing.JLabel();
+        employeeNoText3 = new javax.swing.JLabel();
+        addressText = new javax.swing.JLabel();
+        birthdayText = new javax.swing.JLabel();
+        firstNameText = new javax.swing.JLabel();
+        employeeNoText4 = new javax.swing.JLabel();
+        employeeNoText5 = new javax.swing.JLabel();
+        employeeNoText6 = new javax.swing.JLabel();
+        employeeNoText7 = new javax.swing.JLabel();
+        employeeNoText8 = new javax.swing.JLabel();
+        employeeNoText9 = new javax.swing.JLabel();
+        employeeNoText10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
-
-        dateLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        dateLabel.setText("Last Name :");
-
-        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        employeeNoLabel.setText("Employee No :");
-
-        employeeNoText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        employeeNoText.setText("00000");
-
-        preTimeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        preTimeLabel.setText("First Name :");
-
-        loggedInTimeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        loggedInTimeLabel.setText("Birthday :");
-
-        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        dashboardLabel.setText("EMPLOYEE INFORMATION");
 
         decorLine.setBackground(new java.awt.Color(240, 240, 240));
         decorLine.setDoubleBuffered(false);
@@ -89,11 +87,129 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        loggedInTimeLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        loggedInTimeLabel1.setText("Address :");
+        personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        personalInfoLabel.setText("Personal Information");
 
-        loggedInTimeLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        loggedInTimeLabel2.setText("Phone Number : ");
+        lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lastNameLabel.setText("Last Name :");
+
+        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        employeeNoLabel.setText("Employee No :");
+
+        employeeNoText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        employeeNoText.setText("00000");
+
+        firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        firstNameLabel.setText("First Name :");
+
+        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        birthdayLabel.setText("Birthday :");
+
+        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        dashboardLabel.setText("EMPLOYEE");
+
+        addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        addressLabel.setText("Address :");
+
+        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        phoneLabel.setText("Phone Number : ");
+
+        decorLine1.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine1.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine1Layout = new javax.swing.GroupLayout(decorLine1);
+        decorLine1.setLayout(decorLine1Layout);
+        decorLine1Layout.setHorizontalGroup(
+            decorLine1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine1Layout.setVerticalGroup(
+            decorLine1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+
+        govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        govIdLabel.setText("Government ID");
+
+        sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        sssLabel.setText("Social Security # :");
+
+        philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        philHealthLabel.setText("PhilHealth # :");
+
+        pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        pagibigLabel.setText("PAG-IBIG # :");
+
+        tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        tinLabel.setText("Tax Identification # :");
+
+        decorLine2.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine2.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine2Layout = new javax.swing.GroupLayout(decorLine2);
+        decorLine2.setLayout(decorLine2Layout);
+        decorLine2Layout.setHorizontalGroup(
+            decorLine2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine2Layout.setVerticalGroup(
+            decorLine2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+
+        departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        departmentLabel.setText("Department");
+
+        departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        departmentNameLabel.setText("Department Name :");
+
+        positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        positionLabel.setText("Position :");
+
+        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        supervisorLabel.setText("Supervisor :");
+
+        statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        statusLabel.setText("Status :");
+
+        lastNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        lastNameText.setText("Fontanilla");
+
+        phoneNumberText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        phoneNumberText.setText("+639569999999");
+
+        employeeNoText3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText3.setText("44-4506057-3");
+
+        addressText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        addressText.setText("17 Nothing St., Nowhere District, Brgy. There, Quezon City");
+
+        birthdayText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        birthdayText.setText("January 1, 1990");
+
+        firstNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        firstNameText.setText("Don Justine");
+
+        employeeNoText4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText4.setText("691295330870");
+
+        employeeNoText5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText5.setText("820126853951");
+
+        employeeNoText6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText6.setText("442-605-657-000");
+
+        employeeNoText7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText7.setText("Executive");
+
+        employeeNoText8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText8.setText("Chief Operating Manager");
+
+        employeeNoText9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText9.setText("Regular");
+
+        employeeNoText10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        employeeNoText10.setText("Manuel Garcia III");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -102,23 +218,69 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(decorLine1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sssLabel)
+                            .addComponent(philHealthLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(employeeNoText3)
+                            .addComponent(employeeNoText5))
+                        .addGap(65, 65, 65)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tinLabel)
+                            .addComponent(pagibigLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(employeeNoText4)
+                            .addComponent(employeeNoText6)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(dashboardLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateLabel)
-                            .addComponent(preTimeLabel)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(employeeNoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(employeeNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(loggedInTimeLabel)
-                            .addComponent(loggedInTimeLabel1)
-                            .addComponent(loggedInTimeLabel2))))
+                            .addComponent(employeeNoLabel)
+                            .addComponent(firstNameLabel)
+                            .addComponent(phoneLabel)
+                            .addComponent(addressLabel)
+                            .addComponent(birthdayLabel)
+                            .addComponent(lastNameLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(firstNameText)
+                            .addComponent(employeeNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lastNameText)
+                            .addComponent(birthdayText)
+                            .addComponent(addressText)
+                            .addComponent(phoneNumberText)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(govIdLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(departmentLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(departmentNameLabel)
+                            .addComponent(positionLabel)
+                            .addComponent(supervisorLabel)
+                            .addComponent(statusLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(employeeNoText9)
+                            .addComponent(employeeNoText8)
+                            .addComponent(employeeNoText7)
+                            .addComponent(employeeNoText10)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(personalInfoLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -128,34 +290,108 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addComponent(dashboardLabel)
                 .addGap(6, 6, 6)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
+                .addComponent(personalInfoLabel)
+                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(employeeNoLabel)
                     .addComponent(employeeNoText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(preTimeLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(firstNameLabel)
+                    .addComponent(firstNameText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lastNameLabel)
+                    .addComponent(lastNameText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loggedInTimeLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(birthdayLabel)
+                    .addComponent(birthdayText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loggedInTimeLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addressLabel)
+                    .addComponent(addressText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loggedInTimeLabel2)
-                .addContainerGap(403, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneLabel)
+                    .addComponent(phoneNumberText))
+                .addGap(16, 16, 16)
+                .addComponent(decorLine1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(govIdLabel)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sssLabel)
+                    .addComponent(pagibigLabel)
+                    .addComponent(employeeNoText3)
+                    .addComponent(employeeNoText4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(philHealthLabel)
+                    .addComponent(tinLabel)
+                    .addComponent(employeeNoText6)
+                    .addComponent(employeeNoText5))
+                .addGap(16, 16, 16)
+                .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(departmentLabel)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(departmentNameLabel)
+                    .addComponent(employeeNoText7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(positionLabel)
+                    .addComponent(employeeNoText8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(supervisorLabel)
+                    .addComponent(employeeNoText10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusLabel)
+                    .addComponent(employeeNoText9))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel addressText;
+    private javax.swing.JLabel birthdayLabel;
+    private javax.swing.JLabel birthdayText;
     private javax.swing.JLabel dashboardLabel;
-    private javax.swing.JLabel dateLabel;
     private javax.swing.JPanel decorLine;
+    private javax.swing.JPanel decorLine1;
+    private javax.swing.JPanel decorLine2;
+    private javax.swing.JLabel departmentLabel;
+    private javax.swing.JLabel departmentNameLabel;
     private javax.swing.JLabel employeeNoLabel;
     private javax.swing.JLabel employeeNoText;
-    private javax.swing.JLabel loggedInTimeLabel;
-    private javax.swing.JLabel loggedInTimeLabel1;
-    private javax.swing.JLabel loggedInTimeLabel2;
-    private javax.swing.JLabel preTimeLabel;
+    private javax.swing.JLabel employeeNoText10;
+    private javax.swing.JLabel employeeNoText3;
+    private javax.swing.JLabel employeeNoText4;
+    private javax.swing.JLabel employeeNoText5;
+    private javax.swing.JLabel employeeNoText6;
+    private javax.swing.JLabel employeeNoText7;
+    private javax.swing.JLabel employeeNoText8;
+    private javax.swing.JLabel employeeNoText9;
+    private javax.swing.JLabel firstNameLabel;
+    private javax.swing.JLabel firstNameText;
+    private javax.swing.JLabel govIdLabel;
+    private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JLabel lastNameText;
+    private javax.swing.JLabel pagibigLabel;
+    private javax.swing.JLabel personalInfoLabel;
+    private javax.swing.JLabel philHealthLabel;
+    private javax.swing.JLabel phoneLabel;
+    private javax.swing.JLabel phoneNumberText;
+    private javax.swing.JLabel positionLabel;
+    private javax.swing.JLabel sssLabel;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel supervisorLabel;
+    private javax.swing.JLabel tinLabel;
     // End of variables declaration//GEN-END:variables
 }

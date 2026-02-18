@@ -71,7 +71,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         loggedInTimeLabel.setText("00:00 AM");
 
         dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        dashboardLabel.setText("DASHBOARD");
+        dashboardLabel.setText("SALARY DETAILS");
 
         jPanel1.setBackground(new java.awt.Color(240, 240, 240));
         jPanel1.setDoubleBuffered(false);

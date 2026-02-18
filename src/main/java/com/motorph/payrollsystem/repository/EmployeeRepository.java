@@ -70,8 +70,8 @@ public class EmployeeRepository {
                     
                     govIds.setSssNumber(details[6]);
                     govIds.setPhilHealthNumber(details[7]);
-                    govIds.setPagibigNumber(details[8]);
-                    govIds.setTinNumber(details[9]);
+                    govIds.setTinNumber(details[8]);
+                    govIds.setPagibigNumber(details[9]);
                     
                     emp.setStatus(details[10]);
                     emp.setPosition(details[11]);

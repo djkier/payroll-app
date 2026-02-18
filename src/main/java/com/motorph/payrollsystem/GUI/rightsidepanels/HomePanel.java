@@ -50,7 +50,7 @@ public class HomePanel extends javax.swing.JPanel {
         preTimeLabel = new javax.swing.JLabel();
         loggedInTimeLabel = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        decorLine = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -73,17 +73,17 @@ public class HomePanel extends javax.swing.JPanel {
         dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         dashboardLabel.setText("DASHBOARD");
 
-        jPanel1.setBackground(new java.awt.Color(240, 240, 240));
-        jPanel1.setDoubleBuffered(false);
+        decorLine.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine.setDoubleBuffered(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout decorLineLayout = new javax.swing.GroupLayout(decorLine);
+        decorLine.setLayout(decorLineLayout);
+        decorLineLayout.setHorizontalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 769, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        decorLineLayout.setVerticalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
@@ -92,7 +92,7 @@ public class HomePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,7 +119,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(dashboardLabel)
                 .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(welcomeLabel)
@@ -138,7 +138,7 @@ public class HomePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JLabel dateLabel;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel decorLine;
     private javax.swing.JLabel loggedInTimeLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel preTimeLabel;

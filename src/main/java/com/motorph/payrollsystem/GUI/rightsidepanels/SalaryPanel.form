@@ -125,7 +125,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="DASHBOARD"/>
+        <Property name="text" type="java.lang.String" value="SALARY DETAILS"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
