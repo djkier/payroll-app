@@ -4,9 +4,10 @@
  */
 package com.motorph.payrollsystem.GUI;
 
+import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeeInfoPanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
-import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeePanel;
+import com.motorph.payrollsystem.GUI.rightsidepanels.LeavePanel;
 import com.motorph.payrollsystem.app.AppContext;
 
 
@@ -38,6 +39,27 @@ public class MainFrame extends javax.swing.JFrame {
         rightPanel.setLayout(new java.awt.BorderLayout());
         homeScreenDefault(appContext);
  
+    }
+    
+    private void changeRightScreen(javax.swing.JPanel panel) {
+        rightPanel.removeAll();
+        rightPanel.add(panel, java.awt.BorderLayout.CENTER);
+        rightPanel.revalidate();
+        rightPanel.repaint();
+    }
+    
+    private void btnMouseEntered(javax.swing.JPanel panel) {
+        panel.setBackground(new java.awt.Color(240, 240, 240));
+        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }
+    
+    private void btnMouseExited(javax.swing.JPanel panel) {
+        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }
+    
+    private void homeScreenDefault(AppContext context) {
+        changeRightScreen(new HomePanel(context));
     }
 
     /**
@@ -283,13 +305,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void homeScreenDefault(AppContext context) {
-        rightPanel.removeAll();
-        rightPanel.add(new HomePanel(context), java.awt.BorderLayout.CENTER);
-        rightPanel.revalidate();
-        rightPanel.repaint();
-        System.out.println("home btn");
-    }
+  
     private void homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseClicked
         // TODO add your handling code here:
         homeScreenDefault(this.appContext);
@@ -301,20 +317,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void profileBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnMouseClicked
         // TODO add your handling code here:
-        rightPanel.removeAll();
-        rightPanel.add(new EmployeePanel(), java.awt.BorderLayout.CENTER);
-        rightPanel.revalidate();
-        rightPanel.repaint();
-        System.out.println("profile button");
+        changeRightScreen(new EmployeeInfoPanel(this.appContext));
     }//GEN-LAST:event_profileBtnMouseClicked
 
     private void salaryBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salaryBtnMouseClicked
         // TODO add your handling code here:
-        rightPanel.removeAll();
-        rightPanel.add(new SalaryPanel(), java.awt.BorderLayout.CENTER);
-        rightPanel.revalidate();
-        rightPanel.repaint();
-        System.out.println("salary button");
+        changeRightScreen(new SalaryPanel(this.appContext));
     }//GEN-LAST:event_salaryBtnMouseClicked
 
     private void homeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseEntered
@@ -339,6 +347,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void leaveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leaveBtnMouseClicked
         // TODO add your handling code here:
+        changeRightScreen(new LeavePanel(this.appContext));
     }//GEN-LAST:event_leaveBtnMouseClicked
 
     private void salaryBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salaryBtnMouseEntered
@@ -361,15 +370,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnMouseExited(leaveBtn);
     }//GEN-LAST:event_leaveBtnMouseExited
     
-    private void btnMouseEntered(javax.swing.JPanel panel) {
-        panel.setBackground(new java.awt.Color(240, 240, 240));
-        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    }
-    
-    private void btnMouseExited(javax.swing.JPanel panel) {
-        panel.setBackground(new java.awt.Color(255, 255, 255));
-        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-    }
+
     /**
      * @param args the command line arguments
      */

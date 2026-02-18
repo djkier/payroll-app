@@ -13,13 +13,13 @@ import java.time.LocalDateTime;
  *
  * @author djjus
  */
-public class SalaryPanel extends javax.swing.JPanel {
+public class LeavePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form HomePanel
      * @param appContext the current logged in user/employee
      */
-    public SalaryPanel(AppContext appContext) {
+    public LeavePanel(AppContext appContext) {
         this.appContext = appContext;
         initComponents();
         
