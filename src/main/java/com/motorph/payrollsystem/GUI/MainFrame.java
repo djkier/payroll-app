@@ -10,6 +10,7 @@ import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeePanel;
 
 
 
+
 /**
  *
  * @author djjus
@@ -50,21 +51,31 @@ public class MainFrame extends javax.swing.JFrame {
         profileLabel = new javax.swing.JLabel();
         salaryBtn = new javax.swing.JPanel();
         salaryLabel = new javax.swing.JLabel();
+        leaveBtn = new javax.swing.JPanel();
+        leaveLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 640));
         setResizable(false);
 
-        leftSidePanel.setBackground(new java.awt.Color(153, 255, 255));
+        leftSidePanel.setBackground(new java.awt.Color(255, 255, 255));
+        leftSidePanel.setToolTipText("");
         leftSidePanel.setPreferredSize(new java.awt.Dimension(240, 640));
 
+        navBar.setBackground(new java.awt.Color(255, 255, 255));
         navBar.setPreferredSize(new java.awt.Dimension(195, 380));
 
-        homeBtn.setBackground(new java.awt.Color(153, 153, 0));
+        homeBtn.setBackground(new java.awt.Color(255, 255, 255));
         homeBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homeBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                homeBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                homeBtnMouseExited(evt);
             }
         });
 
@@ -72,6 +83,7 @@ public class MainFrame extends javax.swing.JFrame {
         homeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         homeLabel.setText("HOME");
         homeLabel.setNextFocusableComponent(homeBtn);
+        homeLabel.setPreferredSize(new java.awt.Dimension(56, 22));
 
         javax.swing.GroupLayout homeBtnLayout = new javax.swing.GroupLayout(homeBtn);
         homeBtn.setLayout(homeBtnLayout);
@@ -84,10 +96,16 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(homeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        profileBtn.setBackground(new java.awt.Color(153, 153, 0));
+        profileBtn.setBackground(new java.awt.Color(255, 255, 255));
         profileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 profileBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                profileBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                profileBtnMouseExited(evt);
             }
         });
 
@@ -100,47 +118,94 @@ public class MainFrame extends javax.swing.JFrame {
         profileBtn.setLayout(profileBtnLayout);
         profileBtnLayout.setHorizontalGroup(
             profileBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+            .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
         profileBtnLayout.setVerticalGroup(
             profileBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        salaryBtn.setBackground(new java.awt.Color(153, 153, 0));
+        salaryBtn.setBackground(new java.awt.Color(255, 255, 255));
         salaryBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 salaryBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                salaryBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                salaryBtnMouseExited(evt);
             }
         });
 
         salaryLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         salaryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         salaryLabel.setText("SALARY");
+        salaryLabel.setMaximumSize(new java.awt.Dimension(56, 22));
+        salaryLabel.setMinimumSize(new java.awt.Dimension(56, 22));
         salaryLabel.setNextFocusableComponent(homeBtn);
+        salaryLabel.setPreferredSize(new java.awt.Dimension(56, 22));
 
         javax.swing.GroupLayout salaryBtnLayout = new javax.swing.GroupLayout(salaryBtn);
         salaryBtn.setLayout(salaryBtnLayout);
         salaryBtnLayout.setHorizontalGroup(
             salaryBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+            .addGroup(salaryBtnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         salaryBtnLayout.setVerticalGroup(
             salaryBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+            .addGroup(salaryBtnLayout.createSequentialGroup()
+                .addComponent(salaryLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        leaveBtn.setBackground(new java.awt.Color(255, 255, 255));
+        leaveBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                leaveBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                leaveBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                leaveBtnMouseExited(evt);
+            }
+        });
+
+        leaveLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        leaveLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        leaveLabel.setText("LEAVE");
+        leaveLabel.setMaximumSize(new java.awt.Dimension(56, 22));
+        leaveLabel.setMinimumSize(new java.awt.Dimension(56, 22));
+        leaveLabel.setNextFocusableComponent(homeBtn);
+        leaveLabel.setPreferredSize(new java.awt.Dimension(56, 22));
+
+        javax.swing.GroupLayout leaveBtnLayout = new javax.swing.GroupLayout(leaveBtn);
+        leaveBtn.setLayout(leaveBtnLayout);
+        leaveBtnLayout.setHorizontalGroup(
+            leaveBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(leaveBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(leaveLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+        );
+        leaveBtnLayout.setVerticalGroup(
+            leaveBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 56, Short.MAX_VALUE)
+            .addGroup(leaveBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(leaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
         navBar.setLayout(navBarLayout);
         navBarLayout.setHorizontalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(navBarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(profileBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(salaryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(profileBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(salaryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(leaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         navBarLayout.setVerticalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,17 +216,16 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(profileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salaryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(leaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(132, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
         leftSidePanel.setLayout(leftSidePanelLayout);
         leftSidePanelLayout.setHorizontalGroup(
             leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftSidePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(navBar, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(navBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
         leftSidePanelLayout.setVerticalGroup(
             leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +258,7 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(leftSidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,7 +269,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(leftSidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(leftSidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, 0))
                     .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -245,6 +311,59 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("salary button");
     }//GEN-LAST:event_salaryBtnMouseClicked
 
+    private void homeBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseEntered
+        // TODO add your handling code here:
+        btnMouseEntered(homeBtn);
+    }//GEN-LAST:event_homeBtnMouseEntered
+
+    private void homeBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseExited
+        // TODO add your handling code here:
+        btnMouseExited(homeBtn);
+    }//GEN-LAST:event_homeBtnMouseExited
+
+    private void profileBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnMouseEntered
+        // TODO add your handling code here:
+        btnMouseEntered(profileBtn);
+    }//GEN-LAST:event_profileBtnMouseEntered
+
+    private void profileBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileBtnMouseExited
+        // TODO add your handling code here:
+        btnMouseExited(profileBtn);
+    }//GEN-LAST:event_profileBtnMouseExited
+
+    private void leaveBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leaveBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_leaveBtnMouseClicked
+
+    private void salaryBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salaryBtnMouseEntered
+        // TODO add your handling code here:
+        btnMouseEntered(salaryBtn);
+    }//GEN-LAST:event_salaryBtnMouseEntered
+
+    private void salaryBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salaryBtnMouseExited
+        // TODO add your handling code here:
+        btnMouseExited(salaryBtn);
+    }//GEN-LAST:event_salaryBtnMouseExited
+
+    private void leaveBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leaveBtnMouseEntered
+        // TODO add your handling code here:
+        btnMouseEntered(leaveBtn);
+    }//GEN-LAST:event_leaveBtnMouseEntered
+
+    private void leaveBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leaveBtnMouseExited
+        // TODO add your handling code here:
+        btnMouseExited(leaveBtn);
+    }//GEN-LAST:event_leaveBtnMouseExited
+    
+    private void btnMouseEntered(javax.swing.JPanel panel) {
+        panel.setBackground(new java.awt.Color(240, 240, 240));
+        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    }
+    
+    private void btnMouseExited(javax.swing.JPanel panel) {
+        panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    }
     /**
      * @param args the command line arguments
      */
@@ -275,6 +394,8 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel homeBtn;
     private javax.swing.JLabel homeLabel;
+    private javax.swing.JPanel leaveBtn;
+    private javax.swing.JLabel leaveLabel;
     private javax.swing.JPanel leftSidePanel;
     private javax.swing.JPanel navBar;
     private javax.swing.JPanel profileBtn;
