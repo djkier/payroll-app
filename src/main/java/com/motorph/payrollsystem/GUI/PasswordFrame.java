@@ -236,11 +236,14 @@ public class PasswordFrame extends javax.swing.JFrame {
         
         customDialogLabel.setText(label);
         
+        this.setEnabled(false);
         customDialog.setVisible(true);
+        
     }
     
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
+        this.setEnabled(true);
         customDialog.dispose();
     }//GEN-LAST:event_okBtnActionPerformed
 

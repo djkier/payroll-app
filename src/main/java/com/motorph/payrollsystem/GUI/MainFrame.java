@@ -61,6 +61,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void homeScreenDefault(AppContext context) {
         changeRightScreen(new HomePanel(context));
     }
+    
+    private void logoutDialog() {
+        logoutConfirm.setSize(312, 176);
+        logoutConfirm.setResizable(false);
+        logoutConfirm.setLocationRelativeTo(this);
+        logoutConfirm.setTitle("Logging out...");
+        
+        logoutConfirm.setVisible(true);
+        this.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -71,6 +81,10 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        logoutConfirm = new javax.swing.JDialog();
+        logoutMessage = new javax.swing.JLabel();
+        cancelBtn = new javax.swing.JButton();
+        yesBtn = new javax.swing.JButton();
         leftSidePanel = new javax.swing.JPanel();
         logoutBtn = new javax.swing.JPanel();
         logoutLabel = new javax.swing.JLabel();
@@ -84,6 +98,43 @@ public class MainFrame extends javax.swing.JFrame {
         leaveBtn = new javax.swing.JPanel();
         leaveLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
+
+        logoutMessage.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        logoutMessage.setText("Are you sure you want to log out ?");
+
+        cancelBtn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(this::cancelBtnActionPerformed);
+
+        yesBtn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        yesBtn.setText("Yes");
+        yesBtn.addActionListener(this::yesBtnActionPerformed);
+
+        javax.swing.GroupLayout logoutConfirmLayout = new javax.swing.GroupLayout(logoutConfirm.getContentPane());
+        logoutConfirm.getContentPane().setLayout(logoutConfirmLayout);
+        logoutConfirmLayout.setHorizontalGroup(
+            logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutConfirmLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(logoutConfirmLayout.createSequentialGroup()
+                        .addComponent(cancelBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logoutMessage))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        logoutConfirmLayout.setVerticalGroup(
+            logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutConfirmLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(logoutMessage)
+                .addGap(18, 18, 18)
+                .addGroup(logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn)
+                    .addComponent(yesBtn))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 640));
@@ -407,6 +458,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
         // TODO add your handling code here:
+        logoutDialog();
     }//GEN-LAST:event_logoutBtnMouseClicked
 
     private void logoutBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseEntered
@@ -418,6 +470,24 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         btnMouseExited(logoutBtn);
     }//GEN-LAST:event_logoutBtnMouseExited
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        // TODO add your handling code here:
+        this.setEnabled(true);
+        this.logoutConfirm.dispose();
+        
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
+        // TODO add your handling code here:
+        this.logoutConfirm.dispose();
+        this.appContext.getSessionManager().endSession();
+        PasswordFrame loginFrame = new PasswordFrame(appContext);
+        loginFrame.setVisible(true);
+
+        this.setEnabled(true);
+        this.dispose();
+    }//GEN-LAST:event_yesBtnActionPerformed
     
 
     /**
@@ -448,18 +518,22 @@ public class MainFrame extends javax.swing.JFrame {
 
     private final AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelBtn;
     private javax.swing.JPanel homeBtn;
     private javax.swing.JLabel homeLabel;
     private javax.swing.JPanel leaveBtn;
     private javax.swing.JLabel leaveLabel;
     private javax.swing.JPanel leftSidePanel;
     private javax.swing.JPanel logoutBtn;
+    private javax.swing.JDialog logoutConfirm;
     private javax.swing.JLabel logoutLabel;
+    private javax.swing.JLabel logoutMessage;
     private javax.swing.JPanel navBar;
     private javax.swing.JPanel profileBtn;
     private javax.swing.JLabel profileLabel;
     private javax.swing.JPanel rightPanel;
     private javax.swing.JPanel salaryBtn;
     private javax.swing.JLabel salaryLabel;
+    private javax.swing.JButton yesBtn;
     // End of variables declaration//GEN-END:variables
 }
