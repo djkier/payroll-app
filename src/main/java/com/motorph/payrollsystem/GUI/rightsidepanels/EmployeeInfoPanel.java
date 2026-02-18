@@ -8,6 +8,7 @@ import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.app.SessionManager;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import java.awt.Font;
 import java.time.LocalDateTime;
 
@@ -45,9 +46,15 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         
         //GovIds
         this.sssText.setText(currEmployee.getGovIds().getSssNumber());
-        this.philHealthText.setText(currEmployee.getGovIds().getPhilHealthNumber());
-        this.pagibigText.setText(currEmployee.getGovIds().getPagibigNumber());
         this.tinText.setText(currEmployee.getGovIds().getTinNumber());
+        
+        //Add space every fourth to make it easy to read
+        String philHealth = currEmployee.getGovIds().getPhilHealthNumber();
+        this.philHealthText.setText(FontsAndFormats.spaceEveryFourth(philHealth));
+        
+        String pagibig = currEmployee.getGovIds().getPagibigNumber();
+        this.pagibigText.setText(FontsAndFormats.spaceEveryFourth(pagibig));
+        
         
         //DepartmentInfo
         this.departmentText.setText(currEmployee.getDepartmentInfo().getDepartment());
@@ -55,23 +62,16 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         this.supervisorText.setText(currEmployee.getDepartmentInfo().getSupervisor());
         this.statusText.setText(currEmployee.getDepartmentInfo().getStatus());
         
-        
-        //Dynamic font size for address so it doesnt wraps
-        int fontSize = getAddressFontSize(address);
-        this.addressText.setFont(new Font("Poppins", Font.PLAIN, fontSize));
+        //address dynamic font size
+        this.addressText.setFont(
+                new Font("Poppins", 
+                Font.PLAIN, 
+                FontsAndFormats.dynamicFontSize(address)));
     }
     
-    public int getAddressFontSize(String address) {
-        if (address == null) {
-            return 14;
-        }
-        
-        if (address.length() <= 64) {
-            return 14;
-        }
-        
-        return 12;
-    }
+    
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
