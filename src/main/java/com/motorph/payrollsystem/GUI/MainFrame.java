@@ -27,7 +27,9 @@ public class MainFrame extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
         
+        //Make the right panel to have a default screen
         rightPanel.setLayout(new java.awt.BorderLayout());
+        homeScreenDefault();
  
     }
 
@@ -209,16 +211,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseClicked
-        // TODO add your handling code here:
+    private void homeScreenDefault() {
         rightPanel.removeAll();
         rightPanel.add(new HomePanel(), java.awt.BorderLayout.CENTER);
         rightPanel.revalidate();
         rightPanel.repaint();
-        System.out.println("home button click");
-
-
+        System.out.println("home btn");
+    }
+    private void homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseClicked
+        // TODO add your handling code here:
+        homeScreenDefault();
     }//GEN-LAST:event_homeBtnMouseClicked
 
     private void rightPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightPanelMouseClicked
