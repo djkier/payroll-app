@@ -26,7 +26,7 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         SessionManager currSession = appContext.getSessionManager();
         LocalDateTime loginTime = currSession.getLoginTime();
         
-        nameLabel.setText(currSession.getCurrentEmployee().getFullName());
+        employeeNoText.setText(currSession.getCurrentEmployee().getFullName());
         loggedInTimeLabel.setText(Dates.formattedTime(loginTime));
         
         String dateLabelStr = Dates.dayOfWeek(loginTime) + 
@@ -45,54 +45,62 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         dateLabel = new javax.swing.JLabel();
-        welcomeLabel = new javax.swing.JLabel();
-        nameLabel = new javax.swing.JLabel();
+        employeeNoLabel = new javax.swing.JLabel();
+        employeeNoText = new javax.swing.JLabel();
         preTimeLabel = new javax.swing.JLabel();
         loggedInTimeLabel = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        decorLine = new javax.swing.JPanel();
+        loggedInTimeLabel1 = new javax.swing.JLabel();
+        loggedInTimeLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
 
-        dateLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        dateLabel.setText("Wednesday, January 1, 1972");
+        dateLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        dateLabel.setText("Last Name :");
 
-        welcomeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        welcomeLabel.setText("Welcome back,");
+        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        employeeNoLabel.setText("Employee No :");
 
-        nameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        nameLabel.setText("John Doe");
+        employeeNoText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        employeeNoText.setText("00000");
 
-        preTimeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        preTimeLabel.setText("You logged in at:");
+        preTimeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        preTimeLabel.setText("First Name :");
 
-        loggedInTimeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        loggedInTimeLabel.setText("00:00 AM");
+        loggedInTimeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        loggedInTimeLabel.setText("Birthday :");
 
         dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        dashboardLabel.setText("DASHBOARD");
+        dashboardLabel.setText("EMPLOYEE INFORMATION");
 
-        jPanel1.setBackground(new java.awt.Color(240, 240, 240));
-        jPanel1.setDoubleBuffered(false);
+        decorLine.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine.setDoubleBuffered(false);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout decorLineLayout = new javax.swing.GroupLayout(decorLine);
+        decorLine.setLayout(decorLineLayout);
+        decorLineLayout.setHorizontalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 769, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        decorLineLayout.setVerticalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
+
+        loggedInTimeLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        loggedInTimeLabel1.setText("Address :");
+
+        loggedInTimeLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        loggedInTimeLabel2.setText("Phone Number : ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,14 +111,14 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateLabel)
+                            .addComponent(preTimeLabel)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(preTimeLabel)
+                                .addComponent(employeeNoLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(loggedInTimeLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(welcomeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(employeeNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(loggedInTimeLabel)
+                            .addComponent(loggedInTimeLabel1)
+                            .addComponent(loggedInTimeLabel2))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -119,18 +127,22 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(dashboardLabel)
                 .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(welcomeLabel)
-                    .addComponent(nameLabel))
+                    .addComponent(employeeNoLabel)
+                    .addComponent(employeeNoText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(preTimeLabel)
-                    .addComponent(loggedInTimeLabel))
+                .addComponent(preTimeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateLabel)
-                .addContainerGap(487, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loggedInTimeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loggedInTimeLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loggedInTimeLabel2)
+                .addContainerGap(403, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -138,10 +150,12 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JLabel dateLabel;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel decorLine;
+    private javax.swing.JLabel employeeNoLabel;
+    private javax.swing.JLabel employeeNoText;
     private javax.swing.JLabel loggedInTimeLabel;
-    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel loggedInTimeLabel1;
+    private javax.swing.JLabel loggedInTimeLabel2;
     private javax.swing.JLabel preTimeLabel;
-    private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

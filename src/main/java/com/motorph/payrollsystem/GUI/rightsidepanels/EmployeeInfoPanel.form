@@ -25,7 +25,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="decorLine" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -38,16 +38,15 @@
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="dateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="preTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="preTimeLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="employeeNoLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="loggedInTimeLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="employeeNoText" min="-2" pref="471" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="welcomeLabel" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nameLabel" min="-2" pref="471" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="loggedInTimeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="loggedInTimeLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="loggedInTimeLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -61,20 +60,23 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="decorLine" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="welcomeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="employeeNoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="employeeNoText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="preTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="loggedInTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="preTimeLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="dateLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="487" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="loggedInTimeLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="loggedInTimeLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="loggedInTimeLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="403" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -83,41 +85,41 @@
     <Component class="javax.swing.JLabel" name="dateLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="14" style="0"/>
+          <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Wednesday, January 1, 1972"/>
+        <Property name="text" type="java.lang.String" value="Last Name :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="welcomeLabel">
+    <Component class="javax.swing.JLabel" name="employeeNoLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Welcome back,"/>
+        <Property name="text" type="java.lang.String" value="Employee No :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nameLabel">
+    <Component class="javax.swing.JLabel" name="employeeNoText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="John Doe"/>
+        <Property name="text" type="java.lang.String" value="00000"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="preTimeLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="14" style="0"/>
+          <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="You logged in at:"/>
+        <Property name="text" type="java.lang.String" value="First Name :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="loggedInTimeLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="14" style="0"/>
+          <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="00:00 AM"/>
+        <Property name="text" type="java.lang.String" value="Birthday :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="dashboardLabel">
@@ -125,10 +127,10 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="DASHBOARD"/>
+        <Property name="text" type="java.lang.String" value="EMPLOYEE INFORMATION"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel1">
+    <Container class="javax.swing.JPanel" name="decorLine">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="f0" green="f0" red="f0" type="rgb"/>
@@ -149,5 +151,21 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JLabel" name="loggedInTimeLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Address :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="loggedInTimeLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Phone Number : "/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
