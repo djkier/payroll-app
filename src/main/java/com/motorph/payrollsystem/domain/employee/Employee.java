@@ -15,24 +15,20 @@ public class Employee {
     private String lastName;
     private String firstName;
     private LocalDate birthday;
-    private String status;
-    private String position;
-    private String supervisor;
     private ContactInfo contactInfo;
     private GovIds govIds;
     private CompProfile compProfile;
+    private DepartmentInfo departmentInfo;
     
     public Employee() {
         this.employeeNo = null;
         this.lastName = null;
         this.firstName = null;
         this.birthday = null;
-        this.status = null;
-        this.position = null;
-        this.supervisor = null;
         this.contactInfo = new ContactInfo();
         this.govIds = new GovIds();
         this.compProfile = new CompProfile();
+        this.departmentInfo = new DepartmentInfo();
     }
 
     public String getEmployeeNo() {
@@ -66,30 +62,7 @@ public class Employee {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getSupervisor() {
-        return supervisor;
-    }
-
-    public void setSupervisor(String supervisor) {
-        this.supervisor = supervisor;
-    }
+    
 
     public ContactInfo getContactInfo() {
         return contactInfo;
@@ -113,6 +86,14 @@ public class Employee {
 
     public void setCompProfile(CompProfile compProfile) {
         this.compProfile = compProfile;
+    }
+    
+    public DepartmentInfo getDepartmentInfo() {
+        return departmentInfo;
+    }
+    
+    public void setDepartmentInfo(DepartmentInfo departmentInfo) {
+        this.departmentInfo = departmentInfo;
     }
     
     public String getFullName() {

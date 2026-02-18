@@ -33,4 +33,9 @@ public class Dates {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         return dateTime.format(formatter);
     }
+    
+    public static String fullDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+        return date.format(formatter);
+    }
 }

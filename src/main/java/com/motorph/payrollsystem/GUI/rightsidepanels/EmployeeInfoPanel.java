@@ -6,7 +6,9 @@ package com.motorph.payrollsystem.GUI.rightsidepanels;
 
 import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.app.SessionManager;
+import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
+import java.awt.Font;
 import java.time.LocalDateTime;
 
 /**
@@ -22,7 +24,53 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
     public EmployeeInfoPanel(AppContext appContext) {
         this.appContext = appContext;
         initComponents();
+        initEmployeeContents(appContext);
         
+        
+    }
+    
+    private void initEmployeeContents(AppContext appContext) {
+        Employee currEmployee = appContext.getSessionManager().getCurrentEmployee();
+        
+        //Employee
+        this.employeeNoText.setText(currEmployee.getEmployeeNo());
+        this.firstNameText.setText(currEmployee.getFirstName());
+        this.lastNameText.setText(currEmployee.getLastName());
+        this.birthdayText.setText(Dates.fullDate(currEmployee.getBirthday()));
+        
+        //ContactInfo
+        String address = currEmployee.getContactInfo().getAddress();
+        this.addressText.setText(currEmployee.getContactInfo().getAddress());
+        this.phoneNumberText.setText(currEmployee.getContactInfo().getPhoneNumber());
+        
+        //GovIds
+        this.sssText.setText(currEmployee.getGovIds().getSssNumber());
+        this.philHealthText.setText(currEmployee.getGovIds().getPhilHealthNumber());
+        this.pagibigText.setText(currEmployee.getGovIds().getPagibigNumber());
+        this.tinText.setText(currEmployee.getGovIds().getTinNumber());
+        
+        //DepartmentInfo
+        this.departmentText.setText(currEmployee.getDepartmentInfo().getDepartment());
+        this.positionText.setText(currEmployee.getDepartmentInfo().getPosition());
+        this.supervisorText.setText(currEmployee.getDepartmentInfo().getSupervisor());
+        this.statusText.setText(currEmployee.getDepartmentInfo().getStatus());
+        
+        
+        //Dynamic font size for address so it doesnt wraps
+        int fontSize = getAddressFontSize(address);
+        this.addressText.setFont(new Font("Poppins", Font.PLAIN, fontSize));
+    }
+    
+    public int getAddressFontSize(String address) {
+        if (address == null) {
+            return 14;
+        }
+        
+        if (address.length() <= 64) {
+            return 14;
+        }
+        
+        return 12;
     }
 
     /**
@@ -58,17 +106,17 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         statusLabel = new javax.swing.JLabel();
         lastNameText = new javax.swing.JLabel();
         phoneNumberText = new javax.swing.JLabel();
-        employeeNoText3 = new javax.swing.JLabel();
+        sssText = new javax.swing.JLabel();
         addressText = new javax.swing.JLabel();
         birthdayText = new javax.swing.JLabel();
         firstNameText = new javax.swing.JLabel();
-        employeeNoText4 = new javax.swing.JLabel();
-        employeeNoText5 = new javax.swing.JLabel();
-        employeeNoText6 = new javax.swing.JLabel();
-        employeeNoText7 = new javax.swing.JLabel();
-        employeeNoText8 = new javax.swing.JLabel();
-        employeeNoText9 = new javax.swing.JLabel();
-        employeeNoText10 = new javax.swing.JLabel();
+        pagibigText = new javax.swing.JLabel();
+        philHealthText = new javax.swing.JLabel();
+        tinText = new javax.swing.JLabel();
+        departmentText = new javax.swing.JLabel();
+        positionText = new javax.swing.JLabel();
+        statusText = new javax.swing.JLabel();
+        supervisorText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -178,8 +226,8 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         phoneNumberText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         phoneNumberText.setText("+639569999999");
 
-        employeeNoText3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText3.setText("44-4506057-3");
+        sssText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        sssText.setText("44-4506057-3");
 
         addressText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         addressText.setText("17 Nothing St., Nowhere District, Brgy. There, Quezon City");
@@ -190,26 +238,26 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
         firstNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         firstNameText.setText("Don Justine");
 
-        employeeNoText4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText4.setText("691295330870");
+        pagibigText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        pagibigText.setText("691295330870");
 
-        employeeNoText5.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText5.setText("820126853951");
+        philHealthText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        philHealthText.setText("820126853951");
 
-        employeeNoText6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText6.setText("442-605-657-000");
+        tinText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        tinText.setText("442-605-657-000");
 
-        employeeNoText7.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText7.setText("Executive");
+        departmentText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        departmentText.setText("Executive");
 
-        employeeNoText8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText8.setText("Chief Operating Manager");
+        positionText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        positionText.setText("Chief Operating Manager");
 
-        employeeNoText9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText9.setText("Regular");
+        statusText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        statusText.setText("Regular");
 
-        employeeNoText10.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        employeeNoText10.setText("Manuel Garcia III");
+        supervisorText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        supervisorText.setText("Manuel Garcia III");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -229,16 +277,16 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                             .addComponent(philHealthLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeNoText3)
-                            .addComponent(employeeNoText5))
+                            .addComponent(sssText)
+                            .addComponent(philHealthText))
                         .addGap(65, 65, 65)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tinLabel)
                             .addComponent(pagibigLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeNoText4)
-                            .addComponent(employeeNoText6)))
+                            .addComponent(pagibigText)
+                            .addComponent(tinText)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(dashboardLabel))
@@ -253,12 +301,15 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                             .addComponent(lastNameLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(firstNameText)
-                            .addComponent(employeeNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lastNameText)
-                            .addComponent(birthdayText)
-                            .addComponent(addressText)
-                            .addComponent(phoneNumberText)))
+                            .addComponent(addressText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(firstNameText)
+                                    .addComponent(employeeNoText, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lastNameText)
+                                    .addComponent(birthdayText)
+                                    .addComponent(phoneNumberText))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(govIdLabel))
@@ -274,14 +325,14 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                             .addComponent(statusLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeNoText9)
-                            .addComponent(employeeNoText8)
-                            .addComponent(employeeNoText7)
-                            .addComponent(employeeNoText10)))
+                            .addComponent(statusText)
+                            .addComponent(positionText)
+                            .addComponent(departmentText)
+                            .addComponent(supervisorText)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(personalInfoLabel)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,14 +375,14 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sssLabel)
                     .addComponent(pagibigLabel)
-                    .addComponent(employeeNoText3)
-                    .addComponent(employeeNoText4))
+                    .addComponent(sssText)
+                    .addComponent(pagibigText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(philHealthLabel)
                     .addComponent(tinLabel)
-                    .addComponent(employeeNoText6)
-                    .addComponent(employeeNoText5))
+                    .addComponent(tinText)
+                    .addComponent(philHealthText))
                 .addGap(16, 16, 16)
                 .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
@@ -339,19 +390,19 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentNameLabel)
-                    .addComponent(employeeNoText7))
+                    .addComponent(departmentText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(positionLabel)
-                    .addComponent(employeeNoText8))
+                    .addComponent(positionText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supervisorLabel)
-                    .addComponent(employeeNoText10))
+                    .addComponent(supervisorText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusLabel)
-                    .addComponent(employeeNoText9))
+                    .addComponent(statusText))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -368,30 +419,30 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
     private javax.swing.JPanel decorLine2;
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JLabel departmentNameLabel;
+    private javax.swing.JLabel departmentText;
     private javax.swing.JLabel employeeNoLabel;
     private javax.swing.JLabel employeeNoText;
-    private javax.swing.JLabel employeeNoText10;
-    private javax.swing.JLabel employeeNoText3;
-    private javax.swing.JLabel employeeNoText4;
-    private javax.swing.JLabel employeeNoText5;
-    private javax.swing.JLabel employeeNoText6;
-    private javax.swing.JLabel employeeNoText7;
-    private javax.swing.JLabel employeeNoText8;
-    private javax.swing.JLabel employeeNoText9;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JLabel firstNameText;
     private javax.swing.JLabel govIdLabel;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JLabel lastNameText;
     private javax.swing.JLabel pagibigLabel;
+    private javax.swing.JLabel pagibigText;
     private javax.swing.JLabel personalInfoLabel;
     private javax.swing.JLabel philHealthLabel;
+    private javax.swing.JLabel philHealthText;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JLabel phoneNumberText;
     private javax.swing.JLabel positionLabel;
+    private javax.swing.JLabel positionText;
     private javax.swing.JLabel sssLabel;
+    private javax.swing.JLabel sssText;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel statusText;
     private javax.swing.JLabel supervisorLabel;
+    private javax.swing.JLabel supervisorText;
     private javax.swing.JLabel tinLabel;
+    private javax.swing.JLabel tinText;
     // End of variables declaration//GEN-END:variables
 }

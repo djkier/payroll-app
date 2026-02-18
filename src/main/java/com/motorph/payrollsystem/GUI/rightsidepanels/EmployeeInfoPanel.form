@@ -40,8 +40,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="employeeNoText3" min="-2" max="-2" attributes="0"/>
-                          <Component id="employeeNoText5" min="-2" max="-2" attributes="0"/>
+                          <Component id="sssText" min="-2" max="-2" attributes="0"/>
+                          <Component id="philHealthText" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -50,8 +50,8 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="employeeNoText4" min="-2" max="-2" attributes="0"/>
-                          <Component id="employeeNoText6" min="-2" max="-2" attributes="0"/>
+                          <Component id="pagibigText" min="-2" max="-2" attributes="0"/>
+                          <Component id="tinText" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -70,12 +70,17 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="firstNameText" min="-2" max="-2" attributes="0"/>
-                          <Component id="employeeNoText" min="-2" pref="257" max="-2" attributes="0"/>
-                          <Component id="lastNameText" min="-2" max="-2" attributes="0"/>
-                          <Component id="birthdayText" min="-2" max="-2" attributes="0"/>
-                          <Component id="addressText" min="-2" max="-2" attributes="0"/>
-                          <Component id="phoneNumberText" min="-2" max="-2" attributes="0"/>
+                          <Component id="addressText" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="firstNameText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="employeeNoText" min="-2" pref="257" max="-2" attributes="0"/>
+                                  <Component id="lastNameText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="birthdayText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="phoneNumberText" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -96,10 +101,10 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="employeeNoText9" min="-2" max="-2" attributes="0"/>
-                          <Component id="employeeNoText8" min="-2" max="-2" attributes="0"/>
-                          <Component id="employeeNoText7" min="-2" max="-2" attributes="0"/>
-                          <Component id="employeeNoText10" min="-2" max="-2" attributes="0"/>
+                          <Component id="statusText" min="-2" max="-2" attributes="0"/>
+                          <Component id="positionText" min="-2" max="-2" attributes="0"/>
+                          <Component id="departmentText" min="-2" max="-2" attributes="0"/>
+                          <Component id="supervisorText" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -107,7 +112,7 @@
                       <Component id="personalInfoLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -158,15 +163,15 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="sssLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="pagibigLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sssText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="pagibigText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="philHealthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tinLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tinText" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="philHealthText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Component id="decorLine2" min="-2" max="-2" attributes="0"/>
@@ -175,22 +180,22 @@
               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="departmentNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText7" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="departmentText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="positionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText8" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="positionText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="supervisorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="supervisorText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="statusLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="employeeNoText9" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="statusText" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="85" max="32767" attributes="0"/>
           </Group>
@@ -429,7 +434,7 @@
         <Property name="text" type="java.lang.String" value="+639569999999"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText3">
+    <Component class="javax.swing.JLabel" name="sssText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -461,7 +466,7 @@
         <Property name="text" type="java.lang.String" value="Don Justine"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText4">
+    <Component class="javax.swing.JLabel" name="pagibigText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -469,7 +474,7 @@
         <Property name="text" type="java.lang.String" value="691295330870"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText5">
+    <Component class="javax.swing.JLabel" name="philHealthText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -477,7 +482,7 @@
         <Property name="text" type="java.lang.String" value="820126853951"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText6">
+    <Component class="javax.swing.JLabel" name="tinText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -485,7 +490,7 @@
         <Property name="text" type="java.lang.String" value="442-605-657-000"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText7">
+    <Component class="javax.swing.JLabel" name="departmentText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -493,7 +498,7 @@
         <Property name="text" type="java.lang.String" value="Executive"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText8">
+    <Component class="javax.swing.JLabel" name="positionText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -501,7 +506,7 @@
         <Property name="text" type="java.lang.String" value="Chief Operating Manager"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText9">
+    <Component class="javax.swing.JLabel" name="statusText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>
@@ -509,7 +514,7 @@
         <Property name="text" type="java.lang.String" value="Regular"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="employeeNoText10">
+    <Component class="javax.swing.JLabel" name="supervisorText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="0"/>

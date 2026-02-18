@@ -6,6 +6,7 @@ package com.motorph.payrollsystem.repository;
 
 import com.motorph.payrollsystem.domain.employee.CompProfile;
 import com.motorph.payrollsystem.domain.employee.ContactInfo;
+import com.motorph.payrollsystem.domain.employee.DepartmentInfo;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.domain.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
@@ -58,6 +59,7 @@ public class EmployeeRepository {
                     Employee emp = new Employee();
                     ContactInfo contactInfo = new ContactInfo();
                     GovIds govIds = new GovIds();
+                    DepartmentInfo departmentInfo = new DepartmentInfo();
                     CompProfile compProfile = new CompProfile();
                     
                     emp.setEmployeeNo(details[0]);
@@ -73,9 +75,9 @@ public class EmployeeRepository {
                     govIds.setTinNumber(details[8]);
                     govIds.setPagibigNumber(details[9]);
                     
-                    emp.setStatus(details[10]);
-                    emp.setPosition(details[11]);
-                    emp.setSupervisor(details[12]);
+                    departmentInfo.setStatus(details[10]);
+                    departmentInfo.setPosition(details[11]);
+                    departmentInfo.setSupervisor(details[12]);
                     
                     compProfile.setBasicSalary(Money.parseSalary(details[15]));
                     compProfile.setRiceSubsidy(Money.parseSalary(details[16]));
@@ -84,6 +86,7 @@ public class EmployeeRepository {
 
                     emp.setContactInfo(contactInfo);
                     emp.setGovIds(govIds);
+                    emp.setDepartmentInfo(departmentInfo);
                     emp.setCompProfile(compProfile);
                     return emp;
                 }
