@@ -102,11 +102,13 @@ public class MainFrame extends javax.swing.JFrame {
         logoutMessage.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         logoutMessage.setText("Are you sure you want to log out ?");
 
-        cancelBtn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelBtn.setBackground(new java.awt.Color(255, 204, 204));
+        cancelBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
-        yesBtn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        yesBtn.setBackground(new java.awt.Color(204, 255, 204));
+        yesBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         yesBtn.setText("Yes");
         yesBtn.addActionListener(this::yesBtnActionPerformed);
 
