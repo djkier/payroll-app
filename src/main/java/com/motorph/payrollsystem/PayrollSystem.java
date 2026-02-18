@@ -7,6 +7,8 @@ package com.motorph.payrollsystem;
 import com.motorph.payrollsystem.GUI.MainFrame;
 import com.motorph.payrollsystem.GUI.PasswordFrame;
 import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.repository.EmployeeRepository;
+import java.io.IOException;
 import javax.swing.SwingUtilities;
 
 
@@ -27,6 +29,7 @@ public class PayrollSystem {
             frame.setVisible(true);
         });
 //        MainFrame.main();
+
 
     }
     

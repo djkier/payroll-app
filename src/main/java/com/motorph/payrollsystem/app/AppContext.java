@@ -4,8 +4,11 @@
  */
 package com.motorph.payrollsystem.app;
 
+import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.repository.EmployeeRepository;
 import com.motorph.payrollsystem.repository.UserRepository;
 import com.motorph.payrollsystem.service.AuthService;
+import com.motorph.payrollsystem.service.EmployeeService;
 
 /**
  *
@@ -14,11 +17,17 @@ import com.motorph.payrollsystem.service.AuthService;
 public class AppContext {
     private final SessionManager sessionManager;
     private final AuthService authService;
+    private final EmployeeService employeeService;
     
     public AppContext() {
         this.sessionManager = new SessionManager();
+        
         UserRepository finder = new UserRepository("/csv-files/user-accounts.csv");
         this.authService = new AuthService(finder);
+        
+        
+        EmployeeRepository employeeRepo = new EmployeeRepository("/csv-files/employee-details.csv");
+        this.employeeService = new EmployeeService(employeeRepo);
     }
 
     public SessionManager getSessionManager() {
@@ -27,6 +36,10 @@ public class AppContext {
 
     public AuthService getAuthService(){
         return authService;
+    }
+    
+    public EmployeeService getEmployeeService() {
+        return employeeService;
     }
     
     

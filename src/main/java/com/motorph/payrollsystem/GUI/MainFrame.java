@@ -22,7 +22,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     /**
      * Creates new form MainFrame
+     * @param appContext the current logged in user/employee
+     *
      */
+    
+    
     public MainFrame(AppContext appContext) {
         this.appContext = appContext;
         initComponents();
@@ -32,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //Righ panel default screen after logging in
         rightPanel.setLayout(new java.awt.BorderLayout());
-        homeScreenDefault();
+        homeScreenDefault(appContext);
  
     }
 
@@ -279,16 +283,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void homeScreenDefault() {
+    private void homeScreenDefault(AppContext context) {
         rightPanel.removeAll();
-        rightPanel.add(new HomePanel(this.appContext), java.awt.BorderLayout.CENTER);
+        rightPanel.add(new HomePanel(context), java.awt.BorderLayout.CENTER);
         rightPanel.revalidate();
         rightPanel.repaint();
         System.out.println("home btn");
     }
     private void homeBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeBtnMouseClicked
         // TODO add your handling code here:
-        homeScreenDefault();
+        homeScreenDefault(this.appContext);
     }//GEN-LAST:event_homeBtnMouseClicked
 
     private void rightPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rightPanelMouseClicked

@@ -4,10 +4,24 @@
  */
 package com.motorph.payrollsystem.service;
 
+import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.repository.EmployeeRepository;
+import java.io.IOException;
+
 /**
  *
  * @author djjus
  */
 public class EmployeeService {
+    private final EmployeeRepository employeeRepo;
     
+    public EmployeeService(EmployeeRepository employeeRepo){
+        this.employeeRepo = employeeRepo;
+    }
+    
+    public Employee findByEmployeeNo(String employeeNo) throws IOException {
+        //validate employee no to prevent unknown error
+        if (employeeNo == null || employeeNo.isBlank()) return null;
+        return employeeRepo.findByEmployeeNo(employeeNo);
+    }
 }

@@ -115,5 +115,9 @@ public class Employee {
         this.compProfile = compProfile;
     }
     
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+    
     
 }

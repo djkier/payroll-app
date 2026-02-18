@@ -7,6 +7,7 @@ package com.motorph.payrollsystem.GUI;
 import com.motorph.payrollsystem.app.AppContext;
 
 import com.motorph.payrollsystem.domain.auth.UserAccount;
+import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.service.AuthService;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -209,7 +210,9 @@ public class PasswordFrame extends javax.swing.JFrame {
             UserAccount userAccount = authService.login(empNo, username, password);
             
             if (userAccount != null) {
-//                appContext.getSessionManager().startSession(userAccount);
+                Employee currEmployee = appContext.getEmployeeService().findByEmployeeNo(userAccount.getEmployeeNo());
+                appContext.getSessionManager().startSession(userAccount, currEmployee);
+                
                 MainFrame mainFrame = new MainFrame(appContext);
                 mainFrame.setVisible(true);
                 this.dispose();
