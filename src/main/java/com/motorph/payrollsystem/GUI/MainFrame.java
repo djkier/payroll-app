@@ -63,7 +63,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void logoutDialog() {
-        logoutConfirm.setSize(312, 176);
+        logoutConfirm.setSize(340, 176);
         logoutConfirm.setResizable(false);
         logoutConfirm.setLocationRelativeTo(this);
         logoutConfirm.setTitle("Logging out...");
@@ -99,6 +99,12 @@ public class MainFrame extends javax.swing.JFrame {
         leaveLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
 
+        logoutConfirm.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                logoutConfirmWindowClosing(evt);
+            }
+        });
+
         logoutMessage.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         logoutMessage.setText("Are you sure you want to log out ?");
 
@@ -117,14 +123,14 @@ public class MainFrame extends javax.swing.JFrame {
         logoutConfirmLayout.setHorizontalGroup(
             logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoutConfirmLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(48, 48, 48)
                 .addGroup(logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(logoutConfirmLayout.createSequentialGroup()
                         .addComponent(cancelBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(logoutMessage))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         logoutConfirmLayout.setVerticalGroup(
             logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,6 +496,12 @@ public class MainFrame extends javax.swing.JFrame {
         this.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_yesBtnActionPerformed
+
+    private void logoutConfirmWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_logoutConfirmWindowClosing
+        // TODO add your handling code here:
+        this.setEnabled(true);
+        this.logoutConfirm.dispose();
+    }//GEN-LAST:event_logoutConfirmWindowClosing
     
 
     /**

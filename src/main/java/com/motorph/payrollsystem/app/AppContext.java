@@ -4,7 +4,6 @@
  */
 package com.motorph.payrollsystem.app;
 
-import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
 import com.motorph.payrollsystem.repository.UserRepository;
 import com.motorph.payrollsystem.service.AuthService;

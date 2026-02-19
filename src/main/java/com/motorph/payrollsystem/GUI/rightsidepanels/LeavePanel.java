@@ -5,9 +5,6 @@
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
 import com.motorph.payrollsystem.app.AppContext;
-import com.motorph.payrollsystem.app.SessionManager;
-import com.motorph.payrollsystem.utility.Dates;
-import java.time.LocalDateTime;
 
 /**
  *

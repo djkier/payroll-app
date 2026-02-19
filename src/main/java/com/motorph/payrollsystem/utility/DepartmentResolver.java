@@ -29,7 +29,7 @@ public class DepartmentResolver {
                 return "Accounting";
                 
             case "Account Manager":
-            case "Accont Team Leader":
+            case "Account Team Leader":
             case "Account Rank and File":
                 return "Accounts";
                 

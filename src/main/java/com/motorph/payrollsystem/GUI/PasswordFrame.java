@@ -10,7 +10,6 @@ import com.motorph.payrollsystem.domain.auth.UserAccount;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.service.AuthService;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *

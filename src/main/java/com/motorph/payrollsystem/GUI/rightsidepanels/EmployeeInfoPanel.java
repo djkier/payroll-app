@@ -5,12 +5,10 @@
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
 import com.motorph.payrollsystem.app.AppContext;
-import com.motorph.payrollsystem.app.SessionManager;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
 import java.awt.Font;
-import java.time.LocalDateTime;
 
 /**
  *
