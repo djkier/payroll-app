@@ -85,22 +85,26 @@ public class SalaryPanel extends javax.swing.JPanel {
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
         printPayBtn = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        comboBoxPeriod = new javax.swing.JComboBox<>();
+        periodCoveredLabel = new javax.swing.JLabel();
+        summary2Label = new javax.swing.JLabel();
+        gross3Label = new javax.swing.JLabel();
+        taxableIncomeLabel = new javax.swing.JLabel();
+        netPay2Label = new javax.swing.JLabel();
+        mainPhilHealthText = new javax.swing.JLabel();
+        taxableText = new javax.swing.JLabel();
+        mainNetPayText = new javax.swing.JLabel();
+        sss2Label = new javax.swing.JLabel();
+        philHealth2Label = new javax.swing.JLabel();
+        pagibig2Label = new javax.swing.JLabel();
+        tax2Label = new javax.swing.JLabel();
         decorLine7 = new javax.swing.JPanel();
         decorLine8 = new javax.swing.JPanel();
         decorLine9 = new javax.swing.JPanel();
+        mainPagIbigText = new javax.swing.JLabel();
+        mainSssText = new javax.swing.JLabel();
+        mainGrossText = new javax.swing.JLabel();
+        witholdingTaxText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -588,45 +592,45 @@ public class SalaryPanel extends javax.swing.JPanel {
         printPayBtn.setText("PRINT PAYSLIP");
         printPayBtn.addActionListener(this::printPayBtnActionPerformed);
 
-        jComboBox1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01/05/2023 - 01/15/2023", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4" }));
-        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
+        comboBoxPeriod.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        comboBoxPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01/05/2023 - 01/15/2023", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4" }));
+        comboBoxPeriod.addActionListener(this::comboBoxPeriodActionPerformed);
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel1.setText("Period Covered");
+        periodCoveredLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        periodCoveredLabel.setText("Period Covered");
 
-        jLabel2.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel2.setText("Summary");
+        summary2Label.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        summary2Label.setText("Summary");
 
-        jLabel3.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel3.setText("Gross Pay");
+        gross3Label.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        gross3Label.setText("Gross Pay");
 
-        jLabel4.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel4.setText("Taxable Income");
+        taxableIncomeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        taxableIncomeLabel.setText("Taxable Income");
 
-        jLabel5.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel5.setText("Net Pay");
+        netPay2Label.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        netPay2Label.setText("Net Pay");
 
-        jLabel6.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel6.setText("180,000.00");
+        mainPhilHealthText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        mainPhilHealthText.setText("180,000.00");
 
-        jLabel7.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jLabel7.setText("180,000.00");
+        taxableText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        taxableText.setText("180,000.00");
 
-        jLabel8.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel8.setText("180,000.00");
+        mainNetPayText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        mainNetPayText.setText("180,000.00");
 
-        jLabel9.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel9.setText("SSS Contribution");
+        sss2Label.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        sss2Label.setText("SSS Contribution");
 
-        jLabel10.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel10.setText("PhilHealth");
+        philHealth2Label.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        philHealth2Label.setText("PhilHealth");
 
-        jLabel11.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel11.setText("Pag-IBIG");
+        pagibig2Label.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        pagibig2Label.setText("Pag-IBIG");
 
-        jLabel12.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel12.setText("Withholding Tax");
+        tax2Label.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        tax2Label.setText("Withholding Tax");
 
         decorLine7.setBackground(new java.awt.Color(240, 240, 240));
         decorLine7.setDoubleBuffered(false);
@@ -670,6 +674,18 @@ public class SalaryPanel extends javax.swing.JPanel {
             .addGap(0, 4, Short.MAX_VALUE)
         );
 
+        mainPagIbigText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        mainPagIbigText.setText("180,000.00");
+
+        mainSssText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        mainSssText.setText("180,000.00");
+
+        mainGrossText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        mainGrossText.setText("180,000.00");
+
+        witholdingTaxText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        witholdingTaxText.setText("180,000.00");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -684,43 +700,49 @@ public class SalaryPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(comboBoxPeriod, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel11))
+                                    .addComponent(sss2Label)
+                                    .addComponent(gross3Label)
+                                    .addComponent(philHealth2Label)
+                                    .addComponent(pagibig2Label))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(mainPhilHealthText)
+                                    .addComponent(mainPagIbigText)
+                                    .addComponent(mainSssText)
+                                    .addComponent(mainGrossText))
                                 .addGap(8, 8, 8))
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(decorLine8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(decorLine9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
+                                .addComponent(netPay2Label)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel8)
+                                .addComponent(mainNetPayText)
                                 .addGap(9, 9, 9))
-                            .addComponent(decorLine7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel7)
-                                .addGap(8, 8, 8))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(periodCoveredLabel)
+                                    .addComponent(summary2Label)
+                                    .addComponent(taxableIncomeLabel)
+                                    .addComponent(decorLine8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(decorLine9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(decorLine7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(15, 15, 15)
+                                        .addComponent(tax2Label)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(187, 187, 187)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(witholdingTaxText)
+                                    .addComponent(taxableText))
+                                .addGap(8, 8, 8)))
                         .addGap(23, 23, 23))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(84, 84, 84)))
                 .addComponent(payslipViewScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
             .addGroup(layout.createSequentialGroup()
@@ -741,38 +763,46 @@ public class SalaryPanel extends javax.swing.JPanel {
                         .addComponent(payslipViewScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(69, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(periodCoveredLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57)
-                        .addComponent(jLabel2)
+                        .addComponent(summary2Label)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(decorLine7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(jLabel3)
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(gross3Label)
+                            .addComponent(mainGrossText))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel10))
+                            .addComponent(sss2Label)
+                            .addComponent(mainSssText))
                         .addGap(8, 8, 8)
-                        .addComponent(jLabel11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mainPhilHealthText)
+                            .addComponent(philHealth2Label))
+                        .addGap(8, 8, 8)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(pagibig2Label)
+                            .addComponent(mainPagIbigText))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(decorLine8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel7))
+                            .addComponent(taxableIncomeLabel)
+                            .addComponent(taxableText))
                         .addGap(8, 8, 8)
-                        .addComponent(jLabel12)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tax2Label)
+                            .addComponent(witholdingTaxText))
                         .addGap(8, 8, 8)
                         .addComponent(decorLine9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel8))
-                        .addGap(74, 74, 74)
+                            .addComponent(netPay2Label)
+                            .addComponent(mainNetPayText))
+                        .addGap(73, 73, 73)
                         .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -782,9 +812,9 @@ public class SalaryPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_printPayBtnActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboBoxPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPeriodActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_comboBoxPeriodActionPerformed
 
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -794,6 +824,7 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel basicText;
     private javax.swing.JLabel clothingLabel;
     private javax.swing.JLabel clothingText;
+    private javax.swing.JComboBox<String> comboBoxPeriod;
     private javax.swing.JLabel company33;
     private javax.swing.JLabel company36;
     private javax.swing.JLabel companyName;
@@ -817,30 +848,27 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel endText;
     private javax.swing.JLabel gross2Label;
     private javax.swing.JLabel gross2Text;
+    private javax.swing.JLabel gross3Label;
     private javax.swing.JLabel grossLabel;
     private javax.swing.JLabel grossText;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel mainGrossText;
+    private javax.swing.JLabel mainNetPayText;
+    private javax.swing.JLabel mainPagIbigText;
+    private javax.swing.JLabel mainPhilHealthText;
+    private javax.swing.JLabel mainSssText;
     private javax.swing.JLabel motorPhIcon;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameText;
     private javax.swing.JPanel netPanel;
+    private javax.swing.JLabel netPay2Label;
     private javax.swing.JLabel pagIbigText;
+    private javax.swing.JLabel pagibig2Label;
     private javax.swing.JLabel pagibigLabel;
     private javax.swing.JPanel payslipLayer;
     private javax.swing.JPanel payslipView;
     private javax.swing.JScrollPane payslipViewScrollPane;
+    private javax.swing.JLabel periodCoveredLabel;
+    private javax.swing.JLabel philHealth2Label;
     private javax.swing.JLabel philHealthText;
     private javax.swing.JLabel philhealthLabel;
     private javax.swing.JLabel phoneLabel;
@@ -850,15 +878,21 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JButton printPayBtn;
     private javax.swing.JLabel riceLabel;
     private javax.swing.JLabel riceText;
+    private javax.swing.JLabel sss2Label;
     private javax.swing.JLabel sssLabel;
     private javax.swing.JLabel sssText;
     private javax.swing.JLabel startLabel;
     private javax.swing.JLabel startText;
+    private javax.swing.JLabel summary2Label;
     private javax.swing.JLabel summaryLabel;
+    private javax.swing.JLabel tax2Label;
     private javax.swing.JLabel taxLabel;
     private javax.swing.JLabel taxText;
+    private javax.swing.JLabel taxableIncomeLabel;
+    private javax.swing.JLabel taxableText;
     private javax.swing.JLabel totalDeduction2Text;
     private javax.swing.JLabel totalDeductionLabel;
     private javax.swing.JLabel totalDeductionText;
+    private javax.swing.JLabel witholdingTaxText;
     // End of variables declaration//GEN-END:variables
 }
