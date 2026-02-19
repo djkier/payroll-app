@@ -4,10 +4,18 @@
  */
 package com.motorph.payrollsystem.payroll.deduction;
 
+import com.motorph.payrollsystem.domain.employee.Employee;
+
 /**
  *
  * @author djjus
  */
-public class DeductionRule {
+public interface DeductionRule {
+    //deduction name
+    String getName();
+    
+    //compute() compute deduction for this payroll period
+    //grossPayPeriod is the gross pay for the selected cutoff
+    double compute(Employee employee, double grossPayPeriod);
     
 }
