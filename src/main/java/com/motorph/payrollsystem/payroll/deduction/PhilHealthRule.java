@@ -4,10 +4,25 @@
  */
 package com.motorph.payrollsystem.payroll.deduction;
 
+import com.motorph.payrollsystem.domain.employee.Employee;
+
 /**
  *
  * @author djjus
  */
-public class PhilHealthRule {
+public class PhilHealthRule extends AbstractDeductionRule{
     
+    @Override
+    public String getName() {
+        return "PhilHealth";
+    }
+    
+    @Override
+    public double compute(Employee employee, double grossPayPeriod) {
+        double monthlyBasic = getMonthlyBasic(employee);
+        
+        //NOT OFFICICAL COMPUTATION
+        double monthlyContribution = monthlyBasic * 0.025;
+        return round2(monthlyContribution / 2.0);
+    }
 }

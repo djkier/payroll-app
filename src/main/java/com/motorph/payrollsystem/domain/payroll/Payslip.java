@@ -85,5 +85,31 @@ public class Payslip {
         this.netPay = earnings - deductions;
     }
     
+    public double getSssAmount() {
+        return getDeductionAmount("SSS");
+    }
+    
+    public double getPhilHealthAmount() {
+        return getDeductionAmount("PhilHealth");
+    }
+    
+    public double getPagibigAmount() {
+        return getDeductionAmount("Pag-IBIG");
+    }
+    
+    public double getTaxAmount() {
+        return getDeductionAmount("Withholding Tax");
+    }
+    
+    private double getDeductionAmount(String label) {
+        for (PayslipLine line : lines) {
+            if (line.getType() == PayslipLine.LineType.DEDUCTION &&
+                    line.getLabel().equalsIgnoreCase(label)) {
+                return line.getAmount();
+            }
+        }
+        return 0;
+    }
+    
     
 }

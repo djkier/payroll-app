@@ -9,6 +9,11 @@ import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.domain.payroll.PayrollPeriod;
 import com.motorph.payrollsystem.domain.payroll.Payslip;
 import com.motorph.payrollsystem.domain.payroll.PayslipLine;
+import com.motorph.payrollsystem.payroll.deduction.DeductionRule;
+import com.motorph.payrollsystem.payroll.deduction.PagibigRule;
+import com.motorph.payrollsystem.payroll.deduction.PhilHealthRule;
+import com.motorph.payrollsystem.payroll.deduction.SssRule;
+import com.motorph.payrollsystem.payroll.deduction.WithholdingTaxRule;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,6 +22,15 @@ import java.util.List;
  * @author djjus
  */
 public class PayrollEngine {
+    
+    private final List<DeductionRule> deductionRules;
+    
+    public PayrollEngine() {
+        this.deductionRules = List.of(
+                new SssRule(), 
+                new PhilHealthRule(), 
+                new PagibigRule());
+    }
     
     public Payslip computePayslip (Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
         //get total hour
@@ -28,8 +42,28 @@ public class PayrollEngine {
         Payslip payslip = new Payslip(employee, period);
         payslip.setTotalHours(totalHours);
         
+        //Payslip EARNING
         payslip.addLine(new PayslipLine("Basic", grossPay, PayslipLine.LineType.EARNING));
         
+        //Payslip govt DEDUCTION (tax excluded)
+        double govTotal = 0;
+        for (DeductionRule rule : deductionRules) {
+            double deduction = rule.compute(employee, grossPay);
+            govTotal += deduction;
+            
+            payslip.addLine(new PayslipLine(rule.getName(),
+                                            deduction,
+                                            PayslipLine.LineType.DEDUCTION));
+        }
+        
+        //withholding tax
+        double taxablePay = grossPay - govTotal;
+        DeductionRule taxRule = new WithholdingTaxRule();
+        double tax = taxRule.compute(employee, taxablePay);
+        payslip.addLine(new PayslipLine(taxRule.getName(),
+                                        tax,
+                                        PayslipLine.LineType.DEDUCTION));
+           
         payslip.computeTotals();
         
         return payslip;

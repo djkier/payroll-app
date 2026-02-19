@@ -4,6 +4,8 @@
  */
 package com.motorph.payrollsystem.payroll.deduction;
 
+import com.motorph.payrollsystem.domain.employee.Employee;
+
 /**
  *
  * @author djjus
@@ -20,6 +22,8 @@ public class SssRule extends AbstractDeductionRule {
         //placeholder
         double monthlyBasic = getMonthlyBasic(employee);
         
-        
+        //NOT OFFICIAL COMPUTATION
+        double monthlyContribution = monthlyBasic * 0.045;
+        return round2(monthlyContribution/2.0);
     }
 }
