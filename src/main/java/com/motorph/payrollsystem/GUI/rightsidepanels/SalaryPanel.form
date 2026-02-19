@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -28,27 +28,67 @@
               <Component id="decorLine" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="scrollPaneTable" min="-2" pref="349" max="-2" attributes="0"/>
+                              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                              <Component id="jComboBox1" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
-                              <Component id="printPayBtn" min="-2" pref="139" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="decorLine8" min="-2" max="-2" attributes="0"/>
+                          <Component id="decorLine9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="decorLine7" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="187" max="-2" attributes="0"/>
+                              <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="68" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                      <Component id="printPayBtn" min="-2" pref="139" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <Component id="payslipViewScrollPane" min="-2" pref="389" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="32" pref="32" max="-2" attributes="0"/>
+              <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -60,22 +100,58 @@
               <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="decorLine" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="scrollPaneTable" min="-2" pref="376" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="printPayBtn" min="-2" pref="49" max="-2" attributes="0"/>
+                      <Component id="payslipViewScrollPane" min="-2" pref="509" max="-2" attributes="0"/>
+                      <EmptySpace pref="69" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="509" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="decorLine7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="decorLine8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="decorLine9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                      <Component id="printPayBtn" min="-2" pref="49" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="56" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+    <Container class="javax.swing.JScrollPane" name="payslipViewScrollPane">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -106,7 +182,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="payslipLayer" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -139,16 +215,20 @@
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                                           <Component id="motorPhIcon" min="-2" pref="40" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="company1" min="-2" max="-2" attributes="0"/>
-                                              <Component id="company" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="company2" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
+                                                  <Component id="companyName" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                                  <Component id="address1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                          <Component id="company17" min="-2" max="-2" attributes="0"/>
+                                          <Component id="grossLabel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -160,104 +240,108 @@
                                       <Component id="decorLine2" max="32767" attributes="0"/>
                                       <Component id="decorLine5" max="32767" attributes="0"/>
                                       <Component id="decorLine6" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="netPanel" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" attributes="0">
-                                                  <Component id="company30" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="217" pref="226" max="32767" attributes="0"/>
+                                                  <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="217" pref="271" max="32767" attributes="0"/>
                                               </Group>
                                               <Group type="102" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="company19" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="company20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company21" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company22" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company23" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                              <Component id="company28" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                              <Component id="company27" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="company25" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="company24" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="company26" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="company29" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
+                                                          <Component id="endLabel" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="endText" min="-2" max="-2" attributes="0"/>
                                                       </Group>
+                                                      <Component id="earningsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="empLabel" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="employeeNoText" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="nameText" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="positionLabel" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="positionText" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="startLabel" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="startText" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
                                                       <Group type="102" attributes="0">
                                                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                                           <Group type="103" groupAlignment="0" attributes="0">
                                                               <Group type="102" alignment="0" attributes="0">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="company9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company10" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company12" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="basicLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="riceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="clothingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                   </Group>
                                                                   <EmptySpace max="32767" attributes="0"/>
                                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                      <Component id="company16" alignment="0" max="32767" attributes="0"/>
-                                                                      <Component id="company14" alignment="0" max="32767" attributes="0"/>
-                                                                      <Component id="company13" max="32767" attributes="0"/>
-                                                                      <Component id="company15" alignment="0" max="32767" attributes="0"/>
-                                                                      <Component id="company18" alignment="1" max="32767" attributes="0"/>
+                                                                      <Component id="clothingText" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="riceText" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="basicText" max="32767" attributes="0"/>
+                                                                      <Component id="phoneText" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="grossText" alignment="1" max="32767" attributes="0"/>
                                                                   </Group>
                                                               </Group>
                                                               <Group type="102" attributes="0">
                                                                   <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="company31" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="company32" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="gross2Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="deduction2Label" alignment="0" min="-2" max="-2" attributes="0"/>
                                                                   </Group>
                                                                   <EmptySpace max="32767" attributes="0"/>
                                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                      <Component id="company35" alignment="0" pref="83" max="32767" attributes="0"/>
-                                                                      <Component id="company34" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="totalDeduction2Text" alignment="0" pref="83" max="32767" attributes="0"/>
+                                                                      <Component id="gross2Text" alignment="0" max="32767" attributes="0"/>
                                                                   </Group>
                                                               </Group>
                                                           </Group>
                                                       </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="deductionsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Group type="102" alignment="0" attributes="0">
+                                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                                      <Component id="sssLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="philhealthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="pagibigLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                      <Component id="taxLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                              </Group>
+                                                              <Component id="totalDeductionLabel" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="32767" attributes="0"/>
+                                                          <Group type="103" groupAlignment="1" attributes="0">
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                                      <Component id="taxText" alignment="0" pref="83" max="32767" attributes="0"/>
+                                                                      <Component id="philHealthText" alignment="0" max="32767" attributes="0"/>
+                                                                      <Component id="pagIbigText" alignment="0" max="32767" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="totalDeductionText" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <Component id="sssText" min="-2" pref="99" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
                                                   </Group>
                                                   <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="company7" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="company41" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="company8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="company3" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="company37" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="company4" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="company38" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="company5" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="company39" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="company6" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="company40" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -265,6 +349,11 @@
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="address2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -274,120 +363,120 @@
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="company" min="-2" max="-2" attributes="0"/>
+                                  <Component id="companyName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                  <Component id="company2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="address1" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="motorPhIcon" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Component id="company1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                          <Component id="address2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="decorLine1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="company3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="company37" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="empLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="employeeNoText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="company4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="company38" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="nameText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="company5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="company39" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="positionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="positionText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="company6" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="company40" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="startLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="startText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="company7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="company41" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="endLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="endText" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="decorLine2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="earningsLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="decorLine2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="basicLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <Component id="company8" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company9" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company10" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company11" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company12" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" attributes="0">
-                                          <Component id="company13" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company14" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company15" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="company16" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="riceLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="company17" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="company18" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="phoneLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="decorLine5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company19" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company20" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company21" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company22" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company23" min="-2" pref="19" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company28" min="-2" max="-2" attributes="0"/>
+                                  <Component id="clothingLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="company24" min="-2" max="-2" attributes="0"/>
+                                  <Component id="basicText" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company25" min="-2" max="-2" attributes="0"/>
+                                  <Component id="riceText" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company26" min="-2" max="-2" attributes="0"/>
+                                  <Component id="phoneText" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company27" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company29" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                  <Component id="clothingText" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="decorLine6" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="company30" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="grossLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="grossText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="decorLine5" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="deductionsLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="company34" min="-2" max="-2" attributes="0"/>
+                                  <Component id="sssLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company35" min="-2" max="-2" attributes="0"/>
+                                  <Component id="philhealthLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="pagibigLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="taxLabel" min="-2" pref="19" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="totalDeductionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="totalDeductionText" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="company31" min="-2" max="-2" attributes="0"/>
+                                  <Component id="sssText" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="company32" min="-2" max="-2" attributes="0"/>
+                                  <Component id="philHealthText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="pagIbigText" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="taxText" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="decorLine6" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="gross2Text" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="totalDeduction2Text" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="gross2Label" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="deduction2Label" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="netPanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -422,7 +511,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company">
+                <Component class="javax.swing.JLabel" name="companyName">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="14" style="1"/>
@@ -430,7 +519,7 @@
                     <Property name="text" type="java.lang.String" value="MotorPH"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company1">
+                <Component class="javax.swing.JLabel" name="address2">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -438,7 +527,7 @@
                     <Property name="text" type="java.lang.String" value="Bagong Nayon, Quezon City"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company2">
+                <Component class="javax.swing.JLabel" name="address1">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -446,7 +535,7 @@
                     <Property name="text" type="java.lang.String" value="7 Jupiter Avenue Cor F. Sandoval Jr."/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company3">
+                <Component class="javax.swing.JLabel" name="empLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -454,7 +543,7 @@
                     <Property name="text" type="java.lang.String" value="Employee No :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company4">
+                <Component class="javax.swing.JLabel" name="nameLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -462,7 +551,7 @@
                     <Property name="text" type="java.lang.String" value="Name :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company5">
+                <Component class="javax.swing.JLabel" name="positionLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -470,7 +559,7 @@
                     <Property name="text" type="java.lang.String" value="Position :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company6">
+                <Component class="javax.swing.JLabel" name="startLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -478,7 +567,7 @@
                     <Property name="text" type="java.lang.String" value="Period Start :"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company7">
+                <Component class="javax.swing.JLabel" name="endLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -507,7 +596,7 @@
                     </DimensionLayout>
                   </Layout>
                 </Container>
-                <Component class="javax.swing.JLabel" name="company8">
+                <Component class="javax.swing.JLabel" name="earningsLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -515,15 +604,15 @@
                     <Property name="text" type="java.lang.String" value="Earnings"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company9">
+                <Component class="javax.swing.JLabel" name="basicLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Basic"/>
+                    <Property name="text" type="java.lang.String" value="Basic Salary"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company10">
+                <Component class="javax.swing.JLabel" name="riceLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -531,7 +620,7 @@
                     <Property name="text" type="java.lang.String" value="Rice Subsidy"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company11">
+                <Component class="javax.swing.JLabel" name="phoneLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -539,7 +628,7 @@
                     <Property name="text" type="java.lang.String" value="Phone Allowance"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company12">
+                <Component class="javax.swing.JLabel" name="clothingLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -547,7 +636,7 @@
                     <Property name="text" type="java.lang.String" value="Clothing Allowance"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company13">
+                <Component class="javax.swing.JLabel" name="basicText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -556,7 +645,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company14">
+                <Component class="javax.swing.JLabel" name="riceText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -565,7 +654,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company15">
+                <Component class="javax.swing.JLabel" name="phoneText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -574,7 +663,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company16">
+                <Component class="javax.swing.JLabel" name="clothingText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -583,7 +672,7 @@
                     <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company17">
+                <Component class="javax.swing.JLabel" name="grossLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -591,7 +680,7 @@
                     <Property name="text" type="java.lang.String" value="Gross Pay"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company18">
+                <Component class="javax.swing.JLabel" name="grossText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -621,7 +710,7 @@
                     </DimensionLayout>
                   </Layout>
                 </Container>
-                <Component class="javax.swing.JLabel" name="company19">
+                <Component class="javax.swing.JLabel" name="deductionsLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -629,7 +718,7 @@
                     <Property name="text" type="java.lang.String" value="Deductions"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company20">
+                <Component class="javax.swing.JLabel" name="sssLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -637,7 +726,7 @@
                     <Property name="text" type="java.lang.String" value="SSS"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company21">
+                <Component class="javax.swing.JLabel" name="philhealthLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -645,7 +734,7 @@
                     <Property name="text" type="java.lang.String" value="PhilHealth"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company22">
+                <Component class="javax.swing.JLabel" name="pagibigLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -653,7 +742,7 @@
                     <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company23">
+                <Component class="javax.swing.JLabel" name="taxLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -661,7 +750,7 @@
                     <Property name="text" type="java.lang.String" value="Withholding Tax"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company24">
+                <Component class="javax.swing.JLabel" name="sssText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -670,7 +759,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company25">
+                <Component class="javax.swing.JLabel" name="philHealthText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -679,7 +768,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company26">
+                <Component class="javax.swing.JLabel" name="pagIbigText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -688,7 +777,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company27">
+                <Component class="javax.swing.JLabel" name="taxText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -697,7 +786,7 @@
                     <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company28">
+                <Component class="javax.swing.JLabel" name="totalDeductionLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -705,7 +794,7 @@
                     <Property name="text" type="java.lang.String" value="Total Deduction"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company29">
+                <Component class="javax.swing.JLabel" name="totalDeductionText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -725,7 +814,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="294" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -735,7 +824,7 @@
                     </DimensionLayout>
                   </Layout>
                 </Container>
-                <Component class="javax.swing.JLabel" name="company30">
+                <Component class="javax.swing.JLabel" name="summaryLabel">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
@@ -743,7 +832,7 @@
                     <Property name="text" type="java.lang.String" value="Summary"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company31">
+                <Component class="javax.swing.JLabel" name="gross2Label">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -751,7 +840,7 @@
                     <Property name="text" type="java.lang.String" value="Gross Pay"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company32">
+                <Component class="javax.swing.JLabel" name="deduction2Label">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -759,7 +848,7 @@
                     <Property name="text" type="java.lang.String" value="Deduction"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company34">
+                <Component class="javax.swing.JLabel" name="gross2Text">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -768,7 +857,7 @@
                     <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company35">
+                <Component class="javax.swing.JLabel" name="totalDeduction2Text">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -777,7 +866,7 @@
                     <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                   </Properties>
                 </Component>
-                <Container class="javax.swing.JPanel" name="jPanel1">
+                <Container class="javax.swing.JPanel" name="netPanel">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -833,7 +922,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JLabel" name="company37">
+                <Component class="javax.swing.JLabel" name="employeeNoText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -841,7 +930,7 @@
                     <Property name="text" type="java.lang.String" value="10010"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company38">
+                <Component class="javax.swing.JLabel" name="nameText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -849,7 +938,7 @@
                     <Property name="text" type="java.lang.String" value="Don Justine Fontanilla"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company39">
+                <Component class="javax.swing.JLabel" name="positionText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -857,7 +946,7 @@
                     <Property name="text" type="java.lang.String" value="Chief Operating Executive"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company40">
+                <Component class="javax.swing.JLabel" name="startText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -865,7 +954,7 @@
                     <Property name="text" type="java.lang.String" value="2026/01/15"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="company41">
+                <Component class="javax.swing.JLabel" name="endText">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
@@ -908,36 +997,10 @@
         </DimensionLayout>
       </Layout>
     </Container>
-    <Container class="javax.swing.JScrollPane" name="scrollPaneTable">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="ff" red="ff" type="rgb"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTable" name="tablePeriodPay">
-          <Properties>
-            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
-              </Table>
-            </Property>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="printPayBtn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="12" style="1"/>
+          <Font name="Poppins" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="PRINT PAYSLIP"/>
       </Properties>
@@ -945,5 +1008,210 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printPayBtnActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="0"/>
+        </Property>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="29">
+            <StringItem index="0" value="01/05/2023 - 01/15/2023"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+            <StringItem index="4" value="Item 2"/>
+            <StringItem index="5" value="Item 3"/>
+            <StringItem index="6" value="Item 4"/>
+            <StringItem index="7" value="Item 2"/>
+            <StringItem index="8" value="Item 3"/>
+            <StringItem index="9" value="Item 4"/>
+            <StringItem index="10" value="Item 2"/>
+            <StringItem index="11" value="Item 3"/>
+            <StringItem index="12" value="Item 4"/>
+            <StringItem index="13" value="Item 2"/>
+            <StringItem index="14" value="Item 3"/>
+            <StringItem index="15" value="Item 4"/>
+            <StringItem index="16" value="Item 4"/>
+            <StringItem index="17" value="Item 3"/>
+            <StringItem index="18" value="Item 4"/>
+            <StringItem index="19" value="Item 2"/>
+            <StringItem index="20" value="Item 3"/>
+            <StringItem index="21" value="Item 4"/>
+            <StringItem index="22" value="Item 4"/>
+            <StringItem index="23" value="Item 3"/>
+            <StringItem index="24" value="Item 4"/>
+            <StringItem index="25" value="Item 2"/>
+            <StringItem index="26" value="Item 3"/>
+            <StringItem index="27" value="Item 4"/>
+            <StringItem index="28" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Period Covered"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Summary"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel3">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Gross Pay"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Taxable Income"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Net Pay"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel6">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="180,000.00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel7">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="180,000.00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="180,000.00"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel9">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="SSS Contribution"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel10">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="PhilHealth"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel11">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel12">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Withholding Tax"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="decorLine7">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f0" green="f0" red="f0" type="rgb"/>
+        </Property>
+        <Property name="doubleBuffered" type="boolean" value="false"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="260" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JPanel" name="decorLine8">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f0" green="f0" red="f0" type="rgb"/>
+        </Property>
+        <Property name="doubleBuffered" type="boolean" value="false"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="260" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
+    <Container class="javax.swing.JPanel" name="decorLine9">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f0" green="f0" red="f0" type="rgb"/>
+        </Property>
+        <Property name="doubleBuffered" type="boolean" value="false"/>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="260" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+    </Container>
   </SubComponents>
 </Form>
