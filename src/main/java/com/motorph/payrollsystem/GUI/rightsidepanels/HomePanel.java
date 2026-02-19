@@ -100,7 +100,7 @@ public class HomePanel extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addComponent(dashboardLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(dateLabel)
                             .addGroup(layout.createSequentialGroup()

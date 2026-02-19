@@ -71,6 +71,12 @@ public class MainFrame extends javax.swing.JFrame {
         logoutConfirm.setVisible(true);
         this.setEnabled(false);
     }
+    
+    private void logoutClosing() {
+        this.setEnabled(true);
+        this.logoutConfirm.dispose();
+    }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,6 +112,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         logoutMessage.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        logoutMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoutMessage.setText("Are you sure you want to log out ?");
 
         cancelBtn.setBackground(new java.awt.Color(255, 204, 204));
@@ -124,13 +131,11 @@ public class MainFrame extends javax.swing.JFrame {
             logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoutConfirmLayout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addGroup(logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(logoutConfirmLayout.createSequentialGroup()
-                        .addComponent(cancelBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(logoutMessage))
+                .addComponent(cancelBtn)
+                .addGap(75, 75, 75)
+                .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(48, Short.MAX_VALUE))
+            .addComponent(logoutMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         logoutConfirmLayout.setVerticalGroup(
             logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,9 +486,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        this.setEnabled(true);
-        this.logoutConfirm.dispose();
-        
+        logoutClosing();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
@@ -499,8 +502,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void logoutConfirmWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_logoutConfirmWindowClosing
         // TODO add your handling code here:
-        this.setEnabled(true);
-        this.logoutConfirm.dispose();
+        logoutClosing();
     }//GEN-LAST:event_logoutConfirmWindowClosing
     
 

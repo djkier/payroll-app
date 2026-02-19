@@ -31,39 +31,563 @@ public class SalaryPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        welcomeLabel = new javax.swing.JLabel();
-        dashboardLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        payslipView = new javax.swing.JPanel();
+        payslipLayer = new javax.swing.JPanel();
+        decorLine1 = new javax.swing.JPanel();
+        motorPhIcon = new javax.swing.JLabel();
+        company = new javax.swing.JLabel();
+        company1 = new javax.swing.JLabel();
+        company2 = new javax.swing.JLabel();
+        company3 = new javax.swing.JLabel();
+        company4 = new javax.swing.JLabel();
+        company5 = new javax.swing.JLabel();
+        company6 = new javax.swing.JLabel();
+        company7 = new javax.swing.JLabel();
+        decorLine2 = new javax.swing.JPanel();
+        company8 = new javax.swing.JLabel();
+        company9 = new javax.swing.JLabel();
+        company10 = new javax.swing.JLabel();
+        company11 = new javax.swing.JLabel();
+        company12 = new javax.swing.JLabel();
+        company13 = new javax.swing.JLabel();
+        company14 = new javax.swing.JLabel();
+        company15 = new javax.swing.JLabel();
+        company16 = new javax.swing.JLabel();
+        company17 = new javax.swing.JLabel();
+        company18 = new javax.swing.JLabel();
+        decorLine5 = new javax.swing.JPanel();
+        company19 = new javax.swing.JLabel();
+        company20 = new javax.swing.JLabel();
+        company21 = new javax.swing.JLabel();
+        company22 = new javax.swing.JLabel();
+        company23 = new javax.swing.JLabel();
+        company24 = new javax.swing.JLabel();
+        company25 = new javax.swing.JLabel();
+        company26 = new javax.swing.JLabel();
+        company27 = new javax.swing.JLabel();
+        company28 = new javax.swing.JLabel();
+        company29 = new javax.swing.JLabel();
+        decorLine6 = new javax.swing.JPanel();
+        company30 = new javax.swing.JLabel();
+        company31 = new javax.swing.JLabel();
+        company32 = new javax.swing.JLabel();
+        company34 = new javax.swing.JLabel();
+        company35 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        company33 = new javax.swing.JLabel();
+        company36 = new javax.swing.JLabel();
+        company37 = new javax.swing.JLabel();
+        company38 = new javax.swing.JLabel();
+        company39 = new javax.swing.JLabel();
+        company40 = new javax.swing.JLabel();
+        company41 = new javax.swing.JLabel();
+        dashboardLabel = new javax.swing.JLabel();
+        decorLine = new javax.swing.JPanel();
+        scrollPaneTable = new javax.swing.JScrollPane();
+        tablePeriodPay = new javax.swing.JTable();
+        printPayBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
 
-        welcomeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        welcomeLabel.setText("Welcome back,");
+        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setHorizontalScrollBar(null);
 
-        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        dashboardLabel.setText("SALARY DETAILS");
+        payslipView.setBackground(new java.awt.Color(255, 255, 255));
+        payslipView.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
 
-        jPanel1.setBackground(new java.awt.Color(240, 240, 240));
-        jPanel1.setDoubleBuffered(false);
+        payslipLayer.setBackground(new java.awt.Color(255, 255, 255));
+        payslipLayer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        decorLine1.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine1.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine1Layout = new javax.swing.GroupLayout(decorLine1);
+        decorLine1.setLayout(decorLine1Layout);
+        decorLine1Layout.setHorizontalGroup(
+            decorLine1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine1Layout.setVerticalGroup(
+            decorLine1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        motorPhIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/tab-icon/attendance.png"))); // NOI18N
+
+        company.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        company.setText("MotorPH");
+
+        company1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company1.setText("Bagong Nayon, Quezon City");
+
+        company2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company2.setText("7 Jupiter Avenue Cor F. Sandoval Jr.");
+
+        company3.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company3.setText("Employee No :");
+
+        company4.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company4.setText("Name :");
+
+        company5.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company5.setText("Position :");
+
+        company6.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company6.setText("Period Start :");
+
+        company7.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company7.setText("Period End :");
+
+        decorLine2.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine2.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine2Layout = new javax.swing.GroupLayout(decorLine2);
+        decorLine2.setLayout(decorLine2Layout);
+        decorLine2Layout.setHorizontalGroup(
+            decorLine2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine2Layout.setVerticalGroup(
+            decorLine2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        company8.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company8.setText("Earnings");
+
+        company9.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company9.setText("Basic");
+
+        company10.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company10.setText("Rice Subsidy");
+
+        company11.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company11.setText("Phone Allowance");
+
+        company12.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company12.setText("Clothing Allowance");
+
+        company13.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company13.setText("180, 000.00");
+
+        company14.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company14.setText("180, 000.00");
+
+        company15.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company15.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company15.setText("180, 000.00");
+
+        company16.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company16.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company16.setText("16,180,000.00");
+
+        company17.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company17.setText("Gross Pay");
+
+        company18.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company18.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company18.setText("16,180,000.00");
+
+        decorLine5.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine5.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine5Layout = new javax.swing.GroupLayout(decorLine5);
+        decorLine5.setLayout(decorLine5Layout);
+        decorLine5Layout.setHorizontalGroup(
+            decorLine5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine5Layout.setVerticalGroup(
+            decorLine5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        company19.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company19.setText("Deductions");
+
+        company20.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company20.setText("SSS");
+
+        company21.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company21.setText("PhilHealth");
+
+        company22.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company22.setText("Pag-IBIG");
+
+        company23.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company23.setText("Withholding Tax");
+
+        company24.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company24.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company24.setText("180, 000.00");
+
+        company25.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company25.setText("180, 000.00");
+
+        company26.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company26.setText("180, 000.00");
+
+        company27.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company27.setText("16,180,000.00");
+
+        company28.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company28.setText("Total Deduction");
+
+        company29.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company29.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company29.setText("16,180,000.00");
+
+        decorLine6.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine6.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine6Layout = new javax.swing.GroupLayout(decorLine6);
+        decorLine6.setLayout(decorLine6Layout);
+        decorLine6Layout.setHorizontalGroup(
+            decorLine6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 294, Short.MAX_VALUE)
+        );
+        decorLine6Layout.setVerticalGroup(
+            decorLine6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        company30.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        company30.setText("Summary");
+
+        company31.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company31.setText("Gross Pay");
+
+        company32.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company32.setText("Deduction");
+
+        company34.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company34.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company34.setText("180, 000.00");
+
+        company35.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company35.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        company35.setText("16,180,000.00");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        company33.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        company33.setText("Net Pay");
+
+        company36.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        company36.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        company36.setText("16,180,000.00");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(company33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(company36, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(company36, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(company33))
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        company37.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company37.setText("10010");
+
+        company38.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company38.setText("Don Justine Fontanilla");
+
+        company39.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company39.setText("Chief Operating Executive");
+
+        company40.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company40.setText("2026/01/15");
+
+        company41.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        company41.setText("2026/01/31");
+
+        javax.swing.GroupLayout payslipLayerLayout = new javax.swing.GroupLayout(payslipLayer);
+        payslipLayer.setLayout(payslipLayerLayout);
+        payslipLayerLayout.setHorizontalGroup(
+            payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(payslipLayerLayout.createSequentialGroup()
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(motorPhIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(company1)
+                                    .addComponent(company)
+                                    .addComponent(company2)))
+                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(company17)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(decorLine1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(decorLine5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(decorLine6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addComponent(company30)
+                                        .addGap(217, 226, Short.MAX_VALUE))
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(company19)
+                                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                        .addGap(6, 6, 6)
+                                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(company20)
+                                                            .addComponent(company21)
+                                                            .addComponent(company22)
+                                                            .addComponent(company23)))
+                                                    .addComponent(company28))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(company27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(company25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(company24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(company26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(company29)))
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(company9)
+                                                            .addComponent(company10)
+                                                            .addComponent(company11)
+                                                            .addComponent(company12))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(company16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(company14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(company13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(company15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                            .addComponent(company18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(company31)
+                                                            .addComponent(company32))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                            .addComponent(company35, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                                            .addComponent(company34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addGap(8, 8, 8))
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addComponent(company7)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(company41))
+                                            .addComponent(company8)
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addComponent(company3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(company37))
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addComponent(company4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(company38))
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addComponent(company5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(company39))
+                                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                                .addComponent(company6)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(company40)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                .addContainerGap())
+        );
+        payslipLayerLayout.setVerticalGroup(
+            payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(payslipLayerLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addComponent(company)
+                        .addGap(0, 0, 0)
+                        .addComponent(company2))
+                    .addComponent(motorPhIcon))
+                .addGap(0, 0, 0)
+                .addComponent(company1)
+                .addGap(8, 8, 8)
+                .addComponent(decorLine1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(company3)
+                    .addComponent(company37))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(company4)
+                    .addComponent(company38))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(company5)
+                    .addComponent(company39))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(company6)
+                    .addComponent(company40))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(company7)
+                    .addComponent(company41))
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                .addComponent(company8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company12))
+                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                .addComponent(company13)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(company16)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(company17)
+                            .addComponent(company18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(decorLine5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company23, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company28))
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(company24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company29)
+                        .addGap(8, 8, 8)))
+                .addComponent(decorLine6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(company30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addComponent(company34)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company35))
+                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                        .addComponent(company31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(company32)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        javax.swing.GroupLayout payslipViewLayout = new javax.swing.GroupLayout(payslipView);
+        payslipView.setLayout(payslipViewLayout);
+        payslipViewLayout.setHorizontalGroup(
+            payslipViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(payslipViewLayout.createSequentialGroup()
+                .addComponent(payslipLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 15, Short.MAX_VALUE))
+        );
+        payslipViewLayout.setVerticalGroup(
+            payslipViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(payslipLayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jScrollPane1.setViewportView(payslipView);
+
+        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        dashboardLabel.setText("SALARY DETAILS");
+
+        decorLine.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLineLayout = new javax.swing.GroupLayout(decorLine);
+        decorLine.setLayout(decorLineLayout);
+        decorLineLayout.setHorizontalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 769, Short.MAX_VALUE)
+        );
+        decorLineLayout.setVerticalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
+
+        scrollPaneTable.setBackground(new java.awt.Color(255, 255, 102));
+
+        tablePeriodPay.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        scrollPaneTable.setViewportView(tablePeriodPay);
+
+        printPayBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        printPayBtn.setText("PRINT PAYSLIP");
+        printPayBtn.addActionListener(this::printPayBtnActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,8 +595,15 @@ public class SalaryPanel extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addComponent(dashboardLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(welcomeLabel)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -81,17 +612,81 @@ public class SalaryPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(dashboardLabel)
                 .addGap(6, 6, 6)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(welcomeLabel)
-                .addContainerGap(543, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void printPayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPayBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printPayBtnActionPerformed
+
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel company;
+    private javax.swing.JLabel company1;
+    private javax.swing.JLabel company10;
+    private javax.swing.JLabel company11;
+    private javax.swing.JLabel company12;
+    private javax.swing.JLabel company13;
+    private javax.swing.JLabel company14;
+    private javax.swing.JLabel company15;
+    private javax.swing.JLabel company16;
+    private javax.swing.JLabel company17;
+    private javax.swing.JLabel company18;
+    private javax.swing.JLabel company19;
+    private javax.swing.JLabel company2;
+    private javax.swing.JLabel company20;
+    private javax.swing.JLabel company21;
+    private javax.swing.JLabel company22;
+    private javax.swing.JLabel company23;
+    private javax.swing.JLabel company24;
+    private javax.swing.JLabel company25;
+    private javax.swing.JLabel company26;
+    private javax.swing.JLabel company27;
+    private javax.swing.JLabel company28;
+    private javax.swing.JLabel company29;
+    private javax.swing.JLabel company3;
+    private javax.swing.JLabel company30;
+    private javax.swing.JLabel company31;
+    private javax.swing.JLabel company32;
+    private javax.swing.JLabel company33;
+    private javax.swing.JLabel company34;
+    private javax.swing.JLabel company35;
+    private javax.swing.JLabel company36;
+    private javax.swing.JLabel company37;
+    private javax.swing.JLabel company38;
+    private javax.swing.JLabel company39;
+    private javax.swing.JLabel company4;
+    private javax.swing.JLabel company40;
+    private javax.swing.JLabel company41;
+    private javax.swing.JLabel company5;
+    private javax.swing.JLabel company6;
+    private javax.swing.JLabel company7;
+    private javax.swing.JLabel company8;
+    private javax.swing.JLabel company9;
     private javax.swing.JLabel dashboardLabel;
+    private javax.swing.JPanel decorLine;
+    private javax.swing.JPanel decorLine1;
+    private javax.swing.JPanel decorLine2;
+    private javax.swing.JPanel decorLine3;
+    private javax.swing.JPanel decorLine4;
+    private javax.swing.JPanel decorLine5;
+    private javax.swing.JPanel decorLine6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel welcomeLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel motorPhIcon;
+    private javax.swing.JPanel payslipLayer;
+    private javax.swing.JPanel payslipView;
+    private javax.swing.JButton printPayBtn;
+    private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JTable tablePeriodPay;
     // End of variables declaration//GEN-END:variables
 }
