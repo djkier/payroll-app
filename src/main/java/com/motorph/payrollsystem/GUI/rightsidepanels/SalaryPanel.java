@@ -96,7 +96,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         mainPhilHealthText.setText(Money.displayMoney(payslip.getPhilHealthAmount()));
         mainPagIbigText.setText(Money.displayMoney(payslip.getPagibigAmount()));
         //Main tax
-        mainTaxableText.setText(Money.displayMoney(0.00));
+        mainTaxableText.setText(Money.displayMoney(payslip.getTaxableIncome()));
         mainTaxText.setText(Money.displayMoney(payslip.getTaxAmount()));
         //Main Net
         mainNetPayText.setText(Money.displayMoney(payslip.getNetPay()));
@@ -117,16 +117,16 @@ public class SalaryPanel extends javax.swing.JPanel {
         clothingText.setText(Money.displayMoney(0.00));
         grossText.setText(Money.displayMoney(payslip.getGrossPay()));
         //Deductions
-        sssText.setText(Money.displayMoney(0.00));
-        philHealthText.setText(Money.displayMoney(0.00));
-        pagIbigText.setText(Money.displayMoney(0.00));
-        taxText.setText(Money.displayMoney(0.00));
-        totalDeductionText.setText(Money.displayMoney(0.00));
+        sssText.setText(Money.displayMoney(payslip.getSssAmount()));
+        philHealthText.setText(Money.displayMoney(payslip.getPhilHealthAmount()));
+        pagIbigText.setText(Money.displayMoney(payslip.getPagibigAmount()));
+        taxText.setText(Money.displayMoney(payslip.getTaxAmount()));
+        totalDeductionText.setText(Money.displayMoney(payslip.getTotalDeductions()));
         //Summary
-        gross2Text.setText(Money.displayMoney(0.00));
-        totalDeduction2Text.setText(Money.displayMoney(0.00));
+        gross2Text.setText(Money.displayMoney(payslip.getGrossPay()));
+        totalDeduction2Text.setText(Money.displayMoney(payslip.getTotalDeductions()));
         
-        previewNetPayText.setText(Money.displayMoney(payslip.getGrossPay()));
+        previewNetPayText.setText(Money.displayMoney(payslip.getNetPay()));
         
         
     }

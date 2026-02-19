@@ -101,6 +101,10 @@ public class Payslip {
         return getDeductionAmount("Withholding Tax");
     }
     
+    public double getTaxableIncome() {
+        return getNetPay() + getTaxAmount();
+    }
+    
     private double getDeductionAmount(String label) {
         for (PayslipLine line : lines) {
             if (line.getType() == PayslipLine.LineType.DEDUCTION &&
