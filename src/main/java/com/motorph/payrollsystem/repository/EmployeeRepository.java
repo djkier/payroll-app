@@ -79,10 +79,10 @@ public class EmployeeRepository {
                     departmentInfo.setPosition(details[11]);
                     departmentInfo.setSupervisor(details[12]);
                     
-                    compProfile.setBasicSalary(Money.parseSalary(details[15]));
-                    compProfile.setRiceSubsidy(Money.parseSalary(details[16]));
-                    compProfile.setPhoneAllowance(Money.parseSalary(details[17]));
-                    compProfile.setClothingAllowance(Money.parseSalary(details[18]));
+                    compProfile.setBasicSalary(Money.parseSalary(details[13]));
+                    compProfile.setRiceSubsidy(Money.parseSalary(details[14]));
+                    compProfile.setPhoneAllowance(Money.parseSalary(details[15]));
+                    compProfile.setClothingAllowance(Money.parseSalary(details[16]));
 
                     emp.setContactInfo(contactInfo);
                     emp.setGovIds(govIds);

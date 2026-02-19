@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.domain.attendance;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -43,7 +44,28 @@ public class AttendanceRecord {
     
     //each attendance record knows there total work hours
     public double getHoursWorked() {
-        return 0;
+        if (timeIn == null || timeOut == null) return 0;
+        
+        LocalTime normalizedIn = normalizeTimeIn(timeIn);
+        
+        long minutes = Duration.between(normalizedIn, timeOut).toMinutes();
+        
+        //if the timeout is earlier than time in will return 0
+        if (minutes <= 0) return 0;
+        
+        return minutes/60.0;
+    }
+    
+    //if time in is before 8AM or on/before 8:10 the timeIn would be 8:00AM
+    private LocalTime normalizeTimeIn(LocalTime actualIn) {
+        LocalTime eightAM = LocalTime.of(8,0);
+        LocalTime graceEnd = LocalTime.of(8, 10);
+        
+        if (actualIn.isBefore(eightAM) || !(actualIn.isAfter(graceEnd))) {
+            return eightAM;
+        }
+        
+        return actualIn;
     }
     
     

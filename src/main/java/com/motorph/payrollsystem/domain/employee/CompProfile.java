@@ -58,7 +58,7 @@ public class CompProfile {
     }
     
     public double getHourlyRate() {
-        return (this.basicSalary / 21) / 8;
+        return (this.basicSalary / 21.0) / 8.0;
     }
     
     public double getTotalAllowance() {
