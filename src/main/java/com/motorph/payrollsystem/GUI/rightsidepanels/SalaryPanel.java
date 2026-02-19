@@ -5,6 +5,12 @@
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
 import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.domain.attendance.AttendanceRecord;
+import com.motorph.payrollsystem.domain.payroll.PayrollPeriod;
+import com.motorph.payrollsystem.utility.PayrollPeriodFactory;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author djjus
@@ -18,8 +24,50 @@ public class SalaryPanel extends javax.swing.JPanel {
     public SalaryPanel(AppContext appContext) {
         this.appContext = appContext;
         initComponents();
-        
+        loadPayrollPeriods();
 
+    }
+    
+    private void loadPayrollPeriods() {
+        try {
+            //get employee no
+            String employeeNo = 
+                    appContext.getSessionManager()
+                    .getCurrentEmployee()
+                    .getEmployeeNo();
+            
+            //get all attendance records of the employee no
+            List<AttendanceRecord> records = 
+                    appContext.getAttendanceRepository()
+                    .findByEmployeeNo(employeeNo);
+            
+            //initialize list of dates
+            List<LocalDate> dates = new ArrayList<>();
+            
+            //get all the dates on the attendance record then store it on dates
+            for (AttendanceRecord record : records) {
+                dates.add(record.getDate());
+            }
+            
+            //get the list of PayrollPeriod
+            List<PayrollPeriod> periods = 
+                    PayrollPeriodFactory.fromAttendanceDates(dates);
+            
+            //remove all items on the combo box first
+            this.comboBoxPeriod.removeAllItems();
+            
+            //populate the combo box items with the period
+            for (PayrollPeriod period : periods) {
+                comboBoxPeriod.addItem(period);
+            }
+        } catch (Exception ex) {
+            /*
+            *
+            *Add failed loading payroll periods
+            *
+            */
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -590,10 +638,11 @@ public class SalaryPanel extends javax.swing.JPanel {
 
         printPayBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         printPayBtn.setText("PRINT PAYSLIP");
+        printPayBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         printPayBtn.addActionListener(this::printPayBtnActionPerformed);
 
         comboBoxPeriod.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        comboBoxPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01/05/2023 - 01/15/2023", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4", "Item 3", "Item 4", "Item 2", "Item 3", "Item 4", "Item 4" }));
+        comboBoxPeriod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboBoxPeriod.addActionListener(this::comboBoxPeriodActionPerformed);
 
         periodCoveredLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -824,7 +873,7 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel basicText;
     private javax.swing.JLabel clothingLabel;
     private javax.swing.JLabel clothingText;
-    private javax.swing.JComboBox<String> comboBoxPeriod;
+    private javax.swing.JComboBox<PayrollPeriod> comboBoxPeriod;
     private javax.swing.JLabel company33;
     private javax.swing.JLabel company36;
     private javax.swing.JLabel companyName;

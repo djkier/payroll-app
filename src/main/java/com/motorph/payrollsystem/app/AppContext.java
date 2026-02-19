@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.app;
 
+import com.motorph.payrollsystem.repository.AttendanceRepository;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
 import com.motorph.payrollsystem.repository.UserRepository;
 import com.motorph.payrollsystem.service.AuthService;
@@ -17,6 +18,7 @@ public class AppContext {
     private final SessionManager sessionManager;
     private final AuthService authService;
     private final EmployeeService employeeService;
+    private final AttendanceRepository attendanceRepository;
     
     public AppContext() {
         this.sessionManager = new SessionManager();
@@ -27,6 +29,8 @@ public class AppContext {
         
         EmployeeRepository employeeRepo = new EmployeeRepository("/csv-files/employee-details.csv");
         this.employeeService = new EmployeeService(employeeRepo);
+        
+        this.attendanceRepository = new AttendanceRepository("/csv-files/employee-attendance.csv");
     }
 
     public SessionManager getSessionManager() {
@@ -39,6 +43,10 @@ public class AppContext {
     
     public EmployeeService getEmployeeService() {
         return employeeService;
+    }
+
+    public AttendanceRepository getAttendanceRepository() {
+        return attendanceRepository;
     }
     
     
