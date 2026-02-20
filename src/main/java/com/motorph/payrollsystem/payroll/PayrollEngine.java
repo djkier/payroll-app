@@ -42,24 +42,24 @@ public class PayrollEngine {
         Payslip payslip = new Payslip(employee, period);
         payslip.setTotalHours(totalHours);
         
-        //Payslip EARNING
-        payslip.addLine(new PayslipLine("Basic", grossPay, PayslipLine.LineType.EARNING));
+        //Payslip EARNINGS
+        addEarningPayslipLine(payslip, "Basic", grossPay);
+        addEarningPayslipLine(payslip, "Rice Subsidy", employee.getCompProfile().getRiceSubsidy());
+        addEarningPayslipLine(payslip, "Phone Allowance", employee.getCompProfile().getPhoneAllowance());
+        addEarningPayslipLine(payslip, "Clothing Allowance", employee.getCompProfile().getClothingAllowance());
+        
         
         //Payslip govt DEDUCTION (tax excluded)
-        double govTotal = 0;
         for (DeductionRule rule : deductionRules) {
             double deduction = rule.compute(employee, grossPay);
-            govTotal += deduction;
-            
             payslip.addLine(new PayslipLine(rule.getName(),
                                             deduction,
                                             PayslipLine.LineType.DEDUCTION));
         }
         
         //withholding tax
-        double taxablePay = grossPay - govTotal;
         DeductionRule taxRule = new WithholdingTaxRule();
-        double tax = taxRule.compute(employee, taxablePay);
+        double tax = taxRule.compute(employee, payslip.getTaxableIncome());
         payslip.addLine(new PayslipLine(taxRule.getName(),
                                         tax,
                                         PayslipLine.LineType.DEDUCTION));
@@ -90,5 +90,11 @@ public class PayrollEngine {
     private double computeGrossPay(Employee employee, double totalHours) {
         double hourlyRate = employee.getCompProfile().getHourlyRate();
         return hourlyRate * totalHours;
+    }
+    
+    private void addEarningPayslipLine(Payslip payslip, String name, double amount) {
+        if (amount >= 0) {
+            payslip.addLine(new PayslipLine(name, amount, PayslipLine.LineType.EARNING));
+        }
     }
 }

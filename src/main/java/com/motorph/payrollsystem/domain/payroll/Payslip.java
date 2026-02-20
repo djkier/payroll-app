@@ -84,36 +84,59 @@ public class Payslip {
         this.totalDeductions = deductions;
         this.netPay = earnings - deductions;
     }
+    //Earnings (gross excluded) getters
+    public double getRiceAmount() {
+        return getOtherAmount("Rice Subsidy", PayslipLine.LineType.EARNING);
+    }
     
+    public double getPhoneAmount() {
+        return getOtherAmount("Phone Allowance", PayslipLine.LineType.EARNING);
+    }
+    
+    public double getClothingAmount() {
+        return getOtherAmount("Clothing Allowance", PayslipLine.LineType.EARNING);
+    }
+    
+    
+    //Deductions getters
     public double getSssAmount() {
-        return getDeductionAmount("SSS");
+        return getOtherAmount("SSS", PayslipLine.LineType.DEDUCTION);
     }
     
     public double getPhilHealthAmount() {
-        return getDeductionAmount("PhilHealth");
+        return getOtherAmount("PhilHealth", PayslipLine.LineType.DEDUCTION);
     }
     
     public double getPagibigAmount() {
-        return getDeductionAmount("Pag-IBIG");
+        return getOtherAmount("Pag-IBIG", PayslipLine.LineType.DEDUCTION);
     }
     
     public double getTaxAmount() {
-        return getDeductionAmount("Withholding Tax");
+        return getOtherAmount("Withholding Tax", PayslipLine.LineType.DEDUCTION);
+    }
+    
+    public double govtDeduction() {
+        return getSssAmount() + getPhilHealthAmount() + getPagibigAmount();
     }
     
     public double getTaxableIncome() {
-        return getNetPay() + getTaxAmount();
+//        double total = getGrossPay() - govtDeduction();
+//        System.out.println(getGrossPay());
+//        System.out.println(govtDeduction());
+        return getGrossPay() - govtDeduction();
     }
     
-    private double getDeductionAmount(String label) {
+    private double getOtherAmount(String label, PayslipLine.LineType type) {
         for (PayslipLine line : lines) {
-            if (line.getType() == PayslipLine.LineType.DEDUCTION &&
+            if (line.getType() == type &&
                     line.getLabel().equalsIgnoreCase(label)) {
                 return line.getAmount();
             }
         }
         return 0;
     }
+    
+    
     
     
 }

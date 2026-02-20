@@ -22,8 +22,9 @@ public class SssRule extends AbstractDeductionRule {
         //placeholder
         double monthlyBasic = getMonthlyBasic(employee);
         
+        
         //NOT OFFICIAL COMPUTATION
-        double monthlyContribution = monthlyBasic * 0.045;
+        double monthlyContribution = grossPayPeriod * 0.045;
         return round2(monthlyContribution/2.0);
     }
 }
