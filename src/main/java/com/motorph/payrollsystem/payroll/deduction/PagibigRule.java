@@ -23,6 +23,6 @@ public class PagibigRule extends AbstractDeductionRule {
         
         //NOT OFFICIAL COMPUTATION
         double monthlyContribution = monthlyBasic * 0.02;
-        return round2(monthlyContribution / 2.0);
+        return round2(monthlyContribution);
     }
 }

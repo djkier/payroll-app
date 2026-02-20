@@ -84,7 +84,10 @@ public class Payslip {
         this.totalDeductions = deductions;
         this.netPay = earnings - deductions;
     }
-    //Earnings (gross excluded) getters
+    //Earnings getters
+    public double getBasicPayAmount() {
+        return getOtherAmount("Basic", PayslipLine.LineType.EARNING);
+    }
     public double getRiceAmount() {
         return getOtherAmount("Rice Subsidy", PayslipLine.LineType.EARNING);
     }
@@ -115,7 +118,8 @@ public class Payslip {
         return getOtherAmount("Withholding Tax", PayslipLine.LineType.DEDUCTION);
     }
     
-    public double govtDeduction() {
+    //Get totals
+    public double getGovtDeduction() {
         return getSssAmount() + getPhilHealthAmount() + getPagibigAmount();
     }
     
@@ -123,8 +127,10 @@ public class Payslip {
 //        double total = getGrossPay() - govtDeduction();
 //        System.out.println(getGrossPay());
 //        System.out.println(govtDeduction());
-        return getGrossPay() - govtDeduction();
+        return getGrossPay() - getGovtDeduction();
     }
+    
+    
     
     private double getOtherAmount(String label, PayslipLine.LineType type) {
         for (PayslipLine line : lines) {

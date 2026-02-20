@@ -19,6 +19,9 @@ public class WithholdingTaxRule extends AbstractDeductionRule {
     
     @Override
     public double compute(Employee employee, double taxablePayPeriod) {
+        //NOT OFFICIAL COMPUTATION
+        //NOT OFFICIAL COMPUTATION
+        //NOT OFFICIAL COMPUTATION
         double tax;
         
         if (taxablePayPeriod <= 10000) tax = 0;

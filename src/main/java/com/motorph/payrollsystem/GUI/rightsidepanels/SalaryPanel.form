@@ -65,7 +65,7 @@
                                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="sss2Label" min="-2" max="-2" attributes="0"/>
-                                          <Component id="gross3Label" min="-2" max="-2" attributes="0"/>
+                                          <Component id="mainGrossPayLabel" min="-2" max="-2" attributes="0"/>
                                           <Component id="philHealth2Label" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="pagibig2Label" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -74,7 +74,7 @@
                                           <Component id="mainSssText" alignment="1" max="32767" attributes="0"/>
                                           <Component id="mainPhilHealthText" alignment="1" max="32767" attributes="0"/>
                                           <Component id="mainPagIbigText" max="32767" attributes="0"/>
-                                          <Component id="mainGrossText" max="32767" attributes="0"/>
+                                          <Component id="mainGrossPayText" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -129,8 +129,8 @@
                       <Component id="decorLine7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="gross3Label" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="mainGrossText" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mainGrossPayLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mainGrossPayText" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -347,11 +347,9 @@
                                                           </Group>
                                                           <EmptySpace max="32767" attributes="0"/>
                                                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="taxText" alignment="0" max="32767" attributes="0"/>
-                                                                  <Component id="philHealthText" alignment="0" pref="83" max="32767" attributes="0"/>
-                                                                  <Component id="pagIbigText" alignment="0" max="32767" attributes="0"/>
-                                                              </Group>
+                                                              <Component id="taxText" alignment="0" max="32767" attributes="0"/>
+                                                              <Component id="philHealthText" alignment="0" max="32767" attributes="0"/>
+                                                              <Component id="pagIbigText" alignment="0" max="32767" attributes="0"/>
                                                               <Component id="sssText" min="-2" pref="99" max="-2" attributes="0"/>
                                                               <Component id="totalDeductionText" alignment="0" max="32767" attributes="0"/>
                                                           </Group>
@@ -1060,12 +1058,12 @@
         <Property name="text" type="java.lang.String" value="Summary"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="gross3Label">
+    <Component class="javax.swing.JLabel" name="mainGrossPayLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Gross Pay"/>
+        <Property name="text" type="java.lang.String" value="Basic Pay"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="taxableIncomeLabel">
@@ -1224,7 +1222,7 @@
         <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="mainGrossText">
+    <Component class="javax.swing.JLabel" name="mainGrossPayText">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>

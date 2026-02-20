@@ -32,26 +32,31 @@ public class PayrollEngine {
                 new PagibigRule());
     }
     
+    //payroll engine should not store the employee, records or period its function is to compute the payslip
+    //excluding the deduction since deduction rules is universal for every payslip
     public Payslip computePayslip (Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
         //get total hour
         double totalHours = computeTotalHours(records, period);
-        
-        //get gross pay 
-        double grossPay = computeGrossPay(employee, totalHours);
-        
         Payslip payslip = new Payslip(employee, period);
         payslip.setTotalHours(totalHours);
         
         //Payslip EARNINGS
-        addEarningPayslipLine(payslip, "Basic", grossPay);
-        addEarningPayslipLine(payslip, "Rice Subsidy", employee.getCompProfile().getRiceSubsidy());
-        addEarningPayslipLine(payslip, "Phone Allowance", employee.getCompProfile().getPhoneAllowance());
-        addEarningPayslipLine(payslip, "Clothing Allowance", employee.getCompProfile().getClothingAllowance());
+        //basic pay = totalHours * employee hourly rate
+        double basicPay = computeBasicPay(employee, totalHours);
+        double riceSubsidy = computeAllowance(employee.getCompProfile().getRiceSubsidy(), period);
+        double phoneAllowance = computeAllowance(employee.getCompProfile().getPhoneAllowance(), period);
+        double clothingAllowance = computeAllowance(employee.getCompProfile().getClothingAllowance(), period);
+        //add payslip line for EARNINGS
+        addEarningPayslipLine(payslip, "Basic", basicPay);
+        addEarningPayslipLine(payslip, "Rice Subsidy", riceSubsidy);
+        addEarningPayslipLine(payslip, "Phone Allowance", phoneAllowance);
+        addEarningPayslipLine(payslip, "Clothing Allowance", clothingAllowance);
         
         
         //Payslip govt DEDUCTION (tax excluded)
         for (DeductionRule rule : deductionRules) {
-            double deduction = rule.compute(employee, grossPay);
+            //change rule.compute
+            double deduction = rule.compute(employee, payslip.getGrossPay());
             payslip.addLine(new PayslipLine(rule.getName(),
                                             deduction,
                                             PayslipLine.LineType.DEDUCTION));
@@ -87,10 +92,23 @@ public class PayrollEngine {
         return total;
     }
     
-    private double computeGrossPay(Employee employee, double totalHours) {
+    private double computeBasicPay(Employee employee, double totalHours) {
         double hourlyRate = employee.getCompProfile().getHourlyRate();
         return hourlyRate * totalHours;
     }
+    
+    private double computeAllowance(double amount, PayrollPeriod period) {
+        double divisor = 1.0;
+        if (period.getPeriodType() == PayrollPeriod.PeriodType.SEMI_MONTHLY) {
+            divisor = 2.0;
+        }
+        
+        return amount / divisor;
+    }
+//    
+//    private double computeDeduction(DeductionRule rule, Employee employee, double grossPay) {
+//        
+//    }
     
     private void addEarningPayslipLine(Payslip payslip, String name, double amount) {
         if (amount >= 0) {

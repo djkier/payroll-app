@@ -25,6 +25,6 @@ public class SssRule extends AbstractDeductionRule {
         
         //NOT OFFICIAL COMPUTATION
         double monthlyContribution = grossPayPeriod * 0.045;
-        return round2(monthlyContribution/2.0);
+        return round2(monthlyContribution);
     }
 }

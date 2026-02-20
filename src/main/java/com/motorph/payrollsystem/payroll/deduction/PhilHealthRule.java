@@ -23,6 +23,6 @@ public class PhilHealthRule extends AbstractDeductionRule{
         
         //NOT OFFICICAL COMPUTATION
         double monthlyContribution = monthlyBasic * 0.025;
-        return round2(monthlyContribution / 2.0);
+        return round2(monthlyContribution);
     }
 }

@@ -57,7 +57,7 @@ public class SalaryPanel extends javax.swing.JPanel {
             
             //get the list of PayrollPeriod
             List<PayrollPeriod> periods = 
-                    PayrollPeriodFactory.fromAttendanceDates(dates);
+                    PayrollPeriodFactory.fromAttendanceDatesSemiMonthly(dates);
             
             //remove all items on the combo box first
             this.comboBoxPeriod.removeAllItems();
@@ -91,7 +91,7 @@ public class SalaryPanel extends javax.swing.JPanel {
 //        
         //MAIN
         //Main summary
-        mainGrossText.setText(Money.displayMoney(payslip.getGrossPay()));
+        mainGrossPayText.setText(Money.displayMoney(payslip.getGrossPay()));
         mainSssText.setText(Money.displayMoney(payslip.getSssAmount()));
         System.out.println("SSS amount " + payslip.getSssAmount());
         mainPhilHealthText.setText(Money.displayMoney(payslip.getPhilHealthAmount()));
@@ -112,7 +112,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         startText.setText(Dates.fullDate(payslip.getPeriod().getStartDate()));
         endText.setText(Dates.fullDate(payslip.getPeriod().getEndDate()));
         //Earnings
-        basicText.setText(Money.displayMoney(payslip.getGrossPay()));
+        basicText.setText(Money.displayMoney(payslip.getBasicPayAmount()));
         riceText.setText(Money.displayMoney(payslip.getRiceAmount()));
         phoneText.setText(Money.displayMoney(payslip.getPhoneAmount()));
         clothingText.setText(Money.displayMoney(payslip.getClothingAmount()));
@@ -197,7 +197,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         comboBoxPeriod = new javax.swing.JComboBox<>();
         periodCoveredLabel = new javax.swing.JLabel();
         summary2Label = new javax.swing.JLabel();
-        gross3Label = new javax.swing.JLabel();
+        mainGrossPayLabel = new javax.swing.JLabel();
         taxableIncomeLabel = new javax.swing.JLabel();
         netPay2Label = new javax.swing.JLabel();
         mainPhilHealthText = new javax.swing.JLabel();
@@ -212,7 +212,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         decorLine9 = new javax.swing.JPanel();
         mainPagIbigText = new javax.swing.JLabel();
         mainSssText = new javax.swing.JLabel();
-        mainGrossText = new javax.swing.JLabel();
+        mainGrossPayText = new javax.swing.JLabel();
         mainTaxText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -542,10 +542,9 @@ public class SalaryPanel extends javax.swing.JPanel {
                                                             .addComponent(totalDeductionLabel))))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                    .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(taxText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(philHealthText, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                                                        .addComponent(pagIbigText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                    .addComponent(taxText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(philHealthText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(pagIbigText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(sssText, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(totalDeductionText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                         .addGap(8, 8, 8)))))))
@@ -707,8 +706,8 @@ public class SalaryPanel extends javax.swing.JPanel {
         summary2Label.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         summary2Label.setText("Summary");
 
-        gross3Label.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        gross3Label.setText("Gross Pay");
+        mainGrossPayLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        mainGrossPayLabel.setText("Basic Pay");
 
         taxableIncomeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         taxableIncomeLabel.setText("Taxable Income");
@@ -790,9 +789,9 @@ public class SalaryPanel extends javax.swing.JPanel {
         mainSssText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         mainSssText.setText("0.00");
 
-        mainGrossText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        mainGrossText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        mainGrossText.setText("0.00");
+        mainGrossPayText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        mainGrossPayText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        mainGrossPayText.setText("0.00");
 
         mainTaxText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         mainTaxText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -836,7 +835,7 @@ public class SalaryPanel extends javax.swing.JPanel {
                                         .addGap(45, 45, 45)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(sss2Label)
-                                            .addComponent(gross3Label)
+                                            .addComponent(mainGrossPayLabel)
                                             .addComponent(philHealth2Label)
                                             .addComponent(pagibig2Label))
                                         .addGap(12, 12, 12)
@@ -844,7 +843,7 @@ public class SalaryPanel extends javax.swing.JPanel {
                                             .addComponent(mainSssText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(mainPhilHealthText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(mainPagIbigText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(mainGrossText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addComponent(mainGrossPayText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -885,8 +884,8 @@ public class SalaryPanel extends javax.swing.JPanel {
                         .addComponent(decorLine7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(gross3Label)
-                            .addComponent(mainGrossText))
+                            .addComponent(mainGrossPayLabel)
+                            .addComponent(mainGrossPayText))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sss2Label)
@@ -957,8 +956,6 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JPanel decorLine;
     private javax.swing.JPanel decorLine1;
     private javax.swing.JPanel decorLine2;
-    private javax.swing.JPanel decorLine3;
-    private javax.swing.JPanel decorLine4;
     private javax.swing.JPanel decorLine5;
     private javax.swing.JPanel decorLine6;
     private javax.swing.JPanel decorLine7;
@@ -973,10 +970,10 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel endText;
     private javax.swing.JLabel gross2Label;
     private javax.swing.JLabel gross2Text;
-    private javax.swing.JLabel gross3Label;
     private javax.swing.JLabel grossLabel;
     private javax.swing.JLabel grossText;
-    private javax.swing.JLabel mainGrossText;
+    private javax.swing.JLabel mainGrossPayLabel;
+    private javax.swing.JLabel mainGrossPayText;
     private javax.swing.JLabel mainNetPayText;
     private javax.swing.JLabel mainPagIbigText;
     private javax.swing.JLabel mainPhilHealthText;
