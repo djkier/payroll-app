@@ -25,29 +25,43 @@ import java.util.List;
  */
 public class PayrollEngine {
     
-    private final List<DeductionRule> deductionRules;
+    private final List<DeductionRule> govtRules;
     private final DeductionRule taxRule;
     
     public PayrollEngine() {
-        this.deductionRules = List.of(
+        this.govtRules = List.of(
                 new SssRule(), 
                 new PhilHealthRule(), 
                 new PagibigRule());
         this.taxRule = new WithholdingTaxRule();
     }
     
-    //payroll engine should not store the employee, records or period its function is to compute the payslip
-    //excluding the deduction since deduction rules is universal for every payslip
+    //payroll engine should not store the employee, records or period 
+    //its function is to generate payslip base on the period
+    //IT SHOULD BE STATELESS ALWAYS
+    //except storing deduction rules since deduction rules is universal for every payslip
     public Payslip computePayslip (Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
+        //Generate payslip and add Earnings
+        Payslip payslip = createPayslipWithEarnings(employee, records, period);
         
-        //get total hour
+        //Add govt deductions
+        addDeductions(payslip, employee, records, govtRules);
+        
+        //Add tax
+        addDeductions(payslip, employee, records, List.of(taxRule));
+        
+        payslip.computeTotals();
+        return payslip;
+    }
+    
+    private Payslip createPayslipWithEarnings(Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
         double totalHours = computeTotalHours(records, period);
+        
         Payslip payslip = new Payslip(employee, period);
         payslip.setTotalHours(totalHours);
         
         //Payslip EARNINGS
-        //basic pay = totalHours * employee hourly rate
-        double basicPay = computeBasicPay(employee, totalHours);
+        double basicPay = employee.getCompProfile().getHourlyRate() * totalHours;
         double riceSubsidy = computeAllowance(employee.getCompProfile().getRiceSubsidy(), period);
         double phoneAllowance = computeAllowance(employee.getCompProfile().getPhoneAllowance(), period);
         double clothingAllowance = computeAllowance(employee.getCompProfile().getClothingAllowance(), period);
@@ -56,28 +70,66 @@ public class PayrollEngine {
         addEarningPayslipLine(payslip, "Rice Subsidy", riceSubsidy);
         addEarningPayslipLine(payslip, "Phone Allowance", phoneAllowance);
         addEarningPayslipLine(payslip, "Clothing Allowance", clothingAllowance);
-        payslip.computeTotals();
         
-        //Payslip govt DEDUCTION (tax excluded)
-        for (DeductionRule rule : deductionRules) {
-            //change rule.compute
-            double deduction = computeDeduction(rule, payslip);
-            payslip.addLine(new PayslipLine(rule.getName(),
-                                            deduction,
-                                            PayslipLine.LineType.DEDUCTION));
-        }
+        //Refresh Payslip attrib gross pay
         payslip.computeTotals();
-        
-        //withholding tax
-        DeductionRule taxRule = new WithholdingTaxRule();
-        double tax = computeDeduction(taxRule, payslip);
-        payslip.addLine(new PayslipLine(taxRule.getName(),
-                                        tax,
-                                        PayslipLine.LineType.DEDUCTION));
-           
-        payslip.computeTotals();
-        
+
         return payslip;
+    }
+    
+    private void addEarningPayslipLine(Payslip payslip, String name, double amount) {
+        if (amount >= 0) {
+            payslip.addLine(new PayslipLine(name, amount, PayslipLine.LineType.EARNING));
+        }
+    }
+    
+    private void addDeductions(
+            Payslip payslip, 
+            Employee employee,
+            List<AttendanceRecord> records, 
+            List<DeductionRule> rules) {
+        
+        for (DeductionRule rule : rules) {
+            double amount = computeDeduction(rule, payslip, employee, records);
+            payslip.addLine(new PayslipLine(rule.getName(), amount, PayslipLine.LineType.DEDUCTION));
+            payslip.computeTotals();
+        }
+    }
+    
+    private double computeDeduction(DeductionRule rule, Payslip currentPayslip, Employee employee, List<AttendanceRecord> records) {
+        double currentBase = baseAmount(rule, currentPayslip);
+        
+        //Check if the payroll period is monthly basis
+        if (currentPayslip.getPeriod().isMonthly()) {
+            return rule.computeMonthly(currentBase);
+        }
+        
+        //Check if the payroll is for the first cut off
+        if (currentPayslip.getPeriod().isFirstCutoff()) {
+            return rule.computeSemi(currentBase);
+        }
+        
+        //Second cutoff deduction = fullmonth deduction - first cutoff deduction
+        //get the firstperiod for this cutoff
+        PayrollPeriod firstPeriod = PayrollPeriodFactory.firstCutoffOf(currentPayslip.getPeriod().getMonthYear());
+        //compute the first payslip gross for the first cutoff
+        Payslip firstPayslip = computePayslip(employee, records, firstPeriod);
+        
+        //compute the govt deduction base on the firstPayslip earning
+        double firstBase = baseAmount(rule, firstPayslip);
+        double firstDeduction = rule.computeSemi(firstBase);
+        
+        //compute the govt deduction base on the full month earning 
+        double fullMonthBase = currentBase + firstBase;
+        double fullMonthDeduction = rule.computeMonthly(fullMonthBase);
+        
+        return fullMonthDeduction - firstDeduction;
+    }
+    
+    private double baseAmount(DeductionRule rule, Payslip payslip) {
+        return (rule.getBasis() == DeductionRule.Basis.TAXABLE_INCOME) ?
+                payslip.getTaxableIncome() :
+                payslip.getGrossPay();
     }
     
     private double computeTotalHours(List<AttendanceRecord> records, PayrollPeriod period) {
@@ -98,56 +150,10 @@ public class PayrollEngine {
         return total;
     }
     
-    private double computeBasicPay(Employee employee, double totalHours) {
-        double hourlyRate = employee.getCompProfile().getHourlyRate();
-        return hourlyRate * totalHours;
+    private double computeAllowance(double monthlyAmount, PayrollPeriod period) {
+        return period.getPeriodType() == PayrollPeriod.PeriodType.SEMI_MONTHLY ?
+                monthlyAmount/2.0 :
+                monthlyAmount;
     }
     
-    private double computeAllowance(double amount, PayrollPeriod period) {
-        double divisor = 1.0;
-        if (period.getPeriodType() == PayrollPeriod.PeriodType.SEMI_MONTHLY) {
-            divisor = 2.0;
-        }
-        
-        return amount / divisor;
-    }
-    
-    private double computeDeduction(DeductionRule rule, Payslip payslip) {
-        double deductionTypeAmount = rule.getName().equals("Withholding Tax") ?
-                                    payslip.getTaxableIncome() :
-                                    payslip.getGrossPay();
-        
-        //monthly
-        if (payslip.getPeriod().isMonthly()) {
-            return rule.computeMonthly(deductionTypeAmount);
-        }
-        
-        //semi monthly
-        //first cut off
-        if (payslip.getPeriod().isFirstCutoff()) {
-            return rule.computeSemi(deductionTypeAmount);
-        }
-        
-        //second cutoff
-        //get first cut off payslip
-        PayrollPeriod firstCutoffPeriod = PayrollPeriodFactory.firstCutoffOf(payslip.getPeriod().getMonthYear());
-        Payslip firstCutOffPayslip = computePayslip(new Employee(), new ArrayList<AttendanceRecord>(), firstCutoffPeriod);
-        //use the combine first and second cutoff to compute the whole month gross pay
-        double firstCutoffDeductionTypeAmount = rule.getName().equals("Withholding Tax") ?
-                                            firstCutOffPayslip.getTaxableIncome() :
-                                            firstCutOffPayslip.getGrossPay();
-        double fullMonthGrossPay = deductionTypeAmount + firstCutoffDeductionTypeAmount;
-        //compute the deduction for the said month
-        double fullMonthDeduction = rule.computeMonthly(fullMonthGrossPay);
-        //compute the second cutoff deduction by subtracting the firstcutoff deduction to the fullmonth deduction
-        double secondCutoffDeduction = fullMonthDeduction - firstCutOffPayslip.getDeductionAmount(rule);
-
-        return secondCutoffDeduction;
-    }
-    
-    private void addEarningPayslipLine(Payslip payslip, String name, double amount) {
-        if (amount >= 0) {
-            payslip.addLine(new PayslipLine(name, amount, PayslipLine.LineType.EARNING));
-        }
-    }
 }
