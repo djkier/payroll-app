@@ -90,7 +90,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         }
     }
 
-    private void changeSalaryUI(Payslip payslip) {
+    private void changeSalaryUI() {
         //For testing incorrect data
 //        System.out.println("Period: " + payslip.getPeriod().toString());
 //        System.out.println("Basic Salary: " + payslip.getEmployee().getCompProfile().getBasicSalary());
@@ -139,6 +139,15 @@ public class SalaryPanel extends javax.swing.JPanel {
         
         
     }
+    
+    private void showPrintDialog() {
+        printDialog.setSize(450, 880);
+        printDialog.setResizable(false);
+        printDialog.setLocationRelativeTo(this);
+        printDialog.setTitle("Printing...");
+        
+        printDialog.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,6 +157,59 @@ public class SalaryPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        printDialog = new javax.swing.JDialog();
+        printView = new javax.swing.JPanel();
+        printLayer = new javax.swing.JPanel();
+        decorLine3 = new javax.swing.JPanel();
+        motorPhIcon1 = new javax.swing.JLabel();
+        companyName1 = new javax.swing.JLabel();
+        address3 = new javax.swing.JLabel();
+        address4 = new javax.swing.JLabel();
+        empLabel1 = new javax.swing.JLabel();
+        nameLabel1 = new javax.swing.JLabel();
+        positionLabel1 = new javax.swing.JLabel();
+        startLabel1 = new javax.swing.JLabel();
+        endLabel1 = new javax.swing.JLabel();
+        decorLine4 = new javax.swing.JPanel();
+        earningsLabel1 = new javax.swing.JLabel();
+        basicLabel1 = new javax.swing.JLabel();
+        riceLabel1 = new javax.swing.JLabel();
+        phoneLabel1 = new javax.swing.JLabel();
+        clothingLabel1 = new javax.swing.JLabel();
+        basicText1 = new javax.swing.JLabel();
+        riceText1 = new javax.swing.JLabel();
+        phoneText1 = new javax.swing.JLabel();
+        clothingText1 = new javax.swing.JLabel();
+        grossLabel1 = new javax.swing.JLabel();
+        grossText1 = new javax.swing.JLabel();
+        decorLine10 = new javax.swing.JPanel();
+        deductionsLabel1 = new javax.swing.JLabel();
+        sssLabel1 = new javax.swing.JLabel();
+        philhealthLabel1 = new javax.swing.JLabel();
+        pagibigLabel1 = new javax.swing.JLabel();
+        taxLabel1 = new javax.swing.JLabel();
+        sssText1 = new javax.swing.JLabel();
+        philHealthText1 = new javax.swing.JLabel();
+        pagIbigText1 = new javax.swing.JLabel();
+        taxText1 = new javax.swing.JLabel();
+        totalDeductionLabel1 = new javax.swing.JLabel();
+        totalDeductionText1 = new javax.swing.JLabel();
+        decorLine11 = new javax.swing.JPanel();
+        summaryLabel1 = new javax.swing.JLabel();
+        gross2Label1 = new javax.swing.JLabel();
+        deduction2Label1 = new javax.swing.JLabel();
+        gross2Text1 = new javax.swing.JLabel();
+        totalDeduction2Text1 = new javax.swing.JLabel();
+        netPanel1 = new javax.swing.JPanel();
+        previewNetPayLabel1 = new javax.swing.JLabel();
+        previewNetPayText1 = new javax.swing.JLabel();
+        employeeNoText1 = new javax.swing.JLabel();
+        nameText1 = new javax.swing.JLabel();
+        positionText1 = new javax.swing.JLabel();
+        startText1 = new javax.swing.JLabel();
+        endText1 = new javax.swing.JLabel();
+        printNote = new javax.swing.JLabel();
+        printBtn = new javax.swing.JButton();
         payslipViewScrollPane = new javax.swing.JScrollPane();
         payslipView = new javax.swing.JPanel();
         payslipLayer = new javax.swing.JPanel();
@@ -222,6 +284,491 @@ public class SalaryPanel extends javax.swing.JPanel {
         mainSssText = new javax.swing.JLabel();
         mainGrossPayText = new javax.swing.JLabel();
         mainTaxText = new javax.swing.JLabel();
+
+        printDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        printDialog.setAlwaysOnTop(true);
+        printDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        printDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        printDialog.setName("printingDialog"); // NOI18N
+
+        printView.setBackground(new java.awt.Color(255, 255, 255));
+        printView.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204), 2));
+
+        printLayer.setBackground(new java.awt.Color(255, 255, 255));
+        printLayer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        decorLine3.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine3.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine3Layout = new javax.swing.GroupLayout(decorLine3);
+        decorLine3.setLayout(decorLine3Layout);
+        decorLine3Layout.setHorizontalGroup(
+            decorLine3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine3Layout.setVerticalGroup(
+            decorLine3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        motorPhIcon1.setIcon(this.icon);
+
+        companyName1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        companyName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        companyName1.setText("MotorPH");
+
+        address3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        address3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        address3.setText("Bagong Nayon, Quezon City");
+
+        address4.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        address4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        address4.setText("7 Jupiter Avenue Cor F. Sandoval Jr.");
+
+        empLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        empLabel1.setText("Employee No :");
+
+        nameLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        nameLabel1.setText("Name :");
+
+        positionLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        positionLabel1.setText("Position :");
+
+        startLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        startLabel1.setText("Period Start :");
+
+        endLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        endLabel1.setText("Period End :");
+
+        decorLine4.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine4.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine4Layout = new javax.swing.GroupLayout(decorLine4);
+        decorLine4.setLayout(decorLine4Layout);
+        decorLine4Layout.setHorizontalGroup(
+            decorLine4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine4Layout.setVerticalGroup(
+            decorLine4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        earningsLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        earningsLabel1.setText("Earnings");
+
+        basicLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        basicLabel1.setText("Basic Salary");
+
+        riceLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        riceLabel1.setText("Rice Subsidy");
+
+        phoneLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        phoneLabel1.setText("Phone Allowance");
+
+        clothingLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        clothingLabel1.setText("Clothing Allowance");
+
+        basicText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        basicText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        basicText1.setText("0.00");
+
+        riceText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        riceText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        riceText1.setText("0.00");
+
+        phoneText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        phoneText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        phoneText1.setText("180, 000.00");
+
+        clothingText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        clothingText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        clothingText1.setText("16,180,000.00");
+
+        grossLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        grossLabel1.setText("Gross Pay");
+
+        grossText1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        grossText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        grossText1.setText("16,180,000.00");
+
+        decorLine10.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine10.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine10Layout = new javax.swing.GroupLayout(decorLine10);
+        decorLine10.setLayout(decorLine10Layout);
+        decorLine10Layout.setHorizontalGroup(
+            decorLine10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine10Layout.setVerticalGroup(
+            decorLine10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        deductionsLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        deductionsLabel1.setText("Deductions");
+
+        sssLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        sssLabel1.setText("SSS");
+
+        philhealthLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        philhealthLabel1.setText("PhilHealth");
+
+        pagibigLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        pagibigLabel1.setText("Pag-IBIG");
+
+        taxLabel1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        taxLabel1.setText("Withholding Tax");
+
+        sssText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        sssText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        sssText1.setText("180, 000.00");
+
+        philHealthText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        philHealthText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        philHealthText1.setText("180, 000.00");
+
+        pagIbigText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        pagIbigText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pagIbigText1.setText("180, 000.00");
+
+        taxText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        taxText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        taxText1.setText("0.0");
+
+        totalDeductionLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        totalDeductionLabel1.setText("Total Deduction");
+
+        totalDeductionText1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        totalDeductionText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        totalDeductionText1.setText("0.00");
+
+        decorLine11.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine11.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine11Layout = new javax.swing.GroupLayout(decorLine11);
+        decorLine11.setLayout(decorLine11Layout);
+        decorLine11Layout.setHorizontalGroup(
+            decorLine11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine11Layout.setVerticalGroup(
+            decorLine11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 4, Short.MAX_VALUE)
+        );
+
+        summaryLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        summaryLabel1.setText("Summary");
+
+        gross2Label1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        gross2Label1.setText("Gross Pay");
+
+        deduction2Label1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        deduction2Label1.setText("Deduction");
+
+        gross2Text1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        gross2Text1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        gross2Text1.setText("180, 000.00");
+
+        totalDeduction2Text1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        totalDeduction2Text1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        totalDeduction2Text1.setText("16,180,000.00");
+
+        netPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
+
+        previewNetPayLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        previewNetPayLabel1.setText("Net Pay");
+
+        previewNetPayText1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        previewNetPayText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        previewNetPayText1.setText("16,180,000.00");
+
+        javax.swing.GroupLayout netPanel1Layout = new javax.swing.GroupLayout(netPanel1);
+        netPanel1.setLayout(netPanel1Layout);
+        netPanel1Layout.setHorizontalGroup(
+            netPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, netPanel1Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(previewNetPayLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(previewNetPayText1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
+        );
+        netPanel1Layout.setVerticalGroup(
+            netPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(netPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(netPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(previewNetPayLabel1)
+                    .addComponent(previewNetPayText1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 8, Short.MAX_VALUE))
+        );
+
+        employeeNoText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        employeeNoText1.setText("10010");
+
+        nameText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        nameText1.setText("Don Justine Fontanilla");
+
+        positionText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        positionText1.setText("Chief Operating Executive");
+
+        startText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        startText1.setText("2026/01/15");
+
+        endText1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        endText1.setText("2026/01/31");
+
+        javax.swing.GroupLayout printLayerLayout = new javax.swing.GroupLayout(printLayer);
+        printLayer.setLayout(printLayerLayout);
+        printLayerLayout.setHorizontalGroup(
+            printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(printLayerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(decorLine4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(decorLine10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(decorLine11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(netPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(printLayerLayout.createSequentialGroup()
+                                .addComponent(summaryLabel1)
+                                .addGap(217, 271, Short.MAX_VALUE))
+                            .addGroup(printLayerLayout.createSequentialGroup()
+                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addComponent(endLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(endText1))
+                                    .addComponent(earningsLabel1)
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addComponent(empLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(employeeNoText1))
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addComponent(nameLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(nameText1))
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addComponent(positionLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(positionText1))
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addComponent(startLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(startText1)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(printLayerLayout.createSequentialGroup()
+                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(printLayerLayout.createSequentialGroup()
+                                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(basicLabel1)
+                                                    .addComponent(riceLabel1)
+                                                    .addComponent(phoneLabel1)
+                                                    .addComponent(clothingLabel1)
+                                                    .addComponent(grossLabel1))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(clothingText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(riceText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(basicText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(phoneText1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                    .addComponent(grossText1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                            .addGroup(printLayerLayout.createSequentialGroup()
+                                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(gross2Label1)
+                                                    .addComponent(deduction2Label1))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(totalDeduction2Text1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                                    .addComponent(gross2Text1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addGroup(printLayerLayout.createSequentialGroup()
+                                        .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(deductionsLabel1)
+                                            .addGroup(printLayerLayout.createSequentialGroup()
+                                                .addGap(6, 6, 6)
+                                                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(sssLabel1)
+                                                    .addComponent(philhealthLabel1)
+                                                    .addComponent(pagibigLabel1)
+                                                    .addComponent(taxLabel1)
+                                                    .addComponent(totalDeductionLabel1))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(taxText1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(philHealthText1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(pagIbigText1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(sssText1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(totalDeductionText1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(8, 8, 8))))
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(motorPhIcon1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(address3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(address4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(companyName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        printLayerLayout.setVerticalGroup(
+            printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(printLayerLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(companyName1)
+                        .addGap(0, 0, 0)
+                        .addComponent(address4)
+                        .addGap(2, 2, 2)
+                        .addComponent(address3))
+                    .addComponent(motorPhIcon1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(decorLine3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(empLabel1)
+                    .addComponent(employeeNoText1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel1)
+                    .addComponent(nameText1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(positionLabel1)
+                    .addComponent(positionText1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(startLabel1)
+                    .addComponent(startText1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(endLabel1)
+                    .addComponent(endText1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(decorLine4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(earningsLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(basicLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(riceLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(phoneLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clothingLabel1))
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(basicText1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(riceText1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(phoneText1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clothingText1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(grossLabel1)
+                    .addComponent(grossText1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(decorLine10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deductionsLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(sssLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(philhealthLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pagibigLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(taxLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(totalDeductionLabel1)
+                            .addComponent(totalDeductionText1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(sssText1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(philHealthText1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pagIbigText1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(taxText1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(decorLine11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(summaryLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(printLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(gross2Text1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalDeduction2Text1))
+                    .addGroup(printLayerLayout.createSequentialGroup()
+                        .addComponent(gross2Label1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deduction2Label1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(netPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+        );
+
+        javax.swing.GroupLayout printViewLayout = new javax.swing.GroupLayout(printView);
+        printView.setLayout(printViewLayout);
+        printViewLayout.setHorizontalGroup(
+            printViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(printLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        printViewLayout.setVerticalGroup(
+            printViewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(printLayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        printNote.setFont(new java.awt.Font("Poppins", 2, 14)); // NOI18N
+        printNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        printNote.setText("This element is for simulation only");
+
+        printBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        printBtn.setText("CLOSE");
+        printBtn.addActionListener(this::printBtnActionPerformed);
+
+        javax.swing.GroupLayout printDialogLayout = new javax.swing.GroupLayout(printDialog.getContentPane());
+        printDialog.getContentPane().setLayout(printDialogLayout);
+        printDialogLayout.setHorizontalGroup(
+            printDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(printDialogLayout.createSequentialGroup()
+                .addGroup(printDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(printDialogLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(printDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(printView, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(printNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(printDialogLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        printDialogLayout.setVerticalGroup(
+            printDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(printDialogLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(printView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(printNote)
+                .addGap(16, 16, 16)
+                .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -924,6 +1471,8 @@ public class SalaryPanel extends javax.swing.JPanel {
 
     private void printPayBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printPayBtnActionPerformed
         // TODO add your handling code here:
+        showPrintDialog();
+        
     }//GEN-LAST:event_printPayBtnActionPerformed
 
     private void comboBoxPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxPeriodActionPerformed
@@ -937,45 +1486,73 @@ public class SalaryPanel extends javax.swing.JPanel {
             
             Payslip payslip = this.appContext.getPayrollService().generatePayslip(employee, selected);
             
-            changeSalaryUI(payslip);
+            this.payslip = payslip;
+            changeSalaryUI();
             
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_comboBoxPeriodActionPerformed
+
+    private void printBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printBtnActionPerformed
+        // TODO add your handling code here:
+        this.printDialog.dispose();
+    }//GEN-LAST:event_printBtnActionPerformed
     
-    
+    private Payslip payslip;
     private ImageIcon icon;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel address1;
     private javax.swing.JLabel address2;
+    private javax.swing.JLabel address3;
+    private javax.swing.JLabel address4;
     private javax.swing.JLabel basicLabel;
+    private javax.swing.JLabel basicLabel1;
     private javax.swing.JLabel basicText;
+    private javax.swing.JLabel basicText1;
     private javax.swing.JLabel clothingLabel;
+    private javax.swing.JLabel clothingLabel1;
     private javax.swing.JLabel clothingText;
+    private javax.swing.JLabel clothingText1;
     private javax.swing.JComboBox<PayrollPeriod> comboBoxPeriod;
     private javax.swing.JLabel companyName;
+    private javax.swing.JLabel companyName1;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel decorLine;
     private javax.swing.JPanel decorLine1;
+    private javax.swing.JPanel decorLine10;
+    private javax.swing.JPanel decorLine11;
     private javax.swing.JPanel decorLine2;
+    private javax.swing.JPanel decorLine3;
+    private javax.swing.JPanel decorLine4;
     private javax.swing.JPanel decorLine5;
     private javax.swing.JPanel decorLine6;
     private javax.swing.JPanel decorLine7;
     private javax.swing.JPanel decorLine8;
     private javax.swing.JPanel decorLine9;
     private javax.swing.JLabel deduction2Label;
+    private javax.swing.JLabel deduction2Label1;
     private javax.swing.JLabel deductionsLabel;
+    private javax.swing.JLabel deductionsLabel1;
     private javax.swing.JLabel earningsLabel;
+    private javax.swing.JLabel earningsLabel1;
     private javax.swing.JLabel empLabel;
+    private javax.swing.JLabel empLabel1;
     private javax.swing.JLabel employeeNoText;
+    private javax.swing.JLabel employeeNoText1;
     private javax.swing.JLabel endLabel;
+    private javax.swing.JLabel endLabel1;
     private javax.swing.JLabel endText;
+    private javax.swing.JLabel endText1;
     private javax.swing.JLabel gross2Label;
+    private javax.swing.JLabel gross2Label1;
     private javax.swing.JLabel gross2Text;
+    private javax.swing.JLabel gross2Text1;
     private javax.swing.JLabel grossLabel;
+    private javax.swing.JLabel grossLabel1;
     private javax.swing.JLabel grossText;
+    private javax.swing.JLabel grossText1;
     private javax.swing.JLabel mainGrossPayLabel;
     private javax.swing.JLabel mainGrossPayText;
     private javax.swing.JLabel mainNetPayText;
@@ -985,42 +1562,73 @@ public class SalaryPanel extends javax.swing.JPanel {
     private javax.swing.JLabel mainTaxText;
     private javax.swing.JLabel mainTaxableText;
     private javax.swing.JLabel motorPhIcon;
+    private javax.swing.JLabel motorPhIcon1;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel nameText;
+    private javax.swing.JLabel nameText1;
     private javax.swing.JPanel netPanel;
+    private javax.swing.JPanel netPanel1;
     private javax.swing.JLabel netPay2Label;
     private javax.swing.JLabel pagIbigText;
+    private javax.swing.JLabel pagIbigText1;
     private javax.swing.JLabel pagibig2Label;
     private javax.swing.JLabel pagibigLabel;
+    private javax.swing.JLabel pagibigLabel1;
     private javax.swing.JPanel payslipLayer;
     private javax.swing.JPanel payslipView;
     private javax.swing.JScrollPane payslipViewScrollPane;
     private javax.swing.JLabel periodCoveredLabel;
     private javax.swing.JLabel philHealth2Label;
     private javax.swing.JLabel philHealthText;
+    private javax.swing.JLabel philHealthText1;
     private javax.swing.JLabel philhealthLabel;
+    private javax.swing.JLabel philhealthLabel1;
     private javax.swing.JLabel phoneLabel;
+    private javax.swing.JLabel phoneLabel1;
     private javax.swing.JLabel phoneText;
+    private javax.swing.JLabel phoneText1;
     private javax.swing.JLabel positionLabel;
+    private javax.swing.JLabel positionLabel1;
     private javax.swing.JLabel positionText;
+    private javax.swing.JLabel positionText1;
     private javax.swing.JLabel previewNetPayLabel;
+    private javax.swing.JLabel previewNetPayLabel1;
     private javax.swing.JLabel previewNetPayText;
+    private javax.swing.JLabel previewNetPayText1;
+    private javax.swing.JButton printBtn;
+    private javax.swing.JDialog printDialog;
+    private javax.swing.JPanel printLayer;
+    private javax.swing.JLabel printNote;
     private javax.swing.JButton printPayBtn;
+    private javax.swing.JPanel printView;
     private javax.swing.JLabel riceLabel;
+    private javax.swing.JLabel riceLabel1;
     private javax.swing.JLabel riceText;
+    private javax.swing.JLabel riceText1;
     private javax.swing.JLabel sss2Label;
     private javax.swing.JLabel sssLabel;
+    private javax.swing.JLabel sssLabel1;
     private javax.swing.JLabel sssText;
+    private javax.swing.JLabel sssText1;
     private javax.swing.JLabel startLabel;
+    private javax.swing.JLabel startLabel1;
     private javax.swing.JLabel startText;
+    private javax.swing.JLabel startText1;
     private javax.swing.JLabel summary2Label;
     private javax.swing.JLabel summaryLabel;
+    private javax.swing.JLabel summaryLabel1;
     private javax.swing.JLabel tax2Label;
     private javax.swing.JLabel taxLabel;
+    private javax.swing.JLabel taxLabel1;
     private javax.swing.JLabel taxText;
+    private javax.swing.JLabel taxText1;
     private javax.swing.JLabel taxableIncomeLabel;
     private javax.swing.JLabel totalDeduction2Text;
+    private javax.swing.JLabel totalDeduction2Text1;
     private javax.swing.JLabel totalDeductionLabel;
+    private javax.swing.JLabel totalDeductionLabel1;
     private javax.swing.JLabel totalDeductionText;
+    private javax.swing.JLabel totalDeductionText1;
     // End of variables declaration//GEN-END:variables
 }

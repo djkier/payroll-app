@@ -9,6 +9,7 @@ import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.LeavePanel;
 import com.motorph.payrollsystem.app.AppContext;
+import javax.swing.ImageIcon;
 
 
 
@@ -38,6 +39,15 @@ public class MainFrame extends javax.swing.JFrame {
         //Righ panel default screen after logging in
         rightPanel.setLayout(new java.awt.BorderLayout());
         homeScreenDefault(appContext);
+        
+        
+        //frame icon
+        ImageIcon icon = new ImageIcon(
+                getClass().getResource("/images/tab-icon/motorPhFrame.png")
+        );
+        
+        setIconImage(icon.getImage());
+        setTitle("MotorPH Payroll - Employee");
  
     }
     
@@ -69,11 +79,10 @@ public class MainFrame extends javax.swing.JFrame {
         logoutConfirm.setTitle("Logging out...");
         
         logoutConfirm.setVisible(true);
-        this.setEnabled(false);
+ 
     }
     
     private void logoutClosing() {
-        this.setEnabled(true);
         this.logoutConfirm.dispose();
     }
         
@@ -105,6 +114,8 @@ public class MainFrame extends javax.swing.JFrame {
         leaveLabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
 
+        logoutConfirm.setAlwaysOnTop(true);
+        logoutConfirm.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         logoutConfirm.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 logoutConfirmWindowClosing(evt);
@@ -496,7 +507,6 @@ public class MainFrame extends javax.swing.JFrame {
         PasswordFrame loginFrame = new PasswordFrame(appContext);
         loginFrame.setVisible(true);
 
-        this.setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_yesBtnActionPerformed
 
