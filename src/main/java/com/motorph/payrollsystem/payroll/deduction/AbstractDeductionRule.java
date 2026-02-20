@@ -18,5 +18,10 @@ public abstract class AbstractDeductionRule implements DeductionRule {
         double estimatedMonthly = semiPay * 2.0;
         return computeMonthly(estimatedMonthly) / 2.0;
     }
+    
+    @Override
+    public Basis getBasis() {
+        return Basis.GROSS_PAY;
+    }
 
 }

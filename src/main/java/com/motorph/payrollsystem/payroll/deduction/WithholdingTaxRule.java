@@ -26,6 +26,11 @@ public class WithholdingTaxRule extends AbstractDeductionRule {
     }
     
     @Override
+    public Basis getBasis() {
+        return Basis.TAXABLE_INCOME;
+    }
+    
+    @Override
     public double computeMonthly(double taxablePay) {
         double tax;
         

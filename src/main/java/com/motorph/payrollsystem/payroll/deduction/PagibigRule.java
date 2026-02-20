@@ -22,6 +22,8 @@ public class PagibigRule extends AbstractDeductionRule {
         return "Pag-IBIG";
     }
     
+    
+    
     @Override
     public double computeMonthly(double grossPay) {
    
@@ -38,6 +40,8 @@ public class PagibigRule extends AbstractDeductionRule {
 
         return monthlyContribution;
     }
+    
+    
     
     
   

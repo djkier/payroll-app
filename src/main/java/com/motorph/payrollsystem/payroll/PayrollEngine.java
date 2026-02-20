@@ -16,6 +16,7 @@ import com.motorph.payrollsystem.payroll.deduction.SssRule;
 import com.motorph.payrollsystem.payroll.deduction.WithholdingTaxRule;
 import com.motorph.payrollsystem.utility.PayrollPeriodFactory;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,21 +26,20 @@ import java.util.List;
 public class PayrollEngine {
     
     private final List<DeductionRule> deductionRules;
-    private Employee employee;
-    private List<AttendanceRecord> records;
+    private final DeductionRule taxRule;
     
     public PayrollEngine() {
         this.deductionRules = List.of(
                 new SssRule(), 
                 new PhilHealthRule(), 
                 new PagibigRule());
+        this.taxRule = new WithholdingTaxRule();
     }
     
     //payroll engine should not store the employee, records or period its function is to compute the payslip
     //excluding the deduction since deduction rules is universal for every payslip
     public Payslip computePayslip (Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
-        this.employee = employee;
-        this.records = records;
+        
         //get total hour
         double totalHours = computeTotalHours(records, period);
         Payslip payslip = new Payslip(employee, period);
@@ -131,7 +131,7 @@ public class PayrollEngine {
         //second cutoff
         //get first cut off payslip
         PayrollPeriod firstCutoffPeriod = PayrollPeriodFactory.firstCutoffOf(payslip.getPeriod().getMonthYear());
-        Payslip firstCutOffPayslip = computePayslip(employee, records, firstCutoffPeriod);
+        Payslip firstCutOffPayslip = computePayslip(new Employee(), new ArrayList<AttendanceRecord>(), firstCutoffPeriod);
         //use the combine first and second cutoff to compute the whole month gross pay
         double firstCutoffDeductionTypeAmount = rule.getName().equals("Withholding Tax") ?
                                             firstCutOffPayslip.getTaxableIncome() :

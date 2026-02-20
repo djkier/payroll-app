@@ -93,7 +93,6 @@ public class SalaryPanel extends javax.swing.JPanel {
         //Main summary
         mainGrossPayText.setText(Money.displayMoney(payslip.getGrossPay()));
         mainSssText.setText(Money.displayMoney(payslip.getSssAmount()));
-        System.out.println("SSS amount " + payslip.getSssAmount());
         mainPhilHealthText.setText(Money.displayMoney(payslip.getPhilHealthAmount()));
         mainPagIbigText.setText(Money.displayMoney(payslip.getPagibigAmount()));
         //Main tax
