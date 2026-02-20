@@ -112,22 +112,30 @@ public class PayrollEngine {
     }
     
     private double computeDeduction(DeductionRule rule, Payslip payslip) {
+        double deductionTypeAmount = rule.getName().equals("Withholding Tax") ?
+                                    payslip.getTaxableIncome() :
+                                    payslip.getGrossPay();
+        
         //monthly
         if (payslip.getPeriod().isMonthly()) {
-            return rule.computeMonthly(payslip.getGrossPay());
+            return rule.computeMonthly(deductionTypeAmount);
         }
         
         //semi monthly
         //first cut off
         if (payslip.getPeriod().isFirstCutoff()) {
-            return rule.computeSemi(payslip.getGrossPay());
+            return rule.computeSemi(deductionTypeAmount);
         }
         
         //second cutoff
+        //get first cut off payslip
         PayrollPeriod firstCutoffPeriod = PayrollPeriodFactory.firstCutoffOf(payslip.getPeriod().getMonthYear());
         Payslip firstCutOffPayslip = computePayslip(employee, records, firstCutoffPeriod);
+        //use the combine first and second cutoff to compute the whole month gross pay
         double fullMonthGrossPay = payslip.getGrossPay() + firstCutOffPayslip.getGrossPay();
+        //compute the deduction for the said month
         double fullMonthDeduction = rule.computeMonthly(fullMonthGrossPay);
+        //compute the second cutoff deduction by subtracting the firstcutoff deduction to the fullmonth deduction
         double secondCutoffDeduction = fullMonthDeduction - firstCutOffPayslip.getDeductionAmount(rule);
 
         return secondCutoffDeduction;

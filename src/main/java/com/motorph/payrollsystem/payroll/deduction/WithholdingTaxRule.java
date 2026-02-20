@@ -11,24 +11,36 @@ import com.motorph.payrollsystem.domain.employee.Employee;
  * @author djjus
  */
 public class WithholdingTaxRule extends AbstractDeductionRule {
-    
+    /*
+    *reference for computation
+    *https://sprout.ph/articles/how-to-calculate-withholding-tax-philippines/
+    *Date: January 1, 2023
+    *TRAIN law
+    */
     @Override
     public String getName() {
         return "Withholding Tax";
     }
     
     @Override
-    public double computeMonthly(double taxablePayPeriod) {
-        //NOT OFFICIAL COMPUTATION
-        //NOT OFFICIAL COMPUTATION
-        //NOT OFFICIAL COMPUTATION
+    public double computeMonthly(double taxablePay) {
         double tax;
         
-        if (taxablePayPeriod <= 10000) tax = 0;
-        else if (taxablePayPeriod <= 20000) tax = (taxablePayPeriod - 10000) *0.10;
-        else tax = 1000 + (taxablePayPeriod - 20000) * 0.15;
+        if (taxablePay > 666667) {
+            tax = 183541.80 + ((taxablePay - 666667) * 0.35);
+        } else if (taxablePay > 166667) {
+            tax = 33541.80 + ((taxablePay - 166667) * 0.3);
+        } else if (taxablePay > 66667) {
+            tax = 8541.80 + ((taxablePay - 66667) * 0.25);
+        } else if (taxablePay > 33333) {
+            tax = 1875 + ((taxablePay - 33333) * 0.2);
+        } else if (taxablePay > 20833) {
+            tax = (taxablePay - 20833) * 0.15;
+        } else {
+            tax = 0;
+        }
         
-        return Math.max(0, tax);
+        return tax;
     }
     
     @Override

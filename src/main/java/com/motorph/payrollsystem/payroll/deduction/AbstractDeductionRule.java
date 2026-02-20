@@ -14,8 +14,9 @@ import com.motorph.payrollsystem.domain.payroll.PayrollPeriod;
 public abstract class AbstractDeductionRule implements DeductionRule {
 
     @Override
-    public double computeSemi(double grossPay) {
-        return computeMonthly(grossPay);
+    public double computeSemi(double semiPay) {
+        double estimatedMonthly = semiPay * 2.0;
+        return computeMonthly(estimatedMonthly) / 2.0;
     }
 
 }
