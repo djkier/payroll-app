@@ -136,11 +136,37 @@ public class SalaryPanel extends javax.swing.JPanel {
         totalDeduction2Text.setText(Money.displayMoney(payslip.getTotalDeductions()));
         
         previewNetPayText.setText(Money.displayMoney(payslip.getNetPay()));
+    }
+    
+    private void printSalaryUI() {
+        Employee employee = payslip.getEmployee();
+        employeeNoText1.setText(employee.getEmployeeNo());
+        nameText1.setText(employee.getFullName());
+        positionText1.setText(employee.getDepartmentInfo().getPosition());
+        //Period Information
+        startText1.setText(Dates.fullDate(payslip.getPeriod().getStartDate()));
+        endText1.setText(Dates.fullDate(payslip.getPeriod().getEndDate()));
+        //Earnings
+        basicText1.setText(Money.displayMoney(payslip.getBasicPayAmount()));
+        riceText1.setText(Money.displayMoney(payslip.getRiceAmount()));
+        phoneText1.setText(Money.displayMoney(payslip.getPhoneAmount()));
+        clothingText1.setText(Money.displayMoney(payslip.getClothingAmount()));
+        grossText1.setText(Money.displayMoney(payslip.getGrossPay()));
+        //Deductions
+        sssText1.setText(Money.displayMoney(payslip.getSssAmount()));
+        philHealthText1.setText(Money.displayMoney(payslip.getPhilHealthAmount()));
+        pagIbigText1.setText(Money.displayMoney(payslip.getPagibigAmount()));
+        taxText1.setText(Money.displayMoney(payslip.getTaxAmount()));
+        totalDeductionText1.setText(Money.displayMoney(payslip.getTotalDeductions()));
+        //Summary
+        gross2Text1.setText(Money.displayMoney(payslip.getGrossPay()));
+        totalDeduction2Text1.setText(Money.displayMoney(payslip.getTotalDeductions()));
         
-        
+        previewNetPayText1.setText(Money.displayMoney(payslip.getNetPay()));
     }
     
     private void showPrintDialog() {
+        printSalaryUI();
         printDialog.setSize(450, 880);
         printDialog.setResizable(false);
         printDialog.setLocationRelativeTo(this);
