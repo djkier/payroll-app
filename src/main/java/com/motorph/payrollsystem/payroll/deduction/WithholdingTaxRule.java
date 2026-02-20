@@ -18,7 +18,7 @@ public class WithholdingTaxRule extends AbstractDeductionRule {
     }
     
     @Override
-    public double compute(Employee employee, double taxablePayPeriod) {
+    public double computeMonthly(double taxablePayPeriod) {
         //NOT OFFICIAL COMPUTATION
         //NOT OFFICIAL COMPUTATION
         //NOT OFFICIAL COMPUTATION
@@ -28,6 +28,11 @@ public class WithholdingTaxRule extends AbstractDeductionRule {
         else if (taxablePayPeriod <= 20000) tax = (taxablePayPeriod - 10000) *0.10;
         else tax = 1000 + (taxablePayPeriod - 20000) * 0.15;
         
-        return round2(Math.max(0, tax));
+        return Math.max(0, tax);
+    }
+    
+    @Override
+    public double computeSemi(double grossPay) {
+        return 0;
     }
 }

@@ -5,23 +5,17 @@
 package com.motorph.payrollsystem.payroll.deduction;
 
 import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.domain.payroll.PayrollPeriod;
 
 /**
  *
  * @author djjus
  */
 public abstract class AbstractDeductionRule implements DeductionRule {
-    protected double getMonthlyBasic(Employee employee) {
-        return employee.getCompProfile().getBasicSalary();
+
+    @Override
+    public double computeSemi(double grossPay) {
+        return computeMonthly(grossPay);
     }
-    
-    protected double getTotalAllowanceesPerPeriod(Employee employee) {
-        return employee.getCompProfile().getRiceSubsidy() +
-                employee.getCompProfile().getPhoneAllowance() +
-                employee.getCompProfile().getClothingAllowance();
-    }
-    
-    protected double round2(double x) {
-        return Math.round(x*100.0) / 100.0;
-    }
+
 }

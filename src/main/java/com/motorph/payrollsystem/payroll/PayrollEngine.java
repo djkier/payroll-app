@@ -14,6 +14,7 @@ import com.motorph.payrollsystem.payroll.deduction.PagibigRule;
 import com.motorph.payrollsystem.payroll.deduction.PhilHealthRule;
 import com.motorph.payrollsystem.payroll.deduction.SssRule;
 import com.motorph.payrollsystem.payroll.deduction.WithholdingTaxRule;
+import com.motorph.payrollsystem.utility.PayrollPeriodFactory;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,6 +25,8 @@ import java.util.List;
 public class PayrollEngine {
     
     private final List<DeductionRule> deductionRules;
+    private Employee employee;
+    private List<AttendanceRecord> records;
     
     public PayrollEngine() {
         this.deductionRules = List.of(
@@ -35,6 +38,8 @@ public class PayrollEngine {
     //payroll engine should not store the employee, records or period its function is to compute the payslip
     //excluding the deduction since deduction rules is universal for every payslip
     public Payslip computePayslip (Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
+        this.employee = employee;
+        this.records = records;
         //get total hour
         double totalHours = computeTotalHours(records, period);
         Payslip payslip = new Payslip(employee, period);
@@ -56,7 +61,7 @@ public class PayrollEngine {
         //Payslip govt DEDUCTION (tax excluded)
         for (DeductionRule rule : deductionRules) {
             //change rule.compute
-            double deduction = rule.compute(employee, payslip.getGrossPay());
+            double deduction = computeDeduction(rule, payslip);
             payslip.addLine(new PayslipLine(rule.getName(),
                                             deduction,
                                             PayslipLine.LineType.DEDUCTION));
@@ -64,7 +69,7 @@ public class PayrollEngine {
         
         //withholding tax
         DeductionRule taxRule = new WithholdingTaxRule();
-        double tax = taxRule.compute(employee, payslip.getTaxableIncome());
+        double tax = taxRule.computeMonthly(payslip.getTaxableIncome());
         payslip.addLine(new PayslipLine(taxRule.getName(),
                                         tax,
                                         PayslipLine.LineType.DEDUCTION));
@@ -105,10 +110,28 @@ public class PayrollEngine {
         
         return amount / divisor;
     }
-//    
-//    private double computeDeduction(DeductionRule rule, Employee employee, double grossPay) {
-//        
-//    }
+    
+    private double computeDeduction(DeductionRule rule, Payslip payslip) {
+        //monthly
+        if (payslip.getPeriod().isMonthly()) {
+            return rule.computeMonthly(payslip.getGrossPay());
+        }
+        
+        //semi monthly
+        //first cut off
+        if (payslip.getPeriod().isFirstCutoff()) {
+            return rule.computeSemi(payslip.getGrossPay());
+        }
+        
+        //second cutoff
+        PayrollPeriod firstCutoffPeriod = PayrollPeriodFactory.firstCutoffOf(payslip.getPeriod().getMonthYear());
+        Payslip firstCutOffPayslip = computePayslip(employee, records, firstCutoffPeriod);
+        double fullMonthGrossPay = payslip.getGrossPay() + firstCutOffPayslip.getGrossPay();
+        double fullMonthDeduction = rule.computeMonthly(fullMonthGrossPay);
+        double secondCutoffDeduction = fullMonthDeduction - firstCutOffPayslip.getDeductionAmount(rule);
+
+        return secondCutoffDeduction;
+    }
     
     private void addEarningPayslipLine(Payslip payslip, String name, double amount) {
         if (amount >= 0) {

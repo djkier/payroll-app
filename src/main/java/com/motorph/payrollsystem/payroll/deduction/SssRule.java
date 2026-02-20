@@ -18,13 +18,11 @@ public class SssRule extends AbstractDeductionRule {
     }
     
     @Override
-    public double compute(Employee employee, double grossPayPeriod) {
+    public double computeMonthly(double grossPayPeriod) {
         //placeholder
-        double monthlyBasic = getMonthlyBasic(employee);
-        
-        
         //NOT OFFICIAL COMPUTATION
-        double monthlyContribution = grossPayPeriod * 0.045;
-        return round2(monthlyContribution);
+        double monthlyContribution = grossPayPeriod* 0.02;
+        return monthlyContribution;
     }
+    
 }

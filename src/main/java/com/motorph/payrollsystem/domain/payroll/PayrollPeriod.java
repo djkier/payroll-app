@@ -26,14 +26,14 @@ public class PayrollPeriod {
     private final LocalDate endDate;
     private PeriodType periodType;
     private Cutoff cutoff;
-    private final YearMonth month;
+    private final YearMonth monthYear;
     
     public PayrollPeriod(LocalDate startDate, LocalDate endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.periodType = null;
         this.cutoff = null;
-        this.month = YearMonth.from(startDate);
+        this.monthYear = YearMonth.from(startDate);
     }
 
     public LocalDate getStartDate() {
@@ -52,8 +52,8 @@ public class PayrollPeriod {
         return cutoff;
     }
 
-    public YearMonth getMonth() {
-        return month;
+    public YearMonth getMonthYear() {
+        return monthYear;
     }
     
     public void setPeriodType(PeriodType periodType) {

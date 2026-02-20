@@ -18,11 +18,13 @@ public class PagibigRule extends AbstractDeductionRule {
     }
     
     @Override
-    public double compute(Employee employee, double grossPayPeriod) {
-        double monthlyBasic = getMonthlyBasic(employee);
-        
+    public double computeMonthly(double grossPay) {
+
         //NOT OFFICIAL COMPUTATION
-        double monthlyContribution = monthlyBasic * 0.02;
-        return round2(monthlyContribution);
+        double monthlyContribution = grossPay* 0.02;
+        return monthlyContribution;
     }
+    
+    
+  
 }

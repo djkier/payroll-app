@@ -5,6 +5,7 @@
 package com.motorph.payrollsystem.domain.payroll;
 
 import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.payroll.deduction.DeductionRule;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +131,9 @@ public class Payslip {
         return getGrossPay() - getGovtDeduction();
     }
     
-    
+    public double getDeductionAmount(DeductionRule rule) {
+        return getOtherAmount(rule.getName(), PayslipLine.LineType.DEDUCTION);
+    }
     
     private double getOtherAmount(String label, PayslipLine.LineType type) {
         for (PayslipLine line : lines) {

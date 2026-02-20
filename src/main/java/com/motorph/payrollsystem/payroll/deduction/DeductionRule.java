@@ -16,6 +16,8 @@ public interface DeductionRule {
     
     //compute() compute deduction for this payroll period
     //grossPayPeriod is the gross pay for the selected cutoff
-    double compute(Employee employee, double grossPayPeriod);
+    double computeMonthly(double grossPay);
+    double computeSemi(double grossPay);
+
     
 }

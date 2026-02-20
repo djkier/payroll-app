@@ -18,11 +18,12 @@ public class PhilHealthRule extends AbstractDeductionRule{
     }
     
     @Override
-    public double compute(Employee employee, double grossPayPeriod) {
-        double monthlyBasic = getMonthlyBasic(employee);
-        
+    public double computeMonthly(double grossPayPeriod) {
+      
         //NOT OFFICICAL COMPUTATION
-        double monthlyContribution = monthlyBasic * 0.025;
-        return round2(monthlyContribution);
+        double monthlyContribution = grossPayPeriod* 0.02;
+        return monthlyContribution;
     }
+    
+
 }

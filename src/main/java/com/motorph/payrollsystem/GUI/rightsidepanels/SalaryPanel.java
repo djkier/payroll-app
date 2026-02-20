@@ -707,7 +707,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         summary2Label.setText("Summary");
 
         mainGrossPayLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        mainGrossPayLabel.setText("Basic Pay");
+        mainGrossPayLabel.setText("Gross Pay");
 
         taxableIncomeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         taxableIncomeLabel.setText("Taxable Income");
