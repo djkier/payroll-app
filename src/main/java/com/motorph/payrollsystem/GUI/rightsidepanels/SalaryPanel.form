@@ -234,140 +234,126 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="decorLine1" max="32767" attributes="0"/>
+                              <Component id="decorLine2" max="32767" attributes="0"/>
+                              <Component id="decorLine5" max="32767" attributes="0"/>
+                              <Component id="decorLine6" alignment="0" max="32767" attributes="0"/>
+                              <Component id="netPanel" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                  <Component id="motorPhIcon" min="-2" pref="40" max="-2" attributes="0"/>
+                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                                          <Component id="companyName" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="217" pref="271" max="32767" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                                          <Component id="address1" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="endLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="endText" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="earningsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="empLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="employeeNoText" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="nameText" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="positionLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="positionText" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="startLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="startText" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="basicLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="riceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="clothingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="grossLabel" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="32767" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="clothingText" alignment="0" max="32767" attributes="0"/>
+                                                              <Component id="riceText" alignment="0" max="32767" attributes="0"/>
+                                                              <Component id="basicText" max="32767" attributes="0"/>
+                                                              <Component id="phoneText" alignment="0" max="32767" attributes="0"/>
+                                                              <Component id="grossText" alignment="1" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <Group type="102" attributes="0">
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="gross2Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="deduction2Label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <EmptySpace max="32767" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                              <Component id="totalDeduction2Text" alignment="0" pref="83" max="32767" attributes="0"/>
+                                                              <Component id="gross2Text" alignment="0" max="32767" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="deductionsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                                                          <Group type="103" groupAlignment="0" attributes="0">
+                                                              <Component id="sssLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="philhealthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="pagibigLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="taxLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="totalDeductionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                  </Group>
+                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                      <Component id="taxText" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="philHealthText" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="pagIbigText" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="sssText" min="-2" pref="99" max="-2" attributes="0"/>
+                                                      <Component id="totalDeductionText" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="motorPhIcon" min="-2" pref="67" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="address2" max="32767" attributes="0"/>
+                                      <Component id="address1" max="32767" attributes="0"/>
+                                      <Component id="companyName" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="decorLine1" max="32767" attributes="0"/>
-                                      <Component id="decorLine2" max="32767" attributes="0"/>
-                                      <Component id="decorLine5" max="32767" attributes="0"/>
-                                      <Component id="decorLine6" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="netPanel" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="217" pref="271" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="endLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="endText" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Component id="earningsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="empLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="employeeNoText" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="nameText" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="positionLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="positionText" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Component id="startLabel" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="startText" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" attributes="0">
-                                                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="basicLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="riceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="clothingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="grossLabel" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                                  <EmptySpace max="32767" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                      <Component id="clothingText" alignment="0" max="32767" attributes="0"/>
-                                                                      <Component id="riceText" alignment="0" max="32767" attributes="0"/>
-                                                                      <Component id="basicText" max="32767" attributes="0"/>
-                                                                      <Component id="phoneText" alignment="0" max="32767" attributes="0"/>
-                                                                      <Component id="grossText" alignment="1" max="32767" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                              <Group type="102" attributes="0">
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="gross2Label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="deduction2Label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                                  <EmptySpace max="32767" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                      <Component id="totalDeduction2Text" alignment="0" pref="83" max="32767" attributes="0"/>
-                                                                      <Component id="gross2Text" alignment="0" max="32767" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                          </Group>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <Group type="103" groupAlignment="0" attributes="0">
-                                                              <Component id="deductionsLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              <Group type="102" alignment="0" attributes="0">
-                                                                  <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                                      <Component id="sssLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="philhealthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="pagibigLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="taxLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                      <Component id="totalDeductionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                  </Group>
-                                                              </Group>
-                                                          </Group>
-                                                          <EmptySpace max="32767" attributes="0"/>
-                                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                                              <Component id="taxText" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="philHealthText" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="pagIbigText" alignment="0" max="32767" attributes="0"/>
-                                                              <Component id="sssText" min="-2" pref="99" max="-2" attributes="0"/>
-                                                              <Component id="totalDeductionText" alignment="0" max="32767" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                  </Group>
-                                                  <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                              </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          <Component id="address2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -380,11 +366,11 @@
                                   <Component id="companyName" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                                   <Component id="address1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="address2" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="motorPhIcon" min="-2" max="-2" attributes="0"/>
+                              <Component id="motorPhIcon" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                          <Component id="address2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="decorLine1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -474,7 +460,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="decorLine6" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="summaryLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -520,8 +506,8 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="motorPhIcon">
                   <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/images/tab-icon/attendance.png"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="this.icon" type="code"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -530,6 +516,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="14" style="1"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="MotorPH"/>
                   </Properties>
                 </Component>
@@ -538,6 +525,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Bagong Nayon, Quezon City"/>
                   </Properties>
                 </Component>
@@ -546,6 +534,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="7 Jupiter Avenue Cor F. Sandoval Jr."/>
                   </Properties>
                 </Component>
