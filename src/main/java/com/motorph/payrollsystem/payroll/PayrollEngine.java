@@ -56,7 +56,7 @@ public class PayrollEngine {
         addEarningPayslipLine(payslip, "Rice Subsidy", riceSubsidy);
         addEarningPayslipLine(payslip, "Phone Allowance", phoneAllowance);
         addEarningPayslipLine(payslip, "Clothing Allowance", clothingAllowance);
-        
+        payslip.computeTotals();
         
         //Payslip govt DEDUCTION (tax excluded)
         for (DeductionRule rule : deductionRules) {
@@ -66,10 +66,11 @@ public class PayrollEngine {
                                             deduction,
                                             PayslipLine.LineType.DEDUCTION));
         }
+        payslip.computeTotals();
         
         //withholding tax
         DeductionRule taxRule = new WithholdingTaxRule();
-        double tax = taxRule.computeMonthly(payslip.getTaxableIncome());
+        double tax = computeDeduction(taxRule, payslip);
         payslip.addLine(new PayslipLine(taxRule.getName(),
                                         tax,
                                         PayslipLine.LineType.DEDUCTION));
@@ -132,7 +133,10 @@ public class PayrollEngine {
         PayrollPeriod firstCutoffPeriod = PayrollPeriodFactory.firstCutoffOf(payslip.getPeriod().getMonthYear());
         Payslip firstCutOffPayslip = computePayslip(employee, records, firstCutoffPeriod);
         //use the combine first and second cutoff to compute the whole month gross pay
-        double fullMonthGrossPay = payslip.getGrossPay() + firstCutOffPayslip.getGrossPay();
+        double firstCutoffDeductionTypeAmount = rule.getName().equals("Withholding Tax") ?
+                                            firstCutOffPayslip.getTaxableIncome() :
+                                            firstCutOffPayslip.getGrossPay();
+        double fullMonthGrossPay = deductionTypeAmount + firstCutoffDeductionTypeAmount;
         //compute the deduction for the said month
         double fullMonthDeduction = rule.computeMonthly(fullMonthGrossPay);
         //compute the second cutoff deduction by subtracting the firstcutoff deduction to the fullmonth deduction
