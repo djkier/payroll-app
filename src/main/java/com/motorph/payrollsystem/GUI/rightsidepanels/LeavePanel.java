@@ -32,15 +32,15 @@ public class LeavePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        welcomeLabel = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
+        newRequestBtn = new javax.swing.JButton();
+        scrollPaneTable = new javax.swing.JScrollPane();
+        requestTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
-
-        welcomeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        welcomeLabel.setText("Welcome back,");
 
         dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         dashboardLabel.setText("LEAVE REQUESTS");
@@ -59,6 +59,54 @@ public class LeavePanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
+        newRequestBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        newRequestBtn.setText("+   New Request");
+        newRequestBtn.addActionListener(this::newRequestBtnActionPerformed);
+
+        requestTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        requestTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Filed Date", "Subject", "From", "To", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        requestTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        requestTable.setFocusable(false);
+        requestTable.setRowHeight(28);
+        requestTable.getTableHeader().setReorderingAllowed(false);
+        scrollPaneTable.setViewportView(requestTable);
+
+        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        jLabel1.setText("Request History");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,13 +115,12 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(dashboardLabel))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(welcomeLabel)))
+                    .addComponent(jLabel1)
+                    .addComponent(dashboardLabel)
+                    .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,15 +131,26 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(welcomeLabel)
-                .addContainerGap(543, Short.MAX_VALUE))
+                .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void newRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRequestBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newRequestBtnActionPerformed
 
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel decorLine;
-    private javax.swing.JLabel welcomeLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton newRequestBtn;
+    private javax.swing.JTable requestTable;
+    private javax.swing.JScrollPane scrollPaneTable;
     // End of variables declaration//GEN-END:variables
 }
