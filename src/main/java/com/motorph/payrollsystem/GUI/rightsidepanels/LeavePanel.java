@@ -9,6 +9,7 @@ import com.motorph.payrollsystem.app.SessionManager;
 import com.motorph.payrollsystem.domain.leave.LeaveRequest;
 import com.motorph.payrollsystem.domain.leave.LeaveStatus;
 import com.motorph.payrollsystem.service.LeaveService;
+import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Color;
 import java.awt.Component;
@@ -36,6 +37,7 @@ public class LeavePanel extends javax.swing.JPanel {
        
         initComponents();
         loadLeaveHistory();
+        hookRowDoubleClick();
         
 
     }
@@ -148,6 +150,61 @@ public class LeavePanel extends javax.swing.JPanel {
         };
     }
     
+    private void hookRowDoubleClick() {
+        requestTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (evt.getClickCount() != 2) return;
+                
+                int row = requestTable.getSelectedRow();
+                if (row < 0 || row >= currentHistory.size()) return;
+                
+                LeaveRequest req = currentHistory.get(row);
+                showLeaveDetails(req);
+            }
+        }) ;
+    }
+    
+    private void showLeaveDetails(LeaveRequest req) {
+        String approvedBy = (req.getApprovedBy() == null) ? "-" : req.getApprovedBy();
+        subjectText.setText(req.getSubject());
+        filedText.setText(Dates.shortFullDate(req.getFiledDate()));
+        leaveText.setText(Dates.shortFullDate(req.getLeaveStart()) + " to " + Dates.shortFullDate(req.getLeaveEnd()));
+        
+        dynamicStatusText(statusText, req.getStatus());
+        approvedText.setText(approvedBy);
+        messageTextArea.setText(req.getMessage());
+        
+//        leaveDetailsDialog.setSize(450, 880);
+        leaveDetailsDialog.pack();
+        leaveDetailsDialog.setResizable(false);
+        leaveDetailsDialog.setLocationRelativeTo(this);
+        leaveDetailsDialog.setTitle("Leave Request - " + req.getFiledDate());
+        
+        leaveDetailsDialog.setVisible(true);
+    }
+    
+    private void dynamicStatusText(javax.swing.JLabel statusLabel, LeaveStatus status) {
+        java.awt.Color color;
+        
+        switch (status.name()) {
+            case "APPROVED":
+                color = ThemeColor.textGreen();
+                break;
+            case "PENDING":
+                color = ThemeColor.textYellow();
+                break;
+            case "REJECTED":
+                color = ThemeColor.textRed();
+                break;
+            default:
+                color = Color.PINK;
+        }
+        statusLabel.setText(status.name());
+        statusLabel.setForeground(color);
+        statusLabel.setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,6 +215,20 @@ public class LeavePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        leaveDetailsDialog = new javax.swing.JDialog();
+        subjectLabel = new javax.swing.JLabel();
+        filedLabel = new javax.swing.JLabel();
+        leaveLabel = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
+        approveLabel = new javax.swing.JLabel();
+        messageLabel = new javax.swing.JLabel();
+        subjectText = new javax.swing.JLabel();
+        filedText = new javax.swing.JLabel();
+        leaveText = new javax.swing.JLabel();
+        statusText = new javax.swing.JLabel();
+        approvedText = new javax.swing.JLabel();
+        scrollPaneMessage = new javax.swing.JScrollPane();
+        messageTextArea = new javax.swing.JTextArea();
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
         newRequestBtn = new javax.swing.JButton();
@@ -165,6 +236,117 @@ public class LeavePanel extends javax.swing.JPanel {
         scrollPaneTable = new javax.swing.JScrollPane();
         requestTable = new javax.swing.JTable();
         counts = new javax.swing.JLabel();
+
+        leaveDetailsDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        leaveDetailsDialog.setAlwaysOnTop(true);
+        leaveDetailsDialog.setBackground(new java.awt.Color(255, 255, 255));
+        leaveDetailsDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        leaveDetailsDialog.setIconImage(null);
+        leaveDetailsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        leaveDetailsDialog.setName("leaveDetailsDialog"); // NOI18N
+        leaveDetailsDialog.setResizable(false);
+
+        subjectLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        subjectLabel.setText("Subject :");
+
+        filedLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        filedLabel.setText("Filed Date :");
+
+        leaveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        leaveLabel.setText("Leave :");
+
+        statusLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        statusLabel.setText("Status :");
+
+        approveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        approveLabel.setText("Processed by :");
+
+        messageLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        messageLabel.setText("Message :");
+
+        subjectText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        subjectText.setText("Subject :");
+
+        filedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        filedText.setText("Filed Date :");
+
+        leaveText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        leaveText.setText("Leave :");
+
+        statusText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        statusText.setText("Status :");
+
+        approvedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        approvedText.setText("Approved By :");
+
+        scrollPaneMessage.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        messageTextArea.setEditable(false);
+        messageTextArea.setColumns(20);
+        messageTextArea.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        messageTextArea.setLineWrap(true);
+        messageTextArea.setRows(5);
+        messageTextArea.setWrapStyleWord(true);
+        messageTextArea.setFocusable(false);
+        scrollPaneMessage.setViewportView(messageTextArea);
+
+        javax.swing.GroupLayout leaveDetailsDialogLayout = new javax.swing.GroupLayout(leaveDetailsDialog.getContentPane());
+        leaveDetailsDialog.getContentPane().setLayout(leaveDetailsDialogLayout);
+        leaveDetailsDialogLayout.setHorizontalGroup(
+            leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                        .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(filedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(subjectLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(messageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(approveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                            .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(leaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, 0)
+                        .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(filedText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(leaveText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(approvedText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                            .addComponent(subjectText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        leaveDetailsDialogLayout.setVerticalGroup(
+            leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                        .addComponent(subjectText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(filedText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(leaveText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(statusText)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(approvedText)
+                        .addGap(31, 31, 31))
+                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                        .addComponent(subjectLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(filedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(leaveLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(statusLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(approveLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(messageLabel)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37))
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -295,12 +477,26 @@ public class LeavePanel extends javax.swing.JPanel {
     private List<LeaveRequest> currentHistory;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel approveLabel;
+    private javax.swing.JLabel approvedText;
     private javax.swing.JLabel counts;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel decorLine;
+    private javax.swing.JLabel filedLabel;
+    private javax.swing.JLabel filedText;
+    private javax.swing.JDialog leaveDetailsDialog;
+    private javax.swing.JLabel leaveLabel;
+    private javax.swing.JLabel leaveText;
+    private javax.swing.JLabel messageLabel;
+    private javax.swing.JTextArea messageTextArea;
     private javax.swing.JButton newRequestBtn;
     private javax.swing.JLabel requestLabel;
     private javax.swing.JTable requestTable;
+    private javax.swing.JScrollPane scrollPaneMessage;
     private javax.swing.JScrollPane scrollPaneTable;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JLabel statusText;
+    private javax.swing.JLabel subjectLabel;
+    private javax.swing.JLabel subjectText;
     // End of variables declaration//GEN-END:variables
 }

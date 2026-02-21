@@ -2,5 +2,5 @@ request_id,employee_id,filed_date,leave_start,leave_end,subject,message,status,a
 1,10010,2026-02-01,2026-02-10,2026-02-12,"Vacation Leave","Family trip planned months ago",APPROVED,HR Manager
 2,10010,2026-02-05,2026-02-15,2026-02-15,"Sick Leave","Fever, cough, and flu symptoms",APPROVED,HR Manager
 3,10010,2026-02-10,2026-02-20,2026-02-22,"Personal Leave, Documents","Need to process personal documents, including IDs",PENDING,
-4,10010,2026-02-12,2026-02-25,2026-02-26,"Emergency Leave","Family emergency, immediate attention required",REJECTED,HR Supervisor
+4,10010,2026-02-12,2026-02-25,2026-02-26,"Emergency Leave","Family emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required emergency, immediate attention required",REJECTED,HR Supervisor
 5,10010,2026-02-15,2026-03-01,2026-03-03,"Vacation Leave","Short break for rest and recovery",PENDING,

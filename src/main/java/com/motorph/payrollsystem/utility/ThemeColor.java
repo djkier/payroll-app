@@ -28,6 +28,31 @@ public class ThemeColor {
         return new Color(240, 240, 240);
     }
     
+    public static Color softGreen() {
+        return new Color(212, 237, 218);
+    }
+    
+    public static Color softYellow() {
+        return new Color(255, 243, 205);
+    }
+    
+    public static Color softRed() {
+        return new Color(248, 215, 218);
+    }
+    
+    public static Color textGreen() {
+        return new Color(21, 87, 36);
+    }
+    
+    public static Color textYellow() {
+        return new Color(133, 100, 4);
+    }
+    
+    public static Color textRed() {
+        return new Color(114, 28, 36);
+    }
+    
+    
     
     
 }

@@ -31,8 +31,8 @@ public class AppContext {
     public AppContext() {
         this.sessionManager = new SessionManager();
         
-        UserRepository finder = new UserRepository("/csv-files/user-accounts.csv");
-        this.authService = new AuthService(finder);
+        UserRepository userRepo = new UserRepository("/csv-files/user-accounts.csv");
+        this.authService = new AuthService(userRepo);
         
         
         EmployeeRepository employeeRepo = new EmployeeRepository("/csv-files/employee-details.csv");
