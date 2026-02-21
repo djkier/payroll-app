@@ -43,7 +43,7 @@ public class AppContext {
         
         this.payrollService = new PayrollService(attendanceRepository, payrollEngine);
         
-        LeaveRepository leaveRepository = new LeaveRepository("csv-files/leave-requests.csv");
+        LeaveRepository leaveRepository = new LeaveRepository("/csv-files/leave-requests.csv");
         this.leaveService = new LeaveService(leaveRepository);
         
     }

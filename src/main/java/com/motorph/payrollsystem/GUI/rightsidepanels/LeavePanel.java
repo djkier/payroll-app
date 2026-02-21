@@ -5,6 +5,14 @@
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
 import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.app.SessionManager;
+import com.motorph.payrollsystem.domain.leave.LeaveRequest;
+import com.motorph.payrollsystem.domain.leave.LeaveStatus;
+import com.motorph.payrollsystem.service.LeaveService;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,8 +27,71 @@ public class LeavePanel extends javax.swing.JPanel {
     public LeavePanel(AppContext appContext) {
         this.appContext = appContext;
         initComponents();
+        loadLeaveHistory();
         
 
+    }
+    
+    private void loadLeaveHistory() {
+        LeaveService leaveService = appContext.getLeaveService();
+        SessionManager currSession = appContext.getSessionManager();
+        String employeeNo = currSession
+                .getCurrentEmployee()
+                .getEmployeeNo();
+        
+        if (employeeNo == null || employeeNo.isBlank()) {
+            setSummaryText(0, 0, 0, 0);
+            clearTable();
+            return;
+        }
+        
+        try {
+            //error in history
+            List<LeaveRequest> history = leaveService.getLeaveHistory(employeeNo);
+            currentHistory = history;
+           
+            fillTable(history);
+            
+            Map<LeaveStatus, Integer> countCard = leaveService.getStatusCounts(employeeNo);
+            
+            int all = history.size();
+            int pending = countCard.getOrDefault(LeaveStatus.PENDING, 0);
+            int approved = countCard.getOrDefault(LeaveStatus.APPROVED, 0);
+            int rejected = countCard.getOrDefault(LeaveStatus.REJECTED, 0);
+            
+            setSummaryText(all, pending, approved, rejected);
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error loading leave data");
+        }
+    }
+    
+    private void clearTable() {
+        DefaultTableModel model = (DefaultTableModel) requestTable.getModel();
+        model.setRowCount(0);
+    }
+    
+    private void fillTable(List<LeaveRequest> list) {
+        DefaultTableModel model = (DefaultTableModel) requestTable.getModel();
+        model.setRowCount(0);
+        
+        for (LeaveRequest history : list) {
+            model.addRow(new Object[]{
+                history.getFiledDate(),
+                history.getSubject(),
+                history.getLeaveStart(),
+                history.getLeaveEnd(),
+                history.getStatus()
+            });
+        }
+    }
+    
+    private void setSummaryText(int all, int pending, int approved, int rejected) {
+        this.counts.setText("All: " + all +
+                "  Pending: " + pending +
+                "  Approved: " + approved + 
+                "  Rejected: " + rejected
+                );
     }
 
     /**
@@ -35,9 +106,10 @@ public class LeavePanel extends javax.swing.JPanel {
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
         newRequestBtn = new javax.swing.JButton();
+        requestLabel = new javax.swing.JLabel();
         scrollPaneTable = new javax.swing.JScrollPane();
         requestTable = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
+        counts = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -62,6 +134,9 @@ public class LeavePanel extends javax.swing.JPanel {
         newRequestBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         newRequestBtn.setText("+   New Request");
         newRequestBtn.addActionListener(this::newRequestBtnActionPerformed);
+
+        requestLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        requestLabel.setText("Request History");
 
         requestTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         requestTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -104,8 +179,8 @@ public class LeavePanel extends javax.swing.JPanel {
         requestTable.getTableHeader().setReorderingAllowed(false);
         scrollPaneTable.setViewportView(requestTable);
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel1.setText("Request History");
+        counts.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        counts.setText("Hello");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -117,11 +192,17 @@ public class LeavePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(dashboardLabel)
-                    .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(requestLabel)
+                            .addComponent(dashboardLabel)
+                            .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(counts)
+                        .addGap(261, 261, 261))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,11 +210,14 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(dashboardLabel)
                 .addGap(6, 6, 6)
-                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(counts))
                 .addGap(24, 24, 24)
-                .addComponent(jLabel1)
+                .addComponent(requestLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(57, Short.MAX_VALUE))
@@ -143,13 +227,15 @@ public class LeavePanel extends javax.swing.JPanel {
     private void newRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRequestBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_newRequestBtnActionPerformed
-
+    
+    private List<LeaveRequest> currentHistory = List.of();
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel counts;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel decorLine;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton newRequestBtn;
+    private javax.swing.JLabel requestLabel;
     private javax.swing.JTable requestTable;
     private javax.swing.JScrollPane scrollPaneTable;
     // End of variables declaration//GEN-END:variables

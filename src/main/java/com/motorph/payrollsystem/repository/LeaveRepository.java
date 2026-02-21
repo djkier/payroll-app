@@ -39,13 +39,14 @@ public class LeaveRepository {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
             String line;
             
+            //skip header
             br.readLine();
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 
                 String[] cols = Csv.parseLine(line);
                 if (cols.length < 9) continue;
-                
+                System.out.println(cols[1]);
                 if (!cols[1].trim().equals(employeeNo)) continue;
                 
                 LeaveRequest req = map(cols);
