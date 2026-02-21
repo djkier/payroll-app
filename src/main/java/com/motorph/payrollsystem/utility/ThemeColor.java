@@ -24,6 +24,10 @@ public class ThemeColor {
         return new Color(255, 182, 193);
     }
     
+    public static Color lightGray() {
+        return new Color(240, 240, 240);
+    }
+    
     
     
 }
