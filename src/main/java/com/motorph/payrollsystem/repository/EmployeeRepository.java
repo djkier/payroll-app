@@ -9,6 +9,7 @@ import com.motorph.payrollsystem.domain.employee.ContactInfo;
 import com.motorph.payrollsystem.domain.employee.DepartmentInfo;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.domain.employee.GovIds;
+import com.motorph.payrollsystem.utility.Csv;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.Money;
 import java.io.BufferedReader;
@@ -44,7 +45,7 @@ public class EmployeeRepository {
                 if (line.trim().isEmpty()) continue;
 
                 //parse csv properly so splitting of "," from an address or salary can be prevented
-                String[] details = parseCsvLine(line);
+                String[] details = Csv.parseLine(line);
 
                 if (details.length < 19) continue;
                 
