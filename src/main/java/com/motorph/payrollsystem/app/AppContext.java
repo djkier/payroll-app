@@ -7,9 +7,11 @@ package com.motorph.payrollsystem.app;
 import com.motorph.payrollsystem.payroll.PayrollEngine;
 import com.motorph.payrollsystem.repository.AttendanceRepository;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
+import com.motorph.payrollsystem.repository.LeaveRepository;
 import com.motorph.payrollsystem.repository.UserRepository;
 import com.motorph.payrollsystem.service.AuthService;
 import com.motorph.payrollsystem.service.EmployeeService;
+import com.motorph.payrollsystem.service.LeaveService;
 import com.motorph.payrollsystem.service.PayrollService;
 
 /**
@@ -20,8 +22,11 @@ public class AppContext {
     private final SessionManager sessionManager;
     private final AuthService authService;
     private final EmployeeService employeeService;
-    private final AttendanceRepository attendanceRepository;
-    private PayrollService payrollService;
+    private final PayrollService payrollService;
+    private final LeaveService leaveService;
+    
+        private final AttendanceRepository attendanceRepository;
+    
     
     public AppContext() {
         this.sessionManager = new SessionManager();
@@ -37,6 +42,10 @@ public class AppContext {
         PayrollEngine payrollEngine = new PayrollEngine();
         
         this.payrollService = new PayrollService(attendanceRepository, payrollEngine);
+        
+        LeaveRepository leaveRepository = new LeaveRepository("csv-files/leave-requests.csv");
+        this.leaveService = new LeaveService(leaveRepository);
+        
     }
 
     public SessionManager getSessionManager() {
@@ -57,6 +66,10 @@ public class AppContext {
 
     public PayrollService getPayrollService() {
         return payrollService;
+    }
+    
+    public LeaveService getLeaveService() {
+        return leaveService;
     }
     
     

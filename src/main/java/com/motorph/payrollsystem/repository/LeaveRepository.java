@@ -46,7 +46,7 @@ public class LeaveRepository {
                 String[] cols = Csv.parseLine(line);
                 if (cols.length < 9) continue;
                 
-                if (!cols[1].equals(employeeNo)) continue;
+                if (!cols[1].trim().equals(employeeNo)) continue;
                 
                 LeaveRequest req = map(cols);
                 leaveRequests.add(req);

@@ -55,15 +55,20 @@ public class AttendanceRepository {
                 String fileEmpNo = columnData[0].trim();
                 if (!fileEmpNo.equals(employeeNo)) continue;
                 
-                LocalDate date = Dates.parseDate(columnData[3].trim());
-                LocalTime timeIn = Dates.parseMilitaryTime(columnData[4].trim());
-                LocalTime timeOut = Dates.parseMilitaryTime(columnData[5].trim());
-                
-                attendanceRecords.add(new AttendanceRecord(fileEmpNo, date, timeIn, timeOut));
+                attendanceRecords.add(map(columnData));
                 
             }
         }
 
         return attendanceRecords;
+    }
+    
+    private AttendanceRecord map(String[] columnData) {
+        String employeeNo = columnData[0].trim();
+        LocalDate date = Dates.parseDate(columnData[3].trim());
+        LocalTime timeIn = Dates.parseMilitaryTime(columnData[4].trim());
+        LocalTime timeOut = Dates.parseMilitaryTime(columnData[5].trim());
+        
+        return new AttendanceRecord(employeeNo, date, timeIn, timeOut);
     }
 }
