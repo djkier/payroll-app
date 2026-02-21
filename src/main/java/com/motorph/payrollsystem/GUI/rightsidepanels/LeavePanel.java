@@ -9,9 +9,14 @@ import com.motorph.payrollsystem.app.SessionManager;
 import com.motorph.payrollsystem.domain.leave.LeaveRequest;
 import com.motorph.payrollsystem.domain.leave.LeaveStatus;
 import com.motorph.payrollsystem.service.LeaveService;
+import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,6 +31,9 @@ public class LeavePanel extends javax.swing.JPanel {
      */
     public LeavePanel(AppContext appContext) {
         this.appContext = appContext;
+        this.statusCell = statusCellRenderer();
+        this.currentHistory = List.of();
+       
         initComponents();
         loadLeaveHistory();
         
@@ -46,7 +54,7 @@ public class LeavePanel extends javax.swing.JPanel {
         }
         
         try {
-            //error in history
+        
             List<LeaveRequest> history = leaveService.getLeaveHistory(employeeNo);
             currentHistory = history;
            
@@ -64,8 +72,14 @@ public class LeavePanel extends javax.swing.JPanel {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error loading leave data");
         }
+        
+        customizeCellColumns();
     }
     
+    private void customizeCellColumns() {
+        requestTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
+    }
+
     private void clearTable() {
         DefaultTableModel model = (DefaultTableModel) requestTable.getModel();
         model.setRowCount(0);
@@ -93,6 +107,47 @@ public class LeavePanel extends javax.swing.JPanel {
                 "  Rejected: " + rejected
                 );
     }
+    
+    private DefaultTableCellRenderer statusCellRenderer() {
+        return new DefaultTableCellRenderer() {
+            
+            
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+                setHorizontalAlignment(javax.swing.JLabel.CENTER);
+                Component cell = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // Reset default
+                cell.setBackground(Color.WHITE);
+
+                if (value != null) {
+                    String status = value.toString();
+
+                    switch (status) {
+                        case "APPROVED":
+                            cell.setBackground(ThemeColor.lightGreen());
+                            break;
+                        case "PENDING":
+                            cell.setBackground(ThemeColor.lightYellow());
+                            break;
+                        case "REJECTED":
+                            cell.setBackground(ThemeColor.lightRed());
+                            break;
+                        default:
+                            cell.setBackground(Color.WHITE);
+                    }
+                }
+                
+                
+
+                return cell;
+            }
+        };
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,11 +228,21 @@ public class LeavePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        requestTable.setToolTipText("");
         requestTable.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         requestTable.setFocusable(false);
         requestTable.setRowHeight(28);
+        requestTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        requestTable.setShowHorizontalLines(true);
         requestTable.getTableHeader().setReorderingAllowed(false);
         scrollPaneTable.setViewportView(requestTable);
+        if (requestTable.getColumnModel().getColumnCount() > 0) {
+            requestTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+            requestTable.getColumnModel().getColumn(1).setPreferredWidth(160);
+            requestTable.getColumnModel().getColumn(2).setPreferredWidth(40);
+            requestTable.getColumnModel().getColumn(3).setPreferredWidth(40);
+            requestTable.getColumnModel().getColumn(4).setCellRenderer(this.statusCell);
+        }
 
         counts.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         counts.setText("Hello");
@@ -228,7 +293,8 @@ public class LeavePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_newRequestBtnActionPerformed
     
-    private List<LeaveRequest> currentHistory = List.of();
+    private DefaultTableCellRenderer statusCell;
+    private List<LeaveRequest> currentHistory;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel counts;

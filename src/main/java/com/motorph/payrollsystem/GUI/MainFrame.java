@@ -9,6 +9,8 @@ import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.LeavePanel;
 import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.utility.ThemeColor;
+
 import javax.swing.ImageIcon;
 
 
@@ -126,12 +128,12 @@ public class MainFrame extends javax.swing.JFrame {
         logoutMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoutMessage.setText("Are you sure you want to log out ?");
 
-        cancelBtn.setBackground(new java.awt.Color(255, 204, 204));
+        cancelBtn.setBackground(ThemeColor.lightRed());
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
-        yesBtn.setBackground(new java.awt.Color(204, 255, 204));
+        yesBtn.setBackground(ThemeColor.lightGreen());
         yesBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         yesBtn.setText("Yes");
         yesBtn.addActionListener(this::yesBtnActionPerformed);
