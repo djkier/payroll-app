@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
+
 import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.app.SessionManager;
 import com.motorph.payrollsystem.domain.leave.LeaveRequest;
@@ -13,6 +14,7 @@ import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Color;
 import java.awt.Component;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -38,6 +40,8 @@ public class LeavePanel extends javax.swing.JPanel {
         initComponents();
         loadLeaveHistory();
         hookRowDoubleClick();
+        customDatePicker(startDatePicker);
+        customDatePicker(endDatePicker);
         
 
     }
@@ -51,7 +55,7 @@ public class LeavePanel extends javax.swing.JPanel {
         
         if (employeeNo == null || employeeNo.isBlank()) {
             setSummaryText(0, 0, 0, 0);
-            clearTable();
+            clearTable(requestTable);
             return;
         }
         
@@ -82,14 +86,15 @@ public class LeavePanel extends javax.swing.JPanel {
         requestTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
     }
 
-    private void clearTable() {
-        DefaultTableModel model = (DefaultTableModel) requestTable.getModel();
+    private DefaultTableModel clearTable(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
+        
+        return model;
     }
     
     private void fillTable(List<LeaveRequest> list) {
-        DefaultTableModel model = (DefaultTableModel) requestTable.getModel();
-        model.setRowCount(0);
+        DefaultTableModel model = (DefaultTableModel) clearTable(requestTable);
         
         for (LeaveRequest history : list) {
             model.addRow(new Object[]{
@@ -205,6 +210,24 @@ public class LeavePanel extends javax.swing.JPanel {
         statusLabel.setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
         
     }
+    
+    private void addNewRequest() {
+        newRequestDialog.pack();
+        newRequestDialog.setResizable(false);
+        newRequestDialog.setLocationRelativeTo(this);
+        newRequestDialog.setTitle("Leave Request Form");
+        
+        newRequestDialog.setVisible(true);
+    }
+    
+    private void customDatePicker(com.github.lgooddatepicker.components.DatePicker picker) {
+        //Disable picking past date
+        picker.getSettings().setDateRangeLimits(LocalDate.now(), null);
+        
+        
+        picker.getComponentDateTextField().setEditable(false);
+        picker.getComponentDateTextField().setFocusable(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -229,6 +252,18 @@ public class LeavePanel extends javax.swing.JPanel {
         approvedText = new javax.swing.JLabel();
         scrollPaneMessage = new javax.swing.JScrollPane();
         messageTextArea = new javax.swing.JTextArea();
+        newRequestDialog = new javax.swing.JDialog();
+        subjectLabel1 = new javax.swing.JLabel();
+        filedLabel1 = new javax.swing.JLabel();
+        leaveLabel1 = new javax.swing.JLabel();
+        messageLabel1 = new javax.swing.JLabel();
+        subjectTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        newRequestTextArea = new javax.swing.JTextArea();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
+        startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
         newRequestBtn = new javax.swing.JButton();
@@ -346,6 +381,97 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
+        );
+
+        newRequestDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        newRequestDialog.setAlwaysOnTop(true);
+        newRequestDialog.setBackground(new java.awt.Color(255, 255, 255));
+        newRequestDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        newRequestDialog.setIconImage(null);
+        newRequestDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+        newRequestDialog.setName("leaveDetailsDialog"); // NOI18N
+        newRequestDialog.setResizable(false);
+
+        subjectLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        subjectLabel1.setText("Subject :");
+
+        filedLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        filedLabel1.setText("Start Date :");
+
+        leaveLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        leaveLabel1.setText("End Date :");
+
+        messageLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        messageLabel1.setText("Message :");
+
+        subjectTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
+        newRequestTextArea.setColumns(20);
+        newRequestTextArea.setRows(5);
+        jScrollPane1.setViewportView(newRequestTextArea);
+
+        jButton1.setText("Cancel");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
+        jButton2.setText("Submit");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+
+        startDatePicker.setFocusable(false);
+
+        javax.swing.GroupLayout newRequestDialogLayout = new javax.swing.GroupLayout(newRequestDialog.getContentPane());
+        newRequestDialog.getContentPane().setLayout(newRequestDialogLayout);
+        newRequestDialogLayout.setHorizontalGroup(
+            newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newRequestDialogLayout.createSequentialGroup()
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(newRequestDialogLayout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(jButton1)
+                        .addGap(41, 41, 41)
+                        .addComponent(jButton2))
+                    .addGroup(newRequestDialogLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addGroup(newRequestDialogLayout.createSequentialGroup()
+                                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(leaveLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(subjectLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(filedLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(messageLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(newRequestDialogLayout.createSequentialGroup()
+                                        .addGap(0, 0, 0)
+                                        .addComponent(subjectTextField)))
+                                .addGap(46, 46, 46)))))
+                .addContainerGap(12, Short.MAX_VALUE))
+        );
+        newRequestDialogLayout.setVerticalGroup(
+            newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newRequestDialogLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(subjectLabel1)
+                    .addComponent(subjectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filedLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(leaveLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(messageLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(58, 58, 58))
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -471,7 +597,16 @@ public class LeavePanel extends javax.swing.JPanel {
 
     private void newRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newRequestBtnActionPerformed
         // TODO add your handling code here:
+        addNewRequest();
     }//GEN-LAST:event_newRequestBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private DefaultTableCellRenderer statusCell;
     private List<LeaveRequest> currentHistory;
@@ -482,21 +617,33 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel counts;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel decorLine;
+    private com.github.lgooddatepicker.components.DatePicker endDatePicker;
     private javax.swing.JLabel filedLabel;
+    private javax.swing.JLabel filedLabel1;
     private javax.swing.JLabel filedText;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JDialog leaveDetailsDialog;
     private javax.swing.JLabel leaveLabel;
+    private javax.swing.JLabel leaveLabel1;
     private javax.swing.JLabel leaveText;
     private javax.swing.JLabel messageLabel;
+    private javax.swing.JLabel messageLabel1;
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JButton newRequestBtn;
+    private javax.swing.JDialog newRequestDialog;
+    private javax.swing.JTextArea newRequestTextArea;
     private javax.swing.JLabel requestLabel;
     private javax.swing.JTable requestTable;
     private javax.swing.JScrollPane scrollPaneMessage;
     private javax.swing.JScrollPane scrollPaneTable;
+    private com.github.lgooddatepicker.components.DatePicker startDatePicker;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel statusText;
     private javax.swing.JLabel subjectLabel;
+    private javax.swing.JLabel subjectLabel1;
     private javax.swing.JLabel subjectText;
+    private javax.swing.JTextField subjectTextField;
     // End of variables declaration//GEN-END:variables
 }
