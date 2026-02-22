@@ -25,27 +25,35 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneMessage" min="-2" pref="398" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="filedLabel" max="32767" attributes="0"/>
-                              <Component id="subjectLabel" max="32767" attributes="0"/>
-                              <Component id="messageLabel" alignment="0" max="32767" attributes="0"/>
-                              <Component id="approveLabel" pref="112" max="32767" attributes="0"/>
-                              <Component id="statusLabel" alignment="0" max="32767" attributes="0"/>
-                              <Component id="leaveLabel" alignment="0" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="scrollPaneMessage" min="-2" pref="398" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="filedLabel" max="32767" attributes="0"/>
+                                      <Component id="subjectLabel" max="32767" attributes="0"/>
+                                      <Component id="messageLabel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="approveLabel" pref="112" max="32767" attributes="0"/>
+                                      <Component id="statusLabel" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="leaveLabel" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="filedText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="leaveText" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="statusText" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="approvedText" alignment="1" pref="286" max="32767" attributes="0"/>
+                                      <Component id="subjectText" alignment="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="filedText" alignment="0" max="32767" attributes="0"/>
-                              <Component id="leaveText" alignment="1" max="32767" attributes="0"/>
-                              <Component id="statusText" alignment="0" max="32767" attributes="0"/>
-                              <Component id="approvedText" alignment="1" pref="286" max="32767" attributes="0"/>
-                              <Component id="subjectText" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
+                          <Component id="leaveDetailsCloseBtn" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -55,7 +63,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="subjectText" min="-2" max="-2" attributes="0"/>
@@ -85,7 +93,9 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="scrollPaneMessage" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <Component id="leaveDetailsCloseBtn" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -204,6 +214,17 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="leaveDetailsCloseBtn">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="CLOSE"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="leaveDetailsCloseBtnActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JDialog" name="newRequestDialog">
@@ -230,48 +251,45 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="leaveLabel1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="subjectLabel1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="filedLabel1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="messageLabel1" min="-2" pref="80" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="startDatePicker" min="-2" pref="271" max="-2" attributes="0"/>
-                                      <Component id="endDatePicker" min="-2" pref="271" max="-2" attributes="0"/>
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                                          <Component id="subjectTextField" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="leaveLabel1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="subjectLabel1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="filedLabel1" alignment="0" max="32767" attributes="0"/>
+                              <Component id="messageLabel1" min="-2" pref="80" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="startDatePicker" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Component id="endDatePicker" min="-2" pref="271" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                                  <Component id="subjectTextField" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="12" max="32767" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jButton1" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="jButton2" min="-2" pref="100" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="subjectLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="subjectTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="subjectTextField" pref="25" max="32767" attributes="0"/>
+                      <Component id="subjectLabel1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -286,13 +304,13 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="messageLabel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="94" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButton1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="jButton2" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -335,6 +353,13 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="0"/>
             </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder>
+                  <Color PropertyName="color" blue="99" green="99" red="99" type="rgb"/>
+                </LineBorder>
+              </Border>
+            </Property>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -347,6 +372,9 @@
             <Component class="javax.swing.JTextArea" name="newRequestTextArea">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Poppins" size="12" style="0"/>
+                </Property>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
             </Component>
@@ -354,6 +382,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
@@ -362,6 +393,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Submit"/>
           </Properties>
           <Events>
@@ -369,10 +403,18 @@
           </Events>
         </Component>
         <Component class="com.github.lgooddatepicker.components.DatePicker" name="endDatePicker">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="12" style="0"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="com.github.lgooddatepicker.components.DatePicker" name="startDatePicker">
           <Properties>
             <Property name="focusable" type="boolean" value="false"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Poppins" size="12" style="0"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

@@ -42,7 +42,7 @@ public class LeavePanel extends javax.swing.JPanel {
         hookRowDoubleClick();
         customDatePicker(startDatePicker);
         customDatePicker(endDatePicker);
-        
+        setupStartEndLogic();
 
     }
     
@@ -221,12 +221,71 @@ public class LeavePanel extends javax.swing.JPanel {
     }
     
     private void customDatePicker(com.github.lgooddatepicker.components.DatePicker picker) {
-        //Disable picking past date
-        picker.getSettings().setDateRangeLimits(LocalDate.now(), null);
-        
-        
+
         picker.getComponentDateTextField().setEditable(false);
         picker.getComponentDateTextField().setFocusable(false);
+    }
+    
+    private void setupStartEndLogic() {
+    // initial limits (no past dates)
+        startDatePicker.getSettings().setDateRangeLimits(LocalDate.now(), null);
+        endDatePicker.getSettings().setDateRangeLimits(LocalDate.now(), null);
+
+        startDatePicker.addDateChangeListener(e -> {
+            if (syncing) return;
+            syncing = true;
+            try {
+                LocalDate today = LocalDate.now();
+                LocalDate start = startDatePicker.getDate();
+                LocalDate end = endDatePicker.getDate();
+
+                // start is always at least today
+                startDatePicker.getSettings().setDateRangeLimits(today, null);
+
+                if (start != null) {
+                    // end cannot be before start
+                    endDatePicker.getSettings().setDateRangeLimits(start, null);
+
+                    // if current end is invalid, clear it
+                    if (end != null && end.isBefore(start)) {
+                        endDatePicker.clear();
+                    }
+                } else {
+                    // if start cleared, end goes back to today..null
+                    endDatePicker.getSettings().setDateRangeLimits(today, null);
+                }
+            } finally {
+                syncing = false;
+            }
+        });
+
+        endDatePicker.addDateChangeListener(e -> {
+            if (syncing) return;
+            syncing = true;
+            try {
+                LocalDate today = LocalDate.now();
+                LocalDate start = startDatePicker.getDate();
+                LocalDate end = endDatePicker.getDate();
+
+                // end is always at least today
+                endDatePicker.getSettings().setDateRangeLimits(today, null);
+
+                if (end != null) {
+                    // start must be between today and end
+                    startDatePicker.getSettings().setDateRangeLimits(today, end);
+
+                    // if current start is invalid, clear it
+                    if (start != null && start.isAfter(end)) {
+                        startDatePicker.clear();
+                    }
+                } else {
+                    // if end cleared, start goes back to today..null
+                    startDatePicker.getSettings().setDateRangeLimits(today, null);
+                }
+            } finally {
+                syncing = false;
+            }
+        });
     }
 
     /**
@@ -252,6 +311,7 @@ public class LeavePanel extends javax.swing.JPanel {
         approvedText = new javax.swing.JLabel();
         scrollPaneMessage = new javax.swing.JScrollPane();
         messageTextArea = new javax.swing.JTextArea();
+        leaveDetailsCloseBtn = new javax.swing.JButton();
         newRequestDialog = new javax.swing.JDialog();
         subjectLabel1 = new javax.swing.JLabel();
         filedLabel1 = new javax.swing.JLabel();
@@ -325,35 +385,44 @@ public class LeavePanel extends javax.swing.JPanel {
         messageTextArea.setFocusable(false);
         scrollPaneMessage.setViewportView(messageTextArea);
 
+        leaveDetailsCloseBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        leaveDetailsCloseBtn.setText("CLOSE");
+        leaveDetailsCloseBtn.addActionListener(this::leaveDetailsCloseBtnActionPerformed);
+
         javax.swing.GroupLayout leaveDetailsDialogLayout = new javax.swing.GroupLayout(leaveDetailsDialog.getContentPane());
         leaveDetailsDialog.getContentPane().setLayout(leaveDetailsDialogLayout);
         leaveDetailsDialogLayout.setHorizontalGroup(
             leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                        .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(filedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(subjectLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(messageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(approveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                            .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(leaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, 0)
-                        .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(filedText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(leaveText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(approvedText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                            .addComponent(subjectText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(24, 24, 24)
+                        .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(subjectLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(messageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(approveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(leaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, 0)
+                                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filedText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(leaveText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(approvedText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
+                                    .addComponent(subjectText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addComponent(leaveDetailsCloseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         leaveDetailsDialogLayout.setVerticalGroup(
             leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
                         .addComponent(subjectText)
@@ -380,7 +449,9 @@ public class LeavePanel extends javax.swing.JPanel {
                         .addComponent(messageLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addGap(12, 12, 12)
+                .addComponent(leaveDetailsCloseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
 
         newRequestDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -405,56 +476,62 @@ public class LeavePanel extends javax.swing.JPanel {
         messageLabel1.setText("Message :");
 
         subjectTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        subjectTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
 
         newRequestTextArea.setColumns(20);
+        newRequestTextArea.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         newRequestTextArea.setRows(5);
         jScrollPane1.setViewportView(newRequestTextArea);
 
+        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         jButton1.setText("Cancel");
         jButton1.addActionListener(this::jButton1ActionPerformed);
 
+        jButton2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         jButton2.setText("Submit");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
+        endDatePicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+
         startDatePicker.setFocusable(false);
+        startDatePicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout newRequestDialogLayout = new javax.swing.GroupLayout(newRequestDialog.getContentPane());
         newRequestDialog.getContentPane().setLayout(newRequestDialogLayout);
         newRequestDialogLayout.setHorizontalGroup(
             newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newRequestDialogLayout.createSequentialGroup()
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(24, 24, 24)
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
                     .addGroup(newRequestDialogLayout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jButton1)
-                        .addGap(41, 41, 41)
-                        .addComponent(jButton2))
-                    .addGroup(newRequestDialogLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1)
+                        .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(leaveLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(subjectLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(filedLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(messageLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(newRequestDialogLayout.createSequentialGroup()
-                                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(leaveLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(subjectLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(filedLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(messageLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(newRequestDialogLayout.createSequentialGroup()
-                                        .addGap(0, 0, 0)
-                                        .addComponent(subjectTextField)))
-                                .addGap(46, 46, 46)))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                                .addGap(0, 0, 0)
+                                .addComponent(subjectTextField)))
+                        .addGap(46, 46, 46)))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newRequestDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(91, 91, 91))
         );
         newRequestDialogLayout.setVerticalGroup(
             newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(newRequestDialogLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(subjectLabel1)
-                    .addComponent(subjectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(subjectTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(subjectLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filedLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -466,12 +543,12 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(messageLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(58, 58, 58))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -607,7 +684,13 @@ public class LeavePanel extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void leaveDetailsCloseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveDetailsCloseBtnActionPerformed
+        // TODO add your handling code here:
+        leaveDetailsDialog.dispose();
+    }//GEN-LAST:event_leaveDetailsCloseBtnActionPerformed
     
+    private boolean syncing = false;
     private DefaultTableCellRenderer statusCell;
     private List<LeaveRequest> currentHistory;
     private AppContext appContext;
@@ -624,6 +707,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton leaveDetailsCloseBtn;
     private javax.swing.JDialog leaveDetailsDialog;
     private javax.swing.JLabel leaveLabel;
     private javax.swing.JLabel leaveLabel1;
