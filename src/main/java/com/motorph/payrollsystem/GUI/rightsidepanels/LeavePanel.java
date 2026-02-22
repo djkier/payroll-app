@@ -294,7 +294,6 @@ public class LeavePanel extends javax.swing.JPanel {
             return;
         } 
         
-        System.out.println("im here");
         cancelConfirmDialog.pack();
         cancelConfirmDialog.setResizable(false);
         cancelConfirmDialog.setLocationRelativeTo(this.newRequestDialog);
@@ -317,7 +316,14 @@ public class LeavePanel extends javax.swing.JPanel {
         return subjectDirty || messageDirty || startDirty || endDirty;
         
     }
-
+    
+    private void resetRequestDialog() {
+        subjectTextField.setText("");
+        newRequestTextArea.setText("");
+        startDatePicker.setDate(null);
+        endDatePicker.setDate(null);
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -375,38 +381,38 @@ public class LeavePanel extends javax.swing.JPanel {
         leaveDetailsDialog.setName("leaveDetailsDialog"); // NOI18N
         leaveDetailsDialog.setResizable(false);
 
-        subjectLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         subjectLabel.setText("Subject :");
+        subjectLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        filedLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         filedLabel.setText("Filed Date :");
+        filedLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        leaveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         leaveLabel.setText("Leave :");
+        leaveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        statusLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         statusLabel.setText("Status :");
+        statusLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        approveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         approveLabel.setText("Processed by :");
+        approveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        messageLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         messageLabel.setText("Message :");
+        messageLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        subjectText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         subjectText.setText("Subject :");
+        subjectText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        filedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         filedText.setText("Filed Date :");
+        filedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        leaveText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         leaveText.setText("Leave :");
+        leaveText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        statusText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         statusText.setText("Status :");
+        statusText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        approvedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         approvedText.setText("Approved By :");
+        approvedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         scrollPaneMessage.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
@@ -419,8 +425,8 @@ public class LeavePanel extends javax.swing.JPanel {
         messageTextArea.setFocusable(false);
         scrollPaneMessage.setViewportView(messageTextArea);
 
-        leaveDetailsCloseBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         leaveDetailsCloseBtn.setText("CLOSE");
+        leaveDetailsCloseBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         leaveDetailsCloseBtn.addActionListener(this::leaveDetailsCloseBtnActionPerformed);
 
         javax.swing.GroupLayout leaveDetailsDialogLayout = new javax.swing.GroupLayout(leaveDetailsDialog.getContentPane());
@@ -488,7 +494,7 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
 
-        newRequestDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        newRequestDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         newRequestDialog.setAlwaysOnTop(true);
         newRequestDialog.setBackground(new java.awt.Color(255, 255, 255));
         newRequestDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -496,18 +502,23 @@ public class LeavePanel extends javax.swing.JPanel {
         newRequestDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         newRequestDialog.setName("leaveDetailsDialog"); // NOI18N
         newRequestDialog.setResizable(false);
+        newRequestDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                newRequestDialogWindowClosing(evt);
+            }
+        });
 
-        subjectLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         subjectLabel1.setText("Subject :");
+        subjectLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        filedLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         filedLabel1.setText("Start Date :");
+        filedLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        leaveLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         leaveLabel1.setText("End Date :");
+        leaveLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        messageLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         messageLabel1.setText("Message :");
+        messageLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
         subjectTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         subjectTextField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
@@ -517,14 +528,14 @@ public class LeavePanel extends javax.swing.JPanel {
         newRequestTextArea.setRows(5);
         scrollPaneNewRequest.setViewportView(newRequestTextArea);
 
+        cancelRequestBtn.setText("Cancel");
         cancelRequestBtn.setBackground(ThemeColor.lightRed());
         cancelRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelRequestBtn.setText("Cancel");
         cancelRequestBtn.addActionListener(this::cancelRequestBtnActionPerformed);
 
+        submitRequestBtn.setText("Submit");
         submitRequestBtn.setBackground(ThemeColor.lightBlue());
         submitRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        submitRequestBtn.setText("Submit");
         submitRequestBtn.addActionListener(this::submitRequestBtnActionPerformed);
 
         endDatePicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -549,9 +560,7 @@ public class LeavePanel extends javax.swing.JPanel {
                         .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(newRequestDialogLayout.createSequentialGroup()
-                                .addGap(0, 0, 0)
-                                .addComponent(subjectTextField)))
+                            .addComponent(subjectTextField))
                         .addGap(46, 46, 46)))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newRequestDialogLayout.createSequentialGroup()
@@ -587,17 +596,17 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
 
-        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
+        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        cancelBtnConfirm.setText("Cancel");
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtnConfirm.setText("Cancel");
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
+        confirmBtnConfirm.setText("Confirm");
         confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtnConfirm.setText("Confirm");
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
 
         javax.swing.GroupLayout cancelConfirmDialogLayout = new javax.swing.GroupLayout(cancelConfirmDialog.getContentPane());
@@ -631,8 +640,8 @@ public class LeavePanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
 
-        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         dashboardLabel.setText("LEAVE REQUESTS");
+        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
 
         decorLine.setBackground(new java.awt.Color(240, 240, 240));
         decorLine.setDoubleBuffered(false);
@@ -648,12 +657,12 @@ public class LeavePanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        newRequestBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         newRequestBtn.setText("+   New Request");
+        newRequestBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         newRequestBtn.addActionListener(this::newRequestBtnActionPerformed);
 
-        requestLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         requestLabel.setText("Request History");
+        requestLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         requestTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         requestTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -706,9 +715,9 @@ public class LeavePanel extends javax.swing.JPanel {
             requestTable.getColumnModel().getColumn(4).setCellRenderer(this.statusCell);
         }
 
-        counts.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         counts.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         counts.setText("All: 15");
+        counts.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -770,11 +779,21 @@ public class LeavePanel extends javax.swing.JPanel {
 
     private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
         // TODO add your handling code here:
+        cancelConfirmDialog.dispose();
     }//GEN-LAST:event_cancelBtnConfirmActionPerformed
 
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
         // TODO add your handling code here:
+        cancelConfirmDialog.dispose();
+        resetRequestDialog();
+        newRequestDialog.dispose();
+        
     }//GEN-LAST:event_confirmBtnConfirmActionPerformed
+
+    private void newRequestDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_newRequestDialogWindowClosing
+        // TODO add your handling code here:
+        cancelRequest();
+    }//GEN-LAST:event_newRequestDialogWindowClosing
     
     private boolean syncing = false;
     private DefaultTableCellRenderer statusCell;
