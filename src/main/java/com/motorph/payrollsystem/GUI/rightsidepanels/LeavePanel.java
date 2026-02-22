@@ -287,6 +287,36 @@ public class LeavePanel extends javax.swing.JPanel {
             }
         });
     }
+    
+    private void cancelRequest() {
+        if (!isDirty()) {
+            this.newRequestDialog.dispose();
+            return;
+        } 
+        
+        System.out.println("im here");
+        cancelConfirmDialog.pack();
+        cancelConfirmDialog.setResizable(false);
+        cancelConfirmDialog.setLocationRelativeTo(this.newRequestDialog);
+        cancelConfirmDialog.setTitle("Cancel Request");
+
+        cancelConfirmDialog.setVisible(true);  
+
+    }
+    
+    private boolean isDirty() {
+        String subject = subjectTextField.getText();
+        String message = newRequestTextArea.getText();
+        
+        boolean subjectDirty = subject != null && !subject.trim().isEmpty();
+        boolean messageDirty = message != null && !message.trim().isEmpty();
+        boolean startDirty = startDatePicker.getDate() != null;
+        boolean endDirty = endDatePicker.getDate() != null;
+        
+        
+        return subjectDirty || messageDirty || startDirty || endDirty;
+        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -318,12 +348,16 @@ public class LeavePanel extends javax.swing.JPanel {
         leaveLabel1 = new javax.swing.JLabel();
         messageLabel1 = new javax.swing.JLabel();
         subjectTextField = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrollPaneNewRequest = new javax.swing.JScrollPane();
         newRequestTextArea = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        cancelRequestBtn = new javax.swing.JButton();
+        submitRequestBtn = new javax.swing.JButton();
         endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
         startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
+        cancelConfirmDialog = new javax.swing.JDialog(newRequestDialog, true);
+        cancelConfrimLabel = new javax.swing.JLabel();
+        cancelBtnConfirm = new javax.swing.JButton();
+        confirmBtnConfirm = new javax.swing.JButton();
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
         newRequestBtn = new javax.swing.JButton();
@@ -481,15 +515,17 @@ public class LeavePanel extends javax.swing.JPanel {
         newRequestTextArea.setColumns(20);
         newRequestTextArea.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         newRequestTextArea.setRows(5);
-        jScrollPane1.setViewportView(newRequestTextArea);
+        scrollPaneNewRequest.setViewportView(newRequestTextArea);
 
-        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        cancelRequestBtn.setBackground(ThemeColor.lightRed());
+        cancelRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelRequestBtn.setText("Cancel");
+        cancelRequestBtn.addActionListener(this::cancelRequestBtnActionPerformed);
 
-        jButton2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jButton2.setText("Submit");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        submitRequestBtn.setBackground(ThemeColor.lightBlue());
+        submitRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        submitRequestBtn.setText("Submit");
+        submitRequestBtn.addActionListener(this::submitRequestBtnActionPerformed);
 
         endDatePicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
@@ -503,7 +539,7 @@ public class LeavePanel extends javax.swing.JPanel {
             .addGroup(newRequestDialogLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                    .addComponent(scrollPaneNewRequest)
                     .addGroup(newRequestDialogLayout.createSequentialGroup()
                         .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(leaveLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -520,9 +556,9 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newRequestDialogLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cancelRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(submitRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(91, 91, 91))
         );
         newRequestDialogLayout.setVerticalGroup(
@@ -543,12 +579,53 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(messageLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPaneNewRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(submitRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
+        );
+
+        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
+
+        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
+        cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelBtnConfirm.setText("Cancel");
+        cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
+
+        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
+        confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        confirmBtnConfirm.setText("Confirm");
+        confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
+
+        javax.swing.GroupLayout cancelConfirmDialogLayout = new javax.swing.GroupLayout(cancelConfirmDialog.getContentPane());
+        cancelConfirmDialog.getContentPane().setLayout(cancelConfirmDialogLayout);
+        cancelConfirmDialogLayout.setHorizontalGroup(
+            cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
+                .addGroup(cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(cancelConfrimLabel))
+                    .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        cancelConfirmDialogLayout.setVerticalGroup(
+            cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(cancelConfrimLabel)
+                .addGap(18, 18, 18)
+                .addGroup(cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -677,18 +754,27 @@ public class LeavePanel extends javax.swing.JPanel {
         addNewRequest();
     }//GEN-LAST:event_newRequestBtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void cancelRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelRequestBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        cancelRequest();
+    }//GEN-LAST:event_cancelRequestBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void submitRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitRequestBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_submitRequestBtnActionPerformed
 
     private void leaveDetailsCloseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveDetailsCloseBtnActionPerformed
         // TODO add your handling code here:
         leaveDetailsDialog.dispose();
     }//GEN-LAST:event_leaveDetailsCloseBtnActionPerformed
+
+    private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cancelBtnConfirmActionPerformed
+
+    private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_confirmBtnConfirmActionPerformed
     
     private boolean syncing = false;
     private DefaultTableCellRenderer statusCell;
@@ -697,6 +783,11 @@ public class LeavePanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel approveLabel;
     private javax.swing.JLabel approvedText;
+    private javax.swing.JButton cancelBtnConfirm;
+    private javax.swing.JDialog cancelConfirmDialog;
+    private javax.swing.JLabel cancelConfrimLabel;
+    private javax.swing.JButton cancelRequestBtn;
+    private javax.swing.JButton confirmBtnConfirm;
     private javax.swing.JLabel counts;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JPanel decorLine;
@@ -704,9 +795,6 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel filedLabel;
     private javax.swing.JLabel filedLabel1;
     private javax.swing.JLabel filedText;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton leaveDetailsCloseBtn;
     private javax.swing.JDialog leaveDetailsDialog;
     private javax.swing.JLabel leaveLabel;
@@ -721,6 +809,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel requestLabel;
     private javax.swing.JTable requestTable;
     private javax.swing.JScrollPane scrollPaneMessage;
+    private javax.swing.JScrollPane scrollPaneNewRequest;
     private javax.swing.JScrollPane scrollPaneTable;
     private com.github.lgooddatepicker.components.DatePicker startDatePicker;
     private javax.swing.JLabel statusLabel;
@@ -729,5 +818,6 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel subjectLabel1;
     private javax.swing.JLabel subjectText;
     private javax.swing.JTextField subjectTextField;
+    private javax.swing.JButton submitRequestBtn;
     // End of variables declaration//GEN-END:variables
 }

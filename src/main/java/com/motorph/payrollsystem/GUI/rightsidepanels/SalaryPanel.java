@@ -1267,7 +1267,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         );
 
         printPayBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        printPayBtn.setText("PRINT PAYSLIP");
+        printPayBtn.setText("Print Payslip");
         printPayBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         printPayBtn.addActionListener(this::printPayBtnActionPerformed);
 
