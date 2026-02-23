@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,23 +26,18 @@ import java.util.List;
  * @author djjus
  */
 public class LeaveRepository {
-    private final String resourcePath;
+    private final Path csvPath;
     
-    public LeaveRepository(String resourcePath) {
-        this.resourcePath = resourcePath;
+    public LeaveRepository(String filePath) {
+        this.csvPath = Paths.get(filePath);
     }
     
     public List<LeaveRequest> findByEmployeeNo(String employeeNo) throws IOException {
-        InputStream is = getClass().getResourceAsStream(resourcePath);
-        if (is == null) {
-            throw new IOException("Path can't find: " + resourcePath);
-        }
-        
         List<LeaveRequest> leaveRequests = new ArrayList<>();
+        ensureFileExistsWithHeader();
         
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)){
             String line;
-            
             //skip header
             br.readLine();
             while ((line = br.readLine()) != null) {
@@ -47,9 +46,8 @@ public class LeaveRepository {
                 String[] cols = Csv.parseLine(line);
                 if (cols.length < 9) continue;
                 if (!cols[1].trim().equals(employeeNo)) continue;
-                
-                LeaveRequest req = map(cols);
-                leaveRequests.add(req);
+
+                leaveRequests.add(map(cols));
             }
         }
         
@@ -57,6 +55,39 @@ public class LeaveRepository {
         return leaveRequests;
     }
     
+    //get the last request_id + 1
+    public int getNextRequestId() throws IOException {
+        ensureFileExistsWithHeader();
+        int max = 0;
+        
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)) {
+            String line;
+            br.readLine();
+            while ((line = br.readLine()) != null){
+                if (line.trim().isEmpty()) continue;
+                String[] cols = Csv.parseLine(line);
+                if (cols.length < 1) continue;
+                
+                try {
+                    int id = Integer.parseInt(cols[0].trim());
+                    if (id > max) max = id;
+                } catch (NumberFormatException ignore) {}
+            }
+        }
+        return max + 1;
+    }
+    
+    //add new entry on leave
+    public void append(LeaveRequest req) throws IOException {
+        ensureFileExistsWithHeader();
+        
+        String row = toCsvRow(req);
+        Files.writeString(csvPath, row + System.lineSeparator(),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.APPEND);
+    }
+    
+    //Convert a line (cols) into a LeaveRequest object
     private LeaveRequest map(String[] cols) {
         LeaveRequest request = new LeaveRequest();
         request.setRequestId(Integer.parseInt(cols[0]));
@@ -73,5 +104,43 @@ public class LeaveRepository {
         request.setApprovedBy(cols[8]);
         
         return request;
+    }
+    
+    //Check if leave-request is existing with correct header
+    private void ensureFileExistsWithHeader() throws IOException {
+        if (Files.exists(csvPath)) return;
+        
+        //Create leave-request if there is none.
+        Path parent = csvPath.getParent();
+        if (parent != null) Files.createDirectories(parent);
+        
+        String header = "request_id,employee_id,filed_date,leave_start,leave_end,subject,message,status,approved_by";
+        Files.writeString(csvPath, header + System.lineSeparator(),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE);
+    }
+    
+    
+    
+    //make a csv line
+    private String toCsvRow(LeaveRequest req) {
+        String approvedBy = req.getApprovedBy() == null ? "" : req.getApprovedBy();
+        
+        return req.getRequestId() + "," +
+                req.getEmployeeNo() + "," +
+                req.getFiledDate() + "," +
+                req.getLeaveStart() + "," +
+                req.getLeaveEnd() + "," +
+                csvQuote(req.getSubject()) + "," +
+                csvQuote(req.getMessage()) + "," +
+                req.getStatus() + "," +
+                approvedBy;
+    }
+    
+    private String csvQuote(String str) {
+        if (str == null) str = "";
+        //escape internal quote
+        String escaped = str.replace("\"", "\"\"");
+        return "\"" + escaped + "\"";
     }
 }

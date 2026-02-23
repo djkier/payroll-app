@@ -405,13 +405,13 @@ public class LeavePanel extends javax.swing.JPanel {
         filedText.setText("Filed Date :");
         filedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        leaveText.setText("Leave :");
+        leaveText.setText("Leave");
         leaveText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        statusText.setText("Status :");
+        statusText.setText("Status");
         statusText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        approvedText.setText("Approved By :");
+        approvedText.setText("Processed");
         approvedText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
         scrollPaneMessage.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

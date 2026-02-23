@@ -8,6 +8,7 @@ import com.motorph.payrollsystem.domain.leave.LeaveRequest;
 import com.motorph.payrollsystem.domain.leave.LeaveStatus;
 import com.motorph.payrollsystem.repository.LeaveRepository;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,53 @@ public class LeaveService {
     
     public LeaveService(LeaveRepository repo) {
         this.repo = repo;
+    }
+    
+    public LeaveRequest addNewRequest(
+        String employeeNo,
+        String subject,
+        LocalDate startDate,
+        LocalDate endDate,
+        String message
+    ) throws IOException {
+        
+        //Validate fields
+        if (employeeNo == null || employeeNo.isBlank())
+            throw new IllegalArgumentException("Employee No is requred.");
+            
+        if (subject == null || subject.isBlank())
+            throw new IllegalArgumentException("Subject is required");
+        
+        if (startDate == null)
+            throw new IllegalArgumentException("Start date is requred.");
+        
+        if (endDate == null)
+            throw new IllegalArgumentException("End date is requred.");
+        
+        if (message == null || message.isBlank())
+            throw new IllegalArgumentException("Message is requried.");
+        
+        //Validate date range
+        if (endDate.isBefore(startDate)) 
+            throw new IllegalArgumentException("End date cannot be before start date.");
+        
+        //Create request
+        LeaveRequest req = new LeaveRequest();
+        req.setRequestId(repo.getNextRequestId());
+        req.setEmployeeNo(employeeNo);
+        req.setFiledDate(LocalDate.now());
+        req.setLeaveStart(startDate);
+        req.setLeaveEnd(endDate);
+        req.setSubject(subject.trim());
+        req.setMessage(message.trim());
+        req.setStatus(LeaveStatus.PENDING);
+        req.setApprovedBy(null);
+        
+        //save
+        repo.append(req);
+        
+        return req;
+        
     }
     
     public List<LeaveRequest> getLeaveHistory(String employeeNo) throws IOException {
