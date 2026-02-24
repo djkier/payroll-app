@@ -4,6 +4,8 @@
  */
 package com.motorph.payrollsystem.GUI;
 
+import com.motorph.payrollsystem.access.AccessPolicy;
+import com.motorph.payrollsystem.access.PositionPolicyResolver;
 import com.motorph.payrollsystem.app.AppContext;
 
 import com.motorph.payrollsystem.domain.auth.UserAccount;
@@ -210,6 +212,7 @@ public class PasswordFrame extends javax.swing.JFrame {
             
             if (userAccount != null) {
                 Employee employee = appContext.getEmployeeService().findByEmployeeNo(userAccount.getEmployeeNo());
+
                 appContext.getSessionManager().startSession(userAccount, employee);
                 
                 MainFrame mainFrame = new MainFrame(appContext);

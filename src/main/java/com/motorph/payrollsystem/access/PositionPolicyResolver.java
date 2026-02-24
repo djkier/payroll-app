@@ -4,10 +4,34 @@
  */
 package com.motorph.payrollsystem.access;
 
+import com.motorph.payrollsystem.access.policies.AdminPolicy;
+import com.motorph.payrollsystem.access.policies.EmployeePolicy;
+import com.motorph.payrollsystem.access.policies.HrPolicy;
+import com.motorph.payrollsystem.access.policies.PayrollPolicy;
+import com.motorph.payrollsystem.domain.employee.Employee;
+
 /**
  *
  * @author djjus
  */
 public class PositionPolicyResolver {
     
+    public AccessPolicy resolve(Employee employee) {
+        String department = employee.getDepartmentInfo().getDepartment();
+        
+        switch (department) {
+            case "Executive":
+                return new AdminPolicy();
+            
+            case "Human Resources":
+                return new HrPolicy();
+                
+            case "Accounting":
+                return new PayrollPolicy();
+                
+            default:
+                return new EmployeePolicy();
+        }
+        
+    }
 }

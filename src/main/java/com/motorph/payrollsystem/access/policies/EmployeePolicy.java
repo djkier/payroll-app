@@ -4,10 +4,40 @@
  */
 package com.motorph.payrollsystem.access.policies;
 
+import com.motorph.payrollsystem.access.AccessPolicy;
+
 /**
  *
  * @author djjus
  */
-public class EmployeePolicy {
+public class EmployeePolicy implements AccessPolicy {
+    @Override
+    public boolean canViewServiceMenu() {
+        return false;
+    }
     
+    @Override
+    public boolean canManageEmployees() {
+        return false;
+    };
+    
+    @Override
+    public boolean canReviewLeaveRequests() {
+        return false;
+    };
+    
+    @Override
+    public boolean canRunPayroll() {
+        return false;
+    };
+    
+    @Override
+    public boolean canViewPayrollReports() {
+        return false;
+    };
+    
+    @Override
+    public String roleName() {
+        return "EMPLOYEE";
+    }
 }

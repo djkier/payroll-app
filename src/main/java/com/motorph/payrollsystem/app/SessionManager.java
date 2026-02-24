@@ -4,6 +4,8 @@
  */
 package com.motorph.payrollsystem.app;
 
+import com.motorph.payrollsystem.access.AccessPolicy;
+import com.motorph.payrollsystem.access.PositionPolicyResolver;
 import com.motorph.payrollsystem.domain.auth.UserAccount;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import java.time.LocalDateTime;
@@ -16,12 +18,18 @@ public class SessionManager {
     private UserAccount currentUser;
     private Employee currentEmployee;
     private LocalDateTime loginTime;
+    private AccessPolicy accessPolicy;
+    
     
     //store the current log in user and the time login
     public void startSession(UserAccount user, Employee employee) {
         this.currentUser = user;
-        this.currentEmployee = employee;
         this.loginTime = LocalDateTime.now();
+        this.currentEmployee = employee;
+        
+        PositionPolicyResolver resolver = new PositionPolicyResolver();
+        AccessPolicy policy = resolver.resolve(employee);
+        this.accessPolicy = policy;
     }
     
     //remove attributes when the user log out
@@ -29,6 +37,7 @@ public class SessionManager {
         this.currentUser = null;
         this.currentEmployee = null;
         this.loginTime = null;
+        this.accessPolicy = null;
     }
     
     public boolean isLoggedIn() {
@@ -45,5 +54,9 @@ public class SessionManager {
     
     public LocalDateTime getLoginTime() {
         return loginTime;
+    }
+
+    public AccessPolicy getAccessPolicy() {
+        return accessPolicy;
     }
 }

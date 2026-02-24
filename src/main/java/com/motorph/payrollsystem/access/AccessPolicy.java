@@ -8,6 +8,13 @@ package com.motorph.payrollsystem.access;
  *
  * @author djjus
  */
-public class AccessPolicy {
+public interface AccessPolicy {
+    boolean canViewServiceMenu();
     
+    boolean canManageEmployees();
+    boolean canReviewLeaveRequests();
+    boolean canRunPayroll();
+    boolean canViewPayrollReports();
+    
+    String roleName();
 }

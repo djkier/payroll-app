@@ -8,6 +8,8 @@ import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeeInfoPanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
 import com.motorph.payrollsystem.GUI.rightsidepanels.LeavePanel;
+import com.motorph.payrollsystem.GUI.rightsidepanels.ManagementPanel;
+import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.utility.ThemeColor;
 
@@ -34,6 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame(AppContext appContext) {
         this.appContext = appContext;
         initComponents();
+        applyAccessControl();
         setSize(1000, 640);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -49,8 +52,17 @@ public class MainFrame extends javax.swing.JFrame {
         );
         
         setIconImage(icon.getImage());
-        setTitle("MotorPH Payroll - Employee");
+        setTitle("MotorPH Payroll (" + appContext.getSessionManager().getAccessPolicy().roleName() + ")");
  
+    }
+    
+    private void applyAccessControl(){
+        AccessPolicy policy = appContext.getSessionManager().getAccessPolicy();
+        
+        boolean canAccess = policy.canViewServiceMenu();
+        
+        mngtBtn.setVisible(canAccess);
+        mngtBtn.setEnabled(canAccess);
     }
     
     private void changeRightScreen(javax.swing.JPanel panel) {
@@ -114,6 +126,8 @@ public class MainFrame extends javax.swing.JFrame {
         salaryLabel = new javax.swing.JLabel();
         leaveBtn = new javax.swing.JPanel();
         leaveLabel = new javax.swing.JLabel();
+        mngtBtn = new javax.swing.JPanel();
+        mngtlabel = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
 
         logoutConfirm.setAlwaysOnTop(true);
@@ -163,7 +177,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 640));
         setResizable(false);
 
         leftSidePanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -195,7 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
         logoutBtn.setLayout(logoutBtnLayout);
         logoutBtnLayout.setHorizontalGroup(
             logoutBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoutLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(logoutLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
         logoutBtnLayout.setVerticalGroup(
             logoutBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +235,6 @@ public class MainFrame extends javax.swing.JFrame {
         homeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         homeLabel.setText("HOME");
         homeLabel.setNextFocusableComponent(homeBtn);
-        homeLabel.setPreferredSize(new java.awt.Dimension(56, 22));
 
         javax.swing.GroupLayout homeBtnLayout = new javax.swing.GroupLayout(homeBtn);
         homeBtn.setLayout(homeBtnLayout);
@@ -232,7 +244,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         homeBtnLayout.setVerticalGroup(
             homeBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(homeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+            .addComponent(homeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         profileBtn.setBackground(new java.awt.Color(255, 255, 255));
@@ -257,7 +269,7 @@ public class MainFrame extends javax.swing.JFrame {
         profileBtn.setLayout(profileBtnLayout);
         profileBtnLayout.setHorizontalGroup(
             profileBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+            .addComponent(profileLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         profileBtnLayout.setVerticalGroup(
             profileBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,10 +301,7 @@ public class MainFrame extends javax.swing.JFrame {
         salaryBtn.setLayout(salaryBtnLayout);
         salaryBtnLayout.setHorizontalGroup(
             salaryBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(salaryBtnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(salaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         salaryBtnLayout.setVerticalGroup(
             salaryBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -337,6 +346,43 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(leaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE))
         );
 
+        mngtBtn.setBackground(new java.awt.Color(255, 255, 255));
+        mngtBtn.setPreferredSize(new java.awt.Dimension(240, 56));
+        mngtBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mngtBtnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                mngtBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                mngtBtnMouseExited(evt);
+            }
+        });
+
+        mngtlabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        mngtlabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        mngtlabel.setText("MANAGEMENT");
+        mngtlabel.setMaximumSize(new java.awt.Dimension(56, 22));
+        mngtlabel.setMinimumSize(new java.awt.Dimension(56, 22));
+        mngtlabel.setNextFocusableComponent(homeBtn);
+        mngtlabel.setPreferredSize(new java.awt.Dimension(56, 22));
+
+        javax.swing.GroupLayout mngtBtnLayout = new javax.swing.GroupLayout(mngtBtn);
+        mngtBtn.setLayout(mngtBtnLayout);
+        mngtBtnLayout.setHorizontalGroup(
+            mngtBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(mngtBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(mngtlabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+        );
+        mngtBtnLayout.setVerticalGroup(
+            mngtBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 56, Short.MAX_VALUE)
+            .addGroup(mngtBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(mngtlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
         navBar.setLayout(navBarLayout);
         navBarLayout.setHorizontalGroup(
@@ -345,6 +391,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(profileBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(salaryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(leaveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, navBarLayout.createSequentialGroup()
+                .addComponent(mngtBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         navBarLayout.setVerticalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,21 +406,23 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(salaryBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(leaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mngtBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
         leftSidePanel.setLayout(leftSidePanelLayout);
         leftSidePanelLayout.setHorizontalGroup(
             leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
             .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(navBar, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
         );
         leftSidePanelLayout.setVerticalGroup(
             leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leftSidePanelLayout.createSequentialGroup()
                 .addGap(136, 136, 136)
-                .addComponent(navBar, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(navBar, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -516,6 +567,21 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         logoutClosing();
     }//GEN-LAST:event_logoutConfirmWindowClosing
+
+    private void mngtBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mngtBtnMouseClicked
+        // TODO add your handling code here:
+        changeRightScreen(new ManagementPanel(appContext));
+    }//GEN-LAST:event_mngtBtnMouseClicked
+
+    private void mngtBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mngtBtnMouseEntered
+        // TODO add your handling code here:
+        btnMouseEntered(mngtBtn);
+    }//GEN-LAST:event_mngtBtnMouseEntered
+
+    private void mngtBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mngtBtnMouseExited
+        // TODO add your handling code here:
+        btnMouseExited(mngtBtn);
+    }//GEN-LAST:event_mngtBtnMouseExited
     
 
     /**
@@ -550,12 +616,18 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel homeBtn;
     private javax.swing.JLabel homeLabel;
     private javax.swing.JPanel leaveBtn;
+    private javax.swing.JPanel leaveBtn1;
+    private javax.swing.JPanel leaveBtn2;
     private javax.swing.JLabel leaveLabel;
+    private javax.swing.JLabel leaveLabel1;
+    private javax.swing.JLabel leaveLabel2;
     private javax.swing.JPanel leftSidePanel;
     private javax.swing.JPanel logoutBtn;
     private javax.swing.JDialog logoutConfirm;
     private javax.swing.JLabel logoutLabel;
     private javax.swing.JLabel logoutMessage;
+    private javax.swing.JPanel mngtBtn;
+    private javax.swing.JLabel mngtlabel;
     private javax.swing.JPanel navBar;
     private javax.swing.JPanel profileBtn;
     private javax.swing.JLabel profileLabel;
