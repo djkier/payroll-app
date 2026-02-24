@@ -22,13 +22,10 @@ public class SessionManager {
     
     
     //store the current log in user and the time login
-    public void startSession(UserAccount user, Employee employee) {
+    public void startSession(UserAccount user, Employee employee, AccessPolicy policy) {
         this.currentUser = user;
         this.loginTime = LocalDateTime.now();
         this.currentEmployee = employee;
-        
-        PositionPolicyResolver resolver = new PositionPolicyResolver();
-        AccessPolicy policy = resolver.resolve(employee);
         this.accessPolicy = policy;
     }
     

@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.app;
 
+import com.motorph.payrollsystem.access.PositionPolicyResolver;
 import com.motorph.payrollsystem.payroll.PayrollEngine;
 import com.motorph.payrollsystem.repository.AttendanceRepository;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
@@ -21,16 +22,19 @@ import com.motorph.payrollsystem.utility.Csv;
  */
 public class AppContext {
     private final SessionManager sessionManager;
+    private final PositionPolicyResolver positionPolicyResolver;
+    
     private final AuthService authService;
     private final EmployeeService employeeService;
     private final PayrollService payrollService;
     private final LeaveService leaveService;
     
-        private final AttendanceRepository attendanceRepository;
+    private final AttendanceRepository attendanceRepository;
     
     
     public AppContext() {
         this.sessionManager = new SessionManager();
+        this.positionPolicyResolver = new PositionPolicyResolver();
         
         UserRepository userRepo = new UserRepository(Csv.userCsvPath());
         this.authService = new AuthService(userRepo);
@@ -72,6 +76,12 @@ public class AppContext {
     public LeaveService getLeaveService() {
         return leaveService;
     }
+
+    public PositionPolicyResolver getPositionPolicyResolver() {
+        return positionPolicyResolver;
+    }
+    
+    
     
     
     

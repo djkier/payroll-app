@@ -6,6 +6,7 @@ package com.motorph.payrollsystem.GUI;
 
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.access.PositionPolicyResolver;
+import com.motorph.payrollsystem.access.policies.EmployeePolicy;
 import com.motorph.payrollsystem.app.AppContext;
 
 import com.motorph.payrollsystem.domain.auth.UserAccount;
@@ -212,8 +213,15 @@ public class PasswordFrame extends javax.swing.JFrame {
             
             if (userAccount != null) {
                 Employee employee = appContext.getEmployeeService().findByEmployeeNo(userAccount.getEmployeeNo());
-
-                appContext.getSessionManager().startSession(userAccount, employee);
+                if (employee == null) {
+                    customizeDialog("Login Error", "Employee record not found for this account.");
+                    return;
+                }
+ 
+                AccessPolicy policy = appContext.getPositionPolicyResolver().resolve(employee);
+                if (policy == null) policy = new EmployeePolicy();
+                
+                appContext.getSessionManager().startSession(userAccount, employee, policy);
                 
                 MainFrame mainFrame = new MainFrame(appContext);
                 mainFrame.setVisible(true);
