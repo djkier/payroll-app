@@ -36,7 +36,7 @@ public class DataBootstrap {
         //Copy template from resource folder
         try (InputStream is = DataBootstrap.class.getResourceAsStream(resourcePath)) {
             if (is == null) {
-                throw new IOException("Missing reousrce template: " + resourcePath); 
+                throw new IOException("Missing resource template: " + resourcePath); 
             }
             Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING);
             
