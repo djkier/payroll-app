@@ -4,6 +4,8 @@
  */
 package com.motorph.payrollsystem.utility;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +47,22 @@ public class Csv {
         return output.toArray(new String[0]);
     }
     
+    public static Path appDataDir() {
+        String home = System.getProperty("user.home");
+        return Paths.get(home, "MotorPhPayrollFiles", "data");
+        
+    }
+    
+    public static Path leavesCsvPath() {
+        return appDataDir().resolve("leave-requests.csv");
+    }
+    
+    public static Path employeeCsvPath() {
+        return appDataDir().resolve("employee-details.csv");
+    }
+    
+    
 
     
-//    public static String[] parseLine(String line) {
-//        return parseLine(line).toArray(new String[0]);
-//    }
+
 }

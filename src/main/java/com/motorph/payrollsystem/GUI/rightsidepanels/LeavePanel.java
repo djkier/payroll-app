@@ -324,6 +324,32 @@ public class LeavePanel extends javax.swing.JPanel {
         endDatePicker.setDate(null);
         
     }
+    
+    private void onSubmit() {
+        try {
+            String employeeNo = appContext.getSessionManager().getCurrentEmployee().getEmployeeNo();
+            String subject = subjectTextField.getText();
+            LocalDate start = startDatePicker.getDate();
+            LocalDate end = endDatePicker.getDate();
+            String message = newRequestTextArea.getText();
+            
+            appContext.getLeaveService().addNewRequest(employeeNo, subject, start, end, message);
+            
+            //refresh table + summary
+            loadLeaveHistory();
+            
+            //close new request dialog
+            resetRequestDialog();
+            newRequestDialog.dispose();
+
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this.newRequestDialog, ex.getMessage(), "Validation", JOptionPane.WARNING_MESSAGE);
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this.newRequestDialog, "Failed to submit request.\n" + ex.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -770,6 +796,7 @@ public class LeavePanel extends javax.swing.JPanel {
 
     private void submitRequestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitRequestBtnActionPerformed
         // TODO add your handling code here:
+        onSubmit();
     }//GEN-LAST:event_submitRequestBtnActionPerformed
 
     private void leaveDetailsCloseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leaveDetailsCloseBtnActionPerformed

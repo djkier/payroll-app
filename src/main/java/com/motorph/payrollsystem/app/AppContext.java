@@ -13,6 +13,7 @@ import com.motorph.payrollsystem.service.AuthService;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.service.LeaveService;
 import com.motorph.payrollsystem.service.PayrollService;
+import com.motorph.payrollsystem.utility.Csv;
 
 /**
  *
@@ -43,7 +44,7 @@ public class AppContext {
         
         this.payrollService = new PayrollService(attendanceRepository, payrollEngine);
         
-        LeaveRepository leaveRepository = new LeaveRepository("/csv-files/leave-requests.csv");
+        LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath().toString());
         this.leaveService = new LeaveService(leaveRepository);
         
     }

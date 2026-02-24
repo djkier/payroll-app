@@ -8,6 +8,8 @@ import com.motorph.payrollsystem.GUI.MainFrame;
 import com.motorph.payrollsystem.GUI.PasswordFrame;
 import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
+import com.motorph.payrollsystem.utility.Csv;
+import com.motorph.payrollsystem.utility.DataBootstrap;
 import java.io.IOException;
 import javax.swing.SwingUtilities;
 
@@ -17,8 +19,22 @@ import javax.swing.SwingUtilities;
  * @author djjus
  */
 public class PayrollSystem {
+    
 
     public static void main(String[] args) {
+        //MAKE A NEW COPY OF THE TEMPLATE FILES IF NOT EXISTING
+        try {
+            DataBootstrap.ensureCsvExported("/csv-files/employee-details.csv", Csv.employeeCsvPath());
+            DataBootstrap.ensureCsvExported("/csv-files/leave-requests.csv", Csv.leavesCsvPath());
+            DataBootstrap.ensureCsvExported("/csv-files/employee-attendance.csv", "csv-files/employee-attendance.csv");
+            DataBootstrap.ensureCsvExported("/csv-files/user-accounts.csv", "csv-files/user-accounts.csv");
+        } catch (Exception e) {
+            e. printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(null, 
+                    "Failed to initialize data files.\n" + e.getMessage(),
+                    "Startup Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
         
         SwingUtilities.invokeLater(() -> {
             AppContext context = new AppContext();

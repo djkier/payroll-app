@@ -34,19 +34,19 @@ public class LeaveService {
         
         //Validate fields
         if (employeeNo == null || employeeNo.isBlank())
-            throw new IllegalArgumentException("Employee No is requred.");
+            throw new IllegalArgumentException("Employee No is required.");
             
         if (subject == null || subject.isBlank())
-            throw new IllegalArgumentException("Subject is required");
+            throw new IllegalArgumentException("Subject is required.");
         
         if (startDate == null)
-            throw new IllegalArgumentException("Start date is requred.");
+            throw new IllegalArgumentException("Start date is required.");
         
         if (endDate == null)
-            throw new IllegalArgumentException("End date is requred.");
+            throw new IllegalArgumentException("End date is required.");
         
         if (message == null || message.isBlank())
-            throw new IllegalArgumentException("Message is requried.");
+            throw new IllegalArgumentException("Message is required.");
         
         //Validate date range
         if (endDate.isBefore(startDate)) 

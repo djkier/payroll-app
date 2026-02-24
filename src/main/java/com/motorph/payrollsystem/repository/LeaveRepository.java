@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -34,8 +35,9 @@ public class LeaveRepository {
     
     public List<LeaveRequest> findByEmployeeNo(String employeeNo) throws IOException {
         List<LeaveRequest> leaveRequests = new ArrayList<>();
+        System.out.println("Checking leave history from the employee");
         ensureFileExistsWithHeader();
-        
+        System.out.println("check if there is history");
         try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)){
             String line;
             //skip header
@@ -52,6 +54,7 @@ public class LeaveRepository {
         }
         
         leaveRequests.sort(Comparator.comparing(LeaveRequest::getFiledDate).reversed());
+        System.out.println("Returning history if there is");
         return leaveRequests;
     }
     
@@ -80,11 +83,29 @@ public class LeaveRepository {
     //add new entry on leave
     public void append(LeaveRequest req) throws IOException {
         ensureFileExistsWithHeader();
-        
+
         String row = toCsvRow(req);
-        Files.writeString(csvPath, row + System.lineSeparator(),
+        
+        boolean needsNewLine = false;
+        
+        if (Files.size(csvPath) > 0) {
+            byte[] lastByte = new byte[1];
+            try (RandomAccessFile raf = new RandomAccessFile(csvPath.toFile(), "r")) {
+                raf.seek(raf.length() - 1);
+                raf.read(lastByte);
+            }
+            char lastChar = (char) lastByte[0];
+            if (lastChar != '\n') {
+                needsNewLine = true;
+            }
+        }
+        
+        String contentToAppend = (needsNewLine ? System.lineSeparator() : "") + row + System.lineSeparator();
+
+        Files.writeString(csvPath, contentToAppend,
                 StandardCharsets.UTF_8,
                 StandardOpenOption.APPEND);
+
     }
     
     //Convert a line (cols) into a LeaveRequest object
@@ -108,8 +129,10 @@ public class LeaveRepository {
     
     //Check if leave-request is existing with correct header
     private void ensureFileExistsWithHeader() throws IOException {
+        System.out.println("Asking if file exist");
         if (Files.exists(csvPath)) return;
         
+        System.out.println("File does not exist");
         //Create leave-request if there is none.
         Path parent = csvPath.getParent();
         if (parent != null) Files.createDirectories(parent);
