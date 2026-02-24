@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 
 /**
  *
@@ -17,20 +20,16 @@ import java.nio.charset.StandardCharsets;
  */
 public class UserRepository {
     //    path of user-accounts from resource 
-    private final String resourcePath; 
+    private final Path csvPath; 
 
-    public UserRepository(String resourcePath) {
-        this.resourcePath = resourcePath;
+    public UserRepository(Path csvPath) {
+        this.csvPath = csvPath;
     }
 
     public UserAccount findMatchingAccount(String employeeNo, String username, String password) throws IOException {
-//        The path will be always from the resources path on the main
-        InputStream is = getClass().getResourceAsStream(resourcePath);
-        if (is == null) {
-            throw new IOException("Path can't find: " + resourcePath);
-        }
+        ensureFileExistsWithHeader();
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)) {
             String line;
 
             // skip header
@@ -60,4 +59,18 @@ public class UserRepository {
 
         return null; 
     }
+    
+    private void ensureFileExistsWithHeader() throws IOException {
+        if (Files.exists(csvPath)) return;
+        
+        //Create leave-request if there is none.
+        Path parent = csvPath.getParent();
+        if (parent != null) Files.createDirectories(parent);
+        
+        String header = "Employee #,Username,Password";
+        Files.writeString(csvPath, header + System.lineSeparator(),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE);
+    }
+
 }

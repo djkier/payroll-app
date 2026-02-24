@@ -14,6 +14,8 @@ import java.util.List;
  * @author djjus
  */
 public class Csv {
+    
+    //Csv line parser
     public static String[] parseLine(String line) {
         List<String> output = new ArrayList<>();
         if (line == null) return output.toArray(new String[0]);
@@ -47,6 +49,8 @@ public class Csv {
         return output.toArray(new String[0]);
     }
     
+    
+    //Csv paths
     public static Path appDataDir() {
         String home = System.getProperty("user.home");
         return Paths.get(home, "MotorPhPayrollFiles", "data");
@@ -59,6 +63,34 @@ public class Csv {
     
     public static Path employeeCsvPath() {
         return appDataDir().resolve("employee-details.csv");
+    }
+    
+    public static Path attendanceCsvPath() {
+        return appDataDir().resolve("employee-attendance.csv");
+    }
+    
+    public static Path userCsvPath() {
+        return appDataDir().resolve("user-accounts.csv");
+    }
+    
+    private static String resourcePath(String path) {
+        return "/csv-files/" + path;
+    }
+    
+    public static String leavesResourcePath() {
+        return resourcePath("leave-requests.csv");
+    }
+    
+    public static String employeeResourcePath() {
+        return resourcePath("employee-details.csv");
+    }
+    
+    public static String attendanceResourcePath() {
+        return resourcePath("employee-attendance.csv");
+    }
+    
+    public static String userResourcePath() {
+        return resourcePath("user-accounts.csv");
     }
     
     

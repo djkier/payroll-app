@@ -29,15 +29,14 @@ import java.util.List;
 public class LeaveRepository {
     private final Path csvPath;
     
-    public LeaveRepository(String filePath) {
-        this.csvPath = Paths.get(filePath);
+    public LeaveRepository(Path csvPath) {
+        this.csvPath = csvPath;
     }
     
     public List<LeaveRequest> findByEmployeeNo(String employeeNo) throws IOException {
         List<LeaveRequest> leaveRequests = new ArrayList<>();
-        System.out.println("Checking leave history from the employee");
         ensureFileExistsWithHeader();
-        System.out.println("check if there is history");
+
         try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)){
             String line;
             //skip header
@@ -54,7 +53,7 @@ public class LeaveRepository {
         }
         
         leaveRequests.sort(Comparator.comparing(LeaveRequest::getFiledDate).reversed());
-        System.out.println("Returning history if there is");
+        
         return leaveRequests;
     }
     
@@ -129,10 +128,8 @@ public class LeaveRepository {
     
     //Check if leave-request is existing with correct header
     private void ensureFileExistsWithHeader() throws IOException {
-        System.out.println("Asking if file exist");
         if (Files.exists(csvPath)) return;
         
-        System.out.println("File does not exist");
         //Create leave-request if there is none.
         Path parent = csvPath.getParent();
         if (parent != null) Files.createDirectories(parent);

@@ -209,8 +209,8 @@ public class PasswordFrame extends javax.swing.JFrame {
             UserAccount userAccount = authService.login(empNo, username, password);
             
             if (userAccount != null) {
-                Employee currEmployee = appContext.getEmployeeService().findByEmployeeNo(userAccount.getEmployeeNo());
-                appContext.getSessionManager().startSession(userAccount, currEmployee);
+                Employee employee = appContext.getEmployeeService().findByEmployeeNo(userAccount.getEmployeeNo());
+                appContext.getSessionManager().startSession(userAccount, employee);
                 
                 MainFrame mainFrame = new MainFrame(appContext);
                 mainFrame.setVisible(true);

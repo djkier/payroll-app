@@ -32,19 +32,19 @@ public class AppContext {
     public AppContext() {
         this.sessionManager = new SessionManager();
         
-        UserRepository userRepo = new UserRepository("/csv-files/user-accounts.csv");
+        UserRepository userRepo = new UserRepository(Csv.userCsvPath());
         this.authService = new AuthService(userRepo);
         
         
-        EmployeeRepository employeeRepo = new EmployeeRepository("/csv-files/employee-details.csv");
+        EmployeeRepository employeeRepo = new EmployeeRepository(Csv.employeeCsvPath());
         this.employeeService = new EmployeeService(employeeRepo);
         
-        this.attendanceRepository = new AttendanceRepository("/csv-files/employee-attendance.csv");
+        this.attendanceRepository = new AttendanceRepository(Csv.attendanceCsvPath());
         PayrollEngine payrollEngine = new PayrollEngine();
         
         this.payrollService = new PayrollService(attendanceRepository, payrollEngine);
         
-        LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath().toString());
+        LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath());
         this.leaveService = new LeaveService(leaveRepository);
         
     }

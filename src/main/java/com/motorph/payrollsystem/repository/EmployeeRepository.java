@@ -14,30 +14,25 @@ import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.Money;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 /**
  *
  * @author djjus
  */
 public class EmployeeRepository {
-    private final String resourcePath;
+    private final Path csvPath;
     
-    public EmployeeRepository(String resourcePath) {
-        this.resourcePath = resourcePath;
+    public EmployeeRepository(Path csvPath) {
+        this.csvPath = csvPath;
     }
     
     public Employee findByEmployeeNo(String employeeNo) throws IOException {
-        InputStream is = getClass().getResourceAsStream(resourcePath);
-        if (is == null) {
-            throw new IOException("Path can't find: " + resourcePath);
-        }
+        ensureFileExistsWithHeader();
         
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)) {
             String line;
             
             br.readLine();
@@ -98,6 +93,19 @@ public class EmployeeRepository {
         emp.setDepartmentInfo(departmentInfo);
         emp.setCompProfile(compProfile);
         return emp;
+    }
+    
+    private void ensureFileExistsWithHeader() throws IOException {
+        if (Files.exists(csvPath)) return;
+        
+        //Create leave-request if there is none.
+        Path parent = csvPath.getParent();
+        if (parent != null) Files.createDirectories(parent);
+        
+        String header = "Employee #,Last Name,First Name,Birthday,Address,Phone Number,SSS #,Philhealth #,TIN #,Pag-ibig #,Status,Position,Immediate Supervisor,Basic Salary,Rice Subsidy,Phone Allowance,Clothing Allowance,Gross Semi-monthly Rate,Hourly Rate";
+        Files.writeString(csvPath, header + System.lineSeparator(),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE);
     }
 
     

@@ -24,16 +24,18 @@ public class PayrollSystem {
     public static void main(String[] args) {
         //MAKE A NEW COPY OF THE TEMPLATE FILES IF NOT EXISTING
         try {
-            DataBootstrap.ensureCsvExported("/csv-files/employee-details.csv", Csv.employeeCsvPath());
-            DataBootstrap.ensureCsvExported("/csv-files/leave-requests.csv", Csv.leavesCsvPath());
-            DataBootstrap.ensureCsvExported("/csv-files/employee-attendance.csv", "csv-files/employee-attendance.csv");
-            DataBootstrap.ensureCsvExported("/csv-files/user-accounts.csv", "csv-files/user-accounts.csv");
+            DataBootstrap.ensureCsvExported(Csv.employeeResourcePath(), Csv.employeeCsvPath());
+            DataBootstrap.ensureCsvExported(Csv.leavesResourcePath(), Csv.leavesCsvPath());
+            DataBootstrap.ensureCsvExported(Csv.attendanceResourcePath(), Csv.attendanceCsvPath());
+            DataBootstrap.ensureCsvExported(Csv.userResourcePath(), Csv.userCsvPath());
+            
         } catch (Exception e) {
-            e. printStackTrace();
+            e.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(null, 
                     "Failed to initialize data files.\n" + e.getMessage(),
                     "Startup Error",
                     javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
         }
         
         SwingUtilities.invokeLater(() -> {
@@ -44,6 +46,8 @@ public class PayrollSystem {
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         });
+        
+        
 //        MainFrame.main();
 
 
