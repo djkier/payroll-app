@@ -64,6 +64,10 @@ public class ThemeColor {
         return new Color(255, 255, 255);
     }
     
+    public static Color textDisabled() {
+        return new Color(102,102,102);
+    }
+    
     
     
     

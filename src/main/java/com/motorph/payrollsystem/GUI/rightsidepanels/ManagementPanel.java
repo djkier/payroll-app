@@ -340,7 +340,7 @@ public class ManagementPanel extends javax.swing.JPanel {
             return;
         }
         
-        EIMDialog.setContentPane(new EIMPanels(appContext));
+        EIMDialog.setContentPane(new EIMPanels(appContext, EIMDialog));
         EIMDialog.setPreferredSize(new Dimension(822, 690));
         EIMDialog.pack();
         EIMDialog.setLocationRelativeTo(null);
