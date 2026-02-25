@@ -2,117 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.motorph.payrollsystem.GUI.managementpanels;
+package com.motorph.payrollsystem.GUI.managementpanels.tools;
 
-import com.motorph.payrollsystem.GUI.managementpanels.tools.InformationEditor;
-import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.domain.employee.Employee;
-import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author djjus
  */
-public class EIMPanels extends javax.swing.JPanel {
+public class InformationEditor extends javax.swing.JPanel {
 
     /**
-     * Creates new form EIMPanels
-     * 
-     * @param appContext use to get employee contexts
+     * Creates new form InfomationEditor
      */
-    public EIMPanels(
-            AppContext appContext,
-            javax.swing.JDialog dialog) {
+    public InformationEditor(
+        AppContext appContext, 
+        Employee selectedEmployee,
+        javax.swing.JDialog dialog) {
+        
         this.appContext = appContext;
-        this.dialog = dialog;
-        this.employeeList = List.of();
+        this.selectedEmployee = selectedEmployee;
+        this.parentDialog = dialog;
         this.isEditing = false;
-        this.selectedEmployee = null;
-        this.isClosingEIMDialog = false;
         
         initComponents();
-        loadEmployees();
-        hookRowDoubleClick();
-    }
-    
-    private void loadEmployees() {
-        EmployeeService employeeService = appContext.getEmployeeService();
-        AccessPolicy policy = appContext.getSessionManager().getAccessPolicy();
+        fillEmployeeInformation(selectedEmployee);
+        updateFields();
         
-        try {
-            List<Employee> employeeList = employeeService.getEmployeeList(policy.canManageEmployees());
-            this.employeeList = employeeList;
-            
-            fillTable(employeeList);
-            
-        } catch (Exception ex){
-            JOptionPane.showMessageDialog(this, "Error loading employee data");
-        }
+        setParentDialogClosingAction();
         
-        customizeCellColumns();
-    }
-    
-    private void customizeCellColumns() {
-        empInfoTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
-    }
-    
-    private void fillTable(List<Employee> list) {
-        DefaultTableModel model = (DefaultTableModel) clearTable(empInfoTable);
         
-        for (Employee emp : list) {
-            model.addRow(new Object[]{
-                emp.getEmployeeNo(),
-                emp.getLastName(),
-                emp.getFirstName(),
-                emp.getDepartmentInfo().getDepartment(),
-                emp.getDepartmentInfo().getPosition(),
-                emp.getDepartmentInfo().getStatus()
-            });
-        }
     }
     
-    private DefaultTableModel clearTable(javax.swing.JTable table) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0);
-        
-        return model;
-    }
-    
-    private void hookRowDoubleClick() {
-        empInfoTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (evt.getClickCount() != 2) return;
-                
-                int row = empInfoTable.getSelectedRow();
-                if (row < 0 || row >= employeeList.size()) return;
-                
-                selectedEmployee = employeeList.get(row);
-                showEmployeeDetails(selectedEmployee);
-//                System.out.println("Employee : " + selectedEmployee.getFullName());
+    private void setParentDialogClosingAction() {
+        parentDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                editEmployeeDialogWindowClosing(evt);
             }
-        }) ;
-    }
-    
-    private void showEmployeeDetails(Employee emp) {
-//        fillEmployeeInformation(emp);
-        
-        editEmployeeDialog.pack();
-        editEmployeeDialog.setResizable(false);
-        editEmployeeDialog.setLocationRelativeTo(null);
-        editEmployeeDialog.setTitle("Employee Information : " + emp.getFullName() );
-        editEmployeeDialog.setContentPane(new InformationEditor(appContext, emp, editEmployeeDialog));
-        
-//        updateFields();
-        
-        editEmployeeDialog.setVisible(true);
-
+        });
     }
     
     private void fillEmployeeInformation(Employee emp) {
@@ -194,14 +124,27 @@ public class EIMPanels extends javax.swing.JPanel {
     }
     
     private void customCancelDialog(String title, String message) {
+        System.out.println("Set text message");
         cancelConfrimLabel.setText(message);
         customDialog.pack();
         customDialog.setResizable(false);
-        customDialog.setLocationRelativeTo(this.editEmployeeDialog);
+        customDialog.setLocationRelativeTo(parentDialog);
+        System.out.println("Set title");
         customDialog.setTitle(title);
 
+        System.out.println("Make dialog visible");
         customDialog.setVisible(true);  
     }
+    
+    private void editEmployeeDialogWindowClosing(java.awt.event.WindowEvent evt) {
+        if(!isEditing) {
+            parentDialog.dispose();
+            return;
+        }
+
+        customCancelDialog("Exit", "Are you sure you want to exit?");
+    }               
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -212,9 +155,11 @@ public class EIMPanels extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        radioBtnGroup = new javax.swing.ButtonGroup();
-        editEmployeeDialog = new javax.swing.JDialog(this.dialog, true);
-        editEmployeePanel = new javax.swing.JPanel();
+        customDialog = new javax.swing.JDialog(this.parentDialog, true);
+        cancelConfirmPanel = new javax.swing.JPanel();
+        cancelConfrimLabel = new javax.swing.JLabel();
+        cancelBtnConfirm = new javax.swing.JButton();
+        confirmBtnConfirm = new javax.swing.JButton();
         personalInfoLabel = new javax.swing.JLabel();
         lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
@@ -254,30 +199,59 @@ public class EIMPanels extends javax.swing.JPanel {
         closeViewBtn = new javax.swing.JButton();
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
-        customDialog = new javax.swing.JDialog(editEmployeeDialog, true);
-        cancelConfirmPanel = new javax.swing.JPanel();
-        cancelConfrimLabel = new javax.swing.JLabel();
-        cancelBtnConfirm = new javax.swing.JButton();
-        confirmBtnConfirm = new javax.swing.JButton();
-        searchBarTextField = new javax.swing.JTextField();
-        statsLabel = new javax.swing.JLabel();
-        headerLabel = new javax.swing.JLabel();
-        addNewBtn = new javax.swing.JButton();
-        empInfoPane = new javax.swing.JScrollPane();
-        empInfoTable = new javax.swing.JTable();
-        idRadio = new javax.swing.JRadioButton();
-        lastNameRadio = new javax.swing.JRadioButton();
-        searchByLabel = new javax.swing.JLabel();
 
-        editEmployeeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        editEmployeeDialog.setAlwaysOnTop(true);
-        editEmployeeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                editEmployeeDialogWindowClosing(evt);
-            }
-        });
+        cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        editEmployeePanel.setBackground(new java.awt.Color(255, 255, 255));
+        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
+
+        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
+        cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelBtnConfirm.setText("Cancel");
+        cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
+
+        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
+        confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        confirmBtnConfirm.setText("Confirm");
+        confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
+
+        javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
+        cancelConfirmPanel.setLayout(cancelConfirmPanelLayout);
+        cancelConfirmPanelLayout.setHorizontalGroup(
+            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cancelConfirmPanelLayout.setVerticalGroup(
+            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(cancelConfrimLabel)
+                .addGap(18, 18, 18)
+                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout customDialogLayout = new javax.swing.GroupLayout(customDialog.getContentPane());
+        customDialog.getContentPane().setLayout(customDialogLayout);
+        customDialogLayout.setHorizontalGroup(
+            customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        customDialogLayout.setVerticalGroup(
+            customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         personalInfoLabel.setText("Personal Information");
@@ -441,17 +415,17 @@ public class EIMPanels extends javax.swing.JPanel {
         cancelAddOrUpdateBtn.setText("Cancel");
         cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
 
-        javax.swing.GroupLayout editEmployeePanelLayout = new javax.swing.GroupLayout(editEmployeePanel);
-        editEmployeePanel.setLayout(editEmployeePanelLayout);
-        editEmployeePanelLayout.setHorizontalGroup(
-            editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeNoLabel)
                             .addComponent(firstNameLabel)
                             .addComponent(phoneLabel)
@@ -459,7 +433,7 @@ public class EIMPanels extends javax.swing.JPanel {
                             .addComponent(birthdayLabel)
                             .addComponent(lastNameLabel))
                         .addGap(6, 6, 6)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -467,53 +441,53 @@ public class EIMPanels extends javax.swing.JPanel {
                             .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sssLabel)
                             .addComponent(philHealthLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(sssTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                             .addComponent(philhealthTextInput))
                         .addGap(18, 18, 18)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tinLabel)
                             .addComponent(pagibigLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pagibigTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(govIdLabel))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(departmentLabel))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(departmentNameLabel)
                             .addComponent(positionLabel)
                             .addComponent(supervisorLabel)
                             .addComponent(statusLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(personalInfoLabel)))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(viewLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(304, 304, 304)
                 .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -522,11 +496,11 @@ public class EIMPanels extends javax.swing.JPanel {
                 .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
-        editEmployeePanelLayout.setVerticalGroup(
-            editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(viewLabel)
                     .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
@@ -534,27 +508,27 @@ public class EIMPanels extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(personalInfoLabel)
                 .addGap(6, 6, 6)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(employeeNoLabel)
                     .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
                     .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lastNameLabel)
                     .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(birthdayLabel)
                     .addComponent(birthdayTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressLabel)
                     .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneLabel)
                     .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
@@ -562,13 +536,13 @@ public class EIMPanels extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(govIdLabel)
                 .addGap(7, 7, 7)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sssLabel)
                     .addComponent(pagibigLabel)
                     .addComponent(sssTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pagibigTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(philHealthLabel)
                     .addComponent(tinLabel)
                     .addComponent(philhealthTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -578,198 +552,28 @@ public class EIMPanels extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(departmentLabel)
                 .addGap(7, 7, 7)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentNameLabel)
                     .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(positionLabel)
                     .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supervisorLabel)
                     .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusLabel)
                     .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
-
-        javax.swing.GroupLayout editEmployeeDialogLayout = new javax.swing.GroupLayout(editEmployeeDialog.getContentPane());
-        editEmployeeDialog.getContentPane().setLayout(editEmployeeDialogLayout);
-        editEmployeeDialogLayout.setHorizontalGroup(
-            editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editEmployeeDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editEmployeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        editEmployeeDialogLayout.setVerticalGroup(
-            editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editEmployeeDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editEmployeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
-        cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
-
-        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
-        cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtnConfirm.setText("Cancel");
-        cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
-
-        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
-        confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtnConfirm.setText("Confirm");
-        confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
-
-        javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
-        cancelConfirmPanel.setLayout(cancelConfirmPanelLayout);
-        cancelConfirmPanelLayout.setHorizontalGroup(
-            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
-            .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        cancelConfirmPanelLayout.setVerticalGroup(
-            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(cancelConfrimLabel)
-                .addGap(18, 18, 18)
-                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
-        );
-
-        javax.swing.GroupLayout customDialogLayout = new javax.swing.GroupLayout(customDialog.getContentPane());
-        customDialog.getContentPane().setLayout(customDialogLayout);
-        customDialogLayout.setHorizontalGroup(
-            customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        customDialogLayout.setVerticalGroup(
-            customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        searchBarTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        searchBarTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-
-        statsLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statsLabel.setText("Total : 36  Regular : 12  Probationary : 24");
-
-        headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
-        headerLabel.setText("EMPLOYEE INFORMATION MANAGEMENT");
-
-        addNewBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        addNewBtn.setText("Add new employee");
-
-        empInfoTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        empInfoTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Employee No.", "Last Name", "First Name", "Department", "Position", "Status"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        empInfoTable.setRowHeight(28);
-        empInfoTable.getTableHeader().setResizingAllowed(false);
-        empInfoTable.getTableHeader().setReorderingAllowed(false);
-        empInfoPane.setViewportView(empInfoTable);
-        if (empInfoTable.getColumnModel().getColumnCount() > 0) {
-            empInfoTable.getColumnModel().getColumn(0).setPreferredWidth(40);
-            empInfoTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-            empInfoTable.getColumnModel().getColumn(2).setPreferredWidth(80);
-        }
-
-        idRadio.setBackground(new java.awt.Color(255, 255, 255));
-        radioBtnGroup.add(idRadio);
-        idRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        idRadio.setText("ID Number");
-
-        lastNameRadio.setBackground(new java.awt.Color(255, 255, 255));
-        radioBtnGroup.add(lastNameRadio);
-        lastNameRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        lastNameRadio.setText("Last Name");
-
-        searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        searchByLabel.setText("Search by :");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchByLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(statsLabel))
-                    .addComponent(empInfoPane)
-                    .addComponent(headerLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(headerLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addNewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(searchBarTextField))
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idRadio)
-                    .addComponent(lastNameRadio)
-                    .addComponent(searchByLabel)
-                    .addComponent(statsLabel))
-                .addGap(12, 12, 12)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
-        idRadio.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
@@ -780,32 +584,34 @@ public class EIMPanels extends javax.swing.JPanel {
 
     private void closeViewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeViewBtnActionPerformed
         // TODO add your handling code here:
-        this.selectedEmployee = null;
-        this.editEmployeeDialog.dispose();
+        parentDialog.dispose();
     }//GEN-LAST:event_closeViewBtnActionPerformed
 
     private void addOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateBtnActionPerformed
         // TODO add your handling code here:
-        isEditing = !isEditing;
-        updateFields();
+//        isEditing = !isEditing;
+//        updateFields();
     }//GEN-LAST:event_addOrUpdateBtnActionPerformed
 
     private void cancelAddOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddOrUpdateBtnActionPerformed
         // TODO add your handling code here:
+        System.out.println("Decide what to do :");
         if (!doTextfieldsChange()) {
+            System.out.println("There is no changes. Exiting");
             isEditing = !isEditing;
             updateFields();
             return;
         }
         
+        System.out.println("Creating cancel Dialog");
         customCancelDialog("Cancel Editing", "You have unsaved changes. Discard them?");
     }//GEN-LAST:event_cancelAddOrUpdateBtnActionPerformed
 
     private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
         // TODO add your handling code here:
-        isClosingEIMDialog = false;
+//        isClosingEIMDialog = false;
         customDialog.dispose();
-     
+
     }//GEN-LAST:event_cancelBtnConfirmActionPerformed
 
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
@@ -814,32 +620,18 @@ public class EIMPanels extends javax.swing.JPanel {
         isEditing = !isEditing;
         fillEmployeeInformation(selectedEmployee);
         updateFields();
-        
-        if (isClosingEIMDialog) {
-            editEmployeeDialog.dispose();
-        } 
+
+//        if (isClosingEIMDialog) {
+//            editEmployeeDialog.dispose();
+//        }
     }//GEN-LAST:event_confirmBtnConfirmActionPerformed
 
-    private void editEmployeeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editEmployeeDialogWindowClosing
-        // TODO add your handling code here:
-        if(!isEditing) {
-            editEmployeeDialog.dispose();
-            return;
-        }
-        
-        isClosingEIMDialog = true;
-        customCancelDialog("Exit", "Are you sure you want to exit?");
-    }//GEN-LAST:event_editEmployeeDialogWindowClosing
-
-    private boolean isClosingEIMDialog;
-    private Employee selectedEmployee;
-    private String addOrUpdate;
     private boolean isEditing;
-    private javax.swing.JDialog dialog;
-    private List<Employee> employeeList;
+    private javax.swing.JDialog parentDialog;
+    private Employee selectedEmployee;
     private AppContext appContext;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addNewBtn;
     private javax.swing.JButton addOrUpdateBtn;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JTextField addressTextInput;
@@ -853,25 +645,17 @@ public class EIMPanels extends javax.swing.JPanel {
     private javax.swing.JButton confirmBtnConfirm;
     private javax.swing.JDialog customDialog;
     private javax.swing.JPanel decorLine;
-    private javax.swing.JPanel decorLine1;
     private javax.swing.JPanel decorLine2;
     private javax.swing.JPanel decorLine3;
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JLabel departmentNameLabel;
     private javax.swing.JTextField departmentTextInput;
-    private javax.swing.JDialog editEmployeeDialog;
-    private javax.swing.JPanel editEmployeePanel;
-    private javax.swing.JScrollPane empInfoPane;
-    private javax.swing.JTable empInfoTable;
     private javax.swing.JLabel employeeNoLabel;
     private javax.swing.JTextField employeeNoTextInput;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextInput;
     private javax.swing.JLabel govIdLabel;
-    private javax.swing.JLabel headerLabel;
-    private javax.swing.JRadioButton idRadio;
     private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JRadioButton lastNameRadio;
     private javax.swing.JTextField lastNameTextInput;
     private javax.swing.JLabel pagibigLabel;
     private javax.swing.JTextField pagibigTextInput;
@@ -882,12 +666,8 @@ public class EIMPanels extends javax.swing.JPanel {
     private javax.swing.JTextField phoneTextInput;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JTextField positionTextInput;
-    private javax.swing.ButtonGroup radioBtnGroup;
-    private javax.swing.JTextField searchBarTextField;
-    private javax.swing.JLabel searchByLabel;
     private javax.swing.JLabel sssLabel;
     private javax.swing.JTextField sssTextInput;
-    private javax.swing.JLabel statsLabel;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField statusTextInput;
     private javax.swing.JLabel supervisorLabel;
