@@ -18,6 +18,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author djjus
@@ -36,7 +38,7 @@ public class EmployeeRepository {
             String line;
             
             br.readLine();
-             while ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
                 //parse csv properly so splitting of "," from an address or salary can be prevented
@@ -57,6 +59,29 @@ public class EmployeeRepository {
         }
 
         return null;
+    }
+    
+    public List<Employee> getEmployeeList() throws IOException {
+        List<Employee> employeeList = new ArrayList<>();
+        ensureFileExistsWithHeader();
+        
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)) {
+            String line;
+            br.readLine();
+            
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+                
+                String[] details = Csv.parseLine(line);
+                if (details.length < 19) continue;
+                
+                Employee emp = map(details);
+                employeeList.add(emp);
+
+            }
+        }
+        
+        return employeeList;
     }
     
     private Employee map(String[] details) {

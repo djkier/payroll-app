@@ -40,6 +40,7 @@ public class LeavePanel extends javax.swing.JPanel {
         initComponents();
         loadLeaveHistory();
         hookRowDoubleClick();
+        
         customDatePicker(startDatePicker);
         customDatePicker(endDatePicker);
         setupStartEndLogic();

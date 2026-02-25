@@ -7,6 +7,7 @@ package com.motorph.payrollsystem.service;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -23,5 +24,13 @@ public class EmployeeService {
         //validate employee no to prevent unknown error
         if (employeeNo == null || employeeNo.isBlank()) return null;
         return employeeRepo.findByEmployeeNo(employeeNo);
+    }
+    
+    public List<Employee> getEmployeeList(boolean allowed) throws IOException {
+        if (!allowed) {
+            return null;
+        }
+        
+        return employeeRepo.getEmployeeList();
     }
 }

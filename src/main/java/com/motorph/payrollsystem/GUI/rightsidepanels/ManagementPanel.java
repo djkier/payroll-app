@@ -4,12 +4,16 @@
  */
 package com.motorph.payrollsystem.GUI.rightsidepanels;
 
+
+import com.motorph.payrollsystem.GUI.managementpanels.EIMPanels;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.app.AppContext;
 import com.motorph.payrollsystem.app.SessionManager;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Dimension;
 import java.time.LocalDateTime;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,26 +27,29 @@ public class ManagementPanel extends javax.swing.JPanel {
      */
     public ManagementPanel(AppContext appContext) {
         this.appContext = appContext;
+        this.policy = appContext.getSessionManager().getAccessPolicy();
+        this.moduleIcon = new ImageIcon(
+                getClass().getResource("/images/tab-icon/motorPhFrame.png")
+        );
+        
+        
+        
         initComponents();
         applyAccessControl();
 
 
-        
-
     }
     
-    public void applyAccessControl() {
-        AccessPolicy policy = appContext.getSessionManager().getAccessPolicy();
-
+    
+    private void applyAccessControl() {
         manageCard(reviewLeaveCard, policy.canReviewLeaveRequests());
         manageCard(eimCard, policy.canManageEmployees());
         manageCard(runPayrollCard, policy.canRunPayroll());
-        manageCard(viewPayrollCard, policy.canViewPayrollReports());
+        manageCard(payrollReportsCard, policy.canViewPayrollReports());
         
         layoutManager.revalidate();
         layoutManager.repaint();
-        
-        
+
     }
     
     private void manageCard(javax.swing.JPanel panel, boolean can) {
@@ -68,23 +75,40 @@ public class ManagementPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        EIMDialog = new javax.swing.JDialog();
         managementLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
         layoutManager = new javax.swing.JPanel();
         eimCard = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        eimLabel = new javax.swing.JLabel();
         reviewLeaveCard = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        reviewLeaveLabel = new javax.swing.JLabel();
         runPayrollCard = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        viewPayrollCard = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        runPayrollLabel = new javax.swing.JLabel();
+        payrollReportsCard = new javax.swing.JPanel();
+        payrollReportsLabel = new javax.swing.JLabel();
+
+        EIMDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        EIMDialog.setAlwaysOnTop(true);
+        EIMDialog.setIconImage(moduleIcon.getImage());
+        EIMDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
+
+        javax.swing.GroupLayout EIMDialogLayout = new javax.swing.GroupLayout(EIMDialog.getContentPane());
+        EIMDialog.getContentPane().setLayout(EIMDialogLayout);
+        EIMDialogLayout.setHorizontalGroup(
+            EIMDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        EIMDialogLayout.setVerticalGroup(
+            EIMDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
 
-        managementLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         managementLabel.setText("MANAGEMENT");
+        managementLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
 
         decorLine.setBackground(new java.awt.Color(240, 240, 240));
         decorLine.setDoubleBuffered(false);
@@ -108,6 +132,9 @@ public class ManagementPanel extends javax.swing.JPanel {
         eimCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         eimCard.setPreferredSize(new java.awt.Dimension(280, 200));
         eimCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eimCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 eimCardMouseEntered(evt);
             }
@@ -116,21 +143,21 @@ public class ManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("EMPLOYEE INFORMATION MANAGEMENT");
+        eimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eimLabel.setText("EMPLOYEE INFORMATION MANAGEMENT");
+        eimLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout eimCardLayout = new javax.swing.GroupLayout(eimCard);
         eimCard.setLayout(eimCardLayout);
         eimCardLayout.setHorizontalGroup(
             eimCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(eimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
         eimCardLayout.setVerticalGroup(
             eimCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eimCardLayout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(eimLabel)
                 .addGap(24, 24, 24))
         );
 
@@ -149,21 +176,21 @@ public class ManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REVIEW LEAVE REQUEST");
+        reviewLeaveLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        reviewLeaveLabel.setText("REVIEW LEAVE REQUEST");
+        reviewLeaveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout reviewLeaveCardLayout = new javax.swing.GroupLayout(reviewLeaveCard);
         reviewLeaveCard.setLayout(reviewLeaveCardLayout);
         reviewLeaveCardLayout.setHorizontalGroup(
             reviewLeaveCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(reviewLeaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
         reviewLeaveCardLayout.setVerticalGroup(
             reviewLeaveCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reviewLeaveCardLayout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(reviewLeaveLabel)
                 .addGap(24, 24, 24))
         );
 
@@ -182,58 +209,58 @@ public class ManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("RUN PAYROLL");
+        runPayrollLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        runPayrollLabel.setText("RUN PAYROLL");
+        runPayrollLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout runPayrollCardLayout = new javax.swing.GroupLayout(runPayrollCard);
         runPayrollCard.setLayout(runPayrollCardLayout);
         runPayrollCardLayout.setHorizontalGroup(
             runPayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(runPayrollLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
         runPayrollCardLayout.setVerticalGroup(
             runPayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, runPayrollCardLayout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(runPayrollLabel)
                 .addGap(24, 24, 24))
         );
 
         layoutManager.add(runPayrollCard);
 
-        viewPayrollCard.setBackground(new java.awt.Color(255, 255, 255));
-        viewPayrollCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        viewPayrollCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        viewPayrollCard.setPreferredSize(new java.awt.Dimension(280, 200));
-        viewPayrollCard.addMouseListener(new java.awt.event.MouseAdapter() {
+        payrollReportsCard.setBackground(new java.awt.Color(255, 255, 255));
+        payrollReportsCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        payrollReportsCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        payrollReportsCard.setPreferredSize(new java.awt.Dimension(280, 200));
+        payrollReportsCard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                viewPayrollCardMouseEntered(evt);
+                payrollReportsCardMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                viewPayrollCardMouseExited(evt);
+                payrollReportsCardMouseExited(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("VIEW PAYROLL REPORTS");
+        payrollReportsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        payrollReportsLabel.setText("VIEW PAYROLL REPORTS");
+        payrollReportsLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        javax.swing.GroupLayout viewPayrollCardLayout = new javax.swing.GroupLayout(viewPayrollCard);
-        viewPayrollCard.setLayout(viewPayrollCardLayout);
-        viewPayrollCardLayout.setHorizontalGroup(
-            viewPayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        javax.swing.GroupLayout payrollReportsCardLayout = new javax.swing.GroupLayout(payrollReportsCard);
+        payrollReportsCard.setLayout(payrollReportsCardLayout);
+        payrollReportsCardLayout.setHorizontalGroup(
+            payrollReportsCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(payrollReportsLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
-        viewPayrollCardLayout.setVerticalGroup(
-            viewPayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPayrollCardLayout.createSequentialGroup()
+        payrollReportsCardLayout.setVerticalGroup(
+            payrollReportsCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, payrollReportsCardLayout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                .addComponent(payrollReportsLabel)
                 .addGap(24, 24, 24))
         );
 
-        layoutManager.add(viewPayrollCard);
+        layoutManager.add(payrollReportsCard);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -295,29 +322,49 @@ public class ManagementPanel extends javax.swing.JPanel {
         cardMouseExited(runPayrollCard);
     }//GEN-LAST:event_runPayrollCardMouseExited
 
-    private void viewPayrollCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollCardMouseEntered
+    private void payrollReportsCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseEntered
         // TODO add your handling code here:
-        cardMouseEntered(viewPayrollCard);
-    }//GEN-LAST:event_viewPayrollCardMouseEntered
+        cardMouseEntered(payrollReportsCard);
+    }//GEN-LAST:event_payrollReportsCardMouseEntered
 
-    private void viewPayrollCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollCardMouseExited
+    private void payrollReportsCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseExited
         // TODO add your handling code here:
-        cardMouseExited(viewPayrollCard);
-    }//GEN-LAST:event_viewPayrollCardMouseExited
+        cardMouseExited(payrollReportsCard);
+    }//GEN-LAST:event_payrollReportsCardMouseExited
 
+    private void eimCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eimCardMouseClicked
+        // TODO add your handling code here:
+        //Validate first
+        if (policy == null || !policy.canManageEmployees()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
+            return;
+        }
+        
+        EIMDialog.setContentPane(new EIMPanels(appContext));
+        EIMDialog.setPreferredSize(new Dimension(822, 690));
+        EIMDialog.pack();
+        EIMDialog.setLocationRelativeTo(null);
+        EIMDialog.setTitle("Employee Information Management (" + appContext.getSessionManager().getAccessPolicy().roleName() + ")");
+        
+        EIMDialog.setVisible(true);
+        
+    }//GEN-LAST:event_eimCardMouseClicked
+    
+    private ImageIcon moduleIcon;
+    private AccessPolicy policy;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog EIMDialog;
     private javax.swing.JPanel decorLine;
     private javax.swing.JPanel eimCard;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel eimLabel;
     private javax.swing.JPanel layoutManager;
     private javax.swing.JLabel managementLabel;
+    private javax.swing.JPanel payrollReportsCard;
+    private javax.swing.JLabel payrollReportsLabel;
     private javax.swing.JPanel reviewLeaveCard;
+    private javax.swing.JLabel reviewLeaveLabel;
     private javax.swing.JPanel runPayrollCard;
-    private javax.swing.JPanel viewPayrollCard;
+    private javax.swing.JLabel runPayrollLabel;
     // End of variables declaration//GEN-END:variables
 }
