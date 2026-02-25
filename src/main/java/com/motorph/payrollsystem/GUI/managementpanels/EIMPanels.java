@@ -32,6 +32,7 @@ public class EIMPanels extends javax.swing.JPanel {
         this.dialog = dialog;
         this.employeeList = List.of();
         this.isEditing = false;
+        this.selectedEmployee = null;
         
         initComponents();
         loadEmployees();
@@ -90,7 +91,7 @@ public class EIMPanels extends javax.swing.JPanel {
                 int row = empInfoTable.getSelectedRow();
                 if (row < 0 || row >= employeeList.size()) return;
                 
-                Employee selectedEmployee = employeeList.get(row);
+                selectedEmployee = employeeList.get(row);
                 showEmployeeDetails(selectedEmployee);
 //                System.out.println("Employee : " + selectedEmployee.getFullName());
             }
@@ -136,7 +137,7 @@ public class EIMPanels extends javax.swing.JPanel {
     }
     
     private void updateFields() {
-        String view = isEditing ? "Updating" : "View";
+        String view = isEditing ? "Edit" : "View";
         viewLabel.setText(view + " Employee Details");
         
         buttonsVisibility(updateBtn, !isEditing);
@@ -170,6 +171,23 @@ public class EIMPanels extends javax.swing.JPanel {
     private void textFieldEnabler(javax.swing.JTextField textField) {
         textField.setEnabled(isEditing);
         textField.setDisabledTextColor(ThemeColor.textDisabled());
+    }
+    
+    private boolean doTextfieldsChange() {
+        return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
+                !firstNameTextInput.getText().equals(selectedEmployee.getFirstName()) ||
+                !lastNameTextInput.getText().equals(selectedEmployee.getLastName()) ||
+                !birthdayTextInput.getText().equals(Dates.fullDate(selectedEmployee.getBirthday())) ||
+                !addressTextInput.getText().equals(selectedEmployee.getContactInfo().getAddress()) ||
+                !phoneTextInput.getText().equals(selectedEmployee.getContactInfo().getPhoneNumber()) ||
+                !sssTextInput.getText().equals(selectedEmployee.getGovIds().getSssNumber()) ||
+                !philhealthTextInput.getText().equals(selectedEmployee.getGovIds().getPhilHealthNumber()) ||
+                !pagibigTextInput.getText().equals(selectedEmployee.getGovIds().getPagibigNumber()) ||
+                !tinTextInput.getText().equals(selectedEmployee.getGovIds().getTinNumber()) ||
+                !departmentTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getDepartment()) ||
+                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
+                !supervisorTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getSupervisor()) ||
+                !statusTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getStatus());
     }
 
     /**
@@ -223,6 +241,11 @@ public class EIMPanels extends javax.swing.JPanel {
         closeViewBtn = new javax.swing.JButton();
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
+        cancelEditDialog = new javax.swing.JDialog();
+        cancelConfirmPanel = new javax.swing.JPanel();
+        cancelConfrimLabel = new javax.swing.JLabel();
+        cancelBtnConfirm = new javax.swing.JButton();
+        confirmBtnConfirm = new javax.swing.JButton();
         searchBarTextField = new javax.swing.JTextField();
         statsLabel = new javax.swing.JLabel();
         headerLabel = new javax.swing.JLabel();
@@ -474,9 +497,9 @@ public class EIMPanels extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(293, 293, 293)
-                        .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(304, 304, 304)
+                        .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(86, 86, 86)
                         .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -570,6 +593,59 @@ public class EIMPanels extends javax.swing.JPanel {
         editEmployeeDialogLayout.setVerticalGroup(
             editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(editEmployeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
+
+        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
+        cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelBtnConfirm.setText("Cancel");
+        cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
+
+        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
+        confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        confirmBtnConfirm.setText("Confirm");
+        confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
+
+        javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
+        cancelConfirmPanel.setLayout(cancelConfirmPanelLayout);
+        cancelConfirmPanelLayout.setHorizontalGroup(
+            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cancelConfrimLabel)
+                    .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43)
+                        .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        cancelConfirmPanelLayout.setVerticalGroup(
+            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(cancelConfrimLabel)
+                .addGap(18, 18, 18)
+                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout cancelEditDialogLayout = new javax.swing.GroupLayout(cancelEditDialog.getContentPane());
+        cancelEditDialog.getContentPane().setLayout(cancelEditDialogLayout);
+        cancelEditDialogLayout.setHorizontalGroup(
+            cancelEditDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cancelEditDialogLayout.setVerticalGroup(
+            cancelEditDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -683,6 +759,7 @@ public class EIMPanels extends javax.swing.JPanel {
 
     private void closeViewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeViewBtnActionPerformed
         // TODO add your handling code here:
+        this.selectedEmployee = null;
         this.editEmployeeDialog.dispose();
     }//GEN-LAST:event_closeViewBtnActionPerformed
 
@@ -694,10 +771,29 @@ public class EIMPanels extends javax.swing.JPanel {
 
     private void cancelAddOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddOrUpdateBtnActionPerformed
         // TODO add your handling code here:
-        isEditing = !isEditing;
-        updateFields();
+        if (!doTextfieldsChange()) {
+            isEditing = !isEditing;
+            updateFields();
+            return;
+        }
+        System.out.println("cancel dialog");
+        
+//        isEditing = !isEditing;
+//        updateFields();
     }//GEN-LAST:event_cancelAddOrUpdateBtnActionPerformed
 
+    private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
+        // TODO add your handling code here:
+     
+    }//GEN-LAST:event_cancelBtnConfirmActionPerformed
+
+    private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
+        // TODO add your handling code here:
+      
+
+    }//GEN-LAST:event_confirmBtnConfirmActionPerformed
+
+    private Employee selectedEmployee;
     private String addOrUpdate;
     private boolean isEditing;
     private javax.swing.JDialog dialog;
@@ -711,7 +807,12 @@ public class EIMPanels extends javax.swing.JPanel {
     private javax.swing.JLabel birthdayLabel;
     private javax.swing.JTextField birthdayTextInput;
     private javax.swing.JButton cancelAddOrUpdateBtn;
+    private javax.swing.JButton cancelBtnConfirm;
+    private javax.swing.JPanel cancelConfirmPanel;
+    private javax.swing.JLabel cancelConfrimLabel;
+    private javax.swing.JDialog cancelEditDialog;
     private javax.swing.JButton closeViewBtn;
+    private javax.swing.JButton confirmBtnConfirm;
     private javax.swing.JPanel decorLine;
     private javax.swing.JPanel decorLine1;
     private javax.swing.JPanel decorLine2;

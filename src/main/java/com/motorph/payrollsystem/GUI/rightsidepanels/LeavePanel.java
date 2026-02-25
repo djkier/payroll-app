@@ -388,6 +388,7 @@ public class LeavePanel extends javax.swing.JPanel {
         endDatePicker = new com.github.lgooddatepicker.components.DatePicker();
         startDatePicker = new com.github.lgooddatepicker.components.DatePicker();
         cancelConfirmDialog = new javax.swing.JDialog(newRequestDialog, true);
+        cancelConfirmPanel = new javax.swing.JPanel();
         cancelConfrimLabel = new javax.swing.JLabel();
         cancelBtnConfirm = new javax.swing.JButton();
         confirmBtnConfirm = new javax.swing.JButton();
@@ -623,6 +624,8 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
 
+        cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
+
         cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
         cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
@@ -636,32 +639,42 @@ public class LeavePanel extends javax.swing.JPanel {
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
 
-        javax.swing.GroupLayout cancelConfirmDialogLayout = new javax.swing.GroupLayout(cancelConfirmDialog.getContentPane());
-        cancelConfirmDialog.getContentPane().setLayout(cancelConfirmDialogLayout);
-        cancelConfirmDialogLayout.setHorizontalGroup(
-            cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
-                .addGroup(cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(cancelConfrimLabel))
-                    .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
+        javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
+        cancelConfirmPanel.setLayout(cancelConfirmPanelLayout);
+        cancelConfirmPanelLayout.setHorizontalGroup(
+            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cancelConfrimLabel)
+                    .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
                         .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
-        cancelConfirmDialogLayout.setVerticalGroup(
-            cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cancelConfirmDialogLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+        cancelConfirmPanelLayout.setVerticalGroup(
+            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(cancelConfrimLabel)
                 .addGap(18, 18, 18)
-                .addGroup(cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout cancelConfirmDialogLayout = new javax.swing.GroupLayout(cancelConfirmDialog.getContentPane());
+        cancelConfirmDialog.getContentPane().setLayout(cancelConfirmDialogLayout);
+        cancelConfirmDialogLayout.setHorizontalGroup(
+            cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        cancelConfirmDialogLayout.setVerticalGroup(
+            cancelConfirmDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -832,6 +845,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel approvedText;
     private javax.swing.JButton cancelBtnConfirm;
     private javax.swing.JDialog cancelConfirmDialog;
+    private javax.swing.JPanel cancelConfirmPanel;
     private javax.swing.JLabel cancelConfrimLabel;
     private javax.swing.JButton cancelRequestBtn;
     private javax.swing.JButton confirmBtnConfirm;
