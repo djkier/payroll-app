@@ -32,9 +32,6 @@ public class EIMPanels extends javax.swing.JPanel {
         this.appContext = appContext;
         this.dialog = dialog;
         this.employeeList = List.of();
-        this.isEditing = false;
-        this.selectedEmployee = null;
-        this.isClosingEIMDialog = false;
         
         initComponents();
         loadEmployees();
@@ -46,7 +43,7 @@ public class EIMPanels extends javax.swing.JPanel {
         AccessPolicy policy = appContext.getSessionManager().getAccessPolicy();
         
         try {
-            List<Employee> employeeList = employeeService.getEmployeeList(policy.canManageEmployees());
+            List<Employee> employeeList = employeeService.getEmployeeList(policy);
             this.employeeList = employeeList;
             
             fillTable(employeeList);
@@ -92,116 +89,23 @@ public class EIMPanels extends javax.swing.JPanel {
                 
                 int row = empInfoTable.getSelectedRow();
                 if (row < 0 || row >= employeeList.size()) return;
-                
-                selectedEmployee = employeeList.get(row);
-                showEmployeeDetails(selectedEmployee);
-//                System.out.println("Employee : " + selectedEmployee.getFullName());
+
+                showEmployeeInfoEditor(employeeList.get(row));
             }
         }) ;
     }
     
-    private void showEmployeeDetails(Employee emp) {
-//        fillEmployeeInformation(emp);
-        
+    private void showEmployeeInfoEditor(Employee emp) {
+        editEmployeeDialog.setTitle("Employee Information : " + emp.getFullName() );
+        editEmployeeDialog.setContentPane(new InformationEditor(appContext, emp, editEmployeeDialog));
         editEmployeeDialog.pack();
         editEmployeeDialog.setResizable(false);
         editEmployeeDialog.setLocationRelativeTo(null);
-        editEmployeeDialog.setTitle("Employee Information : " + emp.getFullName() );
-        editEmployeeDialog.setContentPane(new InformationEditor(appContext, emp, editEmployeeDialog));
         
-//        updateFields();
         
         editEmployeeDialog.setVisible(true);
+    }
 
-    }
-    
-    private void fillEmployeeInformation(Employee emp) {
-        
-        
-        //personal information
-        employeeNoTextInput.setText(emp.getEmployeeNo());
-        firstNameTextInput.setText(emp.getFirstName());
-        lastNameTextInput.setText(emp.getLastName());
-        birthdayTextInput.setText(Dates.fullDate(emp.getBirthday()));
-        addressTextInput.setText(emp.getContactInfo().getAddress());
-        phoneTextInput.setText(emp.getContactInfo().getPhoneNumber());
-        
-        //govt id
-        sssTextInput.setText(emp.getGovIds().getSssNumber());
-        philhealthTextInput.setText(emp.getGovIds().getPhilHealthNumber());
-        pagibigTextInput.setText(emp.getGovIds().getPagibigNumber());
-        tinTextInput.setText(emp.getGovIds().getTinNumber());
-        
-        //dept info
-        departmentTextInput.setText(emp.getDepartmentInfo().getDepartment());
-        positionTextInput.setText(emp.getDepartmentInfo().getPosition());
-        supervisorTextInput.setText(emp.getDepartmentInfo().getSupervisor());
-        statusTextInput.setText(emp.getDepartmentInfo().getStatus());
-    }
-    
-    private void updateFields() {
-        String view = isEditing ? "Edit" : "View";
-        viewLabel.setText(view + " Employee Details");
-        
-        buttonsVisibility(updateBtn, !isEditing);
-        buttonsVisibility(closeViewBtn, !isEditing);
-        buttonsVisibility(cancelAddOrUpdateBtn,isEditing);
-        buttonsVisibility(addOrUpdateBtn, isEditing);
-        
-        textFieldEnabler(firstNameTextInput);
-        textFieldEnabler(lastNameTextInput);
-        textFieldEnabler(birthdayTextInput);
-        textFieldEnabler(addressTextInput);
-        textFieldEnabler(phoneTextInput);
-        
-        textFieldEnabler(sssTextInput);
-        textFieldEnabler(philhealthTextInput);
-        textFieldEnabler(pagibigTextInput);
-        textFieldEnabler(tinTextInput);
-        
-        textFieldEnabler(departmentTextInput);
-        textFieldEnabler(positionTextInput);
-        textFieldEnabler(supervisorTextInput);
-        textFieldEnabler(statusTextInput);
-        
-    }
-    
-    private void buttonsVisibility(javax.swing.JButton btn, boolean isVisible) {
-        btn.setEnabled(isVisible);
-        btn.setVisible(isVisible);
-    }
-    
-    private void textFieldEnabler(javax.swing.JTextField textField) {
-        textField.setEnabled(isEditing);
-        textField.setDisabledTextColor(ThemeColor.textDisabled());
-    }
-    
-    private boolean doTextfieldsChange() {
-        return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
-                !firstNameTextInput.getText().equals(selectedEmployee.getFirstName()) ||
-                !lastNameTextInput.getText().equals(selectedEmployee.getLastName()) ||
-                !birthdayTextInput.getText().equals(Dates.fullDate(selectedEmployee.getBirthday())) ||
-                !addressTextInput.getText().equals(selectedEmployee.getContactInfo().getAddress()) ||
-                !phoneTextInput.getText().equals(selectedEmployee.getContactInfo().getPhoneNumber()) ||
-                !sssTextInput.getText().equals(selectedEmployee.getGovIds().getSssNumber()) ||
-                !philhealthTextInput.getText().equals(selectedEmployee.getGovIds().getPhilHealthNumber()) ||
-                !pagibigTextInput.getText().equals(selectedEmployee.getGovIds().getPagibigNumber()) ||
-                !tinTextInput.getText().equals(selectedEmployee.getGovIds().getTinNumber()) ||
-                !departmentTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getDepartment()) ||
-                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
-                !supervisorTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getSupervisor()) ||
-                !statusTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getStatus());
-    }
-    
-    private void customCancelDialog(String title, String message) {
-        cancelConfrimLabel.setText(message);
-        customDialog.pack();
-        customDialog.setResizable(false);
-        customDialog.setLocationRelativeTo(this.editEmployeeDialog);
-        customDialog.setTitle(title);
-
-        customDialog.setVisible(true);  
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -214,47 +118,7 @@ public class EIMPanels extends javax.swing.JPanel {
 
         radioBtnGroup = new javax.swing.ButtonGroup();
         editEmployeeDialog = new javax.swing.JDialog(this.dialog, true);
-        editEmployeePanel = new javax.swing.JPanel();
-        personalInfoLabel = new javax.swing.JLabel();
-        lastNameLabel = new javax.swing.JLabel();
-        employeeNoLabel = new javax.swing.JLabel();
-        firstNameLabel = new javax.swing.JLabel();
-        birthdayLabel = new javax.swing.JLabel();
-        viewLabel = new javax.swing.JLabel();
-        addressLabel = new javax.swing.JLabel();
-        phoneLabel = new javax.swing.JLabel();
-        decorLine2 = new javax.swing.JPanel();
-        statusLabel = new javax.swing.JLabel();
-        decorLine = new javax.swing.JPanel();
-        govIdLabel = new javax.swing.JLabel();
-        sssLabel = new javax.swing.JLabel();
-        philHealthLabel = new javax.swing.JLabel();
-        pagibigLabel = new javax.swing.JLabel();
-        tinLabel = new javax.swing.JLabel();
-        decorLine3 = new javax.swing.JPanel();
-        departmentLabel = new javax.swing.JLabel();
-        departmentNameLabel = new javax.swing.JLabel();
-        positionLabel = new javax.swing.JLabel();
-        supervisorLabel = new javax.swing.JLabel();
-        updateBtn = new javax.swing.JButton();
-        employeeNoTextInput = new javax.swing.JTextField();
-        firstNameTextInput = new javax.swing.JTextField();
-        lastNameTextInput = new javax.swing.JTextField();
-        birthdayTextInput = new javax.swing.JTextField();
-        addressTextInput = new javax.swing.JTextField();
-        phoneTextInput = new javax.swing.JTextField();
-        sssTextInput = new javax.swing.JTextField();
-        philhealthTextInput = new javax.swing.JTextField();
-        pagibigTextInput = new javax.swing.JTextField();
-        tinTextInput = new javax.swing.JTextField();
-        departmentTextInput = new javax.swing.JTextField();
-        positionTextInput = new javax.swing.JTextField();
-        supervisorTextInput = new javax.swing.JTextField();
-        statusTextInput = new javax.swing.JTextField();
-        closeViewBtn = new javax.swing.JButton();
-        addOrUpdateBtn = new javax.swing.JButton();
-        cancelAddOrUpdateBtn = new javax.swing.JButton();
-        customDialog = new javax.swing.JDialog(editEmployeeDialog, true);
+        exitEditorDialog = new javax.swing.JDialog(editEmployeeDialog, true);
         cancelConfirmPanel = new javax.swing.JPanel();
         cancelConfrimLabel = new javax.swing.JLabel();
         cancelBtnConfirm = new javax.swing.JButton();
@@ -277,352 +141,22 @@ public class EIMPanels extends javax.swing.JPanel {
             }
         });
 
-        editEmployeePanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
-        personalInfoLabel.setText("Personal Information");
-
-        lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        lastNameLabel.setText("Last Name :");
-
-        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        employeeNoLabel.setText("Employee No :");
-
-        firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        firstNameLabel.setText("First Name :");
-
-        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        birthdayLabel.setText("Birthday :");
-
-        viewLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        viewLabel.setText("View Employee Details");
-
-        addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        addressLabel.setText("Address :");
-
-        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        phoneLabel.setText("Phone Number : ");
-
-        decorLine2.setBackground(new java.awt.Color(240, 240, 240));
-        decorLine2.setDoubleBuffered(false);
-
-        javax.swing.GroupLayout decorLine2Layout = new javax.swing.GroupLayout(decorLine2);
-        decorLine2.setLayout(decorLine2Layout);
-        decorLine2Layout.setHorizontalGroup(
-            decorLine2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        decorLine2Layout.setVerticalGroup(
-            decorLine2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
-        );
-
-        statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        statusLabel.setText("Status :");
-
-        decorLine.setBackground(new java.awt.Color(240, 240, 240));
-        decorLine.setDoubleBuffered(false);
-
-        javax.swing.GroupLayout decorLineLayout = new javax.swing.GroupLayout(decorLine);
-        decorLine.setLayout(decorLineLayout);
-        decorLineLayout.setHorizontalGroup(
-            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
-        );
-        decorLineLayout.setVerticalGroup(
-            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
-        );
-
-        govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
-        govIdLabel.setText("Government ID");
-
-        sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        sssLabel.setText("Social Security # :");
-
-        philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        philHealthLabel.setText("PhilHealth # :");
-
-        pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        pagibigLabel.setText("PAG-IBIG # :");
-
-        tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        tinLabel.setText("Tax Identification # :");
-
-        decorLine3.setBackground(new java.awt.Color(240, 240, 240));
-        decorLine3.setDoubleBuffered(false);
-
-        javax.swing.GroupLayout decorLine3Layout = new javax.swing.GroupLayout(decorLine3);
-        decorLine3.setLayout(decorLine3Layout);
-        decorLine3Layout.setHorizontalGroup(
-            decorLine3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        decorLine3Layout.setVerticalGroup(
-            decorLine3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
-        );
-
-        departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
-        departmentLabel.setText("Department");
-
-        departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        departmentNameLabel.setText("Department Name :");
-
-        positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        positionLabel.setText("Position :");
-
-        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        supervisorLabel.setText("Supervisor :");
-
-        updateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        updateBtn.setText("Update Employee");
-        updateBtn.addActionListener(this::updateBtnActionPerformed);
-
-        employeeNoTextInput.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        employeeNoTextInput.setText("00000");
-        employeeNoTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-        employeeNoTextInput.setDoubleBuffered(true);
-        employeeNoTextInput.setEnabled(false);
-
-        firstNameTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        firstNameTextInput.setText("Don Justine");
-        firstNameTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-
-        lastNameTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        lastNameTextInput.setText("Fontanilla");
-        lastNameTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-
-        birthdayTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        birthdayTextInput.setText("Date");
-        birthdayTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-
-        addressTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        addressTextInput.setText("170 Fairview, Dasmarinas, Commonwealth, San Agustin, Quezon City");
-        addressTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-
-        phoneTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        phoneTextInput.setText("+639569978123");
-        phoneTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-
-        sssTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        sssTextInput.setText("+639569978123");
-
-        philhealthTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        philhealthTextInput.setText("+639569978123");
-
-        pagibigTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        pagibigTextInput.setText("+639569978123");
-
-        tinTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        tinTextInput.setText("+639569978123");
-
-        departmentTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        departmentTextInput.setText("+639569978123");
-
-        positionTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionTextInput.setText("+639569978123");
-
-        supervisorTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        supervisorTextInput.setText("+639569978123");
-
-        statusTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statusTextInput.setText("+639569978123");
-
-        closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        closeViewBtn.setText("Close");
-        closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
-
-        addOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        addOrUpdateBtn.setText("Update");
-        addOrUpdateBtn.addActionListener(this::addOrUpdateBtnActionPerformed);
-
-        cancelAddOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        cancelAddOrUpdateBtn.setText("Cancel");
-        cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
-
-        javax.swing.GroupLayout editEmployeePanelLayout = new javax.swing.GroupLayout(editEmployeePanel);
-        editEmployeePanel.setLayout(editEmployeePanelLayout);
-        editEmployeePanelLayout.setHorizontalGroup(
-            editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeNoLabel)
-                            .addComponent(firstNameLabel)
-                            .addComponent(phoneLabel)
-                            .addComponent(addressLabel)
-                            .addComponent(birthdayLabel)
-                            .addComponent(lastNameLabel))
-                        .addGap(6, 6, 6)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(birthdayTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sssLabel)
-                            .addComponent(philHealthLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(sssTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(philhealthTextInput))
-                        .addGap(18, 18, 18)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tinLabel)
-                            .addComponent(pagibigLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pagibigTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(govIdLabel))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(departmentLabel))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departmentNameLabel)
-                            .addComponent(positionLabel)
-                            .addComponent(supervisorLabel)
-                            .addComponent(statusLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(personalInfoLabel)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(viewLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                .addGap(304, 304, 304)
-                .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
-        );
-        editEmployeePanelLayout.setVerticalGroup(
-            editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editEmployeePanelLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(viewLabel)
-                    .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
-                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(personalInfoLabel)
-                .addGap(6, 6, 6)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(employeeNoLabel)
-                    .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstNameLabel)
-                    .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lastNameLabel)
-                    .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(birthdayLabel)
-                    .addComponent(birthdayTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addressLabel)
-                    .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phoneLabel)
-                    .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(govIdLabel)
-                .addGap(7, 7, 7)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sssLabel)
-                    .addComponent(pagibigLabel)
-                    .addComponent(sssTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pagibigTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(philHealthLabel)
-                    .addComponent(tinLabel)
-                    .addComponent(philhealthTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
-                .addComponent(decorLine3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(departmentLabel)
-                .addGap(7, 7, 7)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(departmentNameLabel)
-                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(positionLabel)
-                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supervisorLabel)
-                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statusLabel)
-                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(editEmployeePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout editEmployeeDialogLayout = new javax.swing.GroupLayout(editEmployeeDialog.getContentPane());
         editEmployeeDialog.getContentPane().setLayout(editEmployeeDialogLayout);
         editEmployeeDialogLayout.setHorizontalGroup(
             editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editEmployeeDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editEmployeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 761, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 893, Short.MAX_VALUE)
         );
         editEmployeeDialogLayout.setVerticalGroup(
             editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editEmployeeDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(editEmployeePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGap(0, 653, Short.MAX_VALUE)
         );
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
+        cancelConfrimLabel.setText("Are you sure you want to exit?");
 
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -643,7 +177,7 @@ public class EIMPanels extends javax.swing.JPanel {
                 .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         cancelConfirmPanelLayout.setVerticalGroup(
@@ -658,14 +192,14 @@ public class EIMPanels extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
 
-        javax.swing.GroupLayout customDialogLayout = new javax.swing.GroupLayout(customDialog.getContentPane());
-        customDialog.getContentPane().setLayout(customDialogLayout);
-        customDialogLayout.setHorizontalGroup(
-            customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout exitEditorDialogLayout = new javax.swing.GroupLayout(exitEditorDialog.getContentPane());
+        exitEditorDialog.getContentPane().setLayout(exitEditorDialogLayout);
+        exitEditorDialogLayout.setHorizontalGroup(
+            exitEditorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-        customDialogLayout.setVerticalGroup(
-            customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        exitEditorDialogLayout.setVerticalGroup(
+            exitEditorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -772,129 +306,47 @@ public class EIMPanels extends javax.swing.JPanel {
         idRadio.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        // TODO add your handling code here:
-        isEditing = !isEditing;
-        updateFields();
-    }//GEN-LAST:event_updateBtnActionPerformed
-
-    private void closeViewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeViewBtnActionPerformed
-        // TODO add your handling code here:
-        this.selectedEmployee = null;
-        this.editEmployeeDialog.dispose();
-    }//GEN-LAST:event_closeViewBtnActionPerformed
-
-    private void addOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateBtnActionPerformed
-        // TODO add your handling code here:
-        isEditing = !isEditing;
-        updateFields();
-    }//GEN-LAST:event_addOrUpdateBtnActionPerformed
-
-    private void cancelAddOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddOrUpdateBtnActionPerformed
-        // TODO add your handling code here:
-        if (!doTextfieldsChange()) {
-            isEditing = !isEditing;
-            updateFields();
-            return;
-        }
-        
-        customCancelDialog("Cancel Editing", "You have unsaved changes. Discard them?");
-    }//GEN-LAST:event_cancelAddOrUpdateBtnActionPerformed
-
     private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
         // TODO add your handling code here:
-        isClosingEIMDialog = false;
-        customDialog.dispose();
-     
+        exitEditorDialog.dispose();
     }//GEN-LAST:event_cancelBtnConfirmActionPerformed
 
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
         // TODO add your handling code here:
-        customDialog.dispose();
-        isEditing = !isEditing;
-        fillEmployeeInformation(selectedEmployee);
-        updateFields();
-        
-        if (isClosingEIMDialog) {
-            editEmployeeDialog.dispose();
-        } 
+        exitEditorDialog.dispose();
+        editEmployeeDialog.dispose();
     }//GEN-LAST:event_confirmBtnConfirmActionPerformed
 
     private void editEmployeeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editEmployeeDialogWindowClosing
         // TODO add your handling code here:
-        if(!isEditing) {
-            editEmployeeDialog.dispose();
-            return;
-        }
-        
-        isClosingEIMDialog = true;
-        customCancelDialog("Exit", "Are you sure you want to exit?");
+        exitEditorDialog.pack();
+        exitEditorDialog.setResizable(false);
+        exitEditorDialog.setLocationRelativeTo(null);
+        exitEditorDialog.setTitle("Exiting editor");
+
+        exitEditorDialog.setVisible(true);  
     }//GEN-LAST:event_editEmployeeDialogWindowClosing
 
-    private boolean isClosingEIMDialog;
-    private Employee selectedEmployee;
-    private String addOrUpdate;
-    private boolean isEditing;
     private javax.swing.JDialog dialog;
     private List<Employee> employeeList;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewBtn;
-    private javax.swing.JButton addOrUpdateBtn;
-    private javax.swing.JLabel addressLabel;
-    private javax.swing.JTextField addressTextInput;
-    private javax.swing.JLabel birthdayLabel;
-    private javax.swing.JTextField birthdayTextInput;
-    private javax.swing.JButton cancelAddOrUpdateBtn;
     private javax.swing.JButton cancelBtnConfirm;
     private javax.swing.JPanel cancelConfirmPanel;
     private javax.swing.JLabel cancelConfrimLabel;
-    private javax.swing.JButton closeViewBtn;
     private javax.swing.JButton confirmBtnConfirm;
-    private javax.swing.JDialog customDialog;
-    private javax.swing.JPanel decorLine;
     private javax.swing.JPanel decorLine1;
-    private javax.swing.JPanel decorLine2;
-    private javax.swing.JPanel decorLine3;
-    private javax.swing.JLabel departmentLabel;
-    private javax.swing.JLabel departmentNameLabel;
-    private javax.swing.JTextField departmentTextInput;
     private javax.swing.JDialog editEmployeeDialog;
-    private javax.swing.JPanel editEmployeePanel;
     private javax.swing.JScrollPane empInfoPane;
     private javax.swing.JTable empInfoTable;
-    private javax.swing.JLabel employeeNoLabel;
-    private javax.swing.JTextField employeeNoTextInput;
-    private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JTextField firstNameTextInput;
-    private javax.swing.JLabel govIdLabel;
+    private javax.swing.JDialog exitEditorDialog;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JRadioButton idRadio;
-    private javax.swing.JLabel lastNameLabel;
     private javax.swing.JRadioButton lastNameRadio;
-    private javax.swing.JTextField lastNameTextInput;
-    private javax.swing.JLabel pagibigLabel;
-    private javax.swing.JTextField pagibigTextInput;
-    private javax.swing.JLabel personalInfoLabel;
-    private javax.swing.JLabel philHealthLabel;
-    private javax.swing.JTextField philhealthTextInput;
-    private javax.swing.JLabel phoneLabel;
-    private javax.swing.JTextField phoneTextInput;
-    private javax.swing.JLabel positionLabel;
-    private javax.swing.JTextField positionTextInput;
     private javax.swing.ButtonGroup radioBtnGroup;
     private javax.swing.JTextField searchBarTextField;
     private javax.swing.JLabel searchByLabel;
-    private javax.swing.JLabel sssLabel;
-    private javax.swing.JTextField sssTextInput;
     private javax.swing.JLabel statsLabel;
-    private javax.swing.JLabel statusLabel;
-    private javax.swing.JTextField statusTextInput;
-    private javax.swing.JLabel supervisorLabel;
-    private javax.swing.JTextField supervisorTextInput;
-    private javax.swing.JLabel tinLabel;
-    private javax.swing.JTextField tinTextInput;
-    private javax.swing.JButton updateBtn;
-    private javax.swing.JLabel viewLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -344,6 +344,7 @@ public class ManagementPanel extends javax.swing.JPanel {
         EIMDialog.setPreferredSize(new Dimension(822, 690));
         EIMDialog.pack();
         EIMDialog.setLocationRelativeTo(null);
+        EIMDialog.setResizable(false);
         EIMDialog.setTitle("Employee Information Management (" + appContext.getSessionManager().getAccessPolicy().roleName() + ")");
         
         EIMDialog.setVisible(true);

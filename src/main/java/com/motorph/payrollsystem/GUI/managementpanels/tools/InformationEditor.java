@@ -5,7 +5,11 @@
 package com.motorph.payrollsystem.GUI.managementpanels.tools;
 
 import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.domain.employee.CompProfile;
+import com.motorph.payrollsystem.domain.employee.ContactInfo;
+import com.motorph.payrollsystem.domain.employee.DepartmentInfo;
 import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.domain.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
 
@@ -27,27 +31,17 @@ public class InformationEditor extends javax.swing.JPanel {
         this.selectedEmployee = selectedEmployee;
         this.parentDialog = dialog;
         this.isEditing = false;
+        this.isConfirmingCancel = false;
+        this.isConfirmingUpdate = false;
         
         initComponents();
         fillEmployeeInformation(selectedEmployee);
         updateFields();
         
-        setParentDialogClosingAction();
-        
-        
-    }
-    
-    private void setParentDialogClosingAction() {
-        parentDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                editEmployeeDialogWindowClosing(evt);
-            }
-        });
+
     }
     
     private void fillEmployeeInformation(Employee emp) {
-        
-        
         //personal information
         employeeNoTextInput.setText(emp.getEmployeeNo());
         firstNameTextInput.setText(emp.getFirstName());
@@ -106,7 +100,7 @@ public class InformationEditor extends javax.swing.JPanel {
         textField.setDisabledTextColor(ThemeColor.textDisabled());
     }
     
-    private boolean doTextfieldsChange() {
+    private boolean hasChanges() {
         return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
                 !firstNameTextInput.getText().equals(selectedEmployee.getFirstName()) ||
                 !lastNameTextInput.getText().equals(selectedEmployee.getLastName()) ||
@@ -123,28 +117,62 @@ public class InformationEditor extends javax.swing.JPanel {
                 !statusTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getStatus());
     }
     
-    private void customCancelDialog(String title, String message) {
-        System.out.println("Set text message");
-        cancelConfrimLabel.setText(message);
+    private void customScreenDialog(String title, String message) {
+        cancelConfirmLabel.setText(message);
         customDialog.pack();
         customDialog.setResizable(false);
         customDialog.setLocationRelativeTo(parentDialog);
-        System.out.println("Set title");
         customDialog.setTitle(title);
 
-        System.out.println("Make dialog visible");
         customDialog.setVisible(true);  
     }
     
-    private void editEmployeeDialogWindowClosing(java.awt.event.WindowEvent evt) {
-        if(!isEditing) {
-            parentDialog.dispose();
-            return;
-        }
-
-        customCancelDialog("Exit", "Are you sure you want to exit?");
-    }               
+    private void noChangeScreenDialog() {
+        noChangeDialog.pack();
+        noChangeDialog.setResizable(false);
+        noChangeDialog.setLocationRelativeTo(parentDialog);
+        noChangeDialog.setTitle("Nothing to Save");
+        
+        noChangeDialog.setVisible(true);
+    }
     
+    private Employee buildEmployeeFromFields() {
+        Employee emp = new Employee();
+        ContactInfo contactInfo = new ContactInfo();
+        GovIds govIds = new GovIds();
+        DepartmentInfo departmentInfo = new DepartmentInfo();
+        CompProfile compProfile = new CompProfile();
+        
+        emp.setEmployeeNo(selectedEmployee.getEmployeeNo());
+        
+        emp.setLastName(lastNameTextInput.getText().trim());
+        emp.setFirstName(firstNameTextInput.getText().trim());
+        emp.setBirthday(Dates.parseFullDate(birthdayTextInput.getText().trim()));
+        
+        contactInfo.setAddress(addressTextInput.getText().trim());
+        contactInfo.setPhoneNumber(phoneTextInput.getText().trim());
+        emp.setContactInfo(contactInfo);
+        
+        govIds.setSssNumber(sssTextInput.getText().trim());
+        govIds.setPhilHealthNumber(philhealthTextInput.getText().trim());
+        govIds.setPagibigNumber(pagibigTextInput.getText().trim());
+        govIds.setTinNumber(tinTextInput.getText().trim());
+        emp.setGovIds(govIds);
+        
+        departmentInfo.setStatus(statusTextInput.getText().trim());
+        departmentInfo.setPosition(positionTextInput.getText().trim());
+        departmentInfo.setSupervisor(supervisorTextInput.getText().trim());
+        emp.setDepartmentInfo(departmentInfo);
+        
+        //TEMPORARY COMPENSATION REFACTORING ON UI IS NEEDED
+        emp.setCompProfile(selectedEmployee.getCompProfile());
+        
+        return emp;
+        
+        
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,9 +185,13 @@ public class InformationEditor extends javax.swing.JPanel {
 
         customDialog = new javax.swing.JDialog(this.parentDialog, true);
         cancelConfirmPanel = new javax.swing.JPanel();
-        cancelConfrimLabel = new javax.swing.JLabel();
+        cancelConfirmLabel = new javax.swing.JLabel();
         cancelBtnConfirm = new javax.swing.JButton();
         confirmBtnConfirm = new javax.swing.JButton();
+        noChangeDialog = new javax.swing.JDialog(this.parentDialog, true);
+        noChangePanel = new javax.swing.JPanel();
+        noChangeLabel = new javax.swing.JLabel();
+        noChangeButton = new javax.swing.JButton();
         personalInfoLabel = new javax.swing.JLabel();
         lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
@@ -200,11 +232,18 @@ public class InformationEditor extends javax.swing.JPanel {
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
 
+        customDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        customDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                customDialogWindowClosing(evt);
+            }
+        });
+
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
+        cancelConfirmLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelConfirmLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cancelConfirmLabel.setText("You have unsaved changes. Discard them?");
 
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -226,13 +265,13 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
-            .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cancelConfirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         cancelConfirmPanelLayout.setVerticalGroup(
             cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(cancelConfrimLabel)
+                .addComponent(cancelConfirmLabel)
                 .addGap(18, 18, 18)
                 .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,6 +288,55 @@ public class InformationEditor extends javax.swing.JPanel {
         customDialogLayout.setVerticalGroup(
             customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        noChangeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        noChangeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                noChangeDialogWindowClosing(evt);
+            }
+        });
+
+        noChangePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        noChangeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        noChangeLabel.setText("No changes detected.");
+
+        noChangeButton.setBackground(ThemeColor.lightGreen());
+        noChangeButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        noChangeButton.setText("OK");
+        noChangeButton.addActionListener(this::noChangeButtonActionPerformed);
+
+        javax.swing.GroupLayout noChangePanelLayout = new javax.swing.GroupLayout(noChangePanel);
+        noChangePanel.setLayout(noChangePanelLayout);
+        noChangePanelLayout.setHorizontalGroup(
+            noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noChangeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+            .addGroup(noChangePanelLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(noChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        noChangePanelLayout.setVerticalGroup(
+            noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, noChangePanelLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(noChangeLabel)
+                .addGap(18, 18, 18)
+                .addComponent(noChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout noChangeDialogLayout = new javax.swing.GroupLayout(noChangeDialog.getContentPane());
+        noChangeDialog.getContentPane().setLayout(noChangeDialogLayout);
+        noChangeDialogLayout.setHorizontalGroup(
+            noChangeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        noChangeDialogLayout.setVerticalGroup(
+            noChangeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -589,27 +677,32 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void addOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateBtnActionPerformed
         // TODO add your handling code here:
-//        isEditing = !isEditing;
-//        updateFields();
+
+        if (!hasChanges()) {
+            noChangeScreenDialog();
+            return;
+        }
+        
+        isConfirmingUpdate = true;
+        customScreenDialog("Save Changes", "Do you want to save your changes?");
     }//GEN-LAST:event_addOrUpdateBtnActionPerformed
 
     private void cancelAddOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddOrUpdateBtnActionPerformed
         // TODO add your handling code here:
-        System.out.println("Decide what to do :");
-        if (!doTextfieldsChange()) {
-            System.out.println("There is no changes. Exiting");
+        if (!hasChanges()) {
             isEditing = !isEditing;
             updateFields();
             return;
         }
         
-        System.out.println("Creating cancel Dialog");
-        customCancelDialog("Cancel Editing", "You have unsaved changes. Discard them?");
+        isConfirmingCancel = true;
+        customScreenDialog("Cancel Editing", "You have unsaved changes. Discard them?");
     }//GEN-LAST:event_cancelAddOrUpdateBtnActionPerformed
 
     private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
         // TODO add your handling code here:
-//        isClosingEIMDialog = false;
+        isConfirmingCancel = false;
+        isConfirmingUpdate = false;
         customDialog.dispose();
 
     }//GEN-LAST:event_cancelBtnConfirmActionPerformed
@@ -617,17 +710,45 @@ public class InformationEditor extends javax.swing.JPanel {
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
         // TODO add your handling code here:
         customDialog.dispose();
+        
+        if (isConfirmingUpdate) {
+            this.selectedEmployee = buildEmployeeFromFields();
+        }
+        
         isEditing = !isEditing;
         fillEmployeeInformation(selectedEmployee);
         updateFields();
-
-//        if (isClosingEIMDialog) {
-//            editEmployeeDialog.dispose();
-//        }
+        
+        isConfirmingCancel = false;
+        isConfirmingUpdate = false;
     }//GEN-LAST:event_confirmBtnConfirmActionPerformed
 
+    private void noChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noChangeButtonActionPerformed
+        // TODO add your handling code here:
+        noChangeDialog.dispose();
+        isEditing = !isEditing;
+        updateFields();
+    }//GEN-LAST:event_noChangeButtonActionPerformed
+
+    private void noChangeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_noChangeDialogWindowClosing
+        // TODO add your handling code here:
+        isEditing = !isEditing;
+        updateFields();
+    }//GEN-LAST:event_noChangeDialogWindowClosing
+
+    private void customDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_customDialogWindowClosing
+        // TODO add your handling code here:
+        isConfirmingCancel = false;
+        isConfirmingUpdate = false;
+        customDialog.dispose();
+
+    }//GEN-LAST:event_customDialogWindowClosing
+    
+    
+    private boolean isConfirmingUpdate;
+    private boolean isConfirmingCancel;
     private boolean isEditing;
-    private javax.swing.JDialog parentDialog;
+    private final javax.swing.JDialog parentDialog;
     private Employee selectedEmployee;
     private AppContext appContext;
 
@@ -639,8 +760,8 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JTextField birthdayTextInput;
     private javax.swing.JButton cancelAddOrUpdateBtn;
     private javax.swing.JButton cancelBtnConfirm;
+    private javax.swing.JLabel cancelConfirmLabel;
     private javax.swing.JPanel cancelConfirmPanel;
-    private javax.swing.JLabel cancelConfrimLabel;
     private javax.swing.JButton closeViewBtn;
     private javax.swing.JButton confirmBtnConfirm;
     private javax.swing.JDialog customDialog;
@@ -657,6 +778,10 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JLabel govIdLabel;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextInput;
+    private javax.swing.JButton noChangeButton;
+    private javax.swing.JDialog noChangeDialog;
+    private javax.swing.JLabel noChangeLabel;
+    private javax.swing.JPanel noChangePanel;
     private javax.swing.JLabel pagibigLabel;
     private javax.swing.JTextField pagibigTextInput;
     private javax.swing.JLabel personalInfoLabel;

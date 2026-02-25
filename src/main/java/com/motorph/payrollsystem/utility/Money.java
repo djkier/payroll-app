@@ -17,6 +17,10 @@ public class Money {
         return Double.parseDouble(cleaned);
     }
     
+    public static String formatSalary(double value) {
+        return String.format("%.2f", value);
+    }
+    
     public static String displayMoney(double amount) {
         DecimalFormat df = new DecimalFormat("#,##0.00");
         

@@ -13,10 +13,12 @@ import com.motorph.payrollsystem.utility.Csv;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.Money;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +86,25 @@ public class EmployeeRepository {
         return employeeList;
     }
     
+    public void update(Employee updated) throws IOException {
+        List<Employee> employeeList = getEmployeeList();
+        
+        boolean replaced = false;
+        for (int i = 0; i < employeeList.size(); i++) {
+            if (employeeList.get(i).getEmployeeNo().equals(updated.getEmployeeNo())) {
+                employeeList.set(i, updated);
+                replaced = true;
+                break;
+            }
+        }
+        
+        if (!replaced) {
+            throw new IllegalStateException("Employee not found: " + updated.getEmployeeNo());
+        }
+        
+//        writeAllatomically(employeeList);
+    }
+    
     private Employee map(String[] details) {
         Employee emp = new Employee();
         ContactInfo contactInfo = new ContactInfo();
@@ -127,12 +148,99 @@ public class EmployeeRepository {
         Path parent = csvPath.getParent();
         if (parent != null) Files.createDirectories(parent);
         
-        String header = "Employee #,Last Name,First Name,Birthday,Address,Phone Number,SSS #,Philhealth #,TIN #,Pag-ibig #,Status,Position,Immediate Supervisor,Basic Salary,Rice Subsidy,Phone Allowance,Clothing Allowance,Gross Semi-monthly Rate,Hourly Rate";
-        Files.writeString(csvPath, header + System.lineSeparator(),
+        Files.writeString(csvPath, getHeader()+ System.lineSeparator(),
                 StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE);
     }
 
+    private void rewriteCsvFile(List<Employee> employeeList) throws IOException {
+        ensureFileExistsWithHeader();
+        
+        Path parent = csvPath.getParent();
+        if (parent != null) Files.createDirectories(parent);
+        
+        //make temporary file location to avoid writing a csv file that is currently being used
+        Path tmp = csvPath.resolveSibling(csvPath.getFileName().toString() + ".tmp");
+        
+        try (BufferedWriter bw = Files.newBufferedWriter(tmp, StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            
+            bw.write(getHeader());
+            bw.newLine();
+            
+            for (Employee emp : employeeList) {
+                bw.write(toCsvRow(emp));
+                bw.newLine();
+            }
+        }
+        
+        //replace original
+        Files.move(tmp, csvPath,
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.ATOMIC_MOVE);
+        
+    }
+    
+    private String getHeader() {
+        return "Employee #,Last Name,First Name,Birthday,Address,Phone Number,SSS #,Philhealth #,TIN #,Pag-ibig #,Status,Position,Immediate Supervisor,Basic Salary,Rice Subsidy,Phone Allowance,Clothing Allowance,Gross Semi-monthly Rate,Hourly Rate";
+    }
+    
+    private String toCsvRow(Employee emp) {
+        ContactInfo contactInfo = emp.getContactInfo();
+        GovIds govIds = emp.getGovIds();
+        DepartmentInfo deptInfo = emp.getDepartmentInfo();
+        CompProfile compProf = emp.getCompProfile();
+        
+        
+        //Personal Details
+        String empNo = safe(emp.getEmployeeNo());
+        String last = safe(emp.getLastName());
+        String first = safe(emp.getFirstName());
+        String birthday = Dates.formatDate(emp.getBirthday());
+        //Contact info
+        String address = (contactInfo == null) ? "" : safe(contactInfo.getAddress());
+        String phone = (contactInfo == null) ? "" : safe(contactInfo.getPhoneNumber());
+        //Gov IDs
+        String sss = (govIds == null) ? "" : safe(govIds.getSssNumber());
+        String philHealth = (govIds == null) ? "" : safe(govIds.getPhilHealthNumber());
+        String tin = (govIds == null) ? "" : safe(govIds.getTinNumber());
+        String pagibig = (govIds == null) ? "" : safe(govIds.getPagibigNumber());
+        //Department Info
+        String status = (deptInfo == null) ? "" : safe(deptInfo.getStatus());
+        String position =(deptInfo == null) ? "" : safe(deptInfo.getPosition());
+        String supervisor = (deptInfo == null) ? "" : safe(deptInfo.getSupervisor());
+        //Compensation Profile
+        String basic = (compProf == null) ? "" : Money.formatSalary(compProf.getBasicSalary());
+        String rice = (compProf == null) ? "" : Money.formatSalary(compProf.getRiceSubsidy());
+        String phoneAll = (compProf == null) ? "" : Money.formatSalary(compProf.getPhoneAllowance());
+        String clothingAll = (compProf == null) ? "" : Money.formatSalary(compProf.getClothingAllowance());
+        //Derived values
+        String semiMonthly = (compProf == null) ? "" : Money.formatSalary(compProf.getSemiMonthlyRate());
+        String hourlyRate = (compProf == null) ? "" : Money.formatSalary(compProf.getHourlyRate());
+        
+        return String.join(",", 
+                csv(empNo), csv(last), csv(first), csv(birthday),
+                csv(address), csv(phone),
+                csv(sss), csv(philHealth), csv(tin), csv(pagibig),
+                csv(status), csv(position), csv(supervisor),
+                csv(basic), csv(rice), csv(phoneAll), csv(clothingAll),
+                csv(semiMonthly), csv(hourlyRate));  
+    }
+    
+    private String safe(String str) {
+        return str == null ? "" : str.trim();
+    }
+    
+    private String csv(String str) {
+        if (str == null) return "";
+        boolean mustQuote = str.contains(",") || 
+                    str.contains("\"") ||
+                    str.contains("\n") ||
+                    str.contains("\r");
+        
+        String cleanStr = str.replace("\"", "\"\"");
+        return mustQuote ? "\"" + cleanStr + "\"" : cleanStr;
+    }
     
     
 }

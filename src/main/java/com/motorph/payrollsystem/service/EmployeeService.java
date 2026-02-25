@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.service;
 
+import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.domain.employee.Employee;
 import com.motorph.payrollsystem.repository.EmployeeRepository;
 import java.io.IOException;
@@ -26,11 +27,39 @@ public class EmployeeService {
         return employeeRepo.findByEmployeeNo(employeeNo);
     }
     
-    public List<Employee> getEmployeeList(boolean allowed) throws IOException {
-        if (!allowed) {
-            return null;
+    public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
+        if (policy == null || !policy.canManageEmployees()) {
+            throw new SecurityException("Access denied.");
         }
         
         return employeeRepo.getEmployeeList();
+    }
+    
+    public Employee updateEmployee(Employee updated) throws IOException {
+        if (updated == null) throw new IllegalArgumentException("Updated employee is null");
+        
+        if (isBlank(updated.getEmployeeNo())) {
+            throw new IllegalArgumentException("Employee ID is required");
+        }
+        if (isBlank(updated.getLastName()) || isBlank(updated.getFirstName())) {
+            throw new IllegalArgumentException("First name and last name are required");
+        }
+        
+
+        Employee existing = findByEmployeeNo(updated.getEmployeeNo());
+        if (existing == null) {
+            throw new IllegalStateException("Employee not found: " + updated.getEmployeeNo());
+        }
+
+        
+        employeeRepo.update(updated);
+        
+        return findByEmployeeNo(updated.getEmployeeNo());
+        
+       
+    }
+    
+    private boolean isBlank(String s) {
+        return s == null || s.trim().isEmpty();
     }
 }

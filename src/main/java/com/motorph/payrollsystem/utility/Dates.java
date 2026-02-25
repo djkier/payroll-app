@@ -21,6 +21,12 @@ public class Dates {
         return LocalDate.parse(dateStr, formatter);
     }
     
+    public static String formatDate(LocalDate date) {
+        if (date == null) return "";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        return date.format(formatter);
+    }
+    
     //22:20
     public static LocalTime parseMilitaryTime(String timeStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
@@ -49,6 +55,11 @@ public class Dates {
     public static String fullDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         return date.format(formatter);
+    }
+    
+    public static LocalDate parseFullDate(String dateStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+        return LocalDate.parse(dateStr, formatter);
     }
     
     //Jan 1, 1990
