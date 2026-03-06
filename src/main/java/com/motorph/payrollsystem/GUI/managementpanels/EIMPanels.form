@@ -10,6 +10,7 @@
         <Property name="alwaysOnTop" type="boolean" value="true"/>
       </Properties>
       <Events>
+        <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="editEmployeeDialogWindowClosed"/>
         <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="editEmployeeDialogWindowClosing"/>
       </Events>
       <AuxValues>

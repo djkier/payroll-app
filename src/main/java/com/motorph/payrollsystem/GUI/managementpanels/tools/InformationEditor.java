@@ -13,6 +13,7 @@ import com.motorph.payrollsystem.model.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.Mapper;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.io.IOException;
 
 /**
  *
@@ -107,9 +108,11 @@ public class InformationEditor extends javax.swing.JPanel {
     }
     
     private void textFieldEnabler(com.github.lgooddatepicker.components.DatePicker datePicker) {
-      
-//        datePicker.getComponentToggleCalendarButton().setEnabled(isEditing);
+        //datepicker toggle
         datePicker.getComponentDateTextField().setEnabled(isEditing);
+        datePicker.getComponentToggleCalendarButton().setEnabled(isEditing);
+        
+        //datepicker textfield
         updateBdayBorder();
         java.awt.Color fieldColor = isEditing ? ThemeColor.activeText() : ThemeColor.textDisabled();
         datePicker.getComponentDateTextField().setForeground(fieldColor);
@@ -720,13 +723,13 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         customDialog.dispose();
         
-//        Dates.fullDate(birthdayTextInput.getText().trim()),
+        //when confirming update
         if (isConfirmingUpdate) {
             this.selectedEmployee = Mapper.buildEmployee(
                     selectedEmployee,
                     lastNameTextInput.getText().trim(),
                     firstNameTextInput.getText().trim(),
-                    Dates.fullDate("January 1, 2003"),
+                    Dates.formatDate(bdayPicker.getDate()),
                     addressTextInput.getText().trim(),
                     phoneTextInput.getText().trim(),
                     sssTextInput.getText().trim(),
@@ -737,6 +740,19 @@ public class InformationEditor extends javax.swing.JPanel {
                     positionTextInput.getText().trim(),
                     supervisorTextInput.getText().trim()
             );
+            
+
+            try {
+                appContext.getEmployeeService().updateEmployee(selectedEmployee);
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Failed to update employee.",
+                        "Update Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+                e.printStackTrace();
+            }
         }
         
         isEditing = !isEditing;

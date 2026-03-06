@@ -83,7 +83,6 @@ public class EmployeeRepository {
 
             }
         }
-        
         return employeeList;
     }
     
@@ -103,7 +102,7 @@ public class EmployeeRepository {
             throw new IllegalStateException("Employee not found: " + updated.getEmployeeNo());
         }
         
-//        writeAllatomically(employeeList);
+        rewriteCsvFile(employeeList);
     }
     
     private Employee map(String[] details) {
@@ -152,40 +151,6 @@ public class EmployeeRepository {
     }
         
         
-//        Employee emp = new Employee();
-//        ContactInfo contactInfo = new ContactInfo();
-//        GovIds govIds = new GovIds();
-//        DepartmentInfo departmentInfo = new DepartmentInfo();
-//        CompProfile compProfile = new CompProfile();
-//
-//        emp.setEmployeeNo(details[0]);
-//        emp.setLastName(details[1]);
-//        emp.setFirstName(details[2]);
-//        emp.setBirthday(Dates.parseDate(details[3]));
-//
-//        contactInfo.setAddress(details[4]);
-//        contactInfo.setPhoneNumber(details[5]);
-//
-//        govIds.setSssNumber(details[6]);
-//        govIds.setPhilHealthNumber(details[7]);
-//        govIds.setTinNumber(details[8]);
-//        govIds.setPagibigNumber(details[9]);
-//
-//        departmentInfo.setStatus(details[10]);
-//        departmentInfo.setPosition(details[11]);
-//        departmentInfo.setSupervisor(details[12]);
-//
-//        compProfile.setBasicSalary(Money.parseSalary(details[13]));
-//        compProfile.setRiceSubsidy(Money.parseSalary(details[14]));
-//        compProfile.setPhoneAllowance(Money.parseSalary(details[15]));
-//        compProfile.setClothingAllowance(Money.parseSalary(details[16]));
-//
-//        emp.setContactInfo(contactInfo);
-//        emp.setGovIds(govIds);
-//        emp.setDepartmentInfo(departmentInfo);
-//        emp.setCompProfile(compProfile);
-//        return emp;
-    
     
     private void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
@@ -231,6 +196,7 @@ public class EmployeeRepository {
         return "Employee #,Last Name,First Name,Birthday,Address,Phone Number,SSS #,Philhealth #,TIN #,Pag-ibig #,Status,Position,Immediate Supervisor,Basic Salary,Rice Subsidy,Phone Allowance,Clothing Allowance,Gross Semi-monthly Rate,Hourly Rate";
     }
     
+    //turning the list into a csv row
     private String toCsvRow(Employee emp) {
         ContactInfo contactInfo = emp.getContactInfo();
         GovIds govIds = emp.getGovIds();

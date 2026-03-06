@@ -136,6 +136,9 @@ public class EIMPanels extends javax.swing.JPanel {
         editEmployeeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         editEmployeeDialog.setAlwaysOnTop(true);
         editEmployeeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                editEmployeeDialogWindowClosed(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 editEmployeeDialogWindowClosing(evt);
             }
@@ -327,6 +330,11 @@ public class EIMPanels extends javax.swing.JPanel {
         exitEditorDialog.setVisible(true);  
     }//GEN-LAST:event_editEmployeeDialogWindowClosing
 
+    private void editEmployeeDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editEmployeeDialogWindowClosed
+        // TODO add your handling code here:
+        loadEmployees();
+    }//GEN-LAST:event_editEmployeeDialogWindowClosed
+
     private javax.swing.JDialog dialog;
     private List<Employee> employeeList;
     private AppContext appContext;
@@ -336,7 +344,6 @@ public class EIMPanels extends javax.swing.JPanel {
     private javax.swing.JPanel cancelConfirmPanel;
     private javax.swing.JLabel cancelConfrimLabel;
     private javax.swing.JButton confirmBtnConfirm;
-    private javax.swing.JPanel decorLine1;
     private javax.swing.JDialog editEmployeeDialog;
     private javax.swing.JScrollPane empInfoPane;
     private javax.swing.JTable empInfoTable;
