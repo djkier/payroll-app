@@ -5,8 +5,8 @@
 package com.motorph.payrollsystem.service;
 
 
-import com.motorph.payrollsystem.domain.auth.UserAccount;
-import com.motorph.payrollsystem.repository.UserRepository;
+import com.motorph.payrollsystem.model.auth.UserAccount;
+import com.motorph.payrollsystem.dao.UserRepository;
 import java.io.IOException;
 
 /**

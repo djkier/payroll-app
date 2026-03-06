@@ -4,9 +4,9 @@
  */
 package com.motorph.payrollsystem.service;
 
-import com.motorph.payrollsystem.domain.leave.LeaveRequest;
-import com.motorph.payrollsystem.domain.leave.LeaveStatus;
-import com.motorph.payrollsystem.repository.LeaveRepository;
+import com.motorph.payrollsystem.model.leave.LeaveRequest;
+import com.motorph.payrollsystem.model.leave.LeaveStatus;
+import com.motorph.payrollsystem.dao.LeaveRepository;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.EnumMap;

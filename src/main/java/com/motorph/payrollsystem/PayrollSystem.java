@@ -4,10 +4,10 @@
 
 package com.motorph.payrollsystem;
 
-import com.motorph.payrollsystem.GUI.MainFrame;
-import com.motorph.payrollsystem.GUI.PasswordFrame;
-import com.motorph.payrollsystem.app.AppContext;
-import com.motorph.payrollsystem.repository.EmployeeRepository;
+import com.motorph.payrollsystem.gui.MainFrame;
+import com.motorph.payrollsystem.gui.PasswordFrame;
+import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.dao.EmployeeRepository;
 import com.motorph.payrollsystem.utility.Csv;
 import com.motorph.payrollsystem.utility.DataBootstrap;
 import java.io.IOException;

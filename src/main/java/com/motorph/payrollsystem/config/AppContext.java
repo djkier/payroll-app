@@ -1,0 +1,91 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.motorph.payrollsystem.config;
+
+import com.motorph.payrollsystem.access.PositionPolicyResolver;
+import com.motorph.payrollsystem.service.payroll.PayrollEngine;
+import com.motorph.payrollsystem.dao.AttendanceRepository;
+import com.motorph.payrollsystem.dao.EmployeeRepository;
+import com.motorph.payrollsystem.dao.LeaveRepository;
+import com.motorph.payrollsystem.dao.UserRepository;
+import com.motorph.payrollsystem.service.AuthService;
+import com.motorph.payrollsystem.service.EmployeeService;
+import com.motorph.payrollsystem.service.LeaveService;
+import com.motorph.payrollsystem.service.payroll.PayrollService;
+import com.motorph.payrollsystem.utility.Csv;
+
+/**
+ *
+ * @author djjus
+ */
+public class AppContext {
+    private final SessionManager sessionManager;
+    private final PositionPolicyResolver positionPolicyResolver;
+    
+    private final AuthService authService;
+    private final EmployeeService employeeService;
+    private final PayrollService payrollService;
+    private final LeaveService leaveService;
+    
+    private final AttendanceRepository attendanceRepository;
+    
+    
+    public AppContext() {
+        this.sessionManager = new SessionManager();
+        this.positionPolicyResolver = new PositionPolicyResolver();
+        
+        UserRepository userRepo = new UserRepository(Csv.userCsvPath());
+        this.authService = new AuthService(userRepo);
+        
+        
+        EmployeeRepository employeeRepo = new EmployeeRepository(Csv.employeeCsvPath());
+        this.employeeService = new EmployeeService(employeeRepo);
+        
+        this.attendanceRepository = new AttendanceRepository(Csv.attendanceCsvPath());
+        PayrollEngine payrollEngine = new PayrollEngine();
+        
+        this.payrollService = new PayrollService(attendanceRepository, payrollEngine);
+        
+        LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath());
+        this.leaveService = new LeaveService(leaveRepository);
+        
+    }
+
+    public SessionManager getSessionManager() {
+        return sessionManager;
+    }
+
+    public AuthService getAuthService(){
+        return authService;
+    }
+    
+    public EmployeeService getEmployeeService() {
+        return employeeService;
+    }
+
+    public AttendanceRepository getAttendanceRepository() {
+        return attendanceRepository;
+    }
+
+    public PayrollService getPayrollService() {
+        return payrollService;
+    }
+    
+    public LeaveService getLeaveService() {
+        return leaveService;
+    }
+
+    public PositionPolicyResolver getPositionPolicyResolver() {
+        return positionPolicyResolver;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+}

@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.motorph.payrollsystem.GUI.rightsidepanels;
+package com.motorph.payrollsystem.gui.rightsidepanels;
 
 
-import com.motorph.payrollsystem.app.AppContext;
-import com.motorph.payrollsystem.app.SessionManager;
-import com.motorph.payrollsystem.domain.leave.LeaveRequest;
-import com.motorph.payrollsystem.domain.leave.LeaveStatus;
+import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.config.SessionManager;
+import com.motorph.payrollsystem.model.leave.LeaveRequest;
+import com.motorph.payrollsystem.model.leave.LeaveStatus;
 import com.motorph.payrollsystem.service.LeaveService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;

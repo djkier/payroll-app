@@ -8,7 +8,7 @@ import com.motorph.payrollsystem.access.policies.AdminPolicy;
 import com.motorph.payrollsystem.access.policies.EmployeePolicy;
 import com.motorph.payrollsystem.access.policies.HrPolicy;
 import com.motorph.payrollsystem.access.policies.PayrollPolicy;
-import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.model.employee.Employee;
 
 /**
  *

@@ -4,7 +4,7 @@
  */
 package com.motorph.payrollsystem.utility;
 
-import com.motorph.payrollsystem.domain.payroll.PayrollPeriod;
+import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;

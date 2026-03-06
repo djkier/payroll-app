@@ -5,8 +5,8 @@
 package com.motorph.payrollsystem.service;
 
 import com.motorph.payrollsystem.access.AccessPolicy;
-import com.motorph.payrollsystem.domain.employee.Employee;
-import com.motorph.payrollsystem.repository.EmployeeRepository;
+import com.motorph.payrollsystem.model.employee.Employee;
+import com.motorph.payrollsystem.dao.EmployeeRepository;
 import java.io.IOException;
 import java.util.List;
 

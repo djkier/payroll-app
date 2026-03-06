@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.motorph.payrollsystem.GUI;
+package com.motorph.payrollsystem.gui;
 
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.access.PositionPolicyResolver;
 import com.motorph.payrollsystem.access.policies.EmployeePolicy;
-import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.config.AppContext;
 
-import com.motorph.payrollsystem.domain.auth.UserAccount;
-import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.model.auth.UserAccount;
+import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.AuthService;
 import javax.swing.ImageIcon;
 
@@ -101,7 +101,6 @@ public class PasswordFrame extends javax.swing.JFrame {
         setBackground(new java.awt.Color(153, 204, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImages(null);
-        setPreferredSize(new java.awt.Dimension(440, 400));
         setResizable(false);
 
         passwordPanel.setBackground(new java.awt.Color(255, 255, 255));

@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.motorph.payrollsystem.GUI.managementpanels;
+package com.motorph.payrollsystem.gui.managementpanels;
 
-import com.motorph.payrollsystem.GUI.managementpanels.tools.InformationEditor;
+import com.motorph.payrollsystem.gui.managementpanels.tools.InformationEditor;
 import com.motorph.payrollsystem.access.AccessPolicy;
-import com.motorph.payrollsystem.app.AppContext;
-import com.motorph.payrollsystem.domain.employee.Employee;
+import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;

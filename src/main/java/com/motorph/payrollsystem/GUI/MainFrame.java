@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.motorph.payrollsystem.GUI;
+package com.motorph.payrollsystem.gui;
 
-import com.motorph.payrollsystem.GUI.rightsidepanels.EmployeeInfoPanel;
-import com.motorph.payrollsystem.GUI.rightsidepanels.HomePanel;
-import com.motorph.payrollsystem.GUI.rightsidepanels.SalaryPanel;
-import com.motorph.payrollsystem.GUI.rightsidepanels.LeavePanel;
-import com.motorph.payrollsystem.GUI.rightsidepanels.ManagementPanel;
+import com.motorph.payrollsystem.gui.rightsidepanels.EmployeeInfoPanel;
+import com.motorph.payrollsystem.gui.rightsidepanels.HomePanel;
+import com.motorph.payrollsystem.gui.rightsidepanels.SalaryPanel;
+import com.motorph.payrollsystem.gui.rightsidepanels.LeavePanel;
+import com.motorph.payrollsystem.gui.rightsidepanels.ManagementPanel;
 import com.motorph.payrollsystem.access.AccessPolicy;
-import com.motorph.payrollsystem.app.AppContext;
+import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.utility.ThemeColor;
 
 import javax.swing.ImageIcon;
@@ -616,11 +616,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel homeBtn;
     private javax.swing.JLabel homeLabel;
     private javax.swing.JPanel leaveBtn;
-    private javax.swing.JPanel leaveBtn1;
-    private javax.swing.JPanel leaveBtn2;
     private javax.swing.JLabel leaveLabel;
-    private javax.swing.JLabel leaveLabel1;
-    private javax.swing.JLabel leaveLabel2;
     private javax.swing.JPanel leftSidePanel;
     private javax.swing.JPanel logoutBtn;
     private javax.swing.JDialog logoutConfirm;
