@@ -65,7 +65,7 @@ public class InformationEditor extends javax.swing.JPanel {
         
         //dept info
         departmentTextInput.setText(emp.getDepartmentInfo().getDepartment());
-        positionTextInput.setText(emp.getDepartmentInfo().getPosition());
+//        positionTextInput.setText(emp.getDepartmentInfo().getPosition());
         supervisorTextInput.setText(emp.getDepartmentInfo().getSupervisor());
         statusTextInput.setText(emp.getDepartmentInfo().getStatus());
         
@@ -100,7 +100,7 @@ public class InformationEditor extends javax.swing.JPanel {
         textFieldEnabler(pagibigTextInput);
         textFieldEnabler(tinTextInput);
         
-        textFieldEnabler(departmentTextInput);
+        textFieldEnabler(departmentTextInput, false);
         textFieldEnabler(positionTextInput);
         textFieldEnabler(supervisorTextInput);
         textFieldEnabler(statusTextInput);
@@ -137,9 +137,12 @@ public class InformationEditor extends javax.swing.JPanel {
                         );
     }
     
+    private void textFieldEnabler(javax.swing.JTextField textfield) {
+        textFieldEnabler(textfield, isEditing);
+    }
     
-    private void textFieldEnabler(javax.swing.JTextField textField) {
-        textField.setEnabled(isEditing);
+    private void textFieldEnabler(javax.swing.JTextField textField, boolean isEnable) {
+        textField.setEnabled(isEnable);
         textField.setDisabledTextColor(ThemeColor.textDisabled());
     }
     
@@ -155,7 +158,7 @@ public class InformationEditor extends javax.swing.JPanel {
                 !pagibigTextInput.getText().equals(selectedEmployee.getGovIds().getPagibigNumber()) ||
                 !tinTextInput.getText().equals(selectedEmployee.getGovIds().getTinNumber()) ||
                 !departmentTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getDepartment()) ||
-                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
+//                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
                 !supervisorTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getSupervisor()) ||
                 !statusTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getStatus());
     }
@@ -188,6 +191,10 @@ public class InformationEditor extends javax.swing.JPanel {
         validateAddress(errors);
         validatePhoneNumber(errors);
         validateSSS(errors);
+        validatePhilhealth(errors);
+        validatePagIbig(errors);
+        validateTIN(errors);
+        
 
         
         return errors;
@@ -250,6 +257,33 @@ public class InformationEditor extends javax.swing.JPanel {
             errors.add("SSS number must follow the format 12-3456789-0.");
         }
     }
+    private void validatePhilhealth(List<String> errors) {
+        String philHealth = philhealthTextInput.getText().trim();
+
+        if (philHealth.isEmpty()) {
+            errors.add("PhilHealth number is required.");
+        } else if (!philHealth.matches(RegexPattern.philhealthPattern())) {
+            errors.add("PhilHealth number must contain exactly 12 digits.");
+        }
+    }
+    private void validatePagIbig(List<String> errors) {
+        String pagIbig = pagibigTextInput.getText().trim();
+
+        if (pagIbig.isEmpty()) {
+            errors.add("Pag-IBIG number is required.");
+        } else if (!pagIbig.matches(RegexPattern.pagibigPattern())) {
+            errors.add("Pag-IBIG number must contain exactly 12 digits.");
+        }
+    }
+    private void validateTIN(List<String> errors) {
+        String tin = tinTextInput.getText().trim();
+
+        if (tin.isEmpty()) {
+            errors.add("TIN is required.");
+        } else if (!tin.matches(RegexPattern.tinPattern())) {
+            errors.add("TIN must follow the format ###-###-###-###.");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -302,13 +336,17 @@ public class InformationEditor extends javax.swing.JPanel {
         tinTextInput = new javax.swing.JTextField();
         departmentTextInput = new javax.swing.JTextField();
         positionTextInput = new javax.swing.JTextField();
-        supervisorTextInput = new javax.swing.JTextField();
         statusTextInput = new javax.swing.JTextField();
         closeViewBtn = new javax.swing.JButton();
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
         removeBtn = new javax.swing.JButton();
         bdayPicker = new com.github.lgooddatepicker.components.DatePicker();
+        supervisorTextInput = new javax.swing.JTextField();
+        positionComboBox = new javax.swing.JComboBox<>();
+        departmentTextInput1 = new javax.swing.JTextField();
+        positionComboBox1 = new javax.swing.JComboBox<>();
+        positionComboBox2 = new javax.swing.JComboBox<>();
 
         customDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         customDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -556,21 +594,28 @@ public class InformationEditor extends javax.swing.JPanel {
 
         philhealthTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         philhealthTextInput.setText("+639569978123");
+        philhealthTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                philhealthTextInputKeyTyped(evt);
+            }
+        });
 
         pagibigTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         pagibigTextInput.setText("+639569978123");
 
         tinTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tinTextInput.setText("+639569978123");
+        tinTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tinTextInputKeyTyped(evt);
+            }
+        });
 
         departmentTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         departmentTextInput.setText("+639569978123");
 
         positionTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         positionTextInput.setText("+639569978123");
-
-        supervisorTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        supervisorTextInput.setText("+639569978123");
 
         statusTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         statusTextInput.setText("+639569978123");
@@ -594,6 +639,22 @@ public class InformationEditor extends javax.swing.JPanel {
         bdayPicker.setBackground(new java.awt.Color(255, 255, 255));
         bdayPicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         bdayPicker.setForeground(new java.awt.Color(255, 255, 255));
+
+        supervisorTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        supervisorTextInput.setText("+639569978123");
+
+        positionComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        positionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        departmentTextInput1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        departmentTextInput1.setText("+639569978123");
+        departmentTextInput1.setEnabled(false);
+
+        positionComboBox1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        positionComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        positionComboBox2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        positionComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -677,8 +738,14 @@ public class InformationEditor extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(departmentTextInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(positionComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(positionComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -738,19 +805,23 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentNameLabel)
-                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(departmentTextInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(positionLabel)
-                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supervisorLabel)
-                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(positionComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusLabel)
-                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(positionComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -815,6 +886,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
         // TODO add your handling code here:
         //when confirming update
+//        positionTextInput.getText().trim(),
         if (isConfirmingUpdate) {
             Employee updateEmployee = Mapper.buildEmployee(
                     selectedEmployee,
@@ -828,7 +900,7 @@ public class InformationEditor extends javax.swing.JPanel {
                     tinTextInput.getText().trim(),
                     pagibigTextInput.getText().trim(),
                     statusTextInput.getText().trim(),
-                    positionTextInput.getText().trim(),
+                    "position-replacer",
                     supervisorTextInput.getText().trim()
             );
             
@@ -947,6 +1019,56 @@ public class InformationEditor extends javax.swing.JPanel {
         sssTextInput.setText(formatted.toString());
         evt.consume();
     }//GEN-LAST:event_sssTextInputKeyTyped
+
+    private void philhealthTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_philhealthTextInputKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // allow digits only
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        // limit to 12 digits
+        if (philhealthTextInput.getText().length() >= 12) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_philhealthTextInputKeyTyped
+
+    private void tinTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tinTextInputKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // digits only
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        String text = tinTextInput.getText().replace("-", "");
+
+        // limit to 12 digits
+        if (text.length() >= 12) {
+            evt.consume();
+            return;
+        }
+
+        text += c;
+
+        StringBuilder formatted = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i++) {
+            if (i == 3 || i == 6 || i == 9) {
+                formatted.append("-");
+            }
+            formatted.append(text.charAt(i));
+        }
+
+        tinTextInput.setText(formatted.toString());
+
+        evt.consume();
+    }//GEN-LAST:event_tinTextInputKeyTyped
     
     public void setViewingMode(boolean viewingMode) {
         isViewing = viewingMode;
@@ -979,6 +1101,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JLabel departmentNameLabel;
     private javax.swing.JTextField departmentTextInput;
+    private javax.swing.JTextField departmentTextInput1;
     private javax.swing.JLabel employeeNoLabel;
     private javax.swing.JTextField employeeNoTextInput;
     private javax.swing.JLabel firstNameLabel;
@@ -997,6 +1120,9 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JTextField philhealthTextInput;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneTextInput;
+    private javax.swing.JComboBox<String> positionComboBox;
+    private javax.swing.JComboBox<String> positionComboBox1;
+    private javax.swing.JComboBox<String> positionComboBox2;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JTextField positionTextInput;
     private javax.swing.JButton removeBtn;

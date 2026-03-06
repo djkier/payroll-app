@@ -25,5 +25,17 @@ public class RegexPattern {
         return "^\\d{2}-\\d{7}-\\d{1}$";
     }
     
+    public static String philhealthPattern() {
+        return "^\\d{12}$";
+    }
+    
+    public static String pagibigPattern() {
+        return philhealthPattern();
+    }
+    
+    public static String tinPattern() {
+        return "^\\d{3}-\\d{3}-\\d{3}-\\d{3}$";
+    }
+    
     
 }
