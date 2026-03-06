@@ -8,7 +8,11 @@ import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.dao.EmployeeRepository;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -25,14 +29,6 @@ public class EmployeeService {
         //validate employee no to prevent unknown error
         if (employeeNo == null || employeeNo.isBlank()) return null;
         return employeeRepo.findByEmployeeNo(employeeNo);
-    }
-    
-    public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
-        if (policy == null || !policy.canManageEmployees()) {
-            throw new SecurityException("Access denied.");
-        }
-        
-        return employeeRepo.getEmployeeList();
     }
     
     public Employee updateEmployee(Employee updated) throws IOException {
@@ -55,6 +51,47 @@ public class EmployeeService {
         
         return findByEmployeeNo(updated.getEmployeeNo());
     }
+    
+    public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
+        if (policy == null || !policy.canManageEmployees()) {
+            throw new SecurityException("Access denied.");
+        }
+        
+        return employeeRepo.getEmployeeList();
+    }
+    
+    public List<String> getUniquePosition(AccessPolicy policy) throws IOException{
+        List<Employee> empList= getEmployeeList(policy);
+        Set<String> positions = new HashSet<>();
+        
+        for (Employee emp : empList) {
+            String position = emp.getDepartmentInfo().getPosition();
+            positions.add(position);
+        }
+        
+        // alphabetical order
+        List<String> sortedPositions = new ArrayList<>(positions);
+        Collections.sort(sortedPositions); 
+
+        return sortedPositions;
+    }
+    
+    public List<String> getAllEmployeeNames(AccessPolicy policy) throws IOException {
+        List<Employee> empList = getEmployeeList(policy);
+        List<String> empNames = new ArrayList<>();
+        
+        for (Employee emp : empList) {
+            if (emp.getLastFirstName() != null) {
+                empNames.add(emp.getLastFirstName());
+            }
+        }
+        
+        Collections.sort(empNames);
+        
+        return empNames;
+    }
+    
+    
     
     private boolean isBlank(String s) {
         return s == null || s.trim().isEmpty();

@@ -100,5 +100,9 @@ public class Employee {
         return firstName + " " + lastName;
     }
     
+    public String getLastFirstName() {
+        return lastName + ", " + firstName;
+    }
+    
     
 }

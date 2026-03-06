@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.gui.managementpanels.tools;
 
+import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.model.employee.CompProfile;
 import com.motorph.payrollsystem.model.employee.ContactInfo;
@@ -35,6 +36,7 @@ public class InformationEditor extends javax.swing.JPanel {
         javax.swing.JDialog dialog) {
         
         this.appContext = appContext;
+        this.policy = appContext.getSessionManager().getAccessPolicy();
         this.selectedEmployee = selectedEmployee;
         this.parentDialog = dialog;
         this.isEditing = false;
@@ -45,6 +47,8 @@ public class InformationEditor extends javax.swing.JPanel {
         fillEmployeeInformation(selectedEmployee);
         setDatePicker();
         updateFields();
+        
+
 
     }
     
@@ -65,10 +69,29 @@ public class InformationEditor extends javax.swing.JPanel {
         
         //dept info
         departmentTextInput.setText(emp.getDepartmentInfo().getDepartment());
+        departmentTextFieldTemp.setText(emp.getDepartmentInfo().getDepartment());
+        
+        updatePosition(emp.getDepartmentInfo().getPosition());
 //        positionTextInput.setText(emp.getDepartmentInfo().getPosition());
         supervisorTextInput.setText(emp.getDepartmentInfo().getSupervisor());
         statusTextInput.setText(emp.getDepartmentInfo().getStatus());
-        
+    }
+    
+    private void updatePosition(String empPosition)  {
+        try {
+            List<String> positions = appContext.getEmployeeService().getUniquePosition(policy);
+            positionComboBox.removeAllItems();
+            
+            for(String position : positions) {
+                positionComboBox.addItem(position);
+            }
+            
+            positionTextInput.setText(empPosition);
+            positionComboBox.setSelectedItem(empPosition);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         
     }
     
@@ -89,21 +112,21 @@ public class InformationEditor extends javax.swing.JPanel {
         buttonsVisibility(cancelAddOrUpdateBtn,isEditing);
         buttonsVisibility(addOrUpdateBtn, isEditing);
         
-        textFieldEnabler(firstNameTextInput);
-        textFieldEnabler(lastNameTextInput);
-        textFieldEnabler(bdayPicker);
-        textFieldEnabler(addressTextInput);
-        textFieldEnabler(phoneTextInput);
+        fieldEnabler(firstNameTextInput);
+        fieldEnabler(lastNameTextInput);
+        fieldEnabler(bdayPicker);
+        fieldEnabler(addressTextInput);
+        fieldEnabler(phoneTextInput);
         
-        textFieldEnabler(sssTextInput);
-        textFieldEnabler(philhealthTextInput);
-        textFieldEnabler(pagibigTextInput);
-        textFieldEnabler(tinTextInput);
+        fieldEnabler(sssTextInput);
+        fieldEnabler(philhealthTextInput);
+        fieldEnabler(pagibigTextInput);
+        fieldEnabler(tinTextInput);
         
-        textFieldEnabler(departmentTextInput, false);
-        textFieldEnabler(positionTextInput);
-        textFieldEnabler(supervisorTextInput);
-        textFieldEnabler(statusTextInput);
+        fieldEnabler(departmentTextInput, departmentTextFieldTemp);
+        fieldEnabler(positionTextInput, positionComboBox);
+        fieldEnabler(supervisorTextInput, supervisorComboBox);
+        fieldEnabler(statusTextInput, statusComboBox);
         
     }
     
@@ -112,7 +135,7 @@ public class InformationEditor extends javax.swing.JPanel {
         btn.setVisible(isVisible);
     }
     
-    private void textFieldEnabler(com.github.lgooddatepicker.components.DatePicker datePicker) {
+    private void fieldEnabler(com.github.lgooddatepicker.components.DatePicker datePicker) {
         //datepicker toggle
         datePicker.getComponentDateTextField().setEnabled(isEditing);
         datePicker.getComponentToggleCalendarButton().setEnabled(isEditing);
@@ -123,6 +146,34 @@ public class InformationEditor extends javax.swing.JPanel {
         datePicker.getComponentDateTextField().setForeground(fieldColor);
         datePicker.setEnabled(isEditing);
         datePicker.getComponentDateTextField().setBackground(ThemeColor.white());
+        
+    }
+    
+    private void fieldEnabler(javax.swing.JTextField textfield) {
+        fieldEnabler(textfield, isEditing);
+    }
+    
+    private void fieldEnabler(javax.swing.JTextField textField, boolean isEnable) {
+        textField.setEnabled(isEnable);
+        textField.setDisabledTextColor(ThemeColor.textDisabled());
+    }
+    
+    private void fieldEnabler(javax.swing.JTextField textField, javax.swing.JTextField tempField) {
+        fieldEnabler(textField, false); 
+        textField.setVisible(!isEditing);
+        
+        fieldEnabler(tempField, false);
+        tempField.setVisible(isEditing);
+    }
+    
+    private void fieldEnabler(javax.swing.JTextField textField, javax.swing.JComboBox comboBox) {
+        textField.setEnabled(isEditing);
+        textField.setVisible(!isEditing);
+        textField.setDisabledTextColor(ThemeColor.textDisabled());
+        
+        comboBox.setEnabled(isEditing);
+        comboBox.setVisible(isEditing);
+        comboBox.setBackground(ThemeColor.white());
         
     }
     
@@ -137,14 +188,6 @@ public class InformationEditor extends javax.swing.JPanel {
                         );
     }
     
-    private void textFieldEnabler(javax.swing.JTextField textfield) {
-        textFieldEnabler(textfield, isEditing);
-    }
-    
-    private void textFieldEnabler(javax.swing.JTextField textField, boolean isEnable) {
-        textField.setEnabled(isEnable);
-        textField.setDisabledTextColor(ThemeColor.textDisabled());
-    }
     
     private boolean hasChanges() {
         return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
@@ -303,6 +346,8 @@ public class InformationEditor extends javax.swing.JPanel {
         noChangePanel = new javax.swing.JPanel();
         noChangeLabel = new javax.swing.JLabel();
         noChangeButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         personalInfoLabel = new javax.swing.JLabel();
         lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
@@ -337,16 +382,16 @@ public class InformationEditor extends javax.swing.JPanel {
         departmentTextInput = new javax.swing.JTextField();
         positionTextInput = new javax.swing.JTextField();
         statusTextInput = new javax.swing.JTextField();
-        closeViewBtn = new javax.swing.JButton();
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
-        removeBtn = new javax.swing.JButton();
         bdayPicker = new com.github.lgooddatepicker.components.DatePicker();
         supervisorTextInput = new javax.swing.JTextField();
         positionComboBox = new javax.swing.JComboBox<>();
-        departmentTextInput1 = new javax.swing.JTextField();
-        positionComboBox1 = new javax.swing.JComboBox<>();
-        positionComboBox2 = new javax.swing.JComboBox<>();
+        supervisorComboBox = new javax.swing.JComboBox<>();
+        statusComboBox = new javax.swing.JComboBox<>();
+        removeBtn = new javax.swing.JButton();
+        closeViewBtn = new javax.swing.JButton();
+        departmentTextFieldTemp = new javax.swing.JTextField();
 
         customDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         customDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -454,6 +499,10 @@ public class InformationEditor extends javax.swing.JPanel {
             noChangeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(noChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -611,18 +660,16 @@ public class InformationEditor extends javax.swing.JPanel {
             }
         });
 
+        departmentTextInput.setEditable(false);
         departmentTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         departmentTextInput.setText("+639569978123");
+        departmentTextInput.setBackground(new java.awt.Color(255, 255, 255));
 
         positionTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         positionTextInput.setText("+639569978123");
 
         statusTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         statusTextInput.setText("+639569978123");
-
-        closeViewBtn.setText("Close");
-        closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
 
         addOrUpdateBtn.setText("Update");
         addOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -632,29 +679,37 @@ public class InformationEditor extends javax.swing.JPanel {
         cancelAddOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
 
-        removeBtn.setText("Remove");
-        removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        removeBtn.addActionListener(this::removeBtnActionPerformed);
-
         bdayPicker.setBackground(new java.awt.Color(255, 255, 255));
         bdayPicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         bdayPicker.setForeground(new java.awt.Color(255, 255, 255));
 
         supervisorTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         supervisorTextInput.setText("+639569978123");
+        supervisorTextInput.addActionListener(this::supervisorTextInputActionPerformed);
 
         positionComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        positionComboBox.addActionListener(this::positionComboBoxActionPerformed);
 
-        departmentTextInput1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        departmentTextInput1.setText("+639569978123");
-        departmentTextInput1.setEnabled(false);
+        supervisorComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        supervisorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        supervisorComboBox.addActionListener(this::supervisorComboBoxActionPerformed);
 
-        positionComboBox1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        statusComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        positionComboBox2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        removeBtn.setText("Remove");
+        removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        removeBtn.addActionListener(this::removeBtnActionPerformed);
+
+        closeViewBtn.setText("Close");
+        closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
+
+        departmentTextFieldTemp.setEditable(false);
+        departmentTextFieldTemp.setBackground(new java.awt.Color(255, 255, 255));
+        departmentTextFieldTemp.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        departmentTextFieldTemp.setText("+639569978123");
+        departmentTextFieldTemp.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -662,25 +717,22 @@ public class InformationEditor extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38))
-                    .addComponent(departmentLabel)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(viewLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -725,27 +777,39 @@ public class InformationEditor extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addComponent(personalInfoLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(departmentNameLabel)
-                                    .addComponent(positionLabel)
-                                    .addComponent(supervisorLabel)
-                                    .addComponent(statusLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(departmentTextInput1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(positionComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(positionComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(192, 192, 192)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, 0)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(supervisorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statusComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(departmentLabel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(positionLabel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(departmentNameLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, 0)
+                                .addComponent(departmentTextFieldTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(supervisorLabel)
+                            .addComponent(statusLabel))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -800,35 +864,35 @@ public class InformationEditor extends javax.swing.JPanel {
                     .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(decorLine3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(17, 17, 17)
                 .addComponent(departmentLabel)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(departmentNameLabel)
                     .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(departmentTextInput1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(departmentNameLabel)
+                    .addComponent(departmentTextFieldTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(positionLabel)
-                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supervisorLabel)
                     .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(positionComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(supervisorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(supervisorLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(statusLabel)
                     .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(positionComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
+                    .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1069,6 +1133,20 @@ public class InformationEditor extends javax.swing.JPanel {
 
         evt.consume();
     }//GEN-LAST:event_tinTextInputKeyTyped
+
+    private void supervisorTextInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supervisorTextInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supervisorTextInputActionPerformed
+
+    private void supervisorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supervisorComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_supervisorComboBoxActionPerformed
+
+    private void positionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positionComboBoxActionPerformed
+        // TODO add your handling code here:
+        String selected = (String) positionComboBox.getSelectedItem();
+        positionTextInput.setText(selected);
+    }//GEN-LAST:event_positionComboBoxActionPerformed
     
     public void setViewingMode(boolean viewingMode) {
         isViewing = viewingMode;
@@ -1078,6 +1156,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private boolean isConfirmingUpdate;
     private boolean isConfirmingCancel;
     private boolean isEditing;
+    private AccessPolicy policy;
     private final javax.swing.JDialog parentDialog;
     private Employee selectedEmployee;
     private AppContext appContext;
@@ -1100,13 +1179,15 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JPanel decorLine3;
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JLabel departmentNameLabel;
+    private javax.swing.JTextField departmentTextFieldTemp;
     private javax.swing.JTextField departmentTextInput;
-    private javax.swing.JTextField departmentTextInput1;
     private javax.swing.JLabel employeeNoLabel;
     private javax.swing.JTextField employeeNoTextInput;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextInput;
     private javax.swing.JLabel govIdLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextInput;
     private javax.swing.JButton noChangeButton;
@@ -1121,15 +1202,15 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneTextInput;
     private javax.swing.JComboBox<String> positionComboBox;
-    private javax.swing.JComboBox<String> positionComboBox1;
-    private javax.swing.JComboBox<String> positionComboBox2;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JTextField positionTextInput;
     private javax.swing.JButton removeBtn;
     private javax.swing.JLabel sssLabel;
     private javax.swing.JTextField sssTextInput;
+    private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField statusTextInput;
+    private javax.swing.JComboBox<String> supervisorComboBox;
     private javax.swing.JLabel supervisorLabel;
     private javax.swing.JTextField supervisorTextInput;
     private javax.swing.JLabel tinLabel;
