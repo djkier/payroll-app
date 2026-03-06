@@ -68,6 +68,22 @@ public class ThemeColor {
         return new Color(102,102,102);
     }
     
+    public static Color white() {
+        return new Color(255, 255, 255);
+    }
+    
+    public static Color black() {
+        return new Color(0, 0, 0);
+    }
+    
+    public static Color activeBorder() {
+        return new Color(153, 153, 153);
+    }
+    
+    public static Color activeText() {
+        return new Color(38, 38, 38);
+    }
+    
     
     
     

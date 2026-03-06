@@ -37,8 +37,8 @@ public class InformationEditor extends javax.swing.JPanel {
         
         initComponents();
         fillEmployeeInformation(selectedEmployee);
+        setDatePicker();
         updateFields();
-        
 
     }
     
@@ -47,7 +47,7 @@ public class InformationEditor extends javax.swing.JPanel {
         employeeNoTextInput.setText(emp.getEmployeeNo());
         firstNameTextInput.setText(emp.getFirstName());
         lastNameTextInput.setText(emp.getLastName());
-        birthdayTextInput.setText(Dates.fullDate(emp.getBirthday()));
+        bdayPicker.setDate(emp.getBirthday());
         addressTextInput.setText(emp.getContactInfo().getAddress());
         phoneTextInput.setText(emp.getContactInfo().getPhoneNumber());
         
@@ -62,6 +62,15 @@ public class InformationEditor extends javax.swing.JPanel {
         positionTextInput.setText(emp.getDepartmentInfo().getPosition());
         supervisorTextInput.setText(emp.getDepartmentInfo().getSupervisor());
         statusTextInput.setText(emp.getDepartmentInfo().getStatus());
+        
+        
+    }
+    
+    private void setDatePicker() {
+        updateBdayBorder();
+        bdayPicker.getComponentDateTextField().setEditable(false);
+        bdayPicker.getComponentDateTextField().setFocusable(false);
+        bdayPicker.getComponentDateTextField().setOpaque(true);
     }
     
     private void updateFields() {
@@ -76,7 +85,7 @@ public class InformationEditor extends javax.swing.JPanel {
         
         textFieldEnabler(firstNameTextInput);
         textFieldEnabler(lastNameTextInput);
-        textFieldEnabler(birthdayTextInput);
+        textFieldEnabler(bdayPicker);
         textFieldEnabler(addressTextInput);
         textFieldEnabler(phoneTextInput);
         
@@ -97,6 +106,30 @@ public class InformationEditor extends javax.swing.JPanel {
         btn.setVisible(isVisible);
     }
     
+    private void textFieldEnabler(com.github.lgooddatepicker.components.DatePicker datePicker) {
+      
+//        datePicker.getComponentToggleCalendarButton().setEnabled(isEditing);
+        datePicker.getComponentDateTextField().setEnabled(isEditing);
+        updateBdayBorder();
+        java.awt.Color fieldColor = isEditing ? ThemeColor.activeText() : ThemeColor.textDisabled();
+        datePicker.getComponentDateTextField().setForeground(fieldColor);
+        datePicker.setEnabled(isEditing);
+        datePicker.getComponentDateTextField().setBackground(ThemeColor.white());
+        
+    }
+    
+    private void updateBdayBorder() {
+        javax.swing.border.LineBorder activeBorder = new javax.swing.border.LineBorder(ThemeColor.activeBorder(), 1);
+        javax.swing.border.Border disabledBorder = firstNameTextInput.getBorder();
+        
+        bdayPicker.getComponentDateTextField().setBorder(
+                isEditing ? 
+                        activeBorder :
+                        disabledBorder
+                        );
+    }
+    
+    
     private void textFieldEnabler(javax.swing.JTextField textField) {
         textField.setEnabled(isEditing);
         textField.setDisabledTextColor(ThemeColor.textDisabled());
@@ -106,7 +139,7 @@ public class InformationEditor extends javax.swing.JPanel {
         return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
                 !firstNameTextInput.getText().equals(selectedEmployee.getFirstName()) ||
                 !lastNameTextInput.getText().equals(selectedEmployee.getLastName()) ||
-                !birthdayTextInput.getText().equals(Dates.fullDate(selectedEmployee.getBirthday())) ||
+                !bdayPicker.getDate().equals(selectedEmployee.getBirthday()) ||
                 !addressTextInput.getText().equals(selectedEmployee.getContactInfo().getAddress()) ||
                 !phoneTextInput.getText().equals(selectedEmployee.getContactInfo().getPhoneNumber()) ||
                 !sssTextInput.getText().equals(selectedEmployee.getGovIds().getSssNumber()) ||
@@ -181,7 +214,6 @@ public class InformationEditor extends javax.swing.JPanel {
         employeeNoTextInput = new javax.swing.JTextField();
         firstNameTextInput = new javax.swing.JTextField();
         lastNameTextInput = new javax.swing.JTextField();
-        birthdayTextInput = new javax.swing.JTextField();
         addressTextInput = new javax.swing.JTextField();
         phoneTextInput = new javax.swing.JTextField();
         sssTextInput = new javax.swing.JTextField();
@@ -196,6 +228,7 @@ public class InformationEditor extends javax.swing.JPanel {
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
         removeBtn = new javax.swing.JButton();
+        bdayPicker = new com.github.lgooddatepicker.components.DatePicker();
 
         customDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         customDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -206,18 +239,18 @@ public class InformationEditor extends javax.swing.JPanel {
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        cancelConfirmLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cancelConfirmLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cancelConfirmLabel.setText("You have unsaved changes. Discard them?");
+        cancelConfirmLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        cancelBtnConfirm.setText("Cancel");
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtnConfirm.setText("Cancel");
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
+        confirmBtnConfirm.setText("Confirm");
         confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtnConfirm.setText("Confirm");
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
 
         javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
@@ -264,13 +297,13 @@ public class InformationEditor extends javax.swing.JPanel {
 
         noChangePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         noChangeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         noChangeLabel.setText("No changes detected.");
+        noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        noChangeButton.setText("OK");
         noChangeButton.setBackground(ThemeColor.lightGreen());
         noChangeButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        noChangeButton.setText("OK");
         noChangeButton.addActionListener(this::noChangeButtonActionPerformed);
 
         javax.swing.GroupLayout noChangePanelLayout = new javax.swing.GroupLayout(noChangePanel);
@@ -306,29 +339,29 @@ public class InformationEditor extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         personalInfoLabel.setText("Personal Information");
+        personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
 
-        lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         lastNameLabel.setText("Last Name :");
+        lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         employeeNoLabel.setText("Employee No :");
+        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         firstNameLabel.setText("First Name :");
+        firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         birthdayLabel.setText("Birthday :");
+        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        viewLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         viewLabel.setText("View Employee Details");
+        viewLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
 
-        addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         addressLabel.setText("Address :");
+        addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         phoneLabel.setText("Phone Number : ");
+        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         decorLine2.setBackground(new java.awt.Color(240, 240, 240));
         decorLine2.setDoubleBuffered(false);
@@ -344,8 +377,8 @@ public class InformationEditor extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         statusLabel.setText("Status :");
+        statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         decorLine.setBackground(new java.awt.Color(240, 240, 240));
         decorLine.setDoubleBuffered(false);
@@ -361,20 +394,20 @@ public class InformationEditor extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         govIdLabel.setText("Government ID");
+        govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
 
-        sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         sssLabel.setText("Social Security # :");
+        sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         philHealthLabel.setText("PhilHealth # :");
+        philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         pagibigLabel.setText("PAG-IBIG # :");
+        pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         tinLabel.setText("Tax Identification # :");
+        tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         decorLine3.setBackground(new java.awt.Color(240, 240, 240));
         decorLine3.setDoubleBuffered(false);
@@ -390,20 +423,20 @@ public class InformationEditor extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         departmentLabel.setText("Department");
+        departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
 
-        departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         departmentNameLabel.setText("Department Name :");
+        departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         positionLabel.setText("Position :");
+        positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         supervisorLabel.setText("Supervisor :");
+        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        updateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         updateBtn.setText("Update Employee");
+        updateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         updateBtn.addActionListener(this::updateBtnActionPerformed);
 
         employeeNoTextInput.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -419,10 +452,6 @@ public class InformationEditor extends javax.swing.JPanel {
         lastNameTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         lastNameTextInput.setText("Fontanilla");
         lastNameTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
-
-        birthdayTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        birthdayTextInput.setText("Date");
-        birthdayTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
 
         addressTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         addressTextInput.setText("170 Fairview, Dasmarinas, Commonwealth, San Agustin, Quezon City");
@@ -456,21 +485,25 @@ public class InformationEditor extends javax.swing.JPanel {
         statusTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         statusTextInput.setText("+639569978123");
 
-        closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         closeViewBtn.setText("Close");
+        closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
 
-        addOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         addOrUpdateBtn.setText("Update");
+        addOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         addOrUpdateBtn.addActionListener(this::addOrUpdateBtnActionPerformed);
 
-        cancelAddOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelAddOrUpdateBtn.setText("Cancel");
+        cancelAddOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
 
-        removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         removeBtn.setText("Remove");
+        removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         removeBtn.addActionListener(this::removeBtnActionPerformed);
+
+        bdayPicker.setBackground(new java.awt.Color(255, 255, 255));
+        bdayPicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        bdayPicker.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -511,10 +544,11 @@ public class InformationEditor extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(birthdayTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(bdayPicker, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lastNameTextInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))))
                     .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -582,7 +616,7 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(birthdayLabel)
-                    .addComponent(birthdayTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bdayPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressLabel)
@@ -627,7 +661,7 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusLabel)
                     .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,11 +684,13 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void addOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateBtnActionPerformed
         // TODO add your handling code here:
-
+        //check for changes
         if (!hasChanges()) {
             noChangeScreenDialog();
             return;
         }
+        
+        //validity check
         
         isConfirmingUpdate = true;
         customScreenDialog("Save Changes", "Do you want to save your changes?");
@@ -684,12 +720,13 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         customDialog.dispose();
         
+//        Dates.fullDate(birthdayTextInput.getText().trim()),
         if (isConfirmingUpdate) {
             this.selectedEmployee = Mapper.buildEmployee(
                     selectedEmployee,
                     lastNameTextInput.getText().trim(),
                     firstNameTextInput.getText().trim(),
-                    Dates.fullDate(birthdayTextInput.getText().trim()),
+                    Dates.fullDate("January 1, 2003"),
                     addressTextInput.getText().trim(),
                     phoneTextInput.getText().trim(),
                     sssTextInput.getText().trim(),
@@ -747,8 +784,8 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JButton addOrUpdateBtn;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JTextField addressTextInput;
+    private com.github.lgooddatepicker.components.DatePicker bdayPicker;
     private javax.swing.JLabel birthdayLabel;
-    private javax.swing.JTextField birthdayTextInput;
     private javax.swing.JButton cancelAddOrUpdateBtn;
     private javax.swing.JButton cancelBtnConfirm;
     private javax.swing.JLabel cancelConfirmLabel;

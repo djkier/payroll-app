@@ -95,9 +95,9 @@ public class EIMPanels extends javax.swing.JPanel {
         }) ;
     }
     
-    private void showEmployeeInfoEditor(Employee emp) {
-        editEmployeeDialog.setTitle("Employee Information : " + emp.getFullName() );
-        editEmployeeDialog.setContentPane(new InformationEditor(appContext, emp, editEmployeeDialog));
+    private void showEmployeeInfoEditor(Employee selectedEmployee) {
+        editEmployeeDialog.setTitle("Employee Information : " + selectedEmployee.getFullName() );
+        editEmployeeDialog.setContentPane(new InformationEditor(appContext, selectedEmployee, editEmployeeDialog));
         editEmployeeDialog.pack();
         editEmployeeDialog.setResizable(false);
         editEmployeeDialog.setLocationRelativeTo(null);

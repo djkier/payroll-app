@@ -64,22 +64,22 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="cancelConfirmLabel">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="You have unsaved changes. Discard them?"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="14" style="0"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="You have unsaved changes. Discard them?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="cancelBtnConfirm">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Cancel"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="ThemeColor.lightRed()" type="code"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cancel"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelBtnConfirmActionPerformed"/>
@@ -87,13 +87,13 @@
             </Component>
             <Component class="javax.swing.JButton" name="confirmBtnConfirm">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Confirm"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="ThemeColor.lightGreen()" type="code"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Confirm"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="confirmBtnConfirmActionPerformed"/>
@@ -160,22 +160,22 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="noChangeLabel">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="No changes detected."/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="14" style="0"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="No changes detected."/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="noChangeButton">
               <Properties>
+                <Property name="text" type="java.lang.String" value="OK"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="ThemeColor.lightGreen()" type="code"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="OK"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="noChangeButtonActionPerformed"/>
@@ -246,10 +246,12 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="employeeNoTextInput" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
                           <Component id="firstNameTextInput" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
-                          <Component id="lastNameTextInput" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
-                          <Component id="birthdayTextInput" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
                           <Component id="phoneTextInput" alignment="0" min="-2" pref="283" max="-2" attributes="0"/>
                           <Component id="addressTextInput" alignment="0" min="-2" pref="569" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="bdayPicker" alignment="0" max="32767" attributes="0"/>
+                              <Component id="lastNameTextInput" alignment="0" pref="283" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="decorLine" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -338,7 +340,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="birthdayLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="birthdayTextInput" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bdayPicker" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -392,7 +394,7 @@
                   <Component id="statusLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="statusTextInput" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="addOrUpdateBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                   <Component id="cancelAddOrUpdateBtn" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
@@ -407,66 +409,66 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="personalInfoLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Personal Information"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="16" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Personal Information"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lastNameLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Last Name :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Last Name :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="employeeNoLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Employee No :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Employee No :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="firstNameLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="First Name :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="First Name :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="birthdayLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Birthday :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Birthday :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="viewLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="View Employee Details"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="View Employee Details"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="addressLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Address :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Address :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="phoneLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Phone Number : "/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Phone Number : "/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine2">
@@ -492,10 +494,10 @@
     </Container>
     <Component class="javax.swing.JLabel" name="statusLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Status :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Status :"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine">
@@ -521,42 +523,42 @@
     </Container>
     <Component class="javax.swing.JLabel" name="govIdLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Government ID"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="16" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Government ID"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="sssLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Social Security # :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Social Security # :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="philHealthLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="PhilHealth # :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="PhilHealth # :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="pagibigLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="PAG-IBIG # :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="PAG-IBIG # :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="tinLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Tax Identification # :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Tax Identification # :"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine3">
@@ -582,42 +584,42 @@
     </Container>
     <Component class="javax.swing.JLabel" name="departmentLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Department"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="16" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Department"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="departmentNameLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Department Name :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Department Name :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="positionLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Position :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Position :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="supervisorLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Supervisor :"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Supervisor :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="updateBtn">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Update Employee"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Update Employee"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateBtnActionPerformed"/>
@@ -653,17 +655,6 @@
           <Font name="Poppins" size="12" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Fontanilla"/>
-        <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="66" green="66" red="66" type="rgb"/>
-        </Property>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="birthdayTextInput">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="12" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Date"/>
         <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="66" red="66" type="rgb"/>
         </Property>
@@ -757,10 +748,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="closeViewBtn">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Close"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Close"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="closeViewBtnActionPerformed"/>
@@ -768,10 +759,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="addOrUpdateBtn">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Update"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Update"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addOrUpdateBtnActionPerformed"/>
@@ -779,10 +770,10 @@
     </Component>
     <Component class="javax.swing.JButton" name="cancelAddOrUpdateBtn">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelAddOrUpdateBtnActionPerformed"/>
@@ -790,14 +781,27 @@
     </Component>
     <Component class="javax.swing.JButton" name="removeBtn">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Remove"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Remove"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeBtnActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="com.github.lgooddatepicker.components.DatePicker" name="bdayPicker">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
