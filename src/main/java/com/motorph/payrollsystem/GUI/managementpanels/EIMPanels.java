@@ -32,6 +32,7 @@ public class EIMPanels extends javax.swing.JPanel {
         this.appContext = appContext;
         this.dialog = dialog;
         this.employeeList = List.of();
+        this.isAddingNewEmployee = false;
         
         initComponents();
         loadEmployees();
@@ -96,8 +97,11 @@ public class EIMPanels extends javax.swing.JPanel {
     }
     
     private void showEmployeeInfoEditor(Employee selectedEmployee) {
+        InformationEditor infoEditor = new InformationEditor(appContext, selectedEmployee, editEmployeeDialog);
+        infoEditor.setViewingMode(true);
+
         editEmployeeDialog.setTitle("Employee Information : " + selectedEmployee.getFullName() );
-        editEmployeeDialog.setContentPane(new InformationEditor(appContext, selectedEmployee, editEmployeeDialog));
+        editEmployeeDialog.setContentPane(infoEditor);
         editEmployeeDialog.pack();
         editEmployeeDialog.setResizable(false);
         editEmployeeDialog.setLocationRelativeTo(null);
@@ -335,6 +339,7 @@ public class EIMPanels extends javax.swing.JPanel {
         loadEmployees();
     }//GEN-LAST:event_editEmployeeDialogWindowClosed
 
+    private boolean isAddingNewEmployee;
     private javax.swing.JDialog dialog;
     private List<Employee> employeeList;
     private AppContext appContext;

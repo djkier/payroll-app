@@ -12,8 +12,13 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.Mapper;
+import com.motorph.payrollsystem.utility.RegexPattern;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -156,7 +161,7 @@ public class InformationEditor extends javax.swing.JPanel {
     }
     
     private void customScreenDialog(String title, String message) {
-        cancelConfirmLabel.setText(message);
+        cancelOrConfirmLabel.setText(message);
         customDialog.pack();
         customDialog.setResizable(false);
         customDialog.setLocationRelativeTo(parentDialog);
@@ -173,6 +178,78 @@ public class InformationEditor extends javax.swing.JPanel {
         
         noChangeDialog.setVisible(true);
     }
+    
+    private List<String> validateForm() {
+        List<String> errors = new ArrayList<>();
+        
+        validateFirstName(errors);
+        validateLastName(errors);
+        validateBirthday(errors);
+        validateAddress(errors);
+        validatePhoneNumber(errors);
+        validateSSS(errors);
+
+        
+        return errors;
+    }
+    
+    private void validateFirstName(List<String> errors) {
+        String firstName = firstNameTextInput.getText().trim();
+        if(firstName.isEmpty()) {
+            errors.add("First name is required.");
+        } else if (!firstName.matches(RegexPattern.namePattern())) {
+            errors.add("First name contains invalid characters.");
+        }
+    }
+    private void validateLastName(List<String> errors) {
+        String lastName = lastNameTextInput.getText().trim();
+        if(lastName.isEmpty()) {
+            errors.add("Last name is required");
+        } else if (!lastName.matches(RegexPattern.namePattern())) {
+            errors.add("Last name contains invalid characters.");
+        }
+    }
+    private void validateBirthday(List<String> errors) {
+        LocalDate bday = bdayPicker.getDate();
+        if (bday == null) {
+            errors.add("Birthday is required.");
+        } else {
+            LocalDate today = LocalDate.now();
+            LocalDate youngestAllowed = today.minusYears(18);
+            LocalDate oldestAllowed = today.minusYears(65); 
+            if (bday.isAfter(youngestAllowed)) {
+                errors.add("Employee must be born on or before " + youngestAllowed + ".");
+            } else if (bday.isBefore(oldestAllowed)) {
+                errors.add("Employee must be born on or after " + oldestAllowed + ".");
+            }
+        }
+    }
+    private void validateAddress(List<String> errors) {
+        String address = addressTextInput.getText().trim();
+        if (address.isEmpty()) {
+            errors.add("Address is required.");
+        } else if (!address.matches(RegexPattern.addressPattern())) {
+            errors.add("Address must contain letters or numbers.");
+        }
+    }
+    private void validatePhoneNumber(List<String> errors) {
+        String phone = phoneTextInput.getText().trim();
+
+        if (phone.isEmpty()) {
+            errors.add("Phone number is required.");
+        } else if (!phone.matches("^\\d{3}-\\d{3}-\\d{3}$")) {
+            errors.add("Phone number must follow the format 123-456-789.");
+        }
+    }
+    private void validateSSS(List<String> errors) {
+        String sss = sssTextInput.getText().trim();
+
+        if (sss.isEmpty()) {
+            errors.add("SSS number is required.");
+        } else if (!sss.matches(RegexPattern.sssPattern())) {
+            errors.add("SSS number must follow the format 12-3456789-0.");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,7 +262,7 @@ public class InformationEditor extends javax.swing.JPanel {
 
         customDialog = new javax.swing.JDialog(this.parentDialog, true);
         cancelConfirmPanel = new javax.swing.JPanel();
-        cancelConfirmLabel = new javax.swing.JLabel();
+        cancelOrConfirmLabel = new javax.swing.JLabel();
         cancelBtnConfirm = new javax.swing.JButton();
         confirmBtnConfirm = new javax.swing.JButton();
         noChangeDialog = new javax.swing.JDialog(this.parentDialog, true);
@@ -242,9 +319,9 @@ public class InformationEditor extends javax.swing.JPanel {
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        cancelConfirmLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cancelConfirmLabel.setText("You have unsaved changes. Discard them?");
-        cancelConfirmLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        cancelOrConfirmLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cancelOrConfirmLabel.setText("You have unsaved changes. Discard them?");
+        cancelOrConfirmLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         cancelBtnConfirm.setText("Cancel");
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
@@ -266,13 +343,13 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGap(43, 43, 43)
                 .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
-            .addComponent(cancelConfirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cancelOrConfirmLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         cancelConfirmPanelLayout.setVerticalGroup(
             cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(cancelConfirmLabel)
+                .addComponent(cancelOrConfirmLabel)
                 .addGap(18, 18, 18)
                 .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -463,9 +540,19 @@ public class InformationEditor extends javax.swing.JPanel {
         phoneTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         phoneTextInput.setText("+639569978123");
         phoneTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        phoneTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                phoneTextInputKeyTyped(evt);
+            }
+        });
 
         sssTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         sssTextInput.setText("+639569978123");
+        sssTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                sssTextInputKeyTyped(evt);
+            }
+        });
 
         philhealthTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         philhealthTextInput.setText("+639569978123");
@@ -694,6 +781,12 @@ public class InformationEditor extends javax.swing.JPanel {
         }
         
         //validity check
+        List<String> validate = validateForm();
+        if (!validate.isEmpty()) {
+            System.out.println("error");
+            //errorDialog
+            return;
+        }
         
         isConfirmingUpdate = true;
         customScreenDialog("Save Changes", "Do you want to save your changes?");
@@ -721,11 +814,9 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
         // TODO add your handling code here:
-        customDialog.dispose();
-        
         //when confirming update
         if (isConfirmingUpdate) {
-            this.selectedEmployee = Mapper.buildEmployee(
+            Employee updateEmployee = Mapper.buildEmployee(
                     selectedEmployee,
                     lastNameTextInput.getText().trim(),
                     firstNameTextInput.getText().trim(),
@@ -743,7 +834,8 @@ public class InformationEditor extends javax.swing.JPanel {
             
 
             try {
-                appContext.getEmployeeService().updateEmployee(selectedEmployee);
+                this.selectedEmployee = appContext.getEmployeeService().updateEmployee(updateEmployee);
+                
             } catch (IOException e) {
                 javax.swing.JOptionPane.showMessageDialog(
                         this,
@@ -761,6 +853,7 @@ public class InformationEditor extends javax.swing.JPanel {
         
         isConfirmingCancel = false;
         isConfirmingUpdate = false;
+        customDialog.dispose();
     }//GEN-LAST:event_confirmBtnConfirmActionPerformed
 
     private void noChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noChangeButtonActionPerformed
@@ -787,8 +880,79 @@ public class InformationEditor extends javax.swing.JPanel {
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_removeBtnActionPerformed
+
+    private void phoneTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextInputKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // allow only digits
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        String text = phoneTextInput.getText().replace("-", "");
+
+        // limit to 9 digits
+        if (text.length() >= 9) {
+            evt.consume();
+            return;
+        }
+
+        // add the new digit
+        text += c;
+
+        // rebuild formatted text
+        StringBuilder formatted = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i++) {
+            if (i > 0 && i % 3 == 0) {
+                formatted.append("-");
+            }
+            formatted.append(text.charAt(i));
+        }
+
+        phoneTextInput.setText(formatted.toString());
+
+        evt.consume();
+    }//GEN-LAST:event_phoneTextInputKeyTyped
+
+    private void sssTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sssTextInputKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // allow digits only
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        String text = sssTextInput.getText().replace("-", "");
+        // limit to 10 digits total
+        if (text.length() >= 10) {
+            evt.consume();
+            return;
+        }
+
+        text += c;
+
+        StringBuilder formatted = new StringBuilder();
+        for (int i = 0; i < text.length(); i++) {
+            if (i == 2 || i == 9) {
+                formatted.append("-");
+            }
+            formatted.append(text.charAt(i));
+        }
+        
+        sssTextInput.setText(formatted.toString());
+        evt.consume();
+    }//GEN-LAST:event_sssTextInputKeyTyped
     
+    public void setViewingMode(boolean viewingMode) {
+        isViewing = viewingMode;
+    }
     
+    private boolean isViewing;
     private boolean isConfirmingUpdate;
     private boolean isConfirmingCancel;
     private boolean isEditing;
@@ -804,8 +968,8 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JLabel birthdayLabel;
     private javax.swing.JButton cancelAddOrUpdateBtn;
     private javax.swing.JButton cancelBtnConfirm;
-    private javax.swing.JLabel cancelConfirmLabel;
     private javax.swing.JPanel cancelConfirmPanel;
+    private javax.swing.JLabel cancelOrConfirmLabel;
     private javax.swing.JButton closeViewBtn;
     private javax.swing.JButton confirmBtnConfirm;
     private javax.swing.JDialog customDialog;

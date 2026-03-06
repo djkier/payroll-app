@@ -45,7 +45,6 @@ public class EmployeeService {
             throw new IllegalArgumentException("First name and last name are required");
         }
         
-
         Employee existing = findByEmployeeNo(updated.getEmployeeNo());
         if (existing == null) {
             throw new IllegalStateException("Employee not found: " + updated.getEmployeeNo());
@@ -55,8 +54,6 @@ public class EmployeeService {
         employeeRepo.update(updated);
         
         return findByEmployeeNo(updated.getEmployeeNo());
-        
-       
     }
     
     private boolean isBlank(String s) {
