@@ -70,6 +70,7 @@ public class InformationEditor extends javax.swing.JPanel {
         
         buttonsVisibility(updateBtn, !isEditing);
         buttonsVisibility(closeViewBtn, !isEditing);
+        buttonsVisibility(removeBtn, isEditing);
         buttonsVisibility(cancelAddOrUpdateBtn,isEditing);
         buttonsVisibility(addOrUpdateBtn, isEditing);
         
@@ -136,42 +137,6 @@ public class InformationEditor extends javax.swing.JPanel {
         
         noChangeDialog.setVisible(true);
     }
-    
-    private Employee buildEmployeeFromFields() {
-        Employee emp = new Employee();
-        ContactInfo contactInfo = new ContactInfo();
-        GovIds govIds = new GovIds();
-        DepartmentInfo departmentInfo = new DepartmentInfo();
-        CompProfile compProfile = new CompProfile();
-        
-        emp.setEmployeeNo(selectedEmployee.getEmployeeNo());
-        
-        emp.setLastName(lastNameTextInput.getText().trim());
-        emp.setFirstName(firstNameTextInput.getText().trim());
-        emp.setBirthday(Dates.parseFullDate(birthdayTextInput.getText().trim()));
-        
-        contactInfo.setAddress(addressTextInput.getText().trim());
-        contactInfo.setPhoneNumber(phoneTextInput.getText().trim());
-        emp.setContactInfo(contactInfo);
-        
-        govIds.setSssNumber(sssTextInput.getText().trim());
-        govIds.setPhilHealthNumber(philhealthTextInput.getText().trim());
-        govIds.setPagibigNumber(pagibigTextInput.getText().trim());
-        govIds.setTinNumber(tinTextInput.getText().trim());
-        emp.setGovIds(govIds);
-        
-        departmentInfo.setStatus(statusTextInput.getText().trim());
-        departmentInfo.setPosition(positionTextInput.getText().trim());
-        departmentInfo.setSupervisor(supervisorTextInput.getText().trim());
-        emp.setDepartmentInfo(departmentInfo);
-        
-        //TEMPORARY COMPENSATION REFACTORING ON UI IS NEEDED
-        emp.setCompProfile(selectedEmployee.getCompProfile());
-        
-        return emp;
-    }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -230,6 +195,7 @@ public class InformationEditor extends javax.swing.JPanel {
         closeViewBtn = new javax.swing.JButton();
         addOrUpdateBtn = new javax.swing.JButton();
         cancelAddOrUpdateBtn = new javax.swing.JButton();
+        removeBtn = new javax.swing.JButton();
 
         customDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         customDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -502,6 +468,10 @@ public class InformationEditor extends javax.swing.JPanel {
         cancelAddOrUpdateBtn.setText("Cancel");
         cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
 
+        removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        removeBtn.setText("Remove");
+        removeBtn.addActionListener(this::removeBtnActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -509,6 +479,24 @@ public class InformationEditor extends javax.swing.JPanel {
             .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))
+                    .addComponent(departmentLabel)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(viewLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -549,43 +537,28 @@ public class InformationEditor extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addComponent(govIdLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(departmentLabel))
+                        .addGap(24, 24, 24)
+                        .addComponent(personalInfoLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departmentNameLabel)
-                            .addComponent(positionLabel)
-                            .addComponent(supervisorLabel)
-                            .addComponent(statusLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(personalInfoLabel)))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(viewLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(304, 304, 304)
-                .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(departmentNameLabel)
+                                    .addComponent(positionLabel)
+                                    .addComponent(supervisorLabel)
+                                    .addComponent(statusLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(viewLabel)
@@ -654,12 +627,13 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusLabel)
                     .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -756,6 +730,10 @@ public class InformationEditor extends javax.swing.JPanel {
         customDialog.dispose();
 
     }//GEN-LAST:event_customDialogWindowClosing
+
+    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_removeBtnActionPerformed
     
     
     private boolean isConfirmingUpdate;
@@ -804,6 +782,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JTextField phoneTextInput;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JTextField positionTextInput;
+    private javax.swing.JButton removeBtn;
     private javax.swing.JLabel sssLabel;
     private javax.swing.JTextField sssTextInput;
     private javax.swing.JLabel statusLabel;
