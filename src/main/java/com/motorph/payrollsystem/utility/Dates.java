@@ -68,5 +68,10 @@ public class Dates {
         return date.format(formatter);
     }
     
+    //convert January 1, 2026 to 01/01/2026 in String form
+    public static String fullDate(String date) {
+        return formatDate(parseFullDate(date));
+    }
+    
     
 }

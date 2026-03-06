@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.model.employee.DepartmentInfo;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.Mapper;
 import com.motorph.payrollsystem.utility.ThemeColor;
 
 /**
@@ -168,8 +169,6 @@ public class InformationEditor extends javax.swing.JPanel {
         emp.setCompProfile(selectedEmployee.getCompProfile());
         
         return emp;
-        
-        
     }
     
 
@@ -712,7 +711,21 @@ public class InformationEditor extends javax.swing.JPanel {
         customDialog.dispose();
         
         if (isConfirmingUpdate) {
-            this.selectedEmployee = buildEmployeeFromFields();
+            this.selectedEmployee = Mapper.buildEmployee(
+                    selectedEmployee,
+                    lastNameTextInput.getText().trim(),
+                    firstNameTextInput.getText().trim(),
+                    Dates.fullDate(birthdayTextInput.getText().trim()),
+                    addressTextInput.getText().trim(),
+                    phoneTextInput.getText().trim(),
+                    sssTextInput.getText().trim(),
+                    philhealthTextInput.getText().trim(),
+                    tinTextInput.getText().trim(),
+                    pagibigTextInput.getText().trim(),
+                    statusTextInput.getText().trim(),
+                    positionTextInput.getText().trim(),
+                    supervisorTextInput.getText().trim()
+            );
         }
         
         isEditing = !isEditing;

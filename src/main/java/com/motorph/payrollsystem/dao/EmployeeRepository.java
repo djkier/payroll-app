@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.employee.GovIds;
 import com.motorph.payrollsystem.utility.Csv;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.Mapper;
 import com.motorph.payrollsystem.utility.Money;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -106,40 +107,85 @@ public class EmployeeRepository {
     }
     
     private Employee map(String[] details) {
-        Employee emp = new Employee();
-        ContactInfo contactInfo = new ContactInfo();
-        GovIds govIds = new GovIds();
-        DepartmentInfo departmentInfo = new DepartmentInfo();
-        CompProfile compProfile = new CompProfile();
-
-        emp.setEmployeeNo(details[0]);
-        emp.setLastName(details[1]);
-        emp.setFirstName(details[2]);
-        emp.setBirthday(Dates.parseDate(details[3]));
-
-        contactInfo.setAddress(details[4]);
-        contactInfo.setPhoneNumber(details[5]);
-
-        govIds.setSssNumber(details[6]);
-        govIds.setPhilHealthNumber(details[7]);
-        govIds.setTinNumber(details[8]);
-        govIds.setPagibigNumber(details[9]);
-
-        departmentInfo.setStatus(details[10]);
-        departmentInfo.setPosition(details[11]);
-        departmentInfo.setSupervisor(details[12]);
-
-        compProfile.setBasicSalary(Money.parseSalary(details[13]));
-        compProfile.setRiceSubsidy(Money.parseSalary(details[14]));
-        compProfile.setPhoneAllowance(Money.parseSalary(details[15]));
-        compProfile.setClothingAllowance(Money.parseSalary(details[16]));
-
-        emp.setContactInfo(contactInfo);
-        emp.setGovIds(govIds);
-        emp.setDepartmentInfo(departmentInfo);
-        emp.setCompProfile(compProfile);
-        return emp;
+        String employeeNo = details[0];
+        String lastName = details[1];
+        String firstName = details[2];
+        String birthday = details[3];
+        
+        String address = details[4];
+        String phone = details[5];
+        
+        String sss = details[6];
+        String philhealth = details[7];
+        String tin = details[8];
+        String pagibig = details[9];
+        
+        String status = details[10];
+        String position = details[11];
+        String supervisor = details[12];
+        
+        String basicSalary = details[13];
+        String riceSub = details[14];
+        String phoneAllowance = details[15];
+        String clothingAllowance = details[16];
+        
+        return Mapper.buildEmployee(
+                employeeNo,
+                lastName,
+                firstName,
+                birthday,
+                address,
+                phone,
+                sss,
+                philhealth,
+                tin,
+                pagibig,
+                status,
+                position,
+                supervisor,
+                basicSalary,
+                riceSub,
+                phoneAllowance,
+                clothingAllowance
+        );
+               
     }
+        
+        
+//        Employee emp = new Employee();
+//        ContactInfo contactInfo = new ContactInfo();
+//        GovIds govIds = new GovIds();
+//        DepartmentInfo departmentInfo = new DepartmentInfo();
+//        CompProfile compProfile = new CompProfile();
+//
+//        emp.setEmployeeNo(details[0]);
+//        emp.setLastName(details[1]);
+//        emp.setFirstName(details[2]);
+//        emp.setBirthday(Dates.parseDate(details[3]));
+//
+//        contactInfo.setAddress(details[4]);
+//        contactInfo.setPhoneNumber(details[5]);
+//
+//        govIds.setSssNumber(details[6]);
+//        govIds.setPhilHealthNumber(details[7]);
+//        govIds.setTinNumber(details[8]);
+//        govIds.setPagibigNumber(details[9]);
+//
+//        departmentInfo.setStatus(details[10]);
+//        departmentInfo.setPosition(details[11]);
+//        departmentInfo.setSupervisor(details[12]);
+//
+//        compProfile.setBasicSalary(Money.parseSalary(details[13]));
+//        compProfile.setRiceSubsidy(Money.parseSalary(details[14]));
+//        compProfile.setPhoneAllowance(Money.parseSalary(details[15]));
+//        compProfile.setClothingAllowance(Money.parseSalary(details[16]));
+//
+//        emp.setContactInfo(contactInfo);
+//        emp.setGovIds(govIds);
+//        emp.setDepartmentInfo(departmentInfo);
+//        emp.setCompProfile(compProfile);
+//        return emp;
+    
     
     private void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
