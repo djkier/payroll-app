@@ -37,5 +37,9 @@ public class RegexPattern {
         return "^\\d{3}-\\d{3}-\\d{3}-\\d{3}$";
     }
     
+    public static String deptPattern() {
+        return "^(N/A|[\\p{L}0-9][\\p{L}0-9\\s&/().,'-]*[\\p{L}0-9)])$";
+    }
+    
     
 }

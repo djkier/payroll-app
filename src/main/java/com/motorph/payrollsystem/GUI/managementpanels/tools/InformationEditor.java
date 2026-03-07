@@ -238,29 +238,21 @@ public class InformationEditor extends javax.swing.JPanel {
     }
     
     private void dialogOpener(javax.swing.JDialog dialog, String title) {
-        
-        dialog.pack();
         dialog.setResizable(false);
-        dialog.setLocationRelativeTo(parentDialog);
         dialog.setTitle(title);
-
-        dialog.setVisible(true);  
+        dialog.pack();
+        dialog.setLocationRelativeTo(parentDialog);
+        
+        dialog.setVisible(true); 
+        
     }
     
-    private void noChangeScreenDialog() {
-        noChangeDialog.pack();
-        noChangeDialog.setResizable(false);
-        noChangeDialog.setLocationRelativeTo(parentDialog);
-        noChangeDialog.setTitle("Nothing to Save");
-        
-        noChangeDialog.setVisible(true);
-    }
     
     private List<String> validateForm() {
         List<String> errors = new ArrayList<>();
         
-        validateFirstName(errors);
-        validateLastName(errors);
+        validateNames("First Name", firstNameTextInput, RegexPattern.namePattern(), errors);
+        validateNames("Last Name", lastNameTextInput, RegexPattern.namePattern(), errors);
         validateBirthday(errors);
         validateAddress(errors);
         validatePhoneNumber(errors);
@@ -268,24 +260,23 @@ public class InformationEditor extends javax.swing.JPanel {
         validatePhilhealth(errors);
         validatePagIbig(errors);
         validateTIN(errors);
+        validateNames("Department Name", departmentTextInput, RegexPattern.deptPattern(), errors);
+        validateNames("Position", positionTextInput, RegexPattern.deptPattern(), errors);
+        validateNames("Supervisor Name", supervisorTextInput, RegexPattern.deptPattern(), errors);
+        validateNames("Status", statusTextInput, RegexPattern.deptPattern(), errors);
 
         return errors;
     }
     
-    private void validateFirstName(List<String> errors) {
-        String firstName = firstNameTextInput.getText().trim();
-        if(firstName.isEmpty()) {
-            errors.add("First name is required.");
-        } else if (!firstName.matches(RegexPattern.namePattern())) {
-            errors.add("First name contains invalid characters.");
-        }
-    }
-    private void validateLastName(List<String> errors) {
-        String lastName = lastNameTextInput.getText().trim();
-        if(lastName.isEmpty()) {
-            errors.add("Last name is required");
-        } else if (!lastName.matches(RegexPattern.namePattern())) {
-            errors.add("Last name contains invalid characters.");
+    private void validateNames(String fieldName, 
+            javax.swing.JTextField textField,
+            String pattern,
+            List<String> errors) {
+        String name = textField.getText().trim();
+        if(name == null || name.isEmpty()) {
+            errors.add(fieldName + " is required.");
+        } else if (!name.matches(pattern)) {
+            errors.add(fieldName + " contains invalid characters.");
         }
     }
     private void validateBirthday(List<String> errors) {
@@ -357,6 +348,15 @@ public class InformationEditor extends javax.swing.JPanel {
         }
     }
 
+    
+    private String formatErrorsForLabel(List<String> errors) {
+        List<String> formatted = new ArrayList<>();
+        for (String e : errors) {
+            formatted.add("- " + e);
+        }
+        return "<html>" + String.join("<br>", formatted) + "</html>";
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -380,6 +380,12 @@ public class InformationEditor extends javax.swing.JPanel {
         updateDialogLabel = new javax.swing.JLabel();
         updateDialogCancelBtn = new javax.swing.JButton();
         updateDialogSaveBtn = new javax.swing.JButton();
+        validationErrorDialog = new javax.swing.JDialog(this.parentDialog, true);
+        validationErrorPanel = new javax.swing.JPanel();
+        validationErrorBtn = new javax.swing.JButton();
+        validationErrorHeader = new javax.swing.JLabel();
+        validationErrorLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         personalInfoLabel = new javax.swing.JLabel();
         lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
@@ -589,6 +595,72 @@ public class InformationEditor extends javax.swing.JPanel {
             updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(updateDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        validationErrorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        validationErrorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                validationErrorDialogWindowClosing(evt);
+            }
+        });
+
+        validationErrorPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        validationErrorBtn.setBackground(ThemeColor.lightGreen());
+        validationErrorBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        validationErrorBtn.setText("OK");
+        validationErrorBtn.addActionListener(this::validationErrorBtnActionPerformed);
+
+        validationErrorHeader.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        validationErrorHeader.setText("The following field/s contain errors :");
+
+        validationErrorLabel.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
+        validationErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        validationErrorLabel.setText("- Last name contains invalid characters.");
+        validationErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        javax.swing.GroupLayout validationErrorPanelLayout = new javax.swing.GroupLayout(validationErrorPanel);
+        validationErrorPanel.setLayout(validationErrorPanelLayout);
+        validationErrorPanelLayout.setHorizontalGroup(
+            validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(validationErrorPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(validationErrorPanelLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(validationErrorHeader))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
+        );
+        validationErrorPanelLayout.setVerticalGroup(
+            validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(validationErrorHeader)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(validationErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+        );
+
+        javax.swing.GroupLayout validationErrorDialogLayout = new javax.swing.GroupLayout(validationErrorDialog.getContentPane());
+        validationErrorDialog.getContentPane().setLayout(validationErrorDialogLayout);
+        validationErrorDialogLayout.setHorizontalGroup(
+            validationErrorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(validationErrorDialogLayout.createSequentialGroup()
+                .addComponent(validationErrorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        validationErrorDialogLayout.setVerticalGroup(
+            validationErrorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(validationErrorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jButton1.setText("jButton1");
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -997,7 +1069,7 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         //check for changes
         if (!hasChanges()) {
-            noChangeScreenDialog();
+            dialogOpener(noChangeDialog, "Nothing to Save");
             return;
         }
         
@@ -1005,7 +1077,10 @@ public class InformationEditor extends javax.swing.JPanel {
         List<String> validate = validateForm();
         if (!validate.isEmpty()) {
             System.out.println("error");
+            System.out.println(String.join("\n", validate));
             //errorDialog
+            validationErrorLabel.setText(formatErrorsForLabel(validate));
+            dialogOpener(validationErrorDialog, "Data Validation Check");
             return;
         }
         
@@ -1255,6 +1330,15 @@ public class InformationEditor extends javax.swing.JPanel {
         String selected = (String) statusComboBox.getSelectedItem();
         statusTextInput.setText(selected);
     }//GEN-LAST:event_statusComboBoxActionPerformed
+
+    private void validationErrorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationErrorBtnActionPerformed
+        // TODO add your handling code here:
+        validationErrorDialog.dispose();
+    }//GEN-LAST:event_validationErrorBtnActionPerformed
+
+    private void validationErrorDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_validationErrorDialogWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_validationErrorDialogWindowClosing
     
     public void setViewingMode(boolean viewingMode) {
         isViewing = viewingMode;
@@ -1295,6 +1379,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextInput;
     private javax.swing.JLabel govIdLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextInput;
     private javax.swing.JButton noChangeButton;
@@ -1328,6 +1413,11 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JLabel updateDialogLabel;
     private javax.swing.JPanel updateDialogPanel;
     private javax.swing.JButton updateDialogSaveBtn;
+    private javax.swing.JButton validationErrorBtn;
+    private javax.swing.JDialog validationErrorDialog;
+    private javax.swing.JLabel validationErrorHeader;
+    private javax.swing.JLabel validationErrorLabel;
+    private javax.swing.JPanel validationErrorPanel;
     private javax.swing.JLabel viewLabel;
     // End of variables declaration//GEN-END:variables
 }
