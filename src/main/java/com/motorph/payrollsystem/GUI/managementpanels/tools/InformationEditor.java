@@ -286,7 +286,7 @@ public class InformationEditor extends javax.swing.JPanel {
         } else {
             LocalDate today = LocalDate.now();
             LocalDate youngestAllowed = today.minusYears(18);
-            LocalDate oldestAllowed = today.minusYears(65); 
+            LocalDate oldestAllowed = today.minusYears(100); 
             if (bday.isAfter(youngestAllowed)) {
                 errors.add("Employee must be born on or before " + youngestAllowed + ".");
             } else if (bday.isBefore(oldestAllowed)) {
@@ -1296,7 +1296,7 @@ public class InformationEditor extends javax.swing.JPanel {
             tinTextInput.getText().trim(),
             pagibigTextInput.getText().trim(),
             statusTextInput.getText().trim(),
-            "position-replacer",
+            positionTextInput.getText().trim(),
             supervisorTextInput.getText().trim()
         );
             
