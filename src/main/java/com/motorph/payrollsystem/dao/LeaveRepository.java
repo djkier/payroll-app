@@ -33,7 +33,7 @@ public class LeaveRepository {
         this.csvPath = csvPath;
     }
     
-    public List<LeaveRequest> findByEmployeeNo(String employeeNo) throws IOException {
+    public List<LeaveRequest> getEmployeeLeaveHistory(String employeeNo) throws IOException {
         List<LeaveRequest> leaveRequests = new ArrayList<>();
         ensureFileExistsWithHeader();
 

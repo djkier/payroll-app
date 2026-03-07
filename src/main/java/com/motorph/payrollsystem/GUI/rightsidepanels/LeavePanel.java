@@ -62,7 +62,7 @@ public class LeavePanel extends javax.swing.JPanel {
         
         try {
         
-            List<LeaveRequest> history = leaveService.getLeaveHistory(employeeNo);
+            List<LeaveRequest> history = leaveService.getEmployeeLeaveHistory(employeeNo);
             currentHistory = history;
            
             fillTable(history);

@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,12 +32,15 @@ public class EIMPanels extends javax.swing.JPanel {
             javax.swing.JDialog dialog) {
         this.appContext = appContext;
         this.dialog = dialog;
-        this.employeeList = List.of();
-        this.isAddingNewEmployee = false;
+        this.employeeList = new ArrayList<>();
+        this.displayedEmployees = new ArrayList<>();
+        this.isIDSelected = true;
         
         initComponents();
+        
         loadEmployees();
         hookRowDoubleClick();
+        hookSearch();
     }
     
     private void loadEmployees() {
@@ -44,10 +48,11 @@ public class EIMPanels extends javax.swing.JPanel {
         AccessPolicy policy = appContext.getSessionManager().getAccessPolicy();
         
         try {
-            List<Employee> employeeList = employeeService.getEmployeeList(policy);
-            this.employeeList = employeeList;
+            this.employeeList = employeeService.getEmployeeList(policy);
+            displayedEmployees = new ArrayList<>(employeeList);
             
-            fillTable(employeeList);
+            //should use tableEmployeeList
+            fillTable(displayedEmployees);
             
         } catch (Exception ex){
             JOptionPane.showMessageDialog(this, "Error loading employee data");
@@ -88,14 +93,71 @@ public class EIMPanels extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() != 2) return;
                 
-                int row = empInfoTable.getSelectedRow();
-                if (row < 0 || row >= employeeList.size()) return;
+                int viewRow = empInfoTable.getSelectedRow();
+                if (viewRow < 0) return;
+                
+                int modelRow = empInfoTable.convertRowIndexToModel(viewRow);
+                if (modelRow < 0 || modelRow >= displayedEmployees.size()) return;
 
-                showEmployeeInfo(employeeList.get(row));
+                showEmployeeInfo(employeeList.get(modelRow));
             }
         });
     }
     
+    private void hookSearch() {
+        searchBarTextField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+        });
+    }
+    
+    private void applySearch() {
+        String keyword = searchBarTextField.getText().trim().toLowerCase();
+
+        if (keyword.isEmpty()) {
+            displayedEmployees = new ArrayList<>(employeeList);
+            fillTable(displayedEmployees);
+            return;
+        }
+
+        List<Employee> filtered = new ArrayList<>();
+
+        for (Employee emp : employeeList) {
+            if (idRadio.isSelected()) {
+                String empNo = String.valueOf(emp.getEmployeeNo()).toLowerCase();
+                if (empNo.contains(keyword)) {
+                    filtered.add(emp);
+                }
+            } else if (lastNameRadio.isSelected()) {
+                String lastName = emp.getLastName() == null ? "" : emp.getLastName().toLowerCase();
+                if (lastName.contains(keyword)) {
+                    filtered.add(emp);
+                }
+            }
+        }
+
+        displayedEmployees = filtered;
+        fillTable(displayedEmployees);
+    }
+    
+    private void resetSearchAndTable() {
+        searchBarTextField.setText("");
+        searchBarTextField.requestFocus();
+        applySearch();
+    }
+
     private void showEmployeeInfo(Employee selectedEmployee) {
         String title = "Employee Information : " + selectedEmployee.getFullName();
         showEmployeeEditor(selectedEmployee, title, true);
@@ -115,7 +177,6 @@ public class EIMPanels extends javax.swing.JPanel {
         
         editEmployeeDialog.setVisible(true);
     }
-    
     
 
 
@@ -266,12 +327,15 @@ public class EIMPanels extends javax.swing.JPanel {
         idRadio.setBackground(new java.awt.Color(255, 255, 255));
         radioBtnGroup.add(idRadio);
         idRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        idRadio.setSelected(true);
         idRadio.setText("ID Number");
+        idRadio.addActionListener(this::idRadioActionPerformed);
 
         lastNameRadio.setBackground(new java.awt.Color(255, 255, 255));
         radioBtnGroup.add(lastNameRadio);
         lastNameRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         lastNameRadio.setText("Last Name");
+        lastNameRadio.addActionListener(this::lastNameRadioActionPerformed);
 
         searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         searchByLabel.setText("Search by :");
@@ -356,9 +420,26 @@ public class EIMPanels extends javax.swing.JPanel {
         showEmployeeEditor(employee, title, false);
     }//GEN-LAST:event_addNewBtnActionPerformed
 
-    private boolean isAddingNewEmployee;
+    private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
+        // TODO add your handling code here:
+        if (isIDSelected) return;
+        
+        isIDSelected = true;
+        resetSearchAndTable();
+    }//GEN-LAST:event_idRadioActionPerformed
+
+    private void lastNameRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameRadioActionPerformed
+        // TODO add your handling code here:
+        if (!isIDSelected) return;
+        
+        isIDSelected = false;
+        resetSearchAndTable();
+    }//GEN-LAST:event_lastNameRadioActionPerformed
+
     private javax.swing.JDialog dialog;
+    private boolean isIDSelected;
     private List<Employee> employeeList;
+    private List<Employee> displayedEmployees;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNewBtn;

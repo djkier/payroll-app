@@ -46,7 +46,6 @@ public class EmployeeService {
             throw new IllegalStateException("Employee not found: " + updated.getEmployeeNo());
         }
 
-        
         employeeRepo.update(updated);
         
         return findByEmployeeNo(updated.getEmployeeNo());

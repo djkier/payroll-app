@@ -48,11 +48,6 @@ public class EmployeeRepository {
                 String[] details = Csv.parseLine(line);
 
                 if (details.length < 19) continue;
-                
-                //test output
-//                for (String detail : details) {
-//                    System.out.println(detail);
-//                }
 
                 //validate if the employee no is same from what is looking for
                 if (details[0].trim().equals(employeeNo)) {

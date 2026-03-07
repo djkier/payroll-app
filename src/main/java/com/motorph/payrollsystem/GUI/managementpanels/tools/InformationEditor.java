@@ -340,9 +340,9 @@ public class InformationEditor extends javax.swing.JPanel {
             LocalDate youngestAllowed = today.minusYears(18);
             LocalDate oldestAllowed = today.minusYears(100); 
             if (bday.isAfter(youngestAllowed)) {
-                errors.add("Employee must be born on or before " + youngestAllowed + ".");
+                errors.add("Employee must be born on or before " + Dates.monthYear(youngestAllowed) + ".");
             } else if (bday.isBefore(oldestAllowed)) {
-                errors.add("Employee must be born on or after " + oldestAllowed + ".");
+                errors.add("Employee must be born on or after " + Dates.monthYear(oldestAllowed) + ".");
             }
         }
     }
@@ -550,7 +550,7 @@ public class InformationEditor extends javax.swing.JPanel {
         noChangePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         noChangeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        noChangeLabel.setText("No changes detected.");
+        noChangeLabel.setText("No changes made.");
         noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         noChangeButton.setText("OK");
@@ -598,18 +598,18 @@ public class InformationEditor extends javax.swing.JPanel {
 
         updateDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        updateDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         updateDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateDialogLabel.setText("Do you want to save your changes?");
+        updateDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        updateDialogCancelBtn.setText("Cancel");
         updateDialogCancelBtn.setBackground(ThemeColor.lightRed());
         updateDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        updateDialogCancelBtn.setText("Cancel");
         updateDialogCancelBtn.addActionListener(this::updateDialogCancelBtnActionPerformed);
 
+        updateDialogSaveBtn.setText("Save");
         updateDialogSaveBtn.setBackground(ThemeColor.lightGreen());
         updateDialogSaveBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        updateDialogSaveBtn.setText("Save");
         updateDialogSaveBtn.addActionListener(this::updateDialogSaveBtnActionPerformed);
 
         javax.swing.GroupLayout updateDialogPanelLayout = new javax.swing.GroupLayout(updateDialogPanel);
@@ -656,18 +656,18 @@ public class InformationEditor extends javax.swing.JPanel {
 
         validationErrorPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        validationErrorBtn.setText("OK");
         validationErrorBtn.setBackground(ThemeColor.lightGreen());
         validationErrorBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        validationErrorBtn.setText("OK");
         validationErrorBtn.addActionListener(this::validationErrorBtnActionPerformed);
 
-        validationErrorHeader.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         validationErrorHeader.setText("The following field/s contain errors :");
+        validationErrorHeader.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        validationErrorLabel.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         validationErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         validationErrorLabel.setText("- Last name contains invalid characters.");
         validationErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        validationErrorLabel.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
 
         javax.swing.GroupLayout validationErrorPanelLayout = new javax.swing.GroupLayout(validationErrorPanel);
         validationErrorPanel.setLayout(validationErrorPanelLayout);
@@ -860,6 +860,11 @@ public class InformationEditor extends javax.swing.JPanel {
 
         pagibigTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         pagibigTextInput.setText("+639569978123");
+        pagibigTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pagibigTextInputKeyTyped(evt);
+            }
+        });
 
         tinTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         tinTextInput.setText("+639569978123");
@@ -1152,7 +1157,7 @@ public class InformationEditor extends javax.swing.JPanel {
                 return;
             }    
         }
-        
+
         dialogOpener(cancelDialog, "Cancel Editing");
     }//GEN-LAST:event_cancelAddOrUpdateBtnActionPerformed
 
@@ -1163,8 +1168,6 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void cancelDialogConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDialogConfirmBtnActionPerformed
         // TODO add your handling code here:
-        //when confirming update
-//        positionTextInput.getText().trim(),
         if (isViewing) {
             isEditing = !isEditing;
             fillEmployeeInformation(selectedEmployee);
@@ -1172,15 +1175,17 @@ public class InformationEditor extends javax.swing.JPanel {
         } else {
             parentDialog.dispose();
         }
-        
         cancelDialog.dispose();
     }//GEN-LAST:event_cancelDialogConfirmBtnActionPerformed
 
     private void noChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noChangeButtonActionPerformed
         // TODO add your handling code here:
+        if (isViewing) {
+            isEditing = !isEditing;
+            updateFields();
+        }
+        
         noChangeDialog.dispose();
-        isEditing = !isEditing;
-        updateFields();
     }//GEN-LAST:event_noChangeButtonActionPerformed
 
     private void noChangeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_noChangeDialogWindowClosing
@@ -1345,7 +1350,6 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void updateDialogSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDialogSaveBtnActionPerformed
         // TODO add your handling code here:
-        //save editing
         Employee updateEmployee = Mapper.buildEmployee(
             selectedEmployee,
             lastNameTextInput.getText().trim(),
@@ -1361,26 +1365,32 @@ public class InformationEditor extends javax.swing.JPanel {
             positionTextInput.getText().trim(),
             supervisorTextInput.getText().trim()
         );
-            
-
-        try {
-            this.selectedEmployee = appContext.getEmployeeService().updateEmployee(updateEmployee);
-                
-        } catch (IOException e) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Failed to update employee.",
-                    "Update Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            e.printStackTrace();
+        //Update existing employee    
+        if (isViewing) {
+            try {
+                this.selectedEmployee = appContext.getEmployeeService().updateEmployee(updateEmployee);  
+                isEditing = !isEditing;
+                fillEmployeeInformation(selectedEmployee);
+                updateFields();
+                updateDialog.dispose();
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Failed to update employee.",
+                        "Update Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+                e.printStackTrace();
+            }
+        } 
+        //Add new employee
+        else {
+            System.out.println("Saving...");
+            parentDialog.dispose();
+            updateDialog.dispose();
         }
+
         
-        
-        isEditing = !isEditing;
-        fillEmployeeInformation(selectedEmployee);
-        updateFields();
-        updateDialog.dispose();
     }//GEN-LAST:event_updateDialogSaveBtnActionPerformed
 
     private void updateDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_updateDialogWindowClosing
@@ -1401,6 +1411,22 @@ public class InformationEditor extends javax.swing.JPanel {
     private void validationErrorDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_validationErrorDialogWindowClosing
         // TODO add your handling code here:
     }//GEN-LAST:event_validationErrorDialogWindowClosing
+
+    private void pagibigTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagibigTextInputKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // allow digits only
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        // limit to 12 digits
+        if (pagibigTextInput.getText().length() >= 12) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pagibigTextInputKeyTyped
     
 //    public void setViewingMode(boolean viewingMode) {
 //        isViewing = viewingMode;

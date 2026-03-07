@@ -71,12 +71,12 @@ public class LeaveService {
         
     }
     
-    public List<LeaveRequest> getLeaveHistory(String employeeNo) throws IOException {
-        return repo.findByEmployeeNo(employeeNo);
+    public List<LeaveRequest> getEmployeeLeaveHistory(String employeeNo) throws IOException {
+        return repo.getEmployeeLeaveHistory(employeeNo);
     }
     
     public Map<LeaveStatus, Integer> getStatusCounts(String employeeNo) throws IOException {
-        List<LeaveRequest> list = getLeaveHistory(employeeNo);
+        List<LeaveRequest> list = getEmployeeLeaveHistory(employeeNo);
         
         Map<LeaveStatus, Integer> counts = new EnumMap<>(LeaveStatus.class);
         for (LeaveStatus status : LeaveStatus.values()) counts.put(status, 0);
