@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -146,18 +147,20 @@ public class InformationEditor extends javax.swing.JPanel {
     
     //Update visibility of the field base on the current mode
     private void updateFields() {
-        String view = isEditing ? "Edit" : "View";
-        viewLabel.setText(view + " Employee Details");
+        setEditorTitle();
+        setButtonsVisibility();
         
         //disable update on self account details
-        buttonsVisibility(updateBtn, !isEditing);
-        updateBtn.setEnabled(!selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo()));
-        
-        buttonsVisibility(closeViewBtn, !isEditing);
-        buttonsVisibility(removeBtn, isEditing);
-        buttonsVisibility(cancelAddOrUpdateBtn,isEditing);
-        buttonsVisibility(addOrUpdateBtn, isEditing);
-        
+//        buttonVisibility(updateBtn, !isEditing);
+//        updateBtn.setEnabled(!selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo()));
+//        
+//        buttonVisibility(closeViewBtn, !isEditing);
+//        buttonVisibility(removeBtn, isEditing);
+//        
+//        
+//        buttonVisibility(cancelAddOrUpdateBtn,isEditing);
+//        buttonVisibility(addOrUpdateBtn, isEditing);
+//        
         fieldEnabler(firstNameTextInput);
         fieldEnabler(lastNameTextInput);
         fieldEnabler(bdayPicker);
@@ -176,7 +179,43 @@ public class InformationEditor extends javax.swing.JPanel {
         
     }
     
-    private void buttonsVisibility(javax.swing.JButton btn, boolean isVisible) {
+    private void setEditorTitle() {
+        String viewTitle;
+        
+        if (!isViewing) {
+            viewTitle = "Add Employee";
+        } else {
+            String view = isEditing ? "Edit" : "View";
+            viewTitle = view + " Employee Details";
+        }
+        
+        viewLabel.setText(viewTitle);
+    }
+    
+    private void setButtonsVisibility() {
+        boolean isAddMode = !isViewing;
+        boolean isEditMode = isViewing && isEditing;
+        boolean isViewMode = isViewing && !isEditing;
+        
+        //update and close btn should be visible when viewing
+        buttonVisibility(updateBtn, isViewMode);
+        buttonVisibility(closeViewBtn, isViewMode);
+        
+        buttonVisibility(removeBtn, isEditMode);
+        buttonVisibility(cancelAddOrUpdateBtn, isEditing);
+        buttonVisibility(addOrUpdateBtn, isEditing);
+        
+        if (isViewMode) {
+            updateBtn.setEnabled(
+                !selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo())
+            );
+        }
+        
+        addOrUpdateBtn.setText(isAddMode ? "Add" : "Update");
+        
+    }
+    
+    private void buttonVisibility(javax.swing.JButton btn, boolean isVisible) {
         btn.setEnabled(isVisible);
         btn.setVisible(isVisible);
     }
@@ -236,20 +275,20 @@ public class InformationEditor extends javax.swing.JPanel {
     
     //Check if theres changes
     private boolean hasChanges() {
-        return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
-                !firstNameTextInput.getText().equals(selectedEmployee.getFirstName()) ||
-                !lastNameTextInput.getText().equals(selectedEmployee.getLastName()) ||
-                !bdayPicker.getDate().equals(selectedEmployee.getBirthday()) ||
-                !addressTextInput.getText().equals(selectedEmployee.getContactInfo().getAddress()) ||
-                !phoneTextInput.getText().equals(selectedEmployee.getContactInfo().getPhoneNumber()) ||
-                !sssTextInput.getText().equals(selectedEmployee.getGovIds().getSssNumber()) ||
-                !philhealthTextInput.getText().equals(selectedEmployee.getGovIds().getPhilHealthNumber()) ||
-                !pagibigTextInput.getText().equals(selectedEmployee.getGovIds().getPagibigNumber()) ||
-                !tinTextInput.getText().equals(selectedEmployee.getGovIds().getTinNumber()) ||
-                !departmentTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getDepartment()) ||
-                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
-                !supervisorTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getSupervisor()) ||
-                !statusTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getStatus());
+        return !Objects.equals(employeeNoTextInput.getText(), selectedEmployee.getEmployeeNo()) ||
+               !Objects.equals(firstNameTextInput.getText(), selectedEmployee.getFirstName()) ||
+               !Objects.equals(lastNameTextInput.getText(), selectedEmployee.getLastName()) ||
+               !Objects.equals(bdayPicker.getDate(), selectedEmployee.getBirthday()) ||
+               !Objects.equals(addressTextInput.getText(), selectedEmployee.getContactInfo().getAddress()) ||
+               !Objects.equals(phoneTextInput.getText(), selectedEmployee.getContactInfo().getPhoneNumber()) ||
+               !Objects.equals(sssTextInput.getText(), selectedEmployee.getGovIds().getSssNumber()) ||
+               !Objects.equals(philhealthTextInput.getText(), selectedEmployee.getGovIds().getPhilHealthNumber()) ||
+               !Objects.equals(pagibigTextInput.getText(), selectedEmployee.getGovIds().getPagibigNumber()) ||
+               !Objects.equals(tinTextInput.getText(), selectedEmployee.getGovIds().getTinNumber()) ||
+               !Objects.equals(departmentTextInput.getText(), selectedEmployee.getDepartmentInfo().getDepartment()) ||
+               !Objects.equals(positionTextInput.getText(), selectedEmployee.getDepartmentInfo().getPosition()) ||
+               !Objects.equals(supervisorTextInput.getText(), selectedEmployee.getDepartmentInfo().getSupervisor()) ||
+               !Objects.equals(statusTextInput.getText(), selectedEmployee.getDepartmentInfo().getStatus());
     }
     
     private void dialogOpener(javax.swing.JDialog dialog, String title) {
@@ -259,9 +298,7 @@ public class InformationEditor extends javax.swing.JPanel {
         dialog.setLocationRelativeTo(parentDialog);
         
         dialog.setVisible(true); 
-        
     }
-    
     
     private List<String> validateForm() {
         List<String> errors = new ArrayList<>();
@@ -363,7 +400,6 @@ public class InformationEditor extends javax.swing.JPanel {
         }
     }
 
-    
     private String formatErrorsForLabel(List<String> errors) {
         List<String> formatted = new ArrayList<>();
         for (String e : errors) {
@@ -1102,10 +1138,19 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void cancelAddOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddOrUpdateBtnActionPerformed
         // TODO add your handling code here:
-        if (!hasChanges()) {
-            isEditing = !isEditing;
-            updateFields();
-            return;
+        if (isViewing) {
+            if (!hasChanges()) {
+                isEditing = !isEditing;
+                updateFields();
+                return;
+            }
+        } 
+        //No changes made when adding new Employee
+        else {
+            if(!hasChanges()) {
+                parentDialog.dispose();
+                return;
+            }    
         }
         
         dialogOpener(cancelDialog, "Cancel Editing");
@@ -1120,10 +1165,14 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         //when confirming update
 //        positionTextInput.getText().trim(),
-
-        isEditing = !isEditing;
-        fillEmployeeInformation(selectedEmployee);
-        updateFields();
+        if (isViewing) {
+            isEditing = !isEditing;
+            fillEmployeeInformation(selectedEmployee);
+            updateFields();
+        } else {
+            parentDialog.dispose();
+        }
+        
         cancelDialog.dispose();
     }//GEN-LAST:event_cancelDialogConfirmBtnActionPerformed
 
