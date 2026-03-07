@@ -12,6 +12,7 @@ import com.motorph.payrollsystem.model.employee.DepartmentInfo;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.DepartmentResolver;
 import com.motorph.payrollsystem.utility.Mapper;
 import com.motorph.payrollsystem.utility.RegexPattern;
 import com.motorph.payrollsystem.utility.ThemeColor;
@@ -72,27 +73,53 @@ public class InformationEditor extends javax.swing.JPanel {
         departmentTextFieldTemp.setText(emp.getDepartmentInfo().getDepartment());
         
         updatePosition(emp.getDepartmentInfo().getPosition());
-//        positionTextInput.setText(emp.getDepartmentInfo().getPosition());
-        supervisorTextInput.setText(emp.getDepartmentInfo().getSupervisor());
-        statusTextInput.setText(emp.getDepartmentInfo().getStatus());
+        updateSupervisor(emp.getDepartmentInfo().getSupervisor());
+        updateStatus(emp.getDepartmentInfo().getStatus());
+//        statusTextInput.setText(emp.getDepartmentInfo().getStatus());
     }
     
-    private void updatePosition(String empPosition)  {
+    private void updatePosition(String empPosition) {
         try {
             List<String> positions = appContext.getEmployeeService().getUniquePosition(policy);
-            positionComboBox.removeAllItems();
-            
-            for(String position : positions) {
-                positionComboBox.addItem(position);
-            }
-            
-            positionTextInput.setText(empPosition);
-            positionComboBox.setSelectedItem(empPosition);
-            
+            loadComboBoxItems(positionComboBox, positions);
+            setSelectedValue(positionComboBox, positionTextInput, empPosition);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
+    }
+
+    private void updateSupervisor(String immSupervisor) {
+        try {
+            List<String> supervisors = appContext.getEmployeeService().getAllEmployeeNames(policy);
+            loadComboBoxItems(supervisorComboBox, supervisors);
+            setSelectedValue(supervisorComboBox, supervisorTextInput, immSupervisor);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void updateStatus(String empStatus) {
+        try {
+            List<String> statuses = appContext.getEmployeeService().getUniqueStatus(policy);
+            loadComboBoxItems(statusComboBox, statuses);
+            setSelectedValue(statusComboBox, statusTextInput, empStatus);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void loadComboBoxItems(javax.swing.JComboBox<String> comboBox, List<String> items) {
+        comboBox.removeAllItems();
+
+        for (String item : items) {
+            comboBox.addItem(item);
+        }
+    }
+
+    private void setSelectedValue(javax.swing.JComboBox<String> comboBox, 
+            javax.swing.JTextField textField, String value) {
+        textField.setText(value);
+        comboBox.setSelectedItem(value);
     }
     
     private void setDatePicker() {
@@ -691,11 +718,9 @@ public class InformationEditor extends javax.swing.JPanel {
         positionComboBox.addActionListener(this::positionComboBoxActionPerformed);
 
         supervisorComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        supervisorComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         supervisorComboBox.addActionListener(this::supervisorComboBoxActionPerformed);
 
         statusComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         removeBtn.setText("Remove");
         removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -706,9 +731,9 @@ public class InformationEditor extends javax.swing.JPanel {
         closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
 
         departmentTextFieldTemp.setEditable(false);
-        departmentTextFieldTemp.setBackground(new java.awt.Color(255, 255, 255));
         departmentTextFieldTemp.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         departmentTextFieldTemp.setText("+639569978123");
+        departmentTextFieldTemp.setBackground(new java.awt.Color(255, 255, 255));
         departmentTextFieldTemp.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -872,10 +897,11 @@ public class InformationEditor extends javax.swing.JPanel {
                     .addComponent(departmentNameLabel)
                     .addComponent(departmentTextFieldTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(positionLabel)
-                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(positionLabel)
+                        .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1146,6 +1172,9 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         String selected = (String) positionComboBox.getSelectedItem();
         positionTextInput.setText(selected);
+        
+        departmentTextFieldTemp.setText(DepartmentResolver.getDepartmentName(selected));
+        departmentTextInput.setText(DepartmentResolver.getDepartmentName(selected));
     }//GEN-LAST:event_positionComboBoxActionPerformed
     
     public void setViewingMode(boolean viewingMode) {

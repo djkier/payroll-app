@@ -34,16 +34,16 @@ public class DepartmentResolver {
                 return "Accounts";
                 
             case "IT Operations and Systems":
-                return "IT Operations and Systems";
+                return "Information Technology";
 
             case "Sales & Marketing":
-                return "Sales and Marketing";
+                return "Commercial";
 
             case "Supply Chain and Logistics":
-                return "Supply Chain and Logistics";
+                return "Operations";
 
             case "Customer Service and Relations":
-                return "Customer Service and Relations";
+                return "Customer Experience";
 
             default:
                 return "Unknown Department";

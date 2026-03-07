@@ -68,12 +68,20 @@ public class EmployeeService {
             String position = emp.getDepartmentInfo().getPosition();
             positions.add(position);
         }
+       
+        return hashSetSorter(positions);
+    }
+    
+    public List<String> getUniqueStatus(AccessPolicy policy) throws IOException {
+        List<Employee> empList = getEmployeeList(policy);
+        Set<String> statuses = new HashSet<>();
         
-        // alphabetical order
-        List<String> sortedPositions = new ArrayList<>(positions);
-        Collections.sort(sortedPositions); 
-
-        return sortedPositions;
+        for (Employee emp : empList) {
+            String status = emp.getDepartmentInfo().getStatus();
+            statuses.add(status);
+        }
+       
+        return hashSetSorter(statuses);
     }
     
     public List<String> getAllEmployeeNames(AccessPolicy policy) throws IOException {
@@ -92,6 +100,12 @@ public class EmployeeService {
     }
     
     
+    private List<String> hashSetSorter(Set<String> set) {
+        List<String> setList = new ArrayList<>(set);
+        Collections.sort(setList);
+        
+        return setList;
+    }
     
     private boolean isBlank(String s) {
         return s == null || s.trim().isEmpty();
