@@ -45,6 +45,7 @@ public class DepartmentResolver {
             case "Customer Service and Relations":
                 return "Customer Experience";
 
+            case null:
             default:
                 return "Unknown Department";
         }

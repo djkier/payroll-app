@@ -106,7 +106,6 @@ public class EIMPanels extends javax.swing.JPanel {
         editEmployeeDialog.setResizable(false);
         editEmployeeDialog.setLocationRelativeTo(null);
         
-        
         editEmployeeDialog.setVisible(true);
     }
 

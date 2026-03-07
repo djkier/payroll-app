@@ -97,6 +97,7 @@ public class InformationEditor extends javax.swing.JPanel {
         try {
             List<String> supervisors = appContext.getEmployeeService().getAllEmployeeNames(policy);
             loadComboBoxItems(supervisorComboBox, supervisors);
+            supervisorComboBox.addItem("N/A");
             setSelectedValue(supervisorComboBox, supervisorTextInput, immSupervisor);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -124,8 +125,8 @@ public class InformationEditor extends javax.swing.JPanel {
     private void setSelectedValue(javax.swing.JComboBox<String> comboBox, 
             javax.swing.JTextField textField, 
             String value) {
-        textField.setText(value);
         comboBox.setSelectedItem(value);
+        textField.setText(value);
     }
     
     //Update visibility of the field base on the current mode
@@ -215,7 +216,7 @@ public class InformationEditor extends javax.swing.JPanel {
                         );
     }
     
-    //
+    //Check if theres changes
     private boolean hasChanges() {
         return !employeeNoTextInput.getText().equals(selectedEmployee.getEmployeeNo()) ||
                 !firstNameTextInput.getText().equals(selectedEmployee.getFirstName()) ||
@@ -228,7 +229,7 @@ public class InformationEditor extends javax.swing.JPanel {
                 !pagibigTextInput.getText().equals(selectedEmployee.getGovIds().getPagibigNumber()) ||
                 !tinTextInput.getText().equals(selectedEmployee.getGovIds().getTinNumber()) ||
                 !departmentTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getDepartment()) ||
-//                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
+                !positionTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getPosition()) ||
                 !supervisorTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getSupervisor()) ||
                 !statusTextInput.getText().equals(selectedEmployee.getDepartmentInfo().getStatus());
     }
@@ -776,6 +777,7 @@ public class InformationEditor extends javax.swing.JPanel {
         supervisorComboBox.addActionListener(this::supervisorComboBoxActionPerformed);
 
         statusComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        statusComboBox.addActionListener(this::statusComboBoxActionPerformed);
 
         removeBtn.setText("Remove");
         removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1028,40 +1030,6 @@ public class InformationEditor extends javax.swing.JPanel {
         //when confirming update
 //        positionTextInput.getText().trim(),
 
-
-        //reuse this code later for confirming
-//        if (isConfirmingUpdate) {
-//            Employee updateEmployee = Mapper.buildEmployee(
-//                    selectedEmployee,
-//                    lastNameTextInput.getText().trim(),
-//                    firstNameTextInput.getText().trim(),
-//                    Dates.formatDate(bdayPicker.getDate()),
-//                    addressTextInput.getText().trim(),
-//                    phoneTextInput.getText().trim(),
-//                    sssTextInput.getText().trim(),
-//                    philhealthTextInput.getText().trim(),
-//                    tinTextInput.getText().trim(),
-//                    pagibigTextInput.getText().trim(),
-//                    statusTextInput.getText().trim(),
-//                    "position-replacer",
-//                    supervisorTextInput.getText().trim()
-//            );
-            
-
-//            try {
-//                this.selectedEmployee = appContext.getEmployeeService().updateEmployee(updateEmployee);
-//                
-//            } catch (IOException e) {
-//                javax.swing.JOptionPane.showMessageDialog(
-//                        this,
-//                        "Failed to update employee.",
-//                        "Update Error",
-//                        javax.swing.JOptionPane.ERROR_MESSAGE
-//                );
-//                e.printStackTrace();
-//            }
-//        }
-        
         isEditing = !isEditing;
         fillEmployeeInformation(selectedEmployee);
         updateFields();
@@ -1216,11 +1184,14 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void supervisorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supervisorComboBoxActionPerformed
         // TODO add your handling code here:
+        String selected = (String) supervisorComboBox.getSelectedItem();
+        supervisorTextInput.setText(selected);
     }//GEN-LAST:event_supervisorComboBoxActionPerformed
 
     private void positionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positionComboBoxActionPerformed
         // TODO add your handling code here:
         String selected = (String) positionComboBox.getSelectedItem();
+        selected = (selected == null) ? "" : selected;
         positionTextInput.setText(selected);
         
         departmentTextFieldTemp.setText(DepartmentResolver.getDepartmentName(selected));
@@ -1235,8 +1206,6 @@ public class InformationEditor extends javax.swing.JPanel {
     private void updateDialogSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDialogSaveBtnActionPerformed
         // TODO add your handling code here:
         //save editing
-        
-        //reuse this code later for confirming
         Employee updateEmployee = Mapper.buildEmployee(
             selectedEmployee,
             lastNameTextInput.getText().trim(),
@@ -1271,12 +1240,18 @@ public class InformationEditor extends javax.swing.JPanel {
         isEditing = !isEditing;
         fillEmployeeInformation(selectedEmployee);
         updateFields();
-        cancelDialog.dispose();
+        updateDialog.dispose();
     }//GEN-LAST:event_updateDialogSaveBtnActionPerformed
 
     private void updateDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_updateDialogWindowClosing
         // TODO add your handling code here:
     }//GEN-LAST:event_updateDialogWindowClosing
+
+    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
+        // TODO add your handling code here:
+        String selected = (String) statusComboBox.getSelectedItem();
+        statusTextInput.setText(selected);
+    }//GEN-LAST:event_statusComboBoxActionPerformed
     
     public void setViewingMode(boolean viewingMode) {
         isViewing = viewingMode;
