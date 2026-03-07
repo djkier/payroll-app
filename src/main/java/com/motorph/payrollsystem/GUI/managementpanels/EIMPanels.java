@@ -99,7 +99,7 @@ public class EIMPanels extends javax.swing.JPanel {
                 int modelRow = empInfoTable.convertRowIndexToModel(viewRow);
                 if (modelRow < 0 || modelRow >= displayedEmployees.size()) return;
 
-                showEmployeeInfo(employeeList.get(modelRow));
+                showEmployeeInfo(displayedEmployees.get(modelRow));
             }
         });
     }
@@ -409,6 +409,10 @@ public class EIMPanels extends javax.swing.JPanel {
 
     private void editEmployeeDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editEmployeeDialogWindowClosed
         // TODO add your handling code here:
+        resetSearchAndTable();
+        isIDSelected = true;
+        idRadio.setSelected(true);
+        
         loadEmployees();
     }//GEN-LAST:event_editEmployeeDialogWindowClosed
 
