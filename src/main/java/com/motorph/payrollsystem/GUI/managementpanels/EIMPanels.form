@@ -224,10 +224,13 @@
     <Component class="javax.swing.JButton" name="addNewBtn">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="12" style="0"/>
+          <Font name="Poppins" size="12" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Add new employee"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewBtnActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="empInfoPane">
       <AuxValues>

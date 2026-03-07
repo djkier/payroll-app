@@ -91,16 +91,23 @@ public class EIMPanels extends javax.swing.JPanel {
                 int row = empInfoTable.getSelectedRow();
                 if (row < 0 || row >= employeeList.size()) return;
 
-                showEmployeeInfoEditor(employeeList.get(row));
+                showEmployeeInfo(employeeList.get(row));
             }
-        }) ;
+        });
     }
     
-    private void showEmployeeInfoEditor(Employee selectedEmployee) {
-        InformationEditor infoEditor = new InformationEditor(appContext, selectedEmployee, editEmployeeDialog);
-        infoEditor.setViewingMode(true);
-
-        editEmployeeDialog.setTitle("Employee Information : " + selectedEmployee.getFullName() );
+    private void showEmployeeInfo(Employee selectedEmployee) {
+        String title = "Employee Information : " + selectedEmployee.getFullName();
+        showEmployeeEditor(selectedEmployee, title, true);
+    }
+    
+    private void showEmployeeEditor(Employee employee, String title, boolean isViewing) {
+        InformationEditor infoEditor = new InformationEditor(appContext, employee, isViewing, editEmployeeDialog);
+        openInfoDialog(title, infoEditor);
+    }
+    
+    private void openInfoDialog(String title, InformationEditor infoEditor) {
+        editEmployeeDialog.setTitle(title);
         editEmployeeDialog.setContentPane(infoEditor);
         editEmployeeDialog.pack();
         editEmployeeDialog.setResizable(false);
@@ -108,6 +115,8 @@ public class EIMPanels extends javax.swing.JPanel {
         
         editEmployeeDialog.setVisible(true);
     }
+    
+    
 
 
     /**
@@ -220,8 +229,9 @@ public class EIMPanels extends javax.swing.JPanel {
         headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
         headerLabel.setText("EMPLOYEE INFORMATION MANAGEMENT");
 
-        addNewBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        addNewBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         addNewBtn.setText("Add new employee");
+        addNewBtn.addActionListener(this::addNewBtnActionPerformed);
 
         empInfoTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         empInfoTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -337,6 +347,14 @@ public class EIMPanels extends javax.swing.JPanel {
         // TODO add your handling code here:
         loadEmployees();
     }//GEN-LAST:event_editEmployeeDialogWindowClosed
+
+    private void addNewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBtnActionPerformed
+        // TODO add your handling code here:
+        Employee employee = new Employee();
+        employee.setEmployeeNo("10100");
+        String title = "Adding Employee";
+        showEmployeeEditor(employee, title, false);
+    }//GEN-LAST:event_addNewBtnActionPerformed
 
     private boolean isAddingNewEmployee;
     private javax.swing.JDialog dialog;

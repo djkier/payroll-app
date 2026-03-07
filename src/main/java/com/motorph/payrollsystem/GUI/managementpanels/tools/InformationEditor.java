@@ -6,11 +6,7 @@ package com.motorph.payrollsystem.gui.managementpanels.tools;
 
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
-import com.motorph.payrollsystem.model.employee.CompProfile;
-import com.motorph.payrollsystem.model.employee.ContactInfo;
-import com.motorph.payrollsystem.model.employee.DepartmentInfo;
 import com.motorph.payrollsystem.model.employee.Employee;
-import com.motorph.payrollsystem.model.employee.GovIds;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.DepartmentResolver;
 import com.motorph.payrollsystem.utility.Mapper;
@@ -34,6 +30,7 @@ public class InformationEditor extends javax.swing.JPanel {
     public InformationEditor(
         AppContext appContext, 
         Employee selectedEmployee,
+        Boolean viewingMode,
         javax.swing.JDialog dialog) {
         
         this.appContext = appContext;
@@ -41,7 +38,8 @@ public class InformationEditor extends javax.swing.JPanel {
         this.selectedEmployee = selectedEmployee;
         this.currentEmployee = appContext.getSessionManager().getCurrentEmployee();
         this.parentDialog = dialog;
-        this.isEditing = false;
+        this.isEditing = !viewingMode;
+        this.isViewing = viewingMode;
         this.isConfirmingCancel = false;
         this.isConfirmingUpdate = false;
         
@@ -54,26 +52,38 @@ public class InformationEditor extends javax.swing.JPanel {
     //Fill fields with information
     private void fillEmployeeInformation(Employee emp) {
         //personal information
-        employeeNoTextInput.setText(emp.getEmployeeNo());
-        firstNameTextInput.setText(emp.getFirstName());
-        lastNameTextInput.setText(emp.getLastName());
-        bdayPicker.setDate(emp.getBirthday());
-        addressTextInput.setText(emp.getContactInfo().getAddress());
-        phoneTextInput.setText(emp.getContactInfo().getPhoneNumber());
-        
+
+        fillInfo(employeeNoTextInput, emp.getEmployeeNo());
+        fillInfo(firstNameTextInput, emp.getFirstName());
+        fillInfo(lastNameTextInput, emp.getLastName());
+        //make bday change into today or emp.getBirthday();
+        fillInfo(bdayPicker, emp.getBirthday());
+        fillInfo(addressTextInput, emp.getContactInfo().getAddress());
+        fillInfo(phoneTextInput, emp.getContactInfo().getPhoneNumber());
+
         //govt id
-        sssTextInput.setText(emp.getGovIds().getSssNumber());
-        philhealthTextInput.setText(emp.getGovIds().getPhilHealthNumber());
-        pagibigTextInput.setText(emp.getGovIds().getPagibigNumber());
-        tinTextInput.setText(emp.getGovIds().getTinNumber());
+        fillInfo(sssTextInput, emp.getGovIds().getSssNumber());
+        fillInfo(philhealthTextInput, emp.getGovIds().getPhilHealthNumber());
+        fillInfo(pagibigTextInput, emp.getGovIds().getPagibigNumber());
+        fillInfo(tinTextInput, emp.getGovIds().getTinNumber());
         
         //dept info
-        departmentTextInput.setText(emp.getDepartmentInfo().getDepartment());
-        departmentTextFieldTemp.setText(emp.getDepartmentInfo().getDepartment());
+        fillInfo(departmentTextInput, emp.getDepartmentInfo().getDepartment());
+        fillInfo(departmentTextFieldTemp, emp.getDepartmentInfo().getDepartment());
         
         updatePosition(emp.getDepartmentInfo().getPosition());
         updateSupervisor(emp.getDepartmentInfo().getSupervisor());
         updateStatus(emp.getDepartmentInfo().getStatus());
+    }
+    
+    private void fillInfo(javax.swing.JTextField textField, String fieldDetails) {
+        fieldDetails = (fieldDetails == null) ? "" : fieldDetails;
+        textField.setText(fieldDetails);
+    }
+    
+    private void fillInfo(com.github.lgooddatepicker.components.DatePicker datePicker, LocalDate date) {
+        date = (date == null) ? LocalDate.now() : date;
+        datePicker.setDate(date);
     }
        
     private void setDatePicker() {
@@ -125,8 +135,13 @@ public class InformationEditor extends javax.swing.JPanel {
     private void setSelectedValue(javax.swing.JComboBox<String> comboBox, 
             javax.swing.JTextField textField, 
             String value) {
-        comboBox.setSelectedItem(value);
-        textField.setText(value);
+        if (value == null) {
+            comboBox.setSelectedIndex(0);
+            textField.setText((String) comboBox.getSelectedItem());
+        } else {
+            comboBox.setSelectedItem(value);
+            textField.setText(value);
+        }
     }
     
     //Update visibility of the field base on the current mode
@@ -1076,8 +1091,6 @@ public class InformationEditor extends javax.swing.JPanel {
         //validity check
         List<String> validate = validateForm();
         if (!validate.isEmpty()) {
-            System.out.println("error");
-            System.out.println(String.join("\n", validate));
             //errorDialog
             validationErrorLabel.setText(formatErrorsForLabel(validate));
             dialogOpener(validationErrorDialog, "Data Validation Check");
@@ -1340,9 +1353,10 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_validationErrorDialogWindowClosing
     
-    public void setViewingMode(boolean viewingMode) {
-        isViewing = viewingMode;
-    }
+//    public void setViewingMode(boolean viewingMode) {
+//        isViewing = viewingMode;
+//        isEditing = viewingMode;
+//    }
     
     private boolean isViewing;
     private boolean isConfirmingUpdate;

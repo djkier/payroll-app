@@ -15,10 +15,10 @@ public class CompProfile {
     private double clothingAllowance;
     
     public CompProfile() {
-        this.basicSalary = 0;
-        this.riceSubsidy = 0;
-        this.phoneAllowance = 0;
-        this.clothingAllowance = 0;
+        this.basicSalary = 0.0;
+        this.riceSubsidy = 0.0;
+        this.phoneAllowance = 0.0;
+        this.clothingAllowance = 0.0;
     }
 
     public double getBasicSalary() {
