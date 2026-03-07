@@ -10,7 +10,7 @@ package com.motorph.payrollsystem.utility;
  */
 public class RegexPattern {
     public static String namePattern() {
-        return "^[\\p{L}][\\p{L}\\s'-]*$";
+        return "^[\\p{L}][\\p{L}\\s'.,-]*[\\p{L}.]$";
     }
     
     public static String addressPattern() {

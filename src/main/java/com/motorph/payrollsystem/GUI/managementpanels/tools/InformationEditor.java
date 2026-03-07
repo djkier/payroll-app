@@ -39,6 +39,7 @@ public class InformationEditor extends javax.swing.JPanel {
         this.appContext = appContext;
         this.policy = appContext.getSessionManager().getAccessPolicy();
         this.selectedEmployee = selectedEmployee;
+        this.currentEmployee = appContext.getSessionManager().getCurrentEmployee();
         this.parentDialog = dialog;
         this.isEditing = false;
         this.isConfirmingCancel = false;
@@ -74,8 +75,7 @@ public class InformationEditor extends javax.swing.JPanel {
         updateSupervisor(emp.getDepartmentInfo().getSupervisor());
         updateStatus(emp.getDepartmentInfo().getStatus());
     }
-    
-    
+       
     private void setDatePicker() {
         updateBdayBorder();
         bdayPicker.getComponentDateTextField().setEditable(false);
@@ -134,7 +134,10 @@ public class InformationEditor extends javax.swing.JPanel {
         String view = isEditing ? "Edit" : "View";
         viewLabel.setText(view + " Employee Details");
         
+        //disable update on self account details
         buttonsVisibility(updateBtn, !isEditing);
+        updateBtn.setEnabled(!selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo()));
+        
         buttonsVisibility(closeViewBtn, !isEditing);
         buttonsVisibility(removeBtn, isEditing);
         buttonsVisibility(cancelAddOrUpdateBtn,isEditing);
@@ -1263,6 +1266,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private boolean isEditing;
     private AccessPolicy policy;
     private final javax.swing.JDialog parentDialog;
+    private Employee currentEmployee;
     private Employee selectedEmployee;
     private AppContext appContext;
 
