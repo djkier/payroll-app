@@ -18,12 +18,12 @@ import java.nio.file.StandardOpenOption;
  *
  * @author djjus
  */
-public class UserRepository {
+public class UserRepository extends CsvRepositoryBase {
     //    path of user-accounts from resource 
-    private final Path csvPath; 
+    
 
     public UserRepository(Path csvPath) {
-        this.csvPath = csvPath;
+        super(csvPath);
     }
 
     public UserAccount findMatchingAccount(String employeeNo, String username, String password) throws IOException {
@@ -60,17 +60,22 @@ public class UserRepository {
         return null; 
     }
     
-    private void ensureFileExistsWithHeader() throws IOException {
+    @Override
+    protected void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
         
         //Create leave-request if there is none.
         Path parent = csvPath.getParent();
         if (parent != null) Files.createDirectories(parent);
         
-        String header = "Employee #,Username,Password";
-        Files.writeString(csvPath, header + System.lineSeparator(),
+        Files.writeString(csvPath, getHeader() + System.lineSeparator(),
                 StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE);
+    }
+    
+    @Override
+    protected String getHeader() {
+        return "Employee #,Username,Password";
     }
 
 }

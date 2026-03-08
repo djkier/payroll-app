@@ -23,11 +23,10 @@ import java.util.List;
  *
  * @author djjus
  */
-public class AttendanceRepository {
-    private final Path csvPath;
+public class AttendanceRepository extends CsvRepositoryBase {
     
     public AttendanceRepository(Path csvPath) {
-        this.csvPath = csvPath;
+        super(csvPath);
     }
     
     public List<AttendanceRecord> findByEmployeeNo(String employeeNo) throws IOException {
@@ -70,7 +69,8 @@ public class AttendanceRepository {
         return new AttendanceRecord(employeeNo, date, timeIn, timeOut);
     }
     
-    private void ensureFileExistsWithHeader() throws IOException {
+    @Override
+    protected void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
         
         //Create leave-request if there is none.
@@ -81,6 +81,11 @@ public class AttendanceRepository {
         Files.writeString(csvPath, header + System.lineSeparator(),
                 StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE);
+    }
+    
+    @Override
+    protected String getHeader() {
+        return "Employee #,Last Name,First Name,Date,Log In,Log Out";
     }
 
 }

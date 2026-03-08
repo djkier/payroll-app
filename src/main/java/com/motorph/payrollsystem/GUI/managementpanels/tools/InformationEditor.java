@@ -407,6 +407,51 @@ public class InformationEditor extends javax.swing.JPanel {
         }
         return "<html>" + String.join("<br>", formatted) + "</html>";
     }
+    
+    private void handleUpdateEmployee(Employee employee) {
+        try {
+            this.selectedEmployee = appContext.getEmployeeService().updateEmployee(employee);
+
+            isEditing = false;
+            fillEmployeeInformation(selectedEmployee);
+            updateFields();
+            updateDialog.dispose();
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to update employee.",
+                    "Update Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+    }
+    
+    private void handleAddEmployee(Employee employee) {
+        try {
+            this.selectedEmployee = appContext.getEmployeeService().addNewEmployee(employee);
+
+            updateDialog.dispose();
+            parentDialog.dispose();
+            
+            } catch (IllegalStateException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        e.getMessage(),
+                        "Duplicate Employee",
+                        javax.swing.JOptionPane.WARNING_MESSAGE
+                );
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Failed to add new employee.",
+                        "Adding New Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+                e.printStackTrace();
+            }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -1350,7 +1395,7 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void updateDialogSaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDialogSaveBtnActionPerformed
         // TODO add your handling code here:
-        Employee updateEmployee = Mapper.buildEmployee(
+        Employee employee = Mapper.buildEmployee(
             selectedEmployee,
             lastNameTextInput.getText().trim(),
             firstNameTextInput.getText().trim(),
@@ -1365,32 +1410,14 @@ public class InformationEditor extends javax.swing.JPanel {
             positionTextInput.getText().trim(),
             supervisorTextInput.getText().trim()
         );
+        
         //Update existing employee    
         if (isViewing) {
-            try {
-                this.selectedEmployee = appContext.getEmployeeService().updateEmployee(updateEmployee);  
-                isEditing = !isEditing;
-                fillEmployeeInformation(selectedEmployee);
-                updateFields();
-                updateDialog.dispose();
-            } catch (IOException e) {
-                javax.swing.JOptionPane.showMessageDialog(
-                        this,
-                        "Failed to update employee.",
-                        "Update Error",
-                        javax.swing.JOptionPane.ERROR_MESSAGE
-                );
-                e.printStackTrace();
-            }
+            handleUpdateEmployee(employee);
+            return;
         } 
-        //Add new employee
-        else {
-            System.out.println("Saving...");
-            parentDialog.dispose();
-            updateDialog.dispose();
-        }
-
         
+        handleAddEmployee(employee);
     }//GEN-LAST:event_updateDialogSaveBtnActionPerformed
 
     private void updateDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_updateDialogWindowClosing
@@ -1428,10 +1455,7 @@ public class InformationEditor extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_pagibigTextInputKeyTyped
     
-//    public void setViewingMode(boolean viewingMode) {
-//        isViewing = viewingMode;
-//        isEditing = viewingMode;
-//    }
+    
     
     private boolean isViewing;
     private boolean isConfirmingUpdate;

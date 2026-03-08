@@ -16,6 +16,7 @@ import com.motorph.payrollsystem.utility.Money;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,11 +28,10 @@ import java.util.List;
  *
  * @author djjus
  */
-public class EmployeeRepository {
-    private final Path csvPath;
+public class EmployeeRepository extends CsvRepositoryBase {
     
     public EmployeeRepository(Path csvPath) {
-        this.csvPath = csvPath;
+        super(csvPath);
     }
     
     public Employee findByEmployeeNo(String employeeNo) throws IOException {
@@ -79,6 +79,10 @@ public class EmployeeRepository {
             }
         }
         return employeeList;
+    }
+    
+    public void append(Employee employee) throws IOException {
+        appendRow(toCsvRow(employee));
     }
     
     public void update(Employee updated) throws IOException {
@@ -145,7 +149,8 @@ public class EmployeeRepository {
                
     }
         
-    private void ensureFileExistsWithHeader() throws IOException {
+    @Override
+    protected void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
         
         //Create leave-request if there is none.
@@ -185,7 +190,8 @@ public class EmployeeRepository {
         
     }
     
-    private String getHeader() {
+    @Override
+    protected String getHeader() {
         return "Employee #,Last Name,First Name,Birthday,Address,Phone Number,SSS #,Philhealth #,TIN #,Pag-ibig #,Status,Position,Immediate Supervisor,Basic Salary,Rice Subsidy,Phone Allowance,Clothing Allowance,Gross Semi-monthly Rate,Hourly Rate";
     }
     

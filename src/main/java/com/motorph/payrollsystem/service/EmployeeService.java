@@ -31,6 +31,49 @@ public class EmployeeService {
         return employeeRepo.findByEmployeeNo(employeeNo);
     }
     
+    public Employee addNewEmployee(Employee employee) throws IOException {
+        if (employee == null) {
+            throw new IllegalArgumentException("Employee is required.");
+        }
+
+        // Major validation only for now
+        if (isBlank(employee.getEmployeeNo())) {
+            throw new IllegalArgumentException("Employee ID is required.");
+        }
+
+        if (isBlank(employee.getLastName())) {
+            throw new IllegalArgumentException("Last name is required.");
+        }
+
+        if (isBlank(employee.getFirstName())) {
+            throw new IllegalArgumentException("First name is required.");
+        }
+
+        if (employee.getBirthday() == null) {
+            throw new IllegalArgumentException("Birthday is required.");
+        }
+
+        // You said to comment out validation for later.
+        // Possible next validations:
+        // - ContactInfo should not be null
+        // - Address and phone number required
+        // - GovIds should not be null
+        // - SSS / PhilHealth / TIN / Pag-IBIG required
+        // - DepartmentInfo should not be null
+        // - Status / Position / Supervisor required
+        // - CompProfile should not be null
+        // - Basic salary and allowances should be valid non-negative numbers
+
+        Employee existing = findByEmployeeNo(employee.getEmployeeNo());
+        if (existing != null) {
+            throw new IllegalStateException("Employee already exists: " + employee.getEmployeeNo());
+        }
+
+        employeeRepo.append(employee);
+
+        return findByEmployeeNo(employee.getEmployeeNo());
+    }
+    
     public Employee updateEmployee(Employee updated) throws IOException {
         if (updated == null) throw new IllegalArgumentException("Updated employee is null");
         

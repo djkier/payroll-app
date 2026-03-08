@@ -26,11 +26,10 @@ import java.util.List;
  *
  * @author djjus
  */
-public class LeaveRepository {
-    private final Path csvPath;
+public class LeaveRepository extends CsvRepositoryBase {
     
     public LeaveRepository(Path csvPath) {
-        this.csvPath = csvPath;
+        super(csvPath);
     }
     
     public List<LeaveRequest> getEmployeeLeaveHistory(String employeeNo) throws IOException {
@@ -81,30 +80,7 @@ public class LeaveRepository {
     
     //add new entry on leave
     public void append(LeaveRequest req) throws IOException {
-        ensureFileExistsWithHeader();
-
-        String row = toCsvRow(req);
-        
-        boolean needsNewLine = false;
-        
-        if (Files.size(csvPath) > 0) {
-            byte[] lastByte = new byte[1];
-            try (RandomAccessFile raf = new RandomAccessFile(csvPath.toFile(), "r")) {
-                raf.seek(raf.length() - 1);
-                raf.read(lastByte);
-            }
-            char lastChar = (char) lastByte[0];
-            if (lastChar != '\n') {
-                needsNewLine = true;
-            }
-        }
-        
-        String contentToAppend = (needsNewLine ? System.lineSeparator() : "") + row + System.lineSeparator();
-
-        Files.writeString(csvPath, contentToAppend,
-                StandardCharsets.UTF_8,
-                StandardOpenOption.APPEND);
-
+        appendRow(toCsvRow(req));
     }
     
     //Convert a line (cols) into a LeaveRequest object
@@ -127,17 +103,23 @@ public class LeaveRepository {
     }
     
     //Check if leave-request is existing with correct header
-    private void ensureFileExistsWithHeader() throws IOException {
+    @Override
+    protected void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
         
         //Create leave-request if there is none.
         Path parent = csvPath.getParent();
         if (parent != null) Files.createDirectories(parent);
         
-        String header = "request_id,employee_id,filed_date,leave_start,leave_end,subject,message,status,approved_by";
-        Files.writeString(csvPath, header + System.lineSeparator(),
+        
+        Files.writeString(csvPath, getHeader() + System.lineSeparator(),
                 StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE);
+    }
+    
+    @Override
+    protected String getHeader() {
+        return "request_id,employee_id,filed_date,leave_start,leave_end,subject,message,status,approved_by";
     }
     
     
