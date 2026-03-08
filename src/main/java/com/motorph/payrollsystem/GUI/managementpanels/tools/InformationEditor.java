@@ -1248,7 +1248,38 @@ public class InformationEditor extends javax.swing.JPanel {
     }//GEN-LAST:event_cancelDialogWindowClosing
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-        // TODO add your handling code here:
+            // TODO add your handling code here:
+
+    // 1. Check if there is a selected employee.
+    //    If none is selected, show a warning dialog and stop the process.
+
+    // 2. Ask the user for confirmation before deleting.
+    //    Example logic:
+    //    - Open your custom confirmation dialog.
+    //    - Message example: "Are you sure you want to remove this employee?"
+    //    - If user cancels, exit the method immediately.
+
+    // 3. Call the EmployeeService to remove the employee.
+    //    Example idea:
+    //    appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
+
+    // 4. Handle possible exceptions from the service:
+    //    - IllegalArgumentException  → invalid employee number
+    //    - IllegalStateException     → employee does not exist
+    //    - IOException               → CSV file problem
+
+    // 5. If deletion succeeds:
+    //    - Show a success dialog (optional)
+    //    - Clear the selected employee
+    //    - Refresh the employee list/table
+    //    - Reset the employee information panel
+
+    // 6. Update UI state:
+    //    - Disable edit/remove buttons if no employee is selected
+    //    - Clear text fields if necessary
+
+    // 7. Log the error (optional) if something fails.
+        
     }//GEN-LAST:event_removeBtnActionPerformed
 
     private void phoneTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextInputKeyTyped
@@ -1422,6 +1453,7 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void updateDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_updateDialogWindowClosing
         // TODO add your handling code here:
+        updateDialog.dispose();
     }//GEN-LAST:event_updateDialogWindowClosing
 
     private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed

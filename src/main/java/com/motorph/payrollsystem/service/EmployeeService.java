@@ -36,9 +36,9 @@ public class EmployeeService {
             throw new IllegalArgumentException("Employee is required.");
         }
 
-        // Major validation only for now
+        //In case Employee has no EmployeeNo
         if (isBlank(employee.getEmployeeNo())) {
-            throw new IllegalArgumentException("Employee ID is required.");
+            employee.setEmployeeNo(getNextEmployeeNo());
         }
 
         if (isBlank(employee.getLastName())) {
@@ -64,6 +64,7 @@ public class EmployeeService {
         // - CompProfile should not be null
         // - Basic salary and allowances should be valid non-negative numbers
 
+        //recheck if it has existed on the list
         Employee existing = findByEmployeeNo(employee.getEmployeeNo());
         if (existing != null) {
             throw new IllegalStateException("Employee already exists: " + employee.getEmployeeNo());
@@ -92,6 +93,25 @@ public class EmployeeService {
         employeeRepo.update(updated);
         
         return findByEmployeeNo(updated.getEmployeeNo());
+    }
+    
+    public Employee removeEmployee(String employeeNo) throws IOException {
+        if (isBlank(employeeNo)) {
+            throw new IllegalArgumentException("Employee ID is required.");
+        }
+
+        Employee existing = findByEmployeeNo(employeeNo);
+        if (existing == null) {
+            throw new IllegalStateException("Employee not found: " + employeeNo);
+        }
+
+        employeeRepo.removeByEmployeeNo(employeeNo);
+
+        return existing;
+    }
+    
+    public String getNextEmployeeNo() throws IOException {
+        return employeeRepo.getNextEmployeeNo();
     }
     
     public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
@@ -140,7 +160,6 @@ public class EmployeeService {
         
         return empNames;
     }
-    
     
     private List<String> hashSetSorter(Set<String> set) {
         List<String> setList = new ArrayList<>(set);

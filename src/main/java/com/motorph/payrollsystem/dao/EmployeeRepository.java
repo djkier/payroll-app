@@ -104,6 +104,46 @@ public class EmployeeRepository extends CsvRepositoryBase {
         rewriteCsvFile(employeeList);
     }
     
+    public void removeByEmployeeNo(String employeeNo) throws IOException {
+        List<Employee> employeeList = getEmployeeList();
+
+        boolean removed = employeeList.removeIf(emp ->
+                emp.getEmployeeNo() != null &&
+                emp.getEmployeeNo().equals(employeeNo)
+        );
+
+        if (!removed) {
+            throw new IllegalStateException("Employee not found: " + employeeNo);
+        }
+
+        rewriteCsvFile(employeeList);
+    }
+    
+    public String getNextEmployeeNo() throws IOException {
+        List<Employee> employeeList = getEmployeeList();
+
+        int maxEmployeeNo = 0;
+
+        for (Employee emp : employeeList) {
+            String employeeNo = emp.getEmployeeNo();
+
+            if (employeeNo == null || employeeNo.trim().isEmpty()) {
+                continue;
+            }
+
+            try {
+                int parsed = Integer.parseInt(employeeNo.trim());
+                if (parsed > maxEmployeeNo) {
+                    maxEmployeeNo = parsed;
+                }
+            } catch (NumberFormatException e) {
+                // Ignore non-numeric employee numbers
+            }
+        }
+
+        return String.valueOf(maxEmployeeNo + 1);
+    }
+    
     private Employee map(String[] details) {
         String employeeNo = details[0];
         String lastName = details[1];

@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -417,11 +418,23 @@ public class EIMPanels extends javax.swing.JPanel {
     }//GEN-LAST:event_editEmployeeDialogWindowClosed
 
     private void addNewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBtnActionPerformed
-        // TODO add your handling code here:
-        Employee employee = new Employee();
-        employee.setEmployeeNo("10100");
-        String title = "Adding Employee";
-        showEmployeeEditor(employee, title, false);
+        try {
+            Employee employee = new Employee();
+            employee.setEmployeeNo(appContext.getEmployeeService().getNextEmployeeNo());
+
+            String title = "Adding Employee";
+            showEmployeeEditor(employee, title, false);
+
+        } catch (IOException e) {
+            // Replace this with your custom dialog opener
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to generate employee number.",
+                    "Add Employee Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_addNewBtnActionPerformed
 
     private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
