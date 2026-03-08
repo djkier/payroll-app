@@ -62,9 +62,9 @@ public class PayrollEngine {
         
         //Payslip EARNINGS
         double basicPay = employee.getCompProfile().getHourlyRate() * totalHours;
-        double riceSubsidy = computeAllowance(employee.getCompProfile().getRiceSubsidy(), period);
-        double phoneAllowance = computeAllowance(employee.getCompProfile().getPhoneAllowance(), period);
-        double clothingAllowance = computeAllowance(employee.getCompProfile().getClothingAllowance(), period);
+        double riceSubsidy = basicPay > 0 ? computeAllowance(employee.getCompProfile().getRiceSubsidy(), period) : 0;
+        double phoneAllowance = basicPay > 0 ? computeAllowance(employee.getCompProfile().getPhoneAllowance(), period) : 0;
+        double clothingAllowance = basicPay > 0 ? computeAllowance(employee.getCompProfile().getClothingAllowance(), period) : 0;
         //add payslip line for EARNINGS
         addEarningPayslipLine(payslip, "Basic", basicPay);
         addEarningPayslipLine(payslip, "Rice Subsidy", riceSubsidy);

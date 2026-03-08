@@ -84,6 +84,14 @@ public class ThemeColor {
         return new Color(38, 38, 38);
     }
     
+    public static Color timeIn() {
+        return new Color(0, 153, 51);
+    }
+    
+    public static Color timeOut() {
+        return new Color(255, 51, 51);
+    }
+    
     
     
     

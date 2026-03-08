@@ -6,14 +6,22 @@ package com.motorph.payrollsystem.gui.rightsidepanels;
 
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
+import com.motorph.payrollsystem.model.attendance.AttendanceRecord;
 import com.motorph.payrollsystem.model.attendance.AttendanceState;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Color;
+import java.awt.Component;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,8 +33,11 @@ public class HomePanel extends javax.swing.JPanel {
      * Creates new form HomePanel
      * @param appContext the current logged in user/employee
      */
-    public HomePanel(AppContext appContext) {
+    public HomePanel(
+            AppContext appContext,
+            javax.swing.JFrame parentFrame) {
         this.appContext = appContext;
+        this.parentFrame = parentFrame;
         this.currentEmployee = appContext.getSessionManager().getCurrentEmployee();
         
         initComponents();
@@ -69,10 +80,10 @@ public class HomePanel extends javax.swing.JPanel {
             timeOutBtn.setEnabled(state.canTimeOut());
 
             if (state.isCurrentlyTimedIn()) {
-                statusBarPanel.setBackground(ThemeColor.textGreen());
+                statusBarPanel.setBackground(ThemeColor.timeIn());
                 statusLabel.setText("Currently Clocked In");
             } else {
-                statusBarPanel.setBackground(ThemeColor.textRed());
+                statusBarPanel.setBackground(ThemeColor.timeOut());
                 statusLabel.setText("Currently Clocked Out");
             }
 
@@ -134,6 +145,63 @@ public class HomePanel extends javax.swing.JPanel {
         }
     }
     
+    //Attendance history table
+    private void loadAttendance() {
+        try {
+            List<AttendanceRecord> records = appContext.getAttendanceService().getAttendanceHistoryLatestFirst(currentEmployee);
+
+            //should use tableEmployeeList
+            fillTable(records);
+            
+        } catch (Exception ex){
+            JOptionPane.showMessageDialog(this, "Error loading attendance record");
+        }
+        
+        customizeCellColumns();
+    }
+    
+    private void customizeCellColumns() {
+        historyTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
+    }
+    
+    private void fillTable(List<AttendanceRecord> records) {
+        DefaultTableModel model = (DefaultTableModel) clearTable(historyTable);
+        
+        for (AttendanceRecord record : records) {
+            model.addRow(new Object[]{
+                record.getEmployeeNo(),
+                record.getDate(),
+                record.getTimeIn(),
+                record.getTimeOut()
+            });
+        }
+    }
+    
+    private DefaultTableModel clearTable(javax.swing.JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
+        
+        return model;
+    }
+    
+    private DefaultTableCellRenderer timeRenderer() {
+        return new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+                setHorizontalAlignment(javax.swing.JLabel.CENTER);
+                Component cell = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // Reset default
+                cell.setBackground(Color.WHITE);
+
+                return cell;
+            }
+        };
+    }
+    
 
 
     /**
@@ -145,11 +213,16 @@ public class HomePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        timeOutDialog = new javax.swing.JDialog();
+        timeOutDialog = new javax.swing.JDialog(this.parentFrame, true);
         timeOutDialogPanel = new javax.swing.JPanel();
         timeOutDialogLabel = new javax.swing.JLabel();
         timeOutDialogCancelBtn = new javax.swing.JButton();
         timeOutDialogConfirmBtn = new javax.swing.JButton();
+        historyDialog = new javax.swing.JDialog(this.parentFrame, true);
+        historyPanel = new javax.swing.JPanel();
+        historyHeader = new javax.swing.JLabel();
+        tablePane = new javax.swing.JScrollPane();
+        historyTable = new javax.swing.JTable();
         welcomeLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
         preTimeLabel = new javax.swing.JLabel();
@@ -168,6 +241,7 @@ public class HomePanel extends javax.swing.JPanel {
         attendanceBtn = new javax.swing.JButton();
 
         timeOutDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        timeOutDialog.setAlwaysOnTop(true);
         timeOutDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 timeOutDialogWindowClosing(evt);
@@ -225,6 +299,75 @@ public class HomePanel extends javax.swing.JPanel {
             .addComponent(timeOutDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        historyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        historyPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        historyHeader.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        historyHeader.setText("Attendance History");
+
+        historyTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        historyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Employee No.", "Date", "Time In", "Time Out"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        historyTable.getTableHeader().setReorderingAllowed(false);
+        tablePane.setViewportView(historyTable);
+        if (historyTable.getColumnModel().getColumnCount() > 0) {
+            historyTable.getColumnModel().getColumn(0).setPreferredWidth(100);
+            historyTable.getColumnModel().getColumn(0).setCellRenderer(this.timeRenderer());
+            historyTable.getColumnModel().getColumn(1).setCellRenderer(null);
+            historyTable.getColumnModel().getColumn(2).setCellRenderer(this.timeRenderer());
+            historyTable.getColumnModel().getColumn(3).setCellRenderer(this.timeRenderer());
+        }
+
+        javax.swing.GroupLayout historyPanelLayout = new javax.swing.GroupLayout(historyPanel);
+        historyPanel.setLayout(historyPanelLayout);
+        historyPanelLayout.setHorizontalGroup(
+            historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(historyHeader)
+                    .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        historyPanelLayout.setVerticalGroup(
+            historyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(historyPanelLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(historyHeader)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout historyDialogLayout = new javax.swing.GroupLayout(historyDialog.getContentPane());
+        historyDialog.getContentPane().setLayout(historyDialogLayout);
+        historyDialogLayout.setHorizontalGroup(
+            historyDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(historyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        historyDialogLayout.setVerticalGroup(
+            historyDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(historyPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
 
@@ -263,11 +406,11 @@ public class HomePanel extends javax.swing.JPanel {
         attendanceTrackerLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         attendanceTrackerLabel.setText("Attendance Tracker");
 
-        statusBarPanel.setBackground(new java.awt.Color(255, 153, 153));
+        statusBarPanel.setBackground(new java.awt.Color(0, 153, 51));
 
         statusLabel.setBackground(new java.awt.Color(255, 255, 255));
         statusLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(153, 153, 153));
+        statusLabel.setForeground(new java.awt.Color(255, 255, 255));
         statusLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         statusLabel.setText("You are currently Time Out");
 
@@ -309,6 +452,7 @@ public class HomePanel extends javax.swing.JPanel {
         attendanceBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         attendanceBtn.setText("View Attendance History");
         attendanceBtn.setFocusPainted(false);
+        attendanceBtn.addActionListener(this::attendanceBtnActionPerformed);
 
         javax.swing.GroupLayout attendanceTrackerPanelLayout = new javax.swing.GroupLayout(attendanceTrackerPanel);
         attendanceTrackerPanel.setLayout(attendanceTrackerPanelLayout);
@@ -437,8 +581,20 @@ public class HomePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         timeOutDialog.dispose();
     }//GEN-LAST:event_timeOutDialogWindowClosing
+
+    private void attendanceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_attendanceBtnActionPerformed
+        // TODO add your handling code here:
+        historyDialog.setResizable(false);
+        historyDialog.setTitle("Attendance Record");
+        historyDialog.pack();
+        historyDialog.setLocationRelativeTo(null);
+        loadAttendance();
+        
+        historyDialog.setVisible(true); 
+    }//GEN-LAST:event_attendanceBtnActionPerformed
     private Employee currentEmployee;
     private AppContext appContext;
+    private javax.swing.JFrame parentFrame;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton attendanceBtn;
     private javax.swing.JLabel attendanceTrackerLabel;
@@ -447,11 +603,16 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JLabel dateTodayLabel;
     private javax.swing.JPanel decorLine;
+    private javax.swing.JDialog historyDialog;
+    private javax.swing.JLabel historyHeader;
+    private javax.swing.JPanel historyPanel;
+    private javax.swing.JTable historyTable;
     private javax.swing.JLabel loggedInTimeLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel preTimeLabel;
     private javax.swing.JPanel statusBarPanel;
     private javax.swing.JLabel statusLabel;
+    private javax.swing.JScrollPane tablePane;
     private javax.swing.JButton timeInBtn;
     private javax.swing.JButton timeOutBtn;
     private javax.swing.JDialog timeOutDialog;

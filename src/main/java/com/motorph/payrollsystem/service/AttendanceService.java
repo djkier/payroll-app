@@ -11,6 +11,8 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -111,6 +113,17 @@ public class AttendanceService {
         }
 
         return attendanceRepository.findByEmployeeNo(employeeNo);
+    }
+    
+    public List<AttendanceRecord> getAttendanceHistoryLatestFirst(Employee employee) throws IOException {
+        validateEmployee(employee);
+
+        List<AttendanceRecord> records =
+                attendanceRepository.findByEmployeeNo(employee.getEmployeeNo());
+
+        Collections.reverse(records);
+
+        return records;
     }
 
     public List<AttendanceRecord> getAttendanceHistory(Employee employee) throws IOException {

@@ -744,7 +744,6 @@ public class LeavePanel extends javax.swing.JPanel {
         requestTable.setFocusable(false);
         requestTable.setRowHeight(28);
         requestTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        requestTable.setShowHorizontalLines(true);
         requestTable.getTableHeader().setReorderingAllowed(false);
         scrollPaneTable.setViewportView(requestTable);
         if (requestTable.getColumnModel().getColumnCount() > 0) {

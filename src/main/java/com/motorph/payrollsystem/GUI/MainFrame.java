@@ -83,7 +83,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void homeScreenDefault(AppContext context) {
-        changeRightScreen(new HomePanel(context));
+        changeRightScreen(new HomePanel(context, this));
     }
     
     private void logoutDialog() {
