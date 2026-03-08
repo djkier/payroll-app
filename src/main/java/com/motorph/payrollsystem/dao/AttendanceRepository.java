@@ -45,7 +45,7 @@ public class AttendanceRepository extends CsvRepositoryBase {
                 if(line.trim().isEmpty()) continue;
                 
                 //the line should have 6 column if not skip
-                String[] columnData = line.split(",");
+                String[] columnData = line.split(",", -1);
                 if (columnData.length < 6) continue;
                 
                 //skip records that dont belong to the employee
@@ -177,7 +177,7 @@ public class AttendanceRepository extends CsvRepositoryBase {
         if (time == null) {
             return "";
         }
-        return time.toString();
+        return Dates.timeInOrOut(time);
     }
 
     private boolean equalsTime(LocalTime a, LocalTime b) {

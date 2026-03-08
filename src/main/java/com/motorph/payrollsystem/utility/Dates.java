@@ -80,5 +80,9 @@ public class Dates {
         return formatDate(parseFullDate(date));
     }
     
-    
+    public static String timeInOrOut(LocalTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm");
+        return time.format(formatter);
+    }
+
 }

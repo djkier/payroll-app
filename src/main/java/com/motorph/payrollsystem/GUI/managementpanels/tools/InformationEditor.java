@@ -1500,8 +1500,8 @@ public class InformationEditor extends javax.swing.JPanel {
         if (!isViewing) {
             return;
         }
-        // 1. Check if there is a selected employee.
-        //    If none is selected, show a warning dialog and stop the process.
+
+        //If none is selected, show a warning dialog and stop the process.
         if (this.selectedEmployee == null) {
             //Error no selected employee
             return;

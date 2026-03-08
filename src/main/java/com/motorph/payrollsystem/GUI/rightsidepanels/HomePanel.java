@@ -6,8 +6,10 @@ package com.motorph.payrollsystem.gui.rightsidepanels;
 
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
+import com.motorph.payrollsystem.model.attendance.AttendanceState;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.ThemeColor;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -42,7 +44,7 @@ public class HomePanel extends javax.swing.JPanel {
     
     private void initAttendancePanel(){
         startClock();
-//        refreshAttendanceState();
+        refreshAttendanceState();
     }
     
     private void startClock() {
@@ -58,6 +60,81 @@ public class HomePanel extends javax.swing.JPanel {
 
         timer.start();
     }
+    
+    private void refreshAttendanceState() {
+        try {
+            AttendanceState state = appContext.getAttendanceService().getAttendanceState(currentEmployee);
+
+            timeInBtn.setEnabled(state.canTimeIn());
+            timeOutBtn.setEnabled(state.canTimeOut());
+
+            if (state.isCurrentlyTimedIn()) {
+                statusBarPanel.setBackground(ThemeColor.textGreen());
+                statusLabel.setText("Currently Clocked In");
+            } else {
+                statusBarPanel.setBackground(ThemeColor.textRed());
+                statusLabel.setText("Currently Clocked Out");
+            }
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Attendance Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+    }
+    
+    private void onTimeIn() {
+        try {
+            appContext.getAttendanceService().timeIn(currentEmployee);
+            refreshAttendanceState();
+
+        } catch (IllegalStateException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Time In Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to save time in.",
+                    "Attendance Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+    }
+    
+    private void onTimeOut() {
+        try {
+            Employee currentEmployee = appContext.getSessionManager().getCurrentEmployee();
+            appContext.getAttendanceService().timeOut(currentEmployee);
+            refreshAttendanceState();
+
+        } catch (IllegalStateException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Time Out Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to save time out.",
+                    "Attendance Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+    }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,6 +145,11 @@ public class HomePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        timeOutDialog = new javax.swing.JDialog();
+        timeOutDialogPanel = new javax.swing.JPanel();
+        timeOutDialogLabel = new javax.swing.JLabel();
+        timeOutDialogCancelBtn = new javax.swing.JButton();
+        timeOutDialogConfirmBtn = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
         preTimeLabel = new javax.swing.JLabel();
@@ -84,6 +166,64 @@ public class HomePanel extends javax.swing.JPanel {
         timeInBtn = new javax.swing.JButton();
         timeOutBtn = new javax.swing.JButton();
         attendanceBtn = new javax.swing.JButton();
+
+        timeOutDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        timeOutDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                timeOutDialogWindowClosing(evt);
+            }
+        });
+
+        timeOutDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        timeOutDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        timeOutDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timeOutDialogLabel.setText("Are you sure you want to time out now?");
+
+        timeOutDialogCancelBtn.setBackground(ThemeColor.lightRed());
+        timeOutDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        timeOutDialogCancelBtn.setText("Cancel");
+        timeOutDialogCancelBtn.addActionListener(this::timeOutDialogCancelBtnActionPerformed);
+
+        timeOutDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
+        timeOutDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        timeOutDialogConfirmBtn.setText("Confirm");
+        timeOutDialogConfirmBtn.addActionListener(this::timeOutDialogConfirmBtnActionPerformed);
+
+        javax.swing.GroupLayout timeOutDialogPanelLayout = new javax.swing.GroupLayout(timeOutDialogPanel);
+        timeOutDialogPanel.setLayout(timeOutDialogPanelLayout);
+        timeOutDialogPanelLayout.setHorizontalGroup(
+            timeOutDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(timeOutDialogPanelLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(timeOutDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43)
+                .addComponent(timeOutDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addComponent(timeOutDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        timeOutDialogPanelLayout.setVerticalGroup(
+            timeOutDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, timeOutDialogPanelLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(timeOutDialogLabel)
+                .addGap(18, 18, 18)
+                .addGroup(timeOutDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timeOutDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeOutDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
+        );
+
+        javax.swing.GroupLayout timeOutDialogLayout = new javax.swing.GroupLayout(timeOutDialog.getContentPane());
+        timeOutDialog.getContentPane().setLayout(timeOutDialogLayout);
+        timeOutDialogLayout.setHorizontalGroup(
+            timeOutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(timeOutDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        timeOutDialogLayout.setVerticalGroup(
+            timeOutDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(timeOutDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
@@ -127,7 +267,7 @@ public class HomePanel extends javax.swing.JPanel {
 
         statusLabel.setBackground(new java.awt.Color(255, 255, 255));
         statusLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statusLabel.setForeground(new java.awt.Color(255, 255, 255));
+        statusLabel.setForeground(new java.awt.Color(153, 153, 153));
         statusLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         statusLabel.setText("You are currently Time Out");
 
@@ -159,10 +299,12 @@ public class HomePanel extends javax.swing.JPanel {
         timeInBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeInBtn.setText("TIME IN");
         timeInBtn.setFocusPainted(false);
+        timeInBtn.addActionListener(this::timeInBtnActionPerformed);
 
         timeOutBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeOutBtn.setText("TIME OUT");
         timeOutBtn.setFocusPainted(false);
+        timeOutBtn.addActionListener(this::timeOutBtnActionPerformed);
 
         attendanceBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         attendanceBtn.setText("View Attendance History");
@@ -263,6 +405,38 @@ public class HomePanel extends javax.swing.JPanel {
                 .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void timeInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeInBtnActionPerformed
+        // TODO add your handling code here:
+        onTimeIn();
+    }//GEN-LAST:event_timeInBtnActionPerformed
+
+    private void timeOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeOutBtnActionPerformed
+        // TODO add your handling code here:
+        timeOutDialog.setResizable(false);
+        timeOutDialog.setTitle("Confirm Time Out");
+        timeOutDialog.pack();
+        timeOutDialog.setLocationRelativeTo(null);
+        
+        timeOutDialog.setVisible(true); 
+
+    }//GEN-LAST:event_timeOutBtnActionPerformed
+
+    private void timeOutDialogCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeOutDialogCancelBtnActionPerformed
+        // TODO add your handling code here:
+        timeOutDialog.dispose();
+    }//GEN-LAST:event_timeOutDialogCancelBtnActionPerformed
+
+    private void timeOutDialogConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeOutDialogConfirmBtnActionPerformed
+        // TODO add your handling code here:
+        onTimeOut();
+        timeOutDialog.dispose();
+    }//GEN-LAST:event_timeOutDialogConfirmBtnActionPerformed
+
+    private void timeOutDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_timeOutDialogWindowClosing
+        // TODO add your handling code here:
+        timeOutDialog.dispose();
+    }//GEN-LAST:event_timeOutDialogWindowClosing
     private Employee currentEmployee;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -280,6 +454,11 @@ public class HomePanel extends javax.swing.JPanel {
     private javax.swing.JLabel statusLabel;
     private javax.swing.JButton timeInBtn;
     private javax.swing.JButton timeOutBtn;
+    private javax.swing.JDialog timeOutDialog;
+    private javax.swing.JButton timeOutDialogCancelBtn;
+    private javax.swing.JButton timeOutDialogConfirmBtn;
+    private javax.swing.JLabel timeOutDialogLabel;
+    private javax.swing.JPanel timeOutDialogPanel;
     private javax.swing.JLabel timerLabel;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
