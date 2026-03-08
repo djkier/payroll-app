@@ -420,8 +420,10 @@ public class InformationEditor extends javax.swing.JPanel {
 
             isEditing = false;
             fillEmployeeInformation(selectedEmployee);
+            
             updateFields();
             updateDialog.dispose();
+            openSuccessDialog("Successfully Updated", "You successfully updated:", selectedEmployee);
         } catch (IOException e) {
             javax.swing.JOptionPane.showMessageDialog(
                     this,
@@ -436,9 +438,11 @@ public class InformationEditor extends javax.swing.JPanel {
     private void handleAddEmployee(Employee employee) {
         try {
             this.selectedEmployee = appContext.getEmployeeService().addNewEmployee(employee);
-
+            
+            
             updateDialog.dispose();
             parentDialog.dispose();
+            openSuccessDialog("Successfully Added", "You succesfully added:", this.selectedEmployee);
             
             } catch (IllegalStateException e) {
                 javax.swing.JOptionPane.showMessageDialog(
@@ -548,6 +552,11 @@ public class InformationEditor extends javax.swing.JPanel {
         departmentTextFieldTemp = new javax.swing.JTextField();
 
         cancelDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        cancelDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                cancelDialogWindowClosing(evt);
+            }
+        });
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -708,6 +717,11 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         validationErrorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        validationErrorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                validationErrorDialogWindowClosing(evt);
+            }
+        });
 
         validationErrorPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -767,6 +781,11 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         removeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        removeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                removeDialogWindowClosing(evt);
+            }
+        });
 
         removeDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1663,9 +1682,10 @@ public class InformationEditor extends javax.swing.JPanel {
         try {
             Employee removed = appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
 
-            openSuccessDialog("Successfully Removed", "You succesfully removed :", removed);
+
             parentDialog.dispose();
             removeDialog.dispose();
+            openSuccessDialog("Successfully Removed", "You succesfully removed:", removed);
             
         } catch (IllegalArgumentException e) {
             javax.swing.JOptionPane.showMessageDialog(
@@ -1706,6 +1726,21 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         successDialog.dispose();
     }//GEN-LAST:event_successDialogWindowClosing
+
+    private void removeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_removeDialogWindowClosing
+        // TODO add your handling code here:
+        removeDialog.dispose();
+    }//GEN-LAST:event_removeDialogWindowClosing
+
+    private void cancelDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cancelDialogWindowClosing
+        // TODO add your handling code here:
+        cancelDialog.dispose();
+    }//GEN-LAST:event_cancelDialogWindowClosing
+
+    private void validationErrorDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_validationErrorDialogWindowClosing
+        // TODO add your handling code here:
+        validationErrorDialog.dispose();
+    }//GEN-LAST:event_validationErrorDialogWindowClosing
     
     
     

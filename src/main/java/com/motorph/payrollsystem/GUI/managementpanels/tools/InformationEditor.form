@@ -6,6 +6,9 @@
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="cancelDialogWindowClosing"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDialog(this.parentDialog, true)"/>
       </AuxValues>
@@ -287,6 +290,9 @@
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="validationErrorDialogWindowClosing"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDialog(this.parentDialog, true)"/>
       </AuxValues>
@@ -390,6 +396,9 @@
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="removeDialogWindowClosing"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDialog(this.parentDialog, true)"/>
       </AuxValues>
