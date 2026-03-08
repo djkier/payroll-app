@@ -10,6 +10,7 @@ import com.motorph.payrollsystem.dao.AttendanceRepository;
 import com.motorph.payrollsystem.dao.EmployeeRepository;
 import com.motorph.payrollsystem.dao.LeaveRepository;
 import com.motorph.payrollsystem.dao.UserRepository;
+import com.motorph.payrollsystem.service.AttendanceService;
 import com.motorph.payrollsystem.service.UserAccountService;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.service.LeaveService;
@@ -26,10 +27,10 @@ public class AppContext {
     
     private final UserAccountService userAccountService;
     private final EmployeeService employeeService;
+    private final AttendanceService attendanceService;
     private final PayrollService payrollService;
     private final LeaveService leaveService;
     
-    private final AttendanceRepository attendanceRepository;
     
     
     public AppContext() {
@@ -39,14 +40,14 @@ public class AppContext {
         UserRepository userRepo = new UserRepository(Csv.userCsvPath());
         this.userAccountService = new UserAccountService(userRepo);
         
-        
         EmployeeRepository employeeRepo = new EmployeeRepository(Csv.employeeCsvPath());
         this.employeeService = new EmployeeService(employeeRepo);
         
-        this.attendanceRepository = new AttendanceRepository(Csv.attendanceCsvPath());
-        PayrollEngine payrollEngine = new PayrollEngine();
+        AttendanceRepository attendanceRepository = new AttendanceRepository(Csv.attendanceCsvPath());
+        this.attendanceService = new AttendanceService(attendanceRepository);
         
-        this.payrollService = new PayrollService(attendanceRepository, payrollEngine);
+        PayrollEngine payrollEngine = new PayrollEngine();
+        this.payrollService = new PayrollService(attendanceService, payrollEngine);
         
         LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath());
         this.leaveService = new LeaveService(leaveRepository);
@@ -65,8 +66,8 @@ public class AppContext {
         return employeeService;
     }
 
-    public AttendanceRepository getAttendanceRepository() {
-        return attendanceRepository;
+    public AttendanceService getAttendanceService() {
+        return attendanceService;
     }
 
     public PayrollService getPayrollService() {

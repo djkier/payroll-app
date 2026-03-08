@@ -6,6 +6,7 @@ package com.motorph.payrollsystem.gui.rightsidepanels;
 
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
+import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class HomePanel extends javax.swing.JPanel {
      */
     public HomePanel(AppContext appContext) {
         this.appContext = appContext;
+        this.currentEmployee = appContext.getSessionManager().getCurrentEmployee();
         
         initComponents();
         defaultLabels();
@@ -40,7 +42,7 @@ public class HomePanel extends javax.swing.JPanel {
     
     private void initAttendancePanel(){
         startClock();
-
+//        refreshAttendanceState();
     }
     
     private void startClock() {
@@ -261,7 +263,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    private Employee currentEmployee;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton attendanceBtn;

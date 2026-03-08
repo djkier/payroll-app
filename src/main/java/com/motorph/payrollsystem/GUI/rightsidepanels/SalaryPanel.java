@@ -44,49 +44,43 @@ public class SalaryPanel extends javax.swing.JPanel {
     }
     
     private void loadPayrollPeriods() {
+        this.comboBoxPeriod.removeAllItems();
         try {
-            //get employee no
-            String employeeNo = 
-                    appContext.getSessionManager()
-                    .getCurrentEmployee()
-                    .getEmployeeNo();
-            
-            //get all attendance records of the employee no
-            List<AttendanceRecord> records = 
-                    appContext.getAttendanceRepository()
-                    .findByEmployeeNo(employeeNo);
-            
-            //initialize list of dates
-            List<LocalDate> dates = new ArrayList<>();
-            
-            //get all the dates on the attendance record then store it on dates
-            for (AttendanceRecord record : records) {
-                dates.add(record.getDate());
+            Employee currentEmployee = appContext.getSessionManager().getCurrentEmployee();
+
+            List<PayrollPeriod> periods =
+                    appContext.getPayrollService()
+                            .getAvailablePayrollPeriods(currentEmployee);
+
+            if (periods == null || periods.isEmpty()) {
+                comboBoxPeriod.setEnabled(false);
+                return;
             }
-            
-            //get the list of PayrollPeriod
-            List<PayrollPeriod> periods = 
-                    PayrollPeriodFactory.fromAttendanceDatesSemiMonthly(dates);
-            
-            //remove all items on the combo box first
-            this.comboBoxPeriod.removeAllItems();
-            
-            //populate the combo box items with the period
+
             for (PayrollPeriod period : periods) {
                 comboBoxPeriod.addItem(period);
             }
+
+            comboBoxPeriod.setEnabled(true);
+            comboBoxPeriod.setSelectedIndex(0);
+
+        } catch (IllegalStateException | IllegalArgumentException ex) {
+            comboBoxPeriod.setEnabled(false);
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    ex.getMessage(),
+                    "Payroll Period Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
         } catch (Exception ex) {
-            /*
-            *
-            *Add failed loading payroll periods
-            *
-            */
+            comboBoxPeriod.setEnabled(false);
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to load payroll periods.",
+                    "Payroll Period Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
             ex.printStackTrace();
-        }
-        
-        //prevent uncorrect salary data
-        if (this.comboBoxPeriod.getItemCount() > 0) {
-            this.comboBoxPeriod.setSelectedIndex(0);
         }
     }
 

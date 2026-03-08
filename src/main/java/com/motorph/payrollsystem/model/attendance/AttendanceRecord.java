@@ -14,11 +14,16 @@ import java.time.LocalTime;
  */
 public class AttendanceRecord {
     private String employeeNo;
+    private String lastName;
+    private String firstName;
     private LocalDate date;
     private LocalTime timeIn;
     private LocalTime timeOut;
     
-    public AttendanceRecord(String employeeNo, LocalDate date, LocalTime timeIn, LocalTime timeOut) {
+    public AttendanceRecord(String employeeNo,
+            LocalDate date, 
+            LocalTime timeIn, 
+            LocalTime timeOut) {
         this.employeeNo = employeeNo;
         this.date = date;
         this.timeIn = timeIn;
@@ -28,7 +33,7 @@ public class AttendanceRecord {
     public String getEmployeeNo() {
         return employeeNo;
     }
-
+    
     public LocalDate getDate() {
         return date;
     }
