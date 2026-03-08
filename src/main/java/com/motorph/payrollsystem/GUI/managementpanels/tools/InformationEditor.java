@@ -300,6 +300,12 @@ public class InformationEditor extends javax.swing.JPanel {
         dialog.setVisible(true); 
     }
     
+    private void openSuccessDialog(String title, String message, Employee emp) {
+        successLabel.setText(message);
+        successEmployeeLabel.setText(emp.getLastFirstName());
+        dialogOpener(successDialog, title);
+    }
+    
     private List<String> validateForm() {
         List<String> errors = new ArrayList<>();
         
@@ -490,6 +496,12 @@ public class InformationEditor extends javax.swing.JPanel {
         removeDialogNameLabel = new javax.swing.JLabel();
         removeDialogNumberField = new javax.swing.JLabel();
         removeDialogNameField = new javax.swing.JLabel();
+        removeDialogLabel1 = new javax.swing.JLabel();
+        successDialog = new javax.swing.JDialog(this.parentDialog, true);
+        successsPanel = new javax.swing.JPanel();
+        successLabel = new javax.swing.JLabel();
+        successBtn = new javax.swing.JButton();
+        successEmployeeLabel = new javax.swing.JLabel();
         personalInfoLabel = new javax.swing.JLabel();
         lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
@@ -536,11 +548,6 @@ public class InformationEditor extends javax.swing.JPanel {
         departmentTextFieldTemp = new javax.swing.JTextField();
 
         cancelDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        cancelDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                cancelDialogWindowClosing(evt);
-            }
-        });
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -701,11 +708,6 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         validationErrorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        validationErrorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                validationErrorDialogWindowClosing(evt);
-            }
-        });
 
         validationErrorPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -765,11 +767,6 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         removeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        removeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                removeDialogWindowClosing(evt);
-            }
-        });
 
         removeDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -784,7 +781,7 @@ public class InformationEditor extends javax.swing.JPanel {
 
         removeDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
         removeDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogConfirmBtn.setText("Confirm");
+        removeDialogConfirmBtn.setText("Remove");
         removeDialogConfirmBtn.addActionListener(this::removeDialogConfirmBtnActionPerformed);
 
         removeDialogNumberLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -803,6 +800,10 @@ public class InformationEditor extends javax.swing.JPanel {
         removeDialogNameField.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         removeDialogNameField.setText("Fontanilla, Don Justine xyzaqe");
 
+        removeDialogLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        removeDialogLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        removeDialogLabel1.setText("This action cannot be undone.");
+
         javax.swing.GroupLayout removeDialogPanelLayout = new javax.swing.GroupLayout(removeDialogPanel);
         removeDialogPanel.setLayout(removeDialogPanelLayout);
         removeDialogPanelLayout.setHorizontalGroup(
@@ -810,6 +811,11 @@ public class InformationEditor extends javax.swing.JPanel {
             .addComponent(removeDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(removeDialogPanelLayout.createSequentialGroup()
                 .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(removeDialogPanelLayout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(removeDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(removeDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(removeDialogPanelLayout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -822,11 +828,9 @@ public class InformationEditor extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(removeDialogNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(removeDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(removeDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(36, 36, 36)
+                        .addComponent(removeDialogLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         removeDialogPanelLayout.setVerticalGroup(
             removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -841,6 +845,8 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeDialogNameLabel)
                     .addComponent(removeDialogNameField))
+                .addGap(12, 12, 12)
+                .addComponent(removeDialogLabel1)
                 .addGap(24, 24, 24)
                 .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -857,6 +863,62 @@ public class InformationEditor extends javax.swing.JPanel {
         removeDialogLayout.setVerticalGroup(
             removeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(removeDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        successDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                successDialogWindowClosing(evt);
+            }
+        });
+
+        successsPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        successLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        successLabel.setText("You succesfully removed :");
+
+        successBtn.setBackground(ThemeColor.lightGreen());
+        successBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        successBtn.setText("OK");
+        successBtn.addActionListener(this::successBtnActionPerformed);
+
+        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        successEmployeeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        successEmployeeLabel.setText("Fontanilla, Don Justine T.");
+
+        javax.swing.GroupLayout successsPanelLayout = new javax.swing.GroupLayout(successsPanel);
+        successsPanel.setLayout(successsPanelLayout);
+        successsPanelLayout.setHorizontalGroup(
+            successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(successLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(successEmployeeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(successsPanelLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(112, Short.MAX_VALUE))
+        );
+        successsPanelLayout.setVerticalGroup(
+            successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, successsPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(successLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(successEmployeeLabel)
+                .addGap(26, 26, 26)
+                .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+        );
+
+        javax.swing.GroupLayout successDialogLayout = new javax.swing.GroupLayout(successDialog.getContentPane());
+        successDialog.getContentPane().setLayout(successDialogLayout);
+        successDialogLayout.setHorizontalGroup(
+            successDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(successsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        successDialogLayout.setVerticalGroup(
+            successDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(successsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -1338,15 +1400,8 @@ public class InformationEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         isEditing = !isEditing;
         updateFields();
+        noChangeDialog.dispose();
     }//GEN-LAST:event_noChangeDialogWindowClosing
-
-    private void cancelDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cancelDialogWindowClosing
-        // TODO add your handling code here:
-        isConfirmingCancel = false;
-        isConfirmingUpdate = false;
-        cancelDialog.dispose();
-
-    }//GEN-LAST:event_cancelDialogWindowClosing
 
     private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
             // TODO add your handling code here:
@@ -1580,10 +1635,6 @@ public class InformationEditor extends javax.swing.JPanel {
         validationErrorDialog.dispose();
     }//GEN-LAST:event_validationErrorBtnActionPerformed
 
-    private void validationErrorDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_validationErrorDialogWindowClosing
-        // TODO add your handling code here:
-    }//GEN-LAST:event_validationErrorDialogWindowClosing
-
     private void pagibigTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagibigTextInputKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
@@ -1607,11 +1658,54 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void removeDialogConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDialogConfirmBtnActionPerformed
         // TODO add your handling code here:
+        
+        //successfully removed dialog
+        try {
+            Employee removed = appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
+
+            openSuccessDialog("Successfully Removed", "You succesfully removed :", removed);
+            parentDialog.dispose();
+            removeDialog.dispose();
+            
+        } catch (IllegalArgumentException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Invalid Employee",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            e.printStackTrace();
+
+        } catch (IllegalStateException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Employee Removal Error",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            e.printStackTrace();
+
+        } catch (IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to remove employee.",
+                    "Delete Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_removeDialogConfirmBtnActionPerformed
 
-    private void removeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_removeDialogWindowClosing
+    private void successBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_successBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_removeDialogWindowClosing
+        successDialog.dispose();
+    }//GEN-LAST:event_successBtnActionPerformed
+
+    private void successDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_successDialogWindowClosing
+        // TODO add your handling code here:
+        successDialog.dispose();
+    }//GEN-LAST:event_successDialogWindowClosing
     
     
     
@@ -1671,6 +1765,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JButton removeDialogCancelBtn;
     private javax.swing.JButton removeDialogConfirmBtn;
     private javax.swing.JLabel removeDialogLabel;
+    private javax.swing.JLabel removeDialogLabel1;
     private javax.swing.JLabel removeDialogNameField;
     private javax.swing.JLabel removeDialogNameLabel;
     private javax.swing.JLabel removeDialogNumberField;
@@ -1681,6 +1776,11 @@ public class InformationEditor extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField statusTextInput;
+    private javax.swing.JButton successBtn;
+    private javax.swing.JDialog successDialog;
+    private javax.swing.JLabel successEmployeeLabel;
+    private javax.swing.JLabel successLabel;
+    private javax.swing.JPanel successsPanel;
     private javax.swing.JComboBox<String> supervisorComboBox;
     private javax.swing.JLabel supervisorLabel;
     private javax.swing.JTextField supervisorTextInput;
