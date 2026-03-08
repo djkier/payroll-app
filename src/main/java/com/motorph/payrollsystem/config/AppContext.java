@@ -10,7 +10,7 @@ import com.motorph.payrollsystem.dao.AttendanceRepository;
 import com.motorph.payrollsystem.dao.EmployeeRepository;
 import com.motorph.payrollsystem.dao.LeaveRepository;
 import com.motorph.payrollsystem.dao.UserRepository;
-import com.motorph.payrollsystem.service.AuthService;
+import com.motorph.payrollsystem.service.UserAccountService;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.service.LeaveService;
 import com.motorph.payrollsystem.service.payroll.PayrollService;
@@ -24,7 +24,7 @@ public class AppContext {
     private final SessionManager sessionManager;
     private final PositionPolicyResolver positionPolicyResolver;
     
-    private final AuthService authService;
+    private final UserAccountService userAccountService;
     private final EmployeeService employeeService;
     private final PayrollService payrollService;
     private final LeaveService leaveService;
@@ -37,7 +37,7 @@ public class AppContext {
         this.positionPolicyResolver = new PositionPolicyResolver();
         
         UserRepository userRepo = new UserRepository(Csv.userCsvPath());
-        this.authService = new AuthService(userRepo);
+        this.userAccountService = new UserAccountService(userRepo);
         
         
         EmployeeRepository employeeRepo = new EmployeeRepository(Csv.employeeCsvPath());
@@ -57,8 +57,8 @@ public class AppContext {
         return sessionManager;
     }
 
-    public AuthService getAuthService(){
-        return authService;
+    public UserAccountService getUserAccountService(){
+        return userAccountService;
     }
     
     public EmployeeService getEmployeeService() {

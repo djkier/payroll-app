@@ -11,7 +11,7 @@ import com.motorph.payrollsystem.config.AppContext;
 
 import com.motorph.payrollsystem.model.auth.UserAccount;
 import com.motorph.payrollsystem.model.employee.Employee;
-import com.motorph.payrollsystem.service.AuthService;
+import com.motorph.payrollsystem.service.UserAccountService;
 import javax.swing.ImageIcon;
 
 /**
@@ -207,7 +207,7 @@ public class PasswordFrame extends javax.swing.JFrame {
         }
         
         try {
-            AuthService authService = appContext.getAuthService();
+            UserAccountService authService = appContext.getUserAccountService();
             UserAccount userAccount = authService.login(empNo, username, password);
             
             if (userAccount != null) {

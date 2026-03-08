@@ -14,7 +14,6 @@ import com.motorph.payrollsystem.utility.RegexPattern;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -435,10 +434,16 @@ public class InformationEditor extends javax.swing.JPanel {
         }
     }
     
+    
     private void handleAddEmployee(Employee employee) {
         try {
+            //Add employee
             this.selectedEmployee = appContext.getEmployeeService().addNewEmployee(employee);
-            
+            //add new account
+            boolean accountCreated = addUserAccount(this.selectedEmployee);
+            if (!accountCreated) {
+                return;
+            }
             
             updateDialog.dispose();
             parentDialog.dispose();
@@ -462,7 +467,75 @@ public class InformationEditor extends javax.swing.JPanel {
                 e.printStackTrace();
             }
     }
+    
+    private boolean addUserAccount(Employee emp) {
+        if (emp == null || emp.getEmployeeNo() == null || emp.getEmployeeNo().isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Cannot create account because employee data is incomplete.",
+                    "Add Employee Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
 
+        try {
+            appContext.getUserAccountService().createDefaultAccount(emp.getEmployeeNo());
+            return true;
+
+        } catch (IllegalStateException | IOException ex) {
+            // rollback employee if account creation fails
+            try {
+                appContext.getEmployeeService().removeEmployee(emp.getEmployeeNo());
+            } catch (Exception rollbackEx) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        this,
+                        "Employee was added, but account creation failed and rollback also failed.\n"
+                                + "Manual fix may be needed.\n\nReason: " + ex.getMessage(),
+                        "Add Employee Error",
+                        javax.swing.JOptionPane.ERROR_MESSAGE
+                );
+                rollbackEx.printStackTrace();
+                return false;
+            }
+
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Employee creation was rolled back because account creation failed.\n\nReason: " + ex.getMessage(),
+                    "Add Employee Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
+   }
+    
+    private boolean removeUserAccount(Employee emp) {
+        if (emp == null || emp.getEmployeeNo() == null || emp.getEmployeeNo().isBlank()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Cannot remove user account because employee data is incomplete.",
+                    "Remove Employee Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            return false;
+        }
+
+        try {
+            appContext.getUserAccountService().deleteAccountByEmployeeNo(emp.getEmployeeNo());
+            return true;
+
+        } catch (IllegalArgumentException | IllegalStateException | IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to remove user account.\n\nReason: " + ex.getMessage(),
+                    "Remove Employee Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1677,15 +1750,18 @@ public class InformationEditor extends javax.swing.JPanel {
 
     private void removeDialogConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDialogConfirmBtnActionPerformed
         // TODO add your handling code here:
-        
         //successfully removed dialog
         try {
             Employee removed = appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
-
+            //refactor this when IT has add or delete feat
+            boolean accountRemoved = removeUserAccount(selectedEmployee);
+            if (!accountRemoved) {
+                return;
+            }
 
             parentDialog.dispose();
             removeDialog.dispose();
-            openSuccessDialog("Successfully Removed", "You succesfully removed:", removed);
+            openSuccessDialog("Successfully Removed", "You successfully removed:", removed);
             
         } catch (IllegalArgumentException e) {
             javax.swing.JOptionPane.showMessageDialog(

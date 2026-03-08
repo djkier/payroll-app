@@ -512,13 +512,13 @@
             </Component>
             <Component class="javax.swing.JButton" name="removeDialogConfirmBtn">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Remove"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="ThemeColor.lightGreen()" type="code"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Remove"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="removeDialogConfirmBtnActionPerformed"/>

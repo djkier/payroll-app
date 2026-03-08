@@ -7,7 +7,10 @@ package com.motorph.payrollsystem.gui.rightsidepanels;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
 import com.motorph.payrollsystem.utility.Dates;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
+import javax.swing.Timer;
 
 /**
  *
@@ -21,18 +24,37 @@ public class HomePanel extends javax.swing.JPanel {
      */
     public HomePanel(AppContext appContext) {
         this.appContext = appContext;
-        initComponents();
         
+        initComponents();
+        defaultLabels();
+        initAttendancePanel();
+    }
+    
+    private void defaultLabels() {
         SessionManager currSession = appContext.getSessionManager();
         LocalDateTime loginTime = currSession.getLoginTime();
         
         nameLabel.setText(currSession.getCurrentEmployee().getFullName());
         loggedInTimeLabel.setText(Dates.formattedTime(loginTime));
-        
-        String dateLabelStr = Dates.dayOfWeek(loginTime) + 
-                ", " + 
-                Dates.fullDate(loginTime);
-        dateLabel.setText(dateLabelStr);
+    }
+    
+    private void initAttendancePanel(){
+        startClock();
+
+    }
+    
+    private void startClock() {
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, MMMM dd, yyyy");
+
+        dateTodayLabel.setText(dateFormat.format(new Date()));
+        timerLabel.setText(timeFormat.format(new Date()));
+
+        Timer timer = new Timer(1000, e -> {
+            timerLabel.setText(timeFormat.format(new Date()));
+        });
+
+        timer.start();
     }
 
     /**
@@ -44,19 +66,25 @@ public class HomePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateLabel = new javax.swing.JLabel();
         welcomeLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
         preTimeLabel = new javax.swing.JLabel();
         loggedInTimeLabel = new javax.swing.JLabel();
         dashboardLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
+        attendanceTrackerPanel = new javax.swing.JPanel();
+        attendanceTrackerLabel = new javax.swing.JLabel();
+        statusBarPanel = new javax.swing.JPanel();
+        statusLabel = new javax.swing.JLabel();
+        timerLabel = new javax.swing.JLabel();
+        dateTodayLabel = new javax.swing.JLabel();
+        currentTimeLabel = new javax.swing.JLabel();
+        timeInBtn = new javax.swing.JButton();
+        timeOutBtn = new javax.swing.JButton();
+        attendanceBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(760, 640));
-
-        dateLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        dateLabel.setText("Wednesday, January 1, 1972");
 
         welcomeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         welcomeLabel.setText("Welcome back,");
@@ -64,10 +92,10 @@ public class HomePanel extends javax.swing.JPanel {
         nameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         nameLabel.setText("John Doe");
 
-        preTimeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        preTimeLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         preTimeLabel.setText("You logged in at:");
 
-        loggedInTimeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        loggedInTimeLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         loggedInTimeLabel.setText("00:00 AM");
 
         dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
@@ -87,6 +115,106 @@ public class HomePanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
+        attendanceTrackerPanel.setBackground(new java.awt.Color(255, 255, 255));
+        attendanceTrackerPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+
+        attendanceTrackerLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        attendanceTrackerLabel.setText("Attendance Tracker");
+
+        statusBarPanel.setBackground(new java.awt.Color(255, 153, 153));
+
+        statusLabel.setBackground(new java.awt.Color(255, 255, 255));
+        statusLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        statusLabel.setForeground(new java.awt.Color(255, 255, 255));
+        statusLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        statusLabel.setText("You are currently Time Out");
+
+        javax.swing.GroupLayout statusBarPanelLayout = new javax.swing.GroupLayout(statusBarPanel);
+        statusBarPanel.setLayout(statusBarPanelLayout);
+        statusBarPanelLayout.setHorizontalGroup(
+            statusBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, statusBarPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        statusBarPanelLayout.setVerticalGroup(
+            statusBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(statusLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        timerLabel.setFont(new java.awt.Font("Poppins", 1, 36)); // NOI18N
+        timerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        timerLabel.setText("--:--:-- AM");
+
+        dateTodayLabel.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
+        dateTodayLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        dateTodayLabel.setText(" Monday, March 08, 2026");
+
+        currentTimeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        currentTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        currentTimeLabel.setText("Current Time");
+
+        timeInBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        timeInBtn.setText("TIME IN");
+        timeInBtn.setFocusPainted(false);
+
+        timeOutBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        timeOutBtn.setText("TIME OUT");
+        timeOutBtn.setFocusPainted(false);
+
+        attendanceBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        attendanceBtn.setText("View Attendance History");
+        attendanceBtn.setFocusPainted(false);
+
+        javax.swing.GroupLayout attendanceTrackerPanelLayout = new javax.swing.GroupLayout(attendanceTrackerPanel);
+        attendanceTrackerPanel.setLayout(attendanceTrackerPanelLayout);
+        attendanceTrackerPanelLayout.setHorizontalGroup(
+            attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(timerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dateTodayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attendanceTrackerPanelLayout.createSequentialGroup()
+                .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(attendanceTrackerPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(attendanceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, attendanceTrackerPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(attendanceTrackerPanelLayout.createSequentialGroup()
+                                .addComponent(attendanceTrackerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                                .addComponent(statusBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(currentTimeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, attendanceTrackerPanelLayout.createSequentialGroup()
+                        .addGap(100, 100, 100)
+                        .addComponent(timeInBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55)
+                        .addComponent(timeOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        attendanceTrackerPanelLayout.setVerticalGroup(
+            attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(attendanceTrackerPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(attendanceTrackerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(statusBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(currentTimeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(timerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateTodayLabel)
+                .addGap(24, 24, 24)
+                .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timeInBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timeOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addComponent(attendanceBtn)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,53 +223,62 @@ public class HomePanel extends javax.swing.JPanel {
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(dashboardLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(preTimeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loggedInTimeLabel)
+                .addGap(89, 89, 89))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(dashboardLabel))
+                        .addGap(12, 12, 12)
+                        .addComponent(attendanceTrackerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dateLabel)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(preTimeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(loggedInTimeLabel))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(welcomeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(welcomeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(dashboardLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dashboardLabel)
+                    .addComponent(preTimeLabel)
+                    .addComponent(loggedInTimeLabel))
                 .addGap(6, 6, 6)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(welcomeLabel)
                     .addComponent(nameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(preTimeLabel)
-                    .addComponent(loggedInTimeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(dateLabel)
-                .addContainerGap(487, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(attendanceTrackerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton attendanceBtn;
+    private javax.swing.JLabel attendanceTrackerLabel;
+    private javax.swing.JPanel attendanceTrackerPanel;
+    private javax.swing.JLabel currentTimeLabel;
     private javax.swing.JLabel dashboardLabel;
-    private javax.swing.JLabel dateLabel;
+    private javax.swing.JLabel dateTodayLabel;
     private javax.swing.JPanel decorLine;
     private javax.swing.JLabel loggedInTimeLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel preTimeLabel;
+    private javax.swing.JPanel statusBarPanel;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JButton timeInBtn;
+    private javax.swing.JButton timeOutBtn;
+    private javax.swing.JLabel timerLabel;
     private javax.swing.JLabel welcomeLabel;
     // End of variables declaration//GEN-END:variables
 }

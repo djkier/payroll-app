@@ -890,18 +890,18 @@ public class SalaryPanel extends javax.swing.JPanel {
 
         phoneText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         phoneText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        phoneText.setText("180, 000.00");
+        phoneText.setText("0.00");
 
         clothingText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         clothingText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        clothingText.setText("16,180,000.00");
+        clothingText.setText("0.00");
 
         grossLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         grossLabel.setText("Gross Pay");
 
         grossText.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         grossText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        grossText.setText("16,180,000.00");
+        grossText.setText("0.00");
 
         decorLine5.setBackground(new java.awt.Color(240, 240, 240));
         decorLine5.setDoubleBuffered(false);
@@ -934,19 +934,19 @@ public class SalaryPanel extends javax.swing.JPanel {
 
         sssText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         sssText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        sssText.setText("180, 000.00");
+        sssText.setText("0.00");
 
         philHealthText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         philHealthText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        philHealthText.setText("180, 000.00");
+        philHealthText.setText("0.00");
 
         pagIbigText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         pagIbigText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        pagIbigText.setText("180, 000.00");
+        pagIbigText.setText("0.00");
 
         taxText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         taxText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        taxText.setText("0.0");
+        taxText.setText("0.00");
 
         totalDeductionLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         totalDeductionLabel.setText("Total Deduction");
@@ -980,11 +980,11 @@ public class SalaryPanel extends javax.swing.JPanel {
 
         gross2Text.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         gross2Text.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        gross2Text.setText("180, 000.00");
+        gross2Text.setText("0.00");
 
         totalDeduction2Text.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         totalDeduction2Text.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        totalDeduction2Text.setText("16,180,000.00");
+        totalDeduction2Text.setText("0.00");
 
         netPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 102)));
 
@@ -993,7 +993,7 @@ public class SalaryPanel extends javax.swing.JPanel {
 
         previewNetPayText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         previewNetPayText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        previewNetPayText.setText("16,180,000.00");
+        previewNetPayText.setText("0.00");
 
         javax.swing.GroupLayout netPanelLayout = new javax.swing.GroupLayout(netPanel);
         netPanel.setLayout(netPanelLayout);
@@ -1020,16 +1020,16 @@ public class SalaryPanel extends javax.swing.JPanel {
         employeeNoText.setText("10010");
 
         nameText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        nameText.setText("Don Justine Fontanilla");
+        nameText.setText("              ");
 
         positionText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionText.setText("Chief Operating Executive");
+        positionText.setText("                               ");
 
         startText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        startText.setText("2026/01/15");
+        startText.setText("                                               ");
 
         endText.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        endText.setText("2026/01/31");
+        endText.setText("                                                              ");
 
         javax.swing.GroupLayout payslipLayerLayout = new javax.swing.GroupLayout(payslipLayer);
         payslipLayer.setLayout(payslipLayerLayout);
@@ -1049,30 +1049,6 @@ public class SalaryPanel extends javax.swing.JPanel {
                             .addGroup(payslipLayerLayout.createSequentialGroup()
                                 .addComponent(summaryLabel)
                                 .addGap(217, 271, Short.MAX_VALUE))
-                            .addGroup(payslipLayerLayout.createSequentialGroup()
-                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(payslipLayerLayout.createSequentialGroup()
-                                        .addComponent(endLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(endText))
-                                    .addComponent(earningsLabel)
-                                    .addGroup(payslipLayerLayout.createSequentialGroup()
-                                        .addComponent(empLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(employeeNoText))
-                                    .addGroup(payslipLayerLayout.createSequentialGroup()
-                                        .addComponent(nameLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nameText))
-                                    .addGroup(payslipLayerLayout.createSequentialGroup()
-                                        .addComponent(positionLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(positionText))
-                                    .addGroup(payslipLayerLayout.createSequentialGroup()
-                                        .addComponent(startLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(startText)))
-                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(payslipLayerLayout.createSequentialGroup()
                                 .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(payslipLayerLayout.createSequentialGroup()
@@ -1118,7 +1094,31 @@ public class SalaryPanel extends javax.swing.JPanel {
                                             .addComponent(pagIbigText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(sssText, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(totalDeductionText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                .addGap(8, 8, 8))))
+                                .addGap(8, 8, 8))
+                            .addGroup(payslipLayerLayout.createSequentialGroup()
+                                .addGroup(payslipLayerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addComponent(endLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(endText))
+                                    .addComponent(earningsLabel)
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addComponent(empLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(employeeNoText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addComponent(positionLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(positionText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addComponent(startLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(startText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(payslipLayerLayout.createSequentialGroup()
+                                        .addComponent(nameLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(payslipLayerLayout.createSequentialGroup()
                         .addComponent(motorPhIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
