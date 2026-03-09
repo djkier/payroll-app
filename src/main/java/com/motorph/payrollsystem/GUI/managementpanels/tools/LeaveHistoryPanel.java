@@ -181,8 +181,8 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
         String keyword = searchField.getText().trim().toLowerCase();
 
         if (keyword.isEmpty()) {
-            displayList = new ArrayList(nonPendingList);
-            fillTable(filterByStatus(displayList));
+            displayList = filterByStatus(new ArrayList(nonPendingList));
+            fillTable(displayList);
             return;
         }
 

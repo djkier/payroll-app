@@ -136,6 +136,9 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
 
         fillEmployeeDetails(employee);
         fillRequestDetails(request);
+        boolean isRequestFromTheCurrentUser = employee.getEmployeeNo()
+                .equalsIgnoreCase(currentEmployee.getEmployeeNo());
+        decisionEligibility(isRequestFromTheCurrentUser);
         
         dialogOpener(leaveDetailsDialog, title);
     }
@@ -156,6 +159,11 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         statusField.setText(request.getStatus().toString());
         messageTextArea.setText(request.getMessage());
 
+    }
+    
+    private void decisionEligibility(boolean isSamePerson) {
+        denyBtn.setEnabled(!isSamePerson);
+        approveBtn.setEnabled(!isSamePerson);
     }
     
     private void showConfirmationDialog(String title) {
