@@ -53,16 +53,14 @@ public class EmployeeService {
             throw new IllegalArgumentException("Birthday is required.");
         }
 
-        // You said to comment out validation for later.
-        // Possible next validations:
+        //Try to validate this if time permited
         // - ContactInfo should not be null
         // - Address and phone number required
         // - GovIds should not be null
         // - SSS / PhilHealth / TIN / Pag-IBIG required
         // - DepartmentInfo should not be null
         // - Status / Position / Supervisor required
-        // - CompProfile should not be null
-        // - Basic salary and allowances should be valid non-negative numbers
+
 
         //recheck if it has existed on the list
         Employee existing = findByEmployeeNo(employee.getEmployeeNo());

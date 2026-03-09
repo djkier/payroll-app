@@ -7,6 +7,7 @@ package com.motorph.payrollsystem.access;
 import com.motorph.payrollsystem.access.policies.AdminPolicy;
 import com.motorph.payrollsystem.access.policies.EmployeePolicy;
 import com.motorph.payrollsystem.access.policies.HrPolicy;
+import com.motorph.payrollsystem.access.policies.ItPolicy;
 import com.motorph.payrollsystem.access.policies.PayrollPolicy;
 import com.motorph.payrollsystem.model.employee.Employee;
 
@@ -28,6 +29,9 @@ public class PositionPolicyResolver {
                 
             case "Accounting":
                 return new PayrollPolicy();
+                
+            case "Information Technology":
+                return new ItPolicy();
                 
             default:
                 return new EmployeePolicy();

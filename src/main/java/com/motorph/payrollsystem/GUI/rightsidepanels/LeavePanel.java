@@ -36,7 +36,6 @@ public class LeavePanel extends javax.swing.JPanel {
      */
     public LeavePanel(AppContext appContext) {
         this.appContext = appContext;
-        this.statusCell = statusCellRenderer();
         this.currentHistory = List.of();
        
         initComponents();
@@ -811,7 +810,6 @@ public class LeavePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_newRequestDialogWindowClosing
     
     private boolean syncing = false;
-    private DefaultTableCellRenderer statusCell;
     private List<LeaveRequest> currentHistory;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables

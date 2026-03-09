@@ -218,8 +218,9 @@ public class PasswordFrame extends javax.swing.JFrame {
                 }
  
                 AccessPolicy policy = appContext.getPositionPolicyResolver().resolve(employee);
+                System.out.println(policy.roleName());
                 if (policy == null) policy = new EmployeePolicy();
-                
+                System.out.println(policy.roleName());
                 appContext.getSessionManager().startSession(userAccount, employee, policy);
                 
                 MainFrame mainFrame = new MainFrame(appContext);
