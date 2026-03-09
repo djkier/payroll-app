@@ -19,22 +19,38 @@ public class AdminPolicy implements AccessPolicy{
     @Override
     public boolean canManageEmployees() {
         return false;
-    };
+    }
     
     @Override
     public boolean canReviewLeaveRequests() {
         return true;
-    };
+    }
     
     @Override
-    public boolean canRunPayroll() {
+    public boolean canUpdateEmployeeSalary() {
         return false;
-    };
+    }
+    
+    @Override
+    public boolean canViewEmployeePayroll() {
+        return true;
+    }
+    
+    @Override
+    public boolean canMakePayrollReports() {
+        return false;
+    }
     
     @Override
     public boolean canViewPayrollReports() {
         return true;
-    };
+    }
+    
+    @Override
+    public boolean canManageUserAccount() {
+        return false;
+    }
+    
     
     @Override
     public String roleName() {

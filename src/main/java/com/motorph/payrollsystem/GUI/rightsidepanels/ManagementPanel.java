@@ -33,20 +33,19 @@ public class ManagementPanel extends javax.swing.JPanel {
                 getClass().getResource("/images/tab-icon/motorPhFrame.png")
         );
         
-        
-        
         initComponents();
         applyAccessControl();
-
-
     }
     
     
     private void applyAccessControl() {
         manageCard(reviewLeaveCard, policy.canReviewLeaveRequests());
         manageCard(eimCard, policy.canManageEmployees());
-        manageCard(runPayrollCard, policy.canRunPayroll());
-        manageCard(payrollReportsCard, policy.canViewPayrollReports());
+        manageCard(updateEmployeeSalaryCard, policy.canUpdateEmployeeSalary());
+        manageCard(employeePayrollCard, policy.canViewEmployeePayroll());
+        manageCard(payrollReportsCard, policy.canMakePayrollReports());
+        manageCard(viewPayrollReportsCard, policy.canViewPayrollReports());
+        manageCard(userAccountManagmentCard, policy.canManageUserAccount());
         
         layoutManager.revalidate();
         layoutManager.repaint();
@@ -98,10 +97,16 @@ public class ManagementPanel extends javax.swing.JPanel {
         eimLabel = new javax.swing.JLabel();
         reviewLeaveCard = new javax.swing.JPanel();
         reviewLeaveLabel = new javax.swing.JLabel();
-        runPayrollCard = new javax.swing.JPanel();
-        runPayrollLabel = new javax.swing.JLabel();
+        updateEmployeeSalaryCard = new javax.swing.JPanel();
+        updateEmployeeSalaryLabel = new javax.swing.JLabel();
+        employeePayrollCard = new javax.swing.JPanel();
+        employeePayrollLabel = new javax.swing.JLabel();
         payrollReportsCard = new javax.swing.JPanel();
         payrollReportsLabel = new javax.swing.JLabel();
+        viewPayrollReportsCard = new javax.swing.JPanel();
+        viewPayrollReportsLabel = new javax.swing.JLabel();
+        userAccountManagmentCard = new javax.swing.JPanel();
+        userAccountManagementLabel = new javax.swing.JLabel();
 
         dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         dialog.setAlwaysOnTop(true);
@@ -196,7 +201,7 @@ public class ManagementPanel extends javax.swing.JPanel {
 
         reviewLeaveLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         reviewLeaveLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        reviewLeaveLabel.setText("LEAVE REQUEST REVIEW");
+        reviewLeaveLabel.setText("LEAVE REQUESTS");
 
         javax.swing.GroupLayout reviewLeaveCardLayout = new javax.swing.GroupLayout(reviewLeaveCard);
         reviewLeaveCard.setLayout(reviewLeaveCardLayout);
@@ -214,38 +219,74 @@ public class ManagementPanel extends javax.swing.JPanel {
 
         layoutManager.add(reviewLeaveCard);
 
-        runPayrollCard.setBackground(new java.awt.Color(255, 255, 255));
-        runPayrollCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        runPayrollCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        runPayrollCard.setPreferredSize(new java.awt.Dimension(280, 200));
-        runPayrollCard.addMouseListener(new java.awt.event.MouseAdapter() {
+        updateEmployeeSalaryCard.setBackground(new java.awt.Color(255, 255, 255));
+        updateEmployeeSalaryCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        updateEmployeeSalaryCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateEmployeeSalaryCard.setPreferredSize(new java.awt.Dimension(280, 200));
+        updateEmployeeSalaryCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                updateEmployeeSalaryCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                runPayrollCardMouseEntered(evt);
+                updateEmployeeSalaryCardMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                runPayrollCardMouseExited(evt);
+                updateEmployeeSalaryCardMouseExited(evt);
             }
         });
 
-        runPayrollLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        runPayrollLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        runPayrollLabel.setText("RUN PAYROLL");
+        updateEmployeeSalaryLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        updateEmployeeSalaryLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        updateEmployeeSalaryLabel.setText("UPDATE EMPLOYEE SALARY");
 
-        javax.swing.GroupLayout runPayrollCardLayout = new javax.swing.GroupLayout(runPayrollCard);
-        runPayrollCard.setLayout(runPayrollCardLayout);
-        runPayrollCardLayout.setHorizontalGroup(
-            runPayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(runPayrollLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        javax.swing.GroupLayout updateEmployeeSalaryCardLayout = new javax.swing.GroupLayout(updateEmployeeSalaryCard);
+        updateEmployeeSalaryCard.setLayout(updateEmployeeSalaryCardLayout);
+        updateEmployeeSalaryCardLayout.setHorizontalGroup(
+            updateEmployeeSalaryCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(updateEmployeeSalaryLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
-        runPayrollCardLayout.setVerticalGroup(
-            runPayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, runPayrollCardLayout.createSequentialGroup()
+        updateEmployeeSalaryCardLayout.setVerticalGroup(
+            updateEmployeeSalaryCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, updateEmployeeSalaryCardLayout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
-                .addComponent(runPayrollLabel)
+                .addComponent(updateEmployeeSalaryLabel)
                 .addGap(24, 24, 24))
         );
 
-        layoutManager.add(runPayrollCard);
+        layoutManager.add(updateEmployeeSalaryCard);
+
+        employeePayrollCard.setBackground(new java.awt.Color(255, 255, 255));
+        employeePayrollCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        employeePayrollCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        employeePayrollCard.setPreferredSize(new java.awt.Dimension(280, 200));
+        employeePayrollCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                employeePayrollCardMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                employeePayrollCardMouseExited(evt);
+            }
+        });
+
+        employeePayrollLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        employeePayrollLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        employeePayrollLabel.setText("EMPLOYEE PAYROLL");
+
+        javax.swing.GroupLayout employeePayrollCardLayout = new javax.swing.GroupLayout(employeePayrollCard);
+        employeePayrollCard.setLayout(employeePayrollCardLayout);
+        employeePayrollCardLayout.setHorizontalGroup(
+            employeePayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(employeePayrollLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        );
+        employeePayrollCardLayout.setVerticalGroup(
+            employeePayrollCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, employeePayrollCardLayout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(employeePayrollLabel)
+                .addGap(24, 24, 24))
+        );
+
+        layoutManager.add(employeePayrollCard);
 
         payrollReportsCard.setBackground(new java.awt.Color(255, 255, 255));
         payrollReportsCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
@@ -262,13 +303,13 @@ public class ManagementPanel extends javax.swing.JPanel {
 
         payrollReportsLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         payrollReportsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        payrollReportsLabel.setText("VIEW PAYROLL REPORTS");
+        payrollReportsLabel.setText("PAYROLL REPORTS");
 
         javax.swing.GroupLayout payrollReportsCardLayout = new javax.swing.GroupLayout(payrollReportsCard);
         payrollReportsCard.setLayout(payrollReportsCardLayout);
         payrollReportsCardLayout.setHorizontalGroup(
             payrollReportsCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(payrollReportsLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addComponent(payrollReportsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
         payrollReportsCardLayout.setVerticalGroup(
             payrollReportsCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,6 +320,72 @@ public class ManagementPanel extends javax.swing.JPanel {
         );
 
         layoutManager.add(payrollReportsCard);
+
+        viewPayrollReportsCard.setBackground(new java.awt.Color(255, 255, 255));
+        viewPayrollReportsCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        viewPayrollReportsCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        viewPayrollReportsCard.setPreferredSize(new java.awt.Dimension(280, 200));
+        viewPayrollReportsCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                viewPayrollReportsCardMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                viewPayrollReportsCardMouseExited(evt);
+            }
+        });
+
+        viewPayrollReportsLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        viewPayrollReportsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        viewPayrollReportsLabel.setText("VIEW PAYROLL REPORTS");
+
+        javax.swing.GroupLayout viewPayrollReportsCardLayout = new javax.swing.GroupLayout(viewPayrollReportsCard);
+        viewPayrollReportsCard.setLayout(viewPayrollReportsCardLayout);
+        viewPayrollReportsCardLayout.setHorizontalGroup(
+            viewPayrollReportsCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(viewPayrollReportsLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        );
+        viewPayrollReportsCardLayout.setVerticalGroup(
+            viewPayrollReportsCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewPayrollReportsCardLayout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(viewPayrollReportsLabel)
+                .addGap(24, 24, 24))
+        );
+
+        layoutManager.add(viewPayrollReportsCard);
+
+        userAccountManagmentCard.setBackground(new java.awt.Color(255, 255, 255));
+        userAccountManagmentCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        userAccountManagmentCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userAccountManagmentCard.setPreferredSize(new java.awt.Dimension(280, 200));
+        userAccountManagmentCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                userAccountManagmentCardMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                userAccountManagmentCardMouseExited(evt);
+            }
+        });
+
+        userAccountManagementLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        userAccountManagementLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        userAccountManagementLabel.setText("USER ACCOUNT MANAGEMENT");
+
+        javax.swing.GroupLayout userAccountManagmentCardLayout = new javax.swing.GroupLayout(userAccountManagmentCard);
+        userAccountManagmentCard.setLayout(userAccountManagmentCardLayout);
+        userAccountManagmentCardLayout.setHorizontalGroup(
+            userAccountManagmentCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(userAccountManagementLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+        );
+        userAccountManagmentCardLayout.setVerticalGroup(
+            userAccountManagmentCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userAccountManagmentCardLayout.createSequentialGroup()
+                .addContainerGap(153, Short.MAX_VALUE)
+                .addComponent(userAccountManagementLabel)
+                .addGap(24, 24, 24))
+        );
+
+        layoutManager.add(userAccountManagmentCard);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -294,7 +401,7 @@ public class ManagementPanel extends javax.swing.JPanel {
                         .addComponent(managementLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(layoutManager, javax.swing.GroupLayout.PREFERRED_SIZE, 684, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(layoutManager, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -304,8 +411,8 @@ public class ManagementPanel extends javax.swing.JPanel {
                 .addComponent(managementLabel)
                 .addGap(6, 6, 6)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(layoutManager, javax.swing.GroupLayout.PREFERRED_SIZE, 498, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(layoutManager, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -330,25 +437,25 @@ public class ManagementPanel extends javax.swing.JPanel {
         cardMouseExited(reviewLeaveCard);
     }//GEN-LAST:event_reviewLeaveCardMouseExited
 
-    private void runPayrollCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runPayrollCardMouseEntered
+    private void updateEmployeeSalaryCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateEmployeeSalaryCardMouseEntered
         // TODO add your handling code here:
-        cardMouseEntered(runPayrollCard);
-    }//GEN-LAST:event_runPayrollCardMouseEntered
+        cardMouseEntered(updateEmployeeSalaryCard);
+    }//GEN-LAST:event_updateEmployeeSalaryCardMouseEntered
 
-    private void runPayrollCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_runPayrollCardMouseExited
+    private void updateEmployeeSalaryCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateEmployeeSalaryCardMouseExited
         // TODO add your handling code here:
-        cardMouseExited(runPayrollCard);
-    }//GEN-LAST:event_runPayrollCardMouseExited
+        cardMouseExited(updateEmployeeSalaryCard);
+    }//GEN-LAST:event_updateEmployeeSalaryCardMouseExited
 
-    private void payrollReportsCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseEntered
+    private void employeePayrollCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeePayrollCardMouseEntered
         // TODO add your handling code here:
-        cardMouseEntered(payrollReportsCard);
-    }//GEN-LAST:event_payrollReportsCardMouseEntered
+        cardMouseEntered(employeePayrollCard);
+    }//GEN-LAST:event_employeePayrollCardMouseEntered
 
-    private void payrollReportsCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseExited
+    private void employeePayrollCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeePayrollCardMouseExited
         // TODO add your handling code here:
-        cardMouseExited(payrollReportsCard);
-    }//GEN-LAST:event_payrollReportsCardMouseExited
+        cardMouseExited(employeePayrollCard);
+    }//GEN-LAST:event_employeePayrollCardMouseExited
 
     private void eimCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eimCardMouseClicked
         // TODO add your handling code here:
@@ -366,13 +473,13 @@ public class ManagementPanel extends javax.swing.JPanel {
         openNewWindow(
                 title,
                 new EIMPanels(appContext, dialog),
-                new Dimension(822, 690)
+                new Dimension(822, 700)
         );
     }//GEN-LAST:event_eimCardMouseClicked
 
     private void reviewLeaveCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_reviewLeaveCardMouseClicked
         // TODO add your handling code here:
-        if (policy == null || !policy.canManageEmployees()) {
+        if (policy == null || !policy.canReviewLeaveRequests()) {
             javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
             return;
         }
@@ -389,6 +496,34 @@ public class ManagementPanel extends javax.swing.JPanel {
                 new Dimension(827, 646)
         );
     }//GEN-LAST:event_reviewLeaveCardMouseClicked
+
+    private void payrollReportsCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_payrollReportsCardMouseEntered
+
+    private void payrollReportsCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_payrollReportsCardMouseExited
+
+    private void viewPayrollReportsCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollReportsCardMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewPayrollReportsCardMouseEntered
+
+    private void viewPayrollReportsCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollReportsCardMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewPayrollReportsCardMouseExited
+
+    private void userAccountManagmentCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountManagmentCardMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userAccountManagmentCardMouseEntered
+
+    private void userAccountManagmentCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountManagmentCardMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userAccountManagmentCardMouseExited
+
+    private void updateEmployeeSalaryCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateEmployeeSalaryCardMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateEmployeeSalaryCardMouseClicked
     
     private ImageIcon moduleIcon;
     private AccessPolicy policy;
@@ -398,13 +533,19 @@ public class ManagementPanel extends javax.swing.JPanel {
     private javax.swing.JDialog dialog;
     private javax.swing.JPanel eimCard;
     private javax.swing.JLabel eimLabel;
+    private javax.swing.JPanel employeePayrollCard;
+    private javax.swing.JLabel employeePayrollLabel;
     private javax.swing.JPanel layoutManager;
     private javax.swing.JLabel managementLabel;
     private javax.swing.JPanel payrollReportsCard;
     private javax.swing.JLabel payrollReportsLabel;
     private javax.swing.JPanel reviewLeaveCard;
     private javax.swing.JLabel reviewLeaveLabel;
-    private javax.swing.JPanel runPayrollCard;
-    private javax.swing.JLabel runPayrollLabel;
+    private javax.swing.JPanel updateEmployeeSalaryCard;
+    private javax.swing.JLabel updateEmployeeSalaryLabel;
+    private javax.swing.JLabel userAccountManagementLabel;
+    private javax.swing.JPanel userAccountManagmentCard;
+    private javax.swing.JPanel viewPayrollReportsCard;
+    private javax.swing.JLabel viewPayrollReportsLabel;
     // End of variables declaration//GEN-END:variables
 }

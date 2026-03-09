@@ -206,6 +206,7 @@ public class EIMPanels extends javax.swing.JPanel {
         idRadio = new javax.swing.JRadioButton();
         lastNameRadio = new javax.swing.JRadioButton();
         searchByLabel = new javax.swing.JLabel();
+        noteLabel = new javax.swing.JLabel();
 
         editEmployeeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         editEmployeeDialog.setAlwaysOnTop(true);
@@ -341,47 +342,54 @@ public class EIMPanels extends javax.swing.JPanel {
         searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         searchByLabel.setText("Search by :");
 
+        noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
+        noteLabel.setText("Double-click a row to edit employee information.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchByLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(statsLabel))
-                    .addComponent(empInfoPane)
-                    .addComponent(headerLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(noteLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(searchByLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(statsLabel))
+                        .addComponent(empInfoPane)
+                        .addComponent(headerLabel)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24)
+                            .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(12, 12, 12)
                 .addComponent(headerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(addNewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                     .addComponent(searchBarTextField))
-                .addGap(12, 12, 12)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRadio)
                     .addComponent(lastNameRadio)
                     .addComponent(searchByLabel)
                     .addComponent(statsLabel))
-                .addGap(12, 12, 12)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(noteLabel)
+                .addGap(0, 0, 0)
+                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addGap(24, 24, 24))
         );
 
         idRadio.getAccessibleContext().setAccessibleDescription("");
@@ -471,6 +479,7 @@ public class EIMPanels extends javax.swing.JPanel {
     private javax.swing.JLabel headerLabel;
     private javax.swing.JRadioButton idRadio;
     private javax.swing.JRadioButton lastNameRadio;
+    private javax.swing.JLabel noteLabel;
     private javax.swing.ButtonGroup radioBtnGroup;
     private javax.swing.JTextField searchBarTextField;
     private javax.swing.JLabel searchByLabel;

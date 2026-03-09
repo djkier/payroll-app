@@ -27,14 +27,29 @@ public class HrPolicy implements AccessPolicy{
     };
     
     @Override
-    public boolean canRunPayroll() {
+    public boolean canUpdateEmployeeSalary() {
         return false;
-    };
+    }
+    
+    @Override
+    public boolean canViewEmployeePayroll() {
+        return false;
+    }
+    
+    @Override
+    public boolean canMakePayrollReports() {
+        return false;
+    }
     
     @Override
     public boolean canViewPayrollReports() {
         return false;
-    };
+    }
+    
+    @Override
+    public boolean canManageUserAccount() {
+        return false;
+    }
     
     @Override
     public String roleName() {

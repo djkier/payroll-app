@@ -10,7 +10,7 @@ import com.motorph.payrollsystem.access.AccessPolicy;
  *
  * @author djjus
  */
-public class PayrollPolicy implements AccessPolicy{
+public class ItPolicy implements AccessPolicy {
     @Override
     public boolean canViewServiceMenu() {
         return true;
@@ -28,17 +28,17 @@ public class PayrollPolicy implements AccessPolicy{
     
     @Override
     public boolean canUpdateEmployeeSalary() {
-        return true;
+        return false;
     }
     
     @Override
     public boolean canViewEmployeePayroll() {
-        return true;
+        return false;
     }
     
     @Override
     public boolean canMakePayrollReports() {
-        return true;
+        return false;
     }
     
     @Override
@@ -53,6 +53,6 @@ public class PayrollPolicy implements AccessPolicy{
     
     @Override
     public String roleName() {
-        return "PAYROLL";
+        return "IT";
     }
 }

@@ -353,22 +353,30 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="searchField" alignment="0" min="-2" pref="257" max="-2" attributes="0"/>
-                          <Component id="leaveHistoryHeader" min="-2" max="-2" attributes="0"/>
-                          <Component id="filterIDLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="326" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="filterStatusLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="statusComboBox" min="-2" pref="196" max="-2" attributes="0"/>
-                      </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="noteLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Component id="leaveHistoryPane" pref="779" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="searchField" alignment="0" min="-2" pref="257" max="-2" attributes="0"/>
+                                  <Component id="leaveHistoryHeader" min="-2" max="-2" attributes="0"/>
+                                  <Component id="filterIDLabel" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="326" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="filterStatusLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="statusComboBox" min="-2" pref="196" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="leaveHistoryPane" pref="779" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -387,7 +395,9 @@
                   <Component id="searchField" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                   <Component id="statusComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <Component id="noteLabel" min="-2" pref="19" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="leaveHistoryPane" min="-2" pref="472" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
@@ -509,6 +519,14 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="noteLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Double-click a row to view leave request details."/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

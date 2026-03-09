@@ -346,6 +346,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         searchField = new javax.swing.JTextField();
         filterLabel = new javax.swing.JLabel();
         historyBtn = new javax.swing.JButton();
+        noteLabel = new javax.swing.JLabel();
 
         leaveDetailsDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         leaveDetailsDialog.setAlwaysOnTop(true);
@@ -539,18 +540,18 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
 
         rejectOrApprovePanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        rejectOrApproveLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         rejectOrApproveLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rejectOrApproveLabel.setText("Reject leave request?");
-        rejectOrApproveLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        cancelBtn.setText("Cancel");
         cancelBtn.setBackground(ThemeColor.lightRed());
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
-        confirmBtn.setText("Confirm");
         confirmBtn.setBackground(ThemeColor.lightGreen());
         confirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        confirmBtn.setText("Confirm");
         confirmBtn.addActionListener(this::confirmBtnActionPerformed);
 
         employeeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -725,6 +726,9 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         historyBtn.setText("View Leave History");
         historyBtn.addActionListener(this::historyBtnActionPerformed);
 
+        noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
+        noteLabel.setText("Double-click a row to review the leave request.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -732,11 +736,6 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(leaveMngtHeader)
-                            .addComponent(filterLabel))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -744,7 +743,13 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(historyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tablePane, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE))
-                        .addGap(24, 24, 24))))
+                        .addGap(24, 24, 24))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(noteLabel)
+                            .addComponent(leaveMngtHeader)
+                            .addComponent(filterLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -757,9 +762,11 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(historyBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addGap(12, 12, 12)
+                .addComponent(noteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -862,6 +869,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JLabel nameField;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel noteLabel;
     private javax.swing.JLabel numField;
     private javax.swing.JLabel numLabel;
     private javax.swing.JLabel positionField;

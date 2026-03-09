@@ -264,6 +264,7 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
         filterIDLabel = new javax.swing.JLabel();
         filterStatusLabel = new javax.swing.JLabel();
         statusComboBox = new javax.swing.JComboBox<>();
+        noteLabel = new javax.swing.JLabel();
 
         viewLeaveDetailsDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         viewLeaveDetailsDialog.setAlwaysOnTop(true);
@@ -485,24 +486,32 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Approved", "Rejected" }));
         statusComboBox.addActionListener(this::statusComboBoxActionPerformed);
 
+        noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
+        noteLabel.setText("Double-click a row to view leave request details.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(leaveHistoryHeader)
-                            .addComponent(filterIDLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(filterStatusLabel)
-                            .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(leaveHistoryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE))
-                .addGap(24, 24, 24))
+                        .addComponent(noteLabel)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(leaveHistoryHeader)
+                                    .addComponent(filterIDLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 326, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(filterStatusLabel)
+                                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(leaveHistoryPane, javax.swing.GroupLayout.DEFAULT_SIZE, 779, Short.MAX_VALUE))
+                        .addGap(24, 24, 24))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +526,9 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(3, 3, 3)
+                .addComponent(noteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(leaveHistoryPane, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
@@ -578,6 +589,7 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea messageTextArea;
     private javax.swing.JLabel nameField;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel noteLabel;
     private javax.swing.JLabel numField;
     private javax.swing.JLabel numLabel;
     private javax.swing.JLabel positionField;

@@ -13,8 +13,11 @@ public interface AccessPolicy {
     
     boolean canManageEmployees();
     boolean canReviewLeaveRequests();
-    boolean canRunPayroll();
+    boolean canUpdateEmployeeSalary();
+    boolean canViewEmployeePayroll();
+    boolean canMakePayrollReports();
     boolean canViewPayrollReports();
+    boolean canManageUserAccount();
     
     String roleName();
 }

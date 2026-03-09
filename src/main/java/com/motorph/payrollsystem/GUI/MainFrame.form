@@ -119,8 +119,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="leftSidePanel" max="32767" attributes="0"/>
-                  <Component id="rightPanel" max="32767" attributes="0"/>
+                  <Component id="rightPanel" pref="652" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="leftSidePanel" min="-2" pref="600" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
       </Group>
@@ -149,10 +152,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
-                  <Component id="navBar" min="-2" pref="352" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="navBar" min="-2" pref="316" max="-2" attributes="0"/>
+                  <EmptySpace pref="92" max="32767" attributes="0"/>
                   <Component id="logoutBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -173,12 +175,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="logoutLabel" alignment="0" pref="240" max="32767" attributes="0"/>
+                  <Component id="logoutLabel" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="logoutLabel" alignment="1" pref="56" max="32767" attributes="0"/>
+                  <Component id="logoutLabel" min="-2" pref="56" max="-2" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -223,16 +225,13 @@
                   <Component id="profileBtn" alignment="1" max="32767" attributes="0"/>
                   <Component id="salaryBtn" alignment="0" max="32767" attributes="0"/>
                   <Component id="leaveBtn" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="mngtBtn" max="32767" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="mngtBtn" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="homeBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="profileBtn" min="-2" max="-2" attributes="0"/>
@@ -242,7 +241,6 @@
                       <Component id="leaveBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="mngtBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="42" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -302,7 +300,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="profileLabel" alignment="0" max="32767" attributes="0"/>
+                      <Component id="profileLabel" alignment="0" pref="240" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -510,7 +508,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="652" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
