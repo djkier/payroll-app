@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.model.leave.LeaveStatus;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.util.List;
 import java.util.ArrayList;
@@ -467,6 +468,9 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
         leaveHistoryTable.setRowHeight(24);
         leaveHistoryTable.getTableHeader().setReorderingAllowed(false);
         leaveHistoryPane.setViewportView(leaveHistoryTable);
+        if (leaveHistoryTable.getColumnModel().getColumnCount() > 0) {
+            leaveHistoryTable.getColumnModel().getColumn(4).setCellRenderer(FontsAndFormats.statusCellRenderer());
+        }
 
         searchField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {

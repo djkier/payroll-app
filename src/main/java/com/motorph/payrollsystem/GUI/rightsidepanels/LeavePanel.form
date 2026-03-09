@@ -688,7 +688,7 @@
                   <Title/>
                   <Editor/>
                   <Renderer editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                    <Connection code="this.statusCell" type="code"/>
+                    <Connection code="FontsAndFormats.statusCellRenderer()" type="code"/>
                   </Renderer>
                 </Column>
               </TableColumnModel>

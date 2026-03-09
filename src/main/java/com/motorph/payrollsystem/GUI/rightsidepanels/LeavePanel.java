@@ -12,6 +12,7 @@ import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.model.leave.LeaveStatus;
 import com.motorph.payrollsystem.service.LeaveService;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Color;
 import java.awt.Component;
@@ -116,46 +117,6 @@ public class LeavePanel extends javax.swing.JPanel {
                 "  Approved: " + approved + 
                 "  Rejected: " + rejected
                 );
-    }
-    
-    private DefaultTableCellRenderer statusCellRenderer() {
-        return new DefaultTableCellRenderer() {
-            
-            
-            @Override
-            public Component getTableCellRendererComponent(
-                JTable table, Object value, boolean isSelected,
-                boolean hasFocus, int row, int column) {
-                setHorizontalAlignment(javax.swing.JLabel.CENTER);
-                Component cell = super.getTableCellRendererComponent(
-                        table, value, isSelected, hasFocus, row, column);
-
-                // Reset default
-                cell.setBackground(Color.WHITE);
-
-                if (value != null) {
-                    String status = value.toString();
-
-                    switch (status) {
-                        case "APPROVED":
-                            cell.setBackground(ThemeColor.lightGreen());
-                            break;
-                        case "PENDING":
-                            cell.setBackground(ThemeColor.lightYellow());
-                            break;
-                        case "REJECTED":
-                            cell.setBackground(ThemeColor.lightRed());
-                            break;
-                        default:
-                            cell.setBackground(Color.WHITE);
-                    }
-                }
-                
-                
-
-                return cell;
-            }
-        };
     }
     
     private void hookRowDoubleClick() {
@@ -765,7 +726,7 @@ public class LeavePanel extends javax.swing.JPanel {
             requestTable.getColumnModel().getColumn(1).setPreferredWidth(160);
             requestTable.getColumnModel().getColumn(2).setPreferredWidth(40);
             requestTable.getColumnModel().getColumn(3).setPreferredWidth(40);
-            requestTable.getColumnModel().getColumn(4).setCellRenderer(this.statusCell);
+            requestTable.getColumnModel().getColumn(4).setCellRenderer(FontsAndFormats.statusCellRenderer());
         }
 
         counts.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);

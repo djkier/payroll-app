@@ -4,6 +4,11 @@
  */
 package com.motorph.payrollsystem.utility;
 
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+
 
 /**
  *
@@ -37,5 +42,41 @@ public class FontsAndFormats {
         
         return result.toString();
        
+    }
+    
+    //table cellrenderer for leave requests
+    public static DefaultTableCellRenderer statusCellRenderer() {
+        return new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+                setHorizontalAlignment(javax.swing.JLabel.CENTER);
+                Component cell = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                // Reset default
+                cell.setBackground(Color.WHITE);
+
+                if (value != null) {
+                    String status = value.toString();
+
+                    switch (status) {
+                        case "APPROVED":
+                            cell.setBackground(ThemeColor.lightGreen());
+                            break;
+                        case "PENDING":
+                            cell.setBackground(ThemeColor.lightYellow());
+                            break;
+                        case "REJECTED":
+                            cell.setBackground(ThemeColor.lightRed());
+                            break;
+                        default:
+                            cell.setBackground(Color.WHITE);
+                    }
+                }
+                return cell;
+            }
+        };
     }
 }
