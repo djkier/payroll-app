@@ -6,6 +6,7 @@ package com.motorph.payrollsystem.gui.managementpanels;
 
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.gui.managementpanels.tools.LeaveHistoryPanel;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.utility.Dates;
@@ -30,6 +31,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
     ) {
         this.appContext = appContext;
         this.currentEmployee = appContext.getSessionManager().getCurrentEmployee();
+        this.policy = appContext.getSessionManager().getAccessPolicy();
         this.parentDialog = parentDialog;
         this.pendingList = new ArrayList<>();
         this.displayList = new ArrayList<>();
@@ -40,11 +42,10 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         initComponents();
         loadLeaveRequests();
         hookRowDoubleClick();
+        hookSearch();
     }
     
     private void loadLeaveRequests() {
-        AccessPolicy policy = appContext.getSessionManager().getAccessPolicy();
-        
         try {
             this.pendingList= appContext.getLeaveService().getPendingRequestsForReview(policy);
             this.displayList = new ArrayList<>(pendingList);
@@ -65,6 +66,10 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
     
     private void fillTable(List<LeaveRequest> list) {
         DefaultTableModel model = (DefaultTableModel) clearTable(leaveMngtTable);
+        
+        if (list == null || list.isEmpty()) {
+            return;
+        }
         
         for (LeaveRequest request : list) {
             String employeeNo = request.getEmployeeNo();
@@ -165,6 +170,56 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         dialogOpener(rejectOrApprove, title);
     }
     
+    private void hookSearch() {
+        searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+        });
+    }
+    
+    private void applySearch() {
+        String keyword = searchField.getText().trim().toLowerCase();
+
+        if (keyword.isEmpty()) {
+            displayList = new ArrayList<>(pendingList);
+            fillTable(displayList);
+            return;
+        }
+
+        List<LeaveRequest> filtered = new ArrayList<>();
+
+        for (LeaveRequest pending : pendingList) {
+            String employeeNo = String.valueOf(pending.getEmployeeNo().toLowerCase());
+            if (employeeNo.contains(keyword)) {
+                filtered.add(pending);
+            }
+        }
+
+        displayList = filtered;
+        fillTable(displayList);
+    }
+    
+    private void resetSearchAndTable() {
+        applySearch();
+        searchField.setText("");
+        searchField.requestFocus();
+        
+        loadLeaveRequests();
+        
+    }
+    
     private void dialogOpener(javax.swing.JDialog dialog, String title) {
         dialog.setTitle(title);
         dialog.pack();
@@ -173,6 +228,63 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         
         dialog.setVisible(true);
     }
+    
+    private void handleApproval() {
+        try {
+            appContext.getLeaveService().approveRequest(
+                    this.selectedRequest.getRequestId(), 
+                    currentEmployee, 
+                    policy);
+            
+            isApproving = true;
+            leaveDetailsDialog.dispose();
+            rejectOrApprove.dispose();
+            resetSearchAndTable();
+            showSuccessDialog("approved");
+            this.selectedName = "";
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to approve request.",
+                    "Approval Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
+    }
+    
+    private void handleRejection() {
+        try {
+            appContext.getLeaveService().rejectRequest(
+                    this.selectedRequest.getRequestId(), 
+                    currentEmployee, 
+                    policy);
+            
+            isApproving = true;
+            leaveDetailsDialog.dispose();
+            rejectOrApprove.dispose();
+            resetSearchAndTable();
+            showSuccessDialog("rejection");
+            this.selectedName = "";
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed to reject request.",
+                    "Rejection Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
+    }
+    
+    private void showSuccessDialog(String action) {
+        String successMessage = "Leave request " + action + " successfully.";
+        successDialogMessage.setText(successMessage);
+        dialogOpener(successDialog, "Successful");
+    }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -215,6 +327,11 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         leavePeriodLabel = new javax.swing.JLabel();
         employeeNameField = new javax.swing.JLabel();
         leavePeriodField = new javax.swing.JLabel();
+        successDialog = new javax.swing.JDialog(this.parentDialog, true);
+        successPanel = new javax.swing.JPanel();
+        successDialogMessage = new javax.swing.JLabel();
+        successDialogOkBtn = new javax.swing.JButton();
+        historyDialog = new javax.swing.JDialog(this.parentDialog, true);
         leaveMngtHeader = new javax.swing.JLabel();
         tablePane = new javax.swing.JScrollPane();
         leaveMngtTable = new javax.swing.JTable();
@@ -500,11 +617,69 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
             .addComponent(rejectOrApprovePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        successPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        successDialogMessage.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        successDialogMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        successDialogMessage.setText("Leave request approved successfully.");
+
+        successDialogOkBtn.setBackground(ThemeColor.lightGreen());
+        successDialogOkBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        successDialogOkBtn.setText("OK");
+        successDialogOkBtn.addActionListener(this::successDialogOkBtnActionPerformed);
+
+        javax.swing.GroupLayout successPanelLayout = new javax.swing.GroupLayout(successPanel);
+        successPanel.setLayout(successPanelLayout);
+        successPanelLayout.setHorizontalGroup(
+            successPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(successDialogMessage, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addGroup(successPanelLayout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(successDialogOkBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        successPanelLayout.setVerticalGroup(
+            successPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, successPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(successDialogMessage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(successDialogOkBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout successDialogLayout = new javax.swing.GroupLayout(successDialog.getContentPane());
+        successDialog.getContentPane().setLayout(successDialogLayout);
+        successDialogLayout.setHorizontalGroup(
+            successDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(successPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        successDialogLayout.setVerticalGroup(
+            successDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(successPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        historyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        javax.swing.GroupLayout historyDialogLayout = new javax.swing.GroupLayout(historyDialog.getContentPane());
+        historyDialog.getContentPane().setLayout(historyDialogLayout);
+        historyDialogLayout.setHorizontalGroup(
+            historyDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        historyDialogLayout.setVerticalGroup(
+            historyDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setBackground(new java.awt.Color(255, 255, 255));
 
         leaveMngtHeader.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
         leaveMngtHeader.setText("LEAVE REQUEST MANAGEMENT");
 
+        leaveMngtTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         leaveMngtTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -524,16 +699,23 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        leaveMngtTable.setRowHeight(24);
         leaveMngtTable.getTableHeader().setReorderingAllowed(false);
         tablePane.setViewportView(leaveMngtTable);
 
         searchField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        searchField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                searchFieldKeyTyped(evt);
+            }
+        });
 
         filterLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         filterLabel.setText("Filter by ID Number :");
 
         historyBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         historyBtn.setText("View Leave History");
+        historyBtn.addActionListener(this::historyBtnActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -594,19 +776,46 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (isApproving) {
             //make approving here
+            handleApproval();
         } else {
             //do rejection message here
+            handleRejection();
         }
         
-        isApproving = true;
-        leaveDetailsDialog.dispose();
-        rejectOrApprove.dispose();
+        
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void rejectOrApproveWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_rejectOrApproveWindowClosing
         // TODO add your handling code here:
         rejectOrApprove.dispose();
     }//GEN-LAST:event_rejectOrApproveWindowClosing
+
+    private void successDialogOkBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_successDialogOkBtnActionPerformed
+        // TODO add your handling code here:
+        successDialog.dispose();
+    }//GEN-LAST:event_successDialogOkBtnActionPerformed
+
+    private void searchFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchFieldKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+
+        // allow digits only
+        if (!Character.isDigit(c)) {
+            evt.consume();
+            return;
+        }
+
+        // limit to 12 digits
+        if (searchField.getText().length() >= 12) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_searchFieldKeyTyped
+
+    private void historyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyBtnActionPerformed
+        // TODO add your handling code here:
+        historyDialog.setContentPane(new LeaveHistoryPanel(appContext, historyDialog));
+        dialogOpener(historyDialog, "Leave History");
+    }//GEN-LAST:event_historyBtnActionPerformed
 
     private AppContext appContext;
     private Employee currentEmployee;
@@ -617,6 +826,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
     private LeaveRequest selectedRequest;
     private String selectedName;
     private boolean isApproving;
+    private AccessPolicy policy;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton approveBtn;
@@ -631,6 +841,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel filedLabel;
     private javax.swing.JLabel filterLabel;
     private javax.swing.JButton historyBtn;
+    private javax.swing.JDialog historyDialog;
     private javax.swing.JLabel leaveDateField;
     private javax.swing.JLabel leaveDateLabel;
     private javax.swing.JDialog leaveDetailsDialog;
@@ -656,6 +867,10 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel subjectField;
     private javax.swing.JLabel subjectLabel;
+    private javax.swing.JDialog successDialog;
+    private javax.swing.JLabel successDialogMessage;
+    private javax.swing.JButton successDialogOkBtn;
+    private javax.swing.JPanel successPanel;
     private javax.swing.JScrollPane tablePane;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.dao.LeaveRepository;
 import com.motorph.payrollsystem.model.employee.Employee;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +101,18 @@ public class LeaveService {
     public List<LeaveRequest> getDecisionHistory(AccessPolicy policy) throws IOException {
         validateReviewPermission(policy);
         return repo.getDecidedRequestsNewestFirst();
+    }
+    
+    public List<LeaveRequest> getDecisionHistory(AccessPolicy policy, LeaveStatus status) throws IOException {
+        List<LeaveRequest> requests = getDecisionHistory(policy);
+        List<LeaveRequest> filtered = new ArrayList<>();
+        
+        for (LeaveRequest req : requests) {
+            if (req.getStatus() == status) {
+                filtered.add(req);
+            }
+        }
+        return filtered;
     }
 
     public LeaveRequest findRequestById(int requestId, AccessPolicy policy) throws IOException {
