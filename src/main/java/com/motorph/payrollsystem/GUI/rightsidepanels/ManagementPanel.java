@@ -386,7 +386,7 @@ public class ManagementPanel extends javax.swing.JPanel {
         openNewWindow(
                 title,
                 new ReviewLeavePanel(appContext, dialog),
-                new Dimension(822, 1000)
+                new Dimension(827, 646)
         );
     }//GEN-LAST:event_reviewLeaveCardMouseClicked
     
