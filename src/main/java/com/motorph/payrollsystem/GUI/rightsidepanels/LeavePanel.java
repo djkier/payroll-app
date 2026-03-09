@@ -7,6 +7,7 @@ package com.motorph.payrollsystem.gui.rightsidepanels;
 
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
+import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.model.leave.LeaveStatus;
 import com.motorph.payrollsystem.service.LeaveService;
@@ -97,6 +98,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private void fillTable(List<LeaveRequest> list) {
         DefaultTableModel model = (DefaultTableModel) clearTable(requestTable);
         
+        
         for (LeaveRequest history : list) {
             model.addRow(new Object[]{
                 history.getFiledDate(),
@@ -172,13 +174,25 @@ public class LeavePanel extends javax.swing.JPanel {
     }
     
     private void showLeaveDetails(LeaveRequest req) {
-        String approvedBy = (req.getApprovedBy() == null) ? "-" : req.getApprovedBy();
+        String reviewersName;
+        if (!(req.getApprovedById() == null)) {
+            try {
+                Employee reviewer = appContext.getEmployeeService().findByEmployeeNo(req.getApprovedById());
+                reviewersName = reviewer.getLastNameInitial();
+            } catch (Exception ex) {
+                reviewersName = "-";
+            }
+        } else {
+            reviewersName = "-";
+        }
+        
+        
         subjectText.setText(req.getSubject());
         filedText.setText(Dates.shortFullDate(req.getFiledDate()));
         leaveText.setText(Dates.shortFullDate(req.getLeaveStart()) + " to " + Dates.shortFullDate(req.getLeaveEnd()));
         
         dynamicStatusText(statusText, req.getStatus());
-        approvedText.setText(approvedBy);
+        approvedText.setText(reviewersName);
         messageTextArea.setText(req.getMessage());
         
 //        leaveDetailsDialog.setSize(450, 880);

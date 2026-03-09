@@ -23,7 +23,7 @@ public class LeaveRequest {
     
     private LeaveStatus status;
     
-    private String approvedBy;
+    private String approvedById;
     
     public LeaveRequest(
             int requestId,
@@ -34,7 +34,7 @@ public class LeaveRequest {
             String subject,
             String message,
             LeaveStatus status,
-            String approvedBy){
+            String approvedById){
         
         this.requestId = requestId;
         this.employeeNo = employeeId;
@@ -44,7 +44,7 @@ public class LeaveRequest {
         this.subject = subject == null ? "" : subject;
         this.message = message == null ? "" : message;
         this.status = status == null ? LeaveStatus.PENDING : status;
-        this.approvedBy = (approvedBy == null || approvedBy.isBlank()) ? null : approvedBy.trim();
+        this.approvedById = (approvedById == null || approvedById.isBlank()) ? null : approvedById.trim();
     }
     
     public LeaveRequest() {}
@@ -113,12 +113,12 @@ public class LeaveRequest {
         this.status = status;
     }
 
-    public String getApprovedBy() {
-        return approvedBy;
+    public String getApprovedById() {
+        return approvedById;
     }
 
-    public void setApprovedBy(String approvedBy) {
-        this.approvedBy = (approvedBy == null || approvedBy.isBlank()) ? null : approvedBy.trim();
+    public void setApprovedById (String approvedBy) {
+        this.approvedById = (approvedBy == null || approvedBy.isBlank()) ? null : approvedBy.trim();
     }
     
     

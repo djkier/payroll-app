@@ -104,5 +104,9 @@ public class Employee {
         return lastName + ", " + firstName;
     }
     
+    public String getLastNameInitial() {
+        return lastName + ", " + firstName.toUpperCase().charAt(0) + ".";
+    }
+    
     
 }

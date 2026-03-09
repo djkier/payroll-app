@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
-    <Container class="javax.swing.JDialog" name="EIMDialog">
+    <Container class="javax.swing.JDialog" name="dialog">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
         <Property name="alwaysOnTop" type="boolean" value="true"/>
@@ -87,10 +87,10 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="managementLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="MANAGEMENT"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="24" style="1"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="MANAGEMENT"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine">
@@ -171,11 +171,11 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="eimLabel">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="EMPLOYEE INFORMATION MANAGEMENT"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="EMPLOYEE INFORMATION MANAGEMENT"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -200,6 +200,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reviewLeaveCardMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reviewLeaveCardMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="reviewLeaveCardMouseExited"/>
           </Events>
@@ -223,11 +224,11 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="reviewLeaveLabel">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="REVIEW LEAVE REQUEST"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="LEAVE REQUEST REVIEW"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -275,11 +276,11 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="runPayrollLabel">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="RUN PAYROLL"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="RUN PAYROLL"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -327,11 +328,11 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="payrollReportsLabel">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="VIEW PAYROLL REPORTS"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="VIEW PAYROLL REPORTS"/>
               </Properties>
             </Component>
           </SubComponents>

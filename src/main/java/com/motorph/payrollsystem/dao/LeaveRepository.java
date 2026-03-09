@@ -83,6 +83,114 @@ public class LeaveRepository extends CsvRepositoryBase {
         appendRow(toCsvRow(req));
     }
     
+    public List<LeaveRequest> getAllRequests() throws IOException {
+        List<LeaveRequest> requests = new ArrayList<>();
+        ensureFileExistsWithHeader();
+
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)) {
+            String line;
+            br.readLine(); // skip header
+
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] cols = Csv.parseLine(line);
+                if (cols.length < 9) continue;
+
+                requests.add(map(cols));
+            }
+        }
+
+        return requests;
+    }
+    
+    public LeaveRequest findByRequestId(int requestId) throws IOException {
+        ensureFileExistsWithHeader();
+
+        try (BufferedReader br = Files.newBufferedReader(csvPath, StandardCharsets.UTF_8)) {
+            String line;
+            br.readLine(); // skip header
+
+            while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;
+
+                String[] cols = Csv.parseLine(line);
+                if (cols.length < 9) continue;
+
+                LeaveRequest request = map(cols);
+                if (request.getRequestId() == requestId) {
+                    return request;
+                }
+            }
+        }
+
+        return null;
+    }
+    
+    public List<LeaveRequest> getPendingRequestsOldestFirst() throws IOException {
+        List<LeaveRequest> pending = new ArrayList<>();
+
+        for (LeaveRequest request : getAllRequests()) {
+            if (request.getStatus() == LeaveStatus.PENDING) {
+                pending.add(request);
+            }
+        }
+
+        pending.sort(
+            Comparator.comparing(LeaveRequest::getFiledDate)
+                      .thenComparingInt(LeaveRequest::getRequestId)
+        );
+
+        return pending;
+    }
+    
+    public List<LeaveRequest> getDecidedRequestsNewestFirst() throws IOException {
+        List<LeaveRequest> decided = new ArrayList<>();
+
+        for (LeaveRequest request : getAllRequests()) {
+            if (request.getStatus() != LeaveStatus.PENDING) {
+                decided.add(request);
+            }
+        }
+
+        decided.sort(
+            Comparator.comparing(LeaveRequest::getFiledDate)
+                      .reversed()
+                      .thenComparing(Comparator.comparingInt(LeaveRequest::getRequestId).reversed())
+        );
+
+        return decided;
+    }
+    
+    public void update(LeaveRequest updated) throws IOException {
+        if (updated == null) {
+            throw new IllegalArgumentException("Updated leave request cannot be null.");
+        }
+
+        ensureFileExistsWithHeader();
+
+        List<LeaveRequest> allRequests = getAllRequests();
+        List<String> rows = new ArrayList<>();
+
+        boolean found = false;
+
+        for (LeaveRequest request : allRequests) {
+            if (request.getRequestId() == updated.getRequestId()) {
+                rows.add(toCsvRow(updated));
+                found = true;
+            } else {
+                rows.add(toCsvRow(request));
+            }
+        }
+
+        if (!found) {
+            throw new IllegalStateException("Leave request not found: " + updated.getRequestId());
+        }
+
+        rewriteAll(rows);
+    }
+
+    
     //Convert a line (cols) into a LeaveRequest object
     private LeaveRequest map(String[] cols) {
         LeaveRequest request = new LeaveRequest();
@@ -97,7 +205,7 @@ public class LeaveRepository extends CsvRepositoryBase {
         request.setMessage(cols[6]);
         
         request.setStatus(LeaveStatus.fromCsv(cols[7]));
-        request.setApprovedBy(cols[8]);
+        request.setApprovedById(cols[8]);
         
         return request;
     }
@@ -119,14 +227,14 @@ public class LeaveRepository extends CsvRepositoryBase {
     
     @Override
     protected String getHeader() {
-        return "request_id,employee_id,filed_date,leave_start,leave_end,subject,message,status,approved_by";
+        return "request_id,employee_id,filed_date,leave_start,leave_end,subject,message,status,approved_by_id";
     }
     
     
     
     //make a csv line
     private String toCsvRow(LeaveRequest req) {
-        String approvedBy = req.getApprovedBy() == null ? "" : req.getApprovedBy();
+        String approvedBy = req.getApprovedById() == null ? "" : req.getApprovedById();
         
         return req.getRequestId() + "," +
                 req.getEmployeeNo() + "," +

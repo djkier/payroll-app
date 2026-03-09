@@ -4,9 +4,11 @@
  */
 package com.motorph.payrollsystem.service;
 
+import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.model.leave.LeaveStatus;
 import com.motorph.payrollsystem.dao.LeaveRepository;
+import com.motorph.payrollsystem.model.employee.Employee;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.EnumMap;
@@ -62,7 +64,7 @@ public class LeaveService {
         req.setSubject(subject.trim());
         req.setMessage(message.trim());
         req.setStatus(LeaveStatus.PENDING);
-        req.setApprovedBy(null);
+        req.setApprovedById(null);
         
         //save
         repo.append(req);
@@ -79,8 +81,10 @@ public class LeaveService {
         List<LeaveRequest> list = getEmployeeLeaveHistory(employeeNo);
         
         Map<LeaveStatus, Integer> counts = new EnumMap<>(LeaveStatus.class);
-        for (LeaveStatus status : LeaveStatus.values()) counts.put(status, 0);
-        
+        for (LeaveStatus status : LeaveStatus.values()) {
+            counts.put(status, 0);
+        }
+
         for (LeaveRequest request : list) {
             counts.put(request.getStatus(), counts.get(request.getStatus()) + 1);
         }
@@ -88,4 +92,100 @@ public class LeaveService {
         return counts;
     }
     
+    public List<LeaveRequest> getPendingRequestsForReview(AccessPolicy policy) throws IOException {
+        validateReviewPermission(policy);
+        return repo.getPendingRequestsOldestFirst();
+    }
+
+    public List<LeaveRequest> getDecisionHistory(AccessPolicy policy) throws IOException {
+        validateReviewPermission(policy);
+        return repo.getDecidedRequestsNewestFirst();
+    }
+
+    public LeaveRequest findRequestById(int requestId, AccessPolicy policy) throws IOException {
+        validateReviewPermission(policy);
+
+        if (requestId <= 0) {
+            throw new IllegalArgumentException("Invalid request ID.");
+        }
+
+        LeaveRequest request = repo.findByRequestId(requestId);
+        if (request == null) {
+            throw new IllegalStateException("Leave request not found.");
+        }
+
+        return request;
+    }
+
+    public LeaveRequest approveRequest(int requestId, Employee reviewer, AccessPolicy policy) throws IOException {
+        return decideRequest(requestId, reviewer, policy, LeaveStatus.APPROVED);
+    }
+
+    public LeaveRequest rejectRequest(int requestId, Employee reviewer, AccessPolicy policy) throws IOException {
+        return decideRequest(requestId, reviewer, policy, LeaveStatus.REJECTED);
+    }
+
+    public boolean canReviewerDecide(LeaveRequest request, Employee reviewer, AccessPolicy policy) {
+        if (request == null) return false;
+        if (reviewer == null) return false;
+        if (policy == null || !policy.canReviewLeaveRequests()) return false;
+        if (reviewer.getEmployeeNo() == null || reviewer.getEmployeeNo().isBlank()) return false;
+        if (request.getEmployeeNo() != null && request.getEmployeeNo().equals(reviewer.getEmployeeNo())) return false;
+
+        return request.getStatus() == LeaveStatus.PENDING;
+    }
+
+    private LeaveRequest decideRequest(
+            int requestId,
+            Employee reviewer,
+            AccessPolicy policy,
+            LeaveStatus decision
+    ) throws IOException {
+
+        validateReviewPermission(policy);
+
+        if (reviewer == null) {
+            throw new IllegalArgumentException("Reviewer is required.");
+        }
+
+        if (reviewer.getEmployeeNo() == null || reviewer.getEmployeeNo().isBlank()) {
+            throw new IllegalArgumentException("Reviewer employee ID is required.");
+        }
+
+        if (requestId <= 0) {
+            throw new IllegalArgumentException("Invalid request ID.");
+        }
+
+        if (decision != LeaveStatus.APPROVED && decision != LeaveStatus.REJECTED) {
+            throw new IllegalArgumentException("Invalid leave decision.");
+        }
+
+        LeaveRequest request = repo.findByRequestId(requestId);
+        if (request == null) {
+            throw new IllegalStateException("Leave request not found.");
+        }
+
+        if (request.getEmployeeNo() != null && request.getEmployeeNo().equals(reviewer.getEmployeeNo())) {
+            throw new IllegalStateException("You cannot review your own leave request.");
+        }
+
+        if (request.getStatus() != LeaveStatus.PENDING) {
+            throw new IllegalStateException("This leave request has already been decided.");
+        }
+
+        request.setStatus(decision);
+        request.setApprovedById(reviewer.getEmployeeNo());
+
+        repo.update(request);
+
+        return repo.findByRequestId(requestId);
+    }
+
+    private void validateReviewPermission(AccessPolicy policy) {
+        if (policy == null || !policy.canReviewLeaveRequests()) {
+            throw new SecurityException("Access denied. You are not allowed to review leave requests.");
+        }
+    }
 }
+    
+
