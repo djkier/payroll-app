@@ -45,7 +45,7 @@ public class ManagementPanel extends javax.swing.JPanel {
         manageCard(employeePayrollCard, policy.canViewEmployeePayroll());
         manageCard(payrollReportsCard, policy.canMakePayrollReports());
         manageCard(viewPayrollReportsCard, policy.canViewPayrollReports());
-        manageCard(userAccountManagmentCard, policy.canManageUserAccount());
+        manageCard(userAccountMngtCard, policy.canManageUserAccount());
         
         layoutManager.revalidate();
         layoutManager.repaint();
@@ -105,7 +105,7 @@ public class ManagementPanel extends javax.swing.JPanel {
         payrollReportsLabel = new javax.swing.JLabel();
         viewPayrollReportsCard = new javax.swing.JPanel();
         viewPayrollReportsLabel = new javax.swing.JLabel();
-        userAccountManagmentCard = new javax.swing.JPanel();
+        userAccountMngtCard = new javax.swing.JPanel();
         userAccountManagementLabel = new javax.swing.JLabel();
 
         dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -354,16 +354,16 @@ public class ManagementPanel extends javax.swing.JPanel {
 
         layoutManager.add(viewPayrollReportsCard);
 
-        userAccountManagmentCard.setBackground(new java.awt.Color(255, 255, 255));
-        userAccountManagmentCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        userAccountManagmentCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        userAccountManagmentCard.setPreferredSize(new java.awt.Dimension(280, 200));
-        userAccountManagmentCard.addMouseListener(new java.awt.event.MouseAdapter() {
+        userAccountMngtCard.setBackground(new java.awt.Color(255, 255, 255));
+        userAccountMngtCard.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
+        userAccountMngtCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        userAccountMngtCard.setPreferredSize(new java.awt.Dimension(280, 200));
+        userAccountMngtCard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                userAccountManagmentCardMouseEntered(evt);
+                userAccountMngtCardMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                userAccountManagmentCardMouseExited(evt);
+                userAccountMngtCardMouseExited(evt);
             }
         });
 
@@ -371,21 +371,21 @@ public class ManagementPanel extends javax.swing.JPanel {
         userAccountManagementLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         userAccountManagementLabel.setText("USER ACCOUNT MANAGEMENT");
 
-        javax.swing.GroupLayout userAccountManagmentCardLayout = new javax.swing.GroupLayout(userAccountManagmentCard);
-        userAccountManagmentCard.setLayout(userAccountManagmentCardLayout);
-        userAccountManagmentCardLayout.setHorizontalGroup(
-            userAccountManagmentCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout userAccountMngtCardLayout = new javax.swing.GroupLayout(userAccountMngtCard);
+        userAccountMngtCard.setLayout(userAccountMngtCardLayout);
+        userAccountMngtCardLayout.setHorizontalGroup(
+            userAccountMngtCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(userAccountManagementLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
         );
-        userAccountManagmentCardLayout.setVerticalGroup(
-            userAccountManagmentCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userAccountManagmentCardLayout.createSequentialGroup()
+        userAccountMngtCardLayout.setVerticalGroup(
+            userAccountMngtCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userAccountMngtCardLayout.createSequentialGroup()
                 .addContainerGap(153, Short.MAX_VALUE)
                 .addComponent(userAccountManagementLabel)
                 .addGap(24, 24, 24))
         );
 
-        layoutManager.add(userAccountManagmentCard);
+        layoutManager.add(userAccountMngtCard);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -499,27 +499,33 @@ public class ManagementPanel extends javax.swing.JPanel {
 
     private void payrollReportsCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseEntered
         // TODO add your handling code here:
+         cardMouseEntered(payrollReportsCard);
     }//GEN-LAST:event_payrollReportsCardMouseEntered
 
     private void payrollReportsCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseExited
         // TODO add your handling code here:
+        cardMouseExited(payrollReportsCard);
     }//GEN-LAST:event_payrollReportsCardMouseExited
 
     private void viewPayrollReportsCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollReportsCardMouseEntered
         // TODO add your handling code here:
+        cardMouseEntered(viewPayrollReportsCard);
     }//GEN-LAST:event_viewPayrollReportsCardMouseEntered
 
     private void viewPayrollReportsCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollReportsCardMouseExited
         // TODO add your handling code here:
+        cardMouseExited(viewPayrollReportsCard);
     }//GEN-LAST:event_viewPayrollReportsCardMouseExited
 
-    private void userAccountManagmentCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountManagmentCardMouseEntered
+    private void userAccountMngtCardMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountMngtCardMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_userAccountManagmentCardMouseEntered
+        cardMouseEntered(userAccountMngtCard);
+    }//GEN-LAST:event_userAccountMngtCardMouseEntered
 
-    private void userAccountManagmentCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountManagmentCardMouseExited
+    private void userAccountMngtCardMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountMngtCardMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_userAccountManagmentCardMouseExited
+        cardMouseExited(userAccountMngtCard);
+    }//GEN-LAST:event_userAccountMngtCardMouseExited
 
     private void updateEmployeeSalaryCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateEmployeeSalaryCardMouseClicked
         // TODO add your handling code here:
@@ -544,7 +550,7 @@ public class ManagementPanel extends javax.swing.JPanel {
     private javax.swing.JPanel updateEmployeeSalaryCard;
     private javax.swing.JLabel updateEmployeeSalaryLabel;
     private javax.swing.JLabel userAccountManagementLabel;
-    private javax.swing.JPanel userAccountManagmentCard;
+    private javax.swing.JPanel userAccountMngtCard;
     private javax.swing.JPanel viewPayrollReportsCard;
     private javax.swing.JLabel viewPayrollReportsLabel;
     // End of variables declaration//GEN-END:variables
