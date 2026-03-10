@@ -27,6 +27,7 @@ public class AttendanceService {
         this.attendanceRepository = attendanceRepository;
     }
 
+    //Individual attendance state
     public AttendanceState getAttendanceState(Employee employee) throws IOException {
         validateEmployee(employee);
 
@@ -107,12 +108,18 @@ public class AttendanceService {
         );
     }
 
+    //individual attendance history method helper
     public List<AttendanceRecord> getAttendanceHistory(String employeeNo) throws IOException {
         if (employeeNo == null || employeeNo.isBlank()) {
             throw new IllegalArgumentException("Employee number is required.");
         }
 
         return attendanceRepository.findByEmployeeNo(employeeNo);
+    }
+    
+    public List<AttendanceRecord> getAttendanceHistory(Employee employee) throws IOException {
+        validateEmployee(employee);
+        return getAttendanceHistory(employee.getEmployeeNo());
     }
     
     public List<AttendanceRecord> getAttendanceHistoryLatestFirst(Employee employee) throws IOException {
@@ -124,11 +131,6 @@ public class AttendanceService {
         Collections.reverse(records);
 
         return records;
-    }
-
-    public List<AttendanceRecord> getAttendanceHistory(Employee employee) throws IOException {
-        validateEmployee(employee);
-        return attendanceRepository.findByEmployeeNo(employee.getEmployeeNo());
     }
 
     public List<AttendanceRecord> getAttendanceByDate(Employee employee, LocalDate date) throws IOException {
@@ -145,7 +147,7 @@ public class AttendanceService {
         if (employee == null) {
             throw new IllegalArgumentException("Employee is required.");
         }
-
+        
         if (employee.getEmployeeNo() == null || employee.getEmployeeNo().isBlank()) {
             throw new IllegalArgumentException("Employee number is required.");
         }
