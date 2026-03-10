@@ -307,7 +307,7 @@ public class ESMPanel extends javax.swing.JPanel {
         statsLabel.setText("Total : 36  Regular : 12  Probationary : 24");
 
         headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
-        headerLabel.setText("EMPLOYEE INFORMATION MANAGEMENT");
+        headerLabel.setText("EMPLOYEE SALARY MANAGEMENT");
 
         empSalaryInfo.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         empSalaryInfo.setModel(new javax.swing.table.DefaultTableModel(
@@ -356,7 +356,7 @@ public class ESMPanel extends javax.swing.JPanel {
         searchByLabel.setText("Search by :");
 
         noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
-        noteLabel.setText("Double-click a row to edit employee information.");
+        noteLabel.setText("Double-click a row to edit employee salary details.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -385,7 +385,7 @@ public class ESMPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(headerLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(6, 6, 6)
                 .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -397,7 +397,7 @@ public class ESMPanel extends javax.swing.JPanel {
                     .addComponent(noteLabel)
                     .addComponent(statsLabel))
                 .addGap(0, 0, 0)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
