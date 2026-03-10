@@ -4,14 +4,14 @@
   <NonVisualComponents>
     <Component class="javax.swing.ButtonGroup" name="radioBtnGroup">
     </Component>
-    <Container class="javax.swing.JDialog" name="editEmployeeDialog">
+    <Container class="javax.swing.JDialog" name="editSalaryDialog">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="0"/>
         <Property name="alwaysOnTop" type="boolean" value="true"/>
       </Properties>
       <Events>
-        <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="editEmployeeDialogWindowClosed"/>
-        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="editEmployeeDialogWindowClosing"/>
+        <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="editSalaryDialogWindowClosed"/>
+        <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="editSalaryDialogWindowClosing"/>
       </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDialog(this.dialog, true)"/>
@@ -32,7 +32,7 @@
     </Container>
     <Container class="javax.swing.JDialog" name="exitEditorDialog">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDialog(editEmployeeDialog, true)"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDialog(editSalaryDialog, true)"/>
       </AuxValues>
 
       <Layout>

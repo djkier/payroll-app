@@ -41,7 +41,7 @@ public class ESMPanel extends javax.swing.JPanel {
         initComponents();
         
         loadEmployees();
-//        hookRowDoubleClick();
+        hookRowDoubleClick();
         hookSearch();
     }
     
@@ -183,22 +183,18 @@ public class ESMPanel extends javax.swing.JPanel {
 
     private void showSalaryInfo(Employee selectedEmployee) {
         String title = "Employee Salary Information : " + selectedEmployee.getFullName();
-        showSalaryEditor(selectedEmployee, title, true);
-    }
-    
-    private void showSalaryEditor(Employee employee, String title, boolean isViewing) {
-        SalaryEditor salaryEditor = new SalaryEditor(appContext, employee, isViewing, editEmployeeDialog);
+        SalaryEditor salaryEditor = new SalaryEditor(appContext, selectedEmployee, editSalaryDialog);
         openInfoDialog(title, salaryEditor);
     }
     
     private void openInfoDialog(String title, SalaryEditor salaryEditor) {
-        editEmployeeDialog.setTitle(title);
-        editEmployeeDialog.setContentPane(salaryEditor);
-        editEmployeeDialog.pack();
-        editEmployeeDialog.setResizable(false);
-        editEmployeeDialog.setLocationRelativeTo(null);
+        editSalaryDialog.setTitle(title);
+        editSalaryDialog.setContentPane(salaryEditor);
+        editSalaryDialog.pack();
+        editSalaryDialog.setResizable(false);
+        editSalaryDialog.setLocationRelativeTo(null);
         
-        editEmployeeDialog.setVisible(true);
+        editSalaryDialog.setVisible(true);
     }
     
 
@@ -213,8 +209,8 @@ public class ESMPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         radioBtnGroup = new javax.swing.ButtonGroup();
-        editEmployeeDialog = new javax.swing.JDialog(this.dialog, true);
-        exitEditorDialog = new javax.swing.JDialog(editEmployeeDialog, true);
+        editSalaryDialog = new javax.swing.JDialog(this.dialog, true);
+        exitEditorDialog = new javax.swing.JDialog(editSalaryDialog, true);
         cancelConfirmPanel = new javax.swing.JPanel();
         cancelConfrimLabel = new javax.swing.JLabel();
         cancelBtnConfirm = new javax.swing.JButton();
@@ -229,25 +225,25 @@ public class ESMPanel extends javax.swing.JPanel {
         searchByLabel = new javax.swing.JLabel();
         noteLabel = new javax.swing.JLabel();
 
-        editEmployeeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        editEmployeeDialog.setAlwaysOnTop(true);
-        editEmployeeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        editSalaryDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        editSalaryDialog.setAlwaysOnTop(true);
+        editSalaryDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                editEmployeeDialogWindowClosed(evt);
+                editSalaryDialogWindowClosed(evt);
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                editEmployeeDialogWindowClosing(evt);
+                editSalaryDialogWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout editEmployeeDialogLayout = new javax.swing.GroupLayout(editEmployeeDialog.getContentPane());
-        editEmployeeDialog.getContentPane().setLayout(editEmployeeDialogLayout);
-        editEmployeeDialogLayout.setHorizontalGroup(
-            editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout editSalaryDialogLayout = new javax.swing.GroupLayout(editSalaryDialog.getContentPane());
+        editSalaryDialog.getContentPane().setLayout(editSalaryDialogLayout);
+        editSalaryDialogLayout.setHorizontalGroup(
+            editSalaryDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 893, Short.MAX_VALUE)
         );
-        editEmployeeDialogLayout.setVerticalGroup(
-            editEmployeeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        editSalaryDialogLayout.setVerticalGroup(
+            editSalaryDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 653, Short.MAX_VALUE)
         );
 
@@ -416,10 +412,10 @@ public class ESMPanel extends javax.swing.JPanel {
     private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
         // TODO add your handling code here:
         exitEditorDialog.dispose();
-        editEmployeeDialog.dispose();
+        editSalaryDialog.dispose();
     }//GEN-LAST:event_confirmBtnConfirmActionPerformed
 
-    private void editEmployeeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editEmployeeDialogWindowClosing
+    private void editSalaryDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editSalaryDialogWindowClosing
         // TODO add your handling code here:
         exitEditorDialog.pack();
         exitEditorDialog.setResizable(false);
@@ -427,16 +423,16 @@ public class ESMPanel extends javax.swing.JPanel {
         exitEditorDialog.setTitle("Exiting editor");
 
         exitEditorDialog.setVisible(true);  
-    }//GEN-LAST:event_editEmployeeDialogWindowClosing
+    }//GEN-LAST:event_editSalaryDialogWindowClosing
 
-    private void editEmployeeDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editEmployeeDialogWindowClosed
+    private void editSalaryDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editSalaryDialogWindowClosed
         // TODO add your handling code here:
         resetSearchAndTable();
         isIDSelected = true;
         idRadio.setSelected(true);
         
         loadEmployees();
-    }//GEN-LAST:event_editEmployeeDialogWindowClosed
+    }//GEN-LAST:event_editSalaryDialogWindowClosed
 
     private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
         // TODO add your handling code here:
@@ -464,7 +460,7 @@ public class ESMPanel extends javax.swing.JPanel {
     private javax.swing.JPanel cancelConfirmPanel;
     private javax.swing.JLabel cancelConfrimLabel;
     private javax.swing.JButton confirmBtnConfirm;
-    private javax.swing.JDialog editEmployeeDialog;
+    private javax.swing.JDialog editSalaryDialog;
     private javax.swing.JScrollPane empInfoPane;
     private javax.swing.JTable empSalaryInfo;
     private javax.swing.JDialog exitEditorDialog;

@@ -28,4 +28,13 @@ public class Money {
         return df.format(value);
     }
     
+    public static String displayMoney(String value) {
+        return displayMoney(parseSalary(value));
+    }
+    
+    public static String parseStringSalary(String value) {
+        return value.replace(",", "");
+
+    }
+    
 }

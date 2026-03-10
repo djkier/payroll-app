@@ -10,6 +10,7 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.DepartmentResolver;
 import com.motorph.payrollsystem.utility.Mapper;
+import com.motorph.payrollsystem.utility.Money;
 import com.motorph.payrollsystem.utility.RegexPattern;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.io.IOException;
@@ -30,7 +31,6 @@ public class SalaryEditor extends javax.swing.JPanel {
     public SalaryEditor(
         AppContext appContext, 
         Employee selectedEmployee,
-        Boolean viewingMode,
         javax.swing.JDialog dialog) {
         
         this.appContext = appContext;
@@ -38,28 +38,21 @@ public class SalaryEditor extends javax.swing.JPanel {
         this.selectedEmployee = selectedEmployee;
         this.currentEmployee = appContext.getSessionManager().getCurrentEmployee();
         this.parentDialog = dialog;
-        this.isEditing = !viewingMode;
-        this.isViewing = viewingMode;
-        this.isConfirmingCancel = false;
-        this.isConfirmingUpdate = false;
+        this.isEditing = false;
         
         initComponents();
+        initBasicSalaryListener();
         fillEmployeeInformation(selectedEmployee);
-        setDatePicker();
         updateFields();
     }
     
-    //Fill fields with information
+    //Fill fields with salary related information
     private void fillEmployeeInformation(Employee emp) {
         //personal information
-
         fillInfo(employeeNoTextInput, emp.getEmployeeNo());
         fillInfo(firstNameTextInput, emp.getFirstName());
         fillInfo(lastNameTextInput, emp.getLastName());
-        //make bday change into today or emp.getBirthday();
-        fillInfo(bdayPicker, emp.getBirthday());
         fillInfo(addressTextInput, emp.getContactInfo().getAddress());
-        fillInfo(phoneTextInput, emp.getContactInfo().getPhoneNumber());
 
         //govt id
         fillInfo(sssTextInput, emp.getGovIds().getSssNumber());
@@ -69,149 +62,52 @@ public class SalaryEditor extends javax.swing.JPanel {
         
         //dept info
         fillInfo(departmentTextInput, emp.getDepartmentInfo().getDepartment());
-        fillInfo(departmentTextFieldTemp, emp.getDepartmentInfo().getDepartment());
+        fillInfo(positionTextInput, emp.getDepartmentInfo().getPosition());
+        fillInfo(statusTextInput, emp.getDepartmentInfo().getStatus());
         
-        updatePosition(emp.getDepartmentInfo().getPosition());
-        updateSupervisor(emp.getDepartmentInfo().getSupervisor());
-        updateStatus(emp.getDepartmentInfo().getStatus());
+        //salary info
+        fillInfo(basicTextInput, Money.displayMoney(emp.getCompProfile().getBasicSalary()));
+        fillInfo(semiTextInput, Money.displayMoney(emp.getCompProfile().getSemiMonthlyRate()));
+        fillInfo(hourlyTextInput, Money.displayMoney(emp.getCompProfile().getHourlyRate()));
+        fillInfo(riceTextInput, Money.displayMoney(emp.getCompProfile().getRiceSubsidy()));
+        fillInfo(phoneTextInput, Money.displayMoney(emp.getCompProfile().getPhoneAllowance()));
+        fillInfo(clothingTextInput, Money.displayMoney(emp.getCompProfile().getClothingAllowance())); 
     }
     
     private void fillInfo(javax.swing.JTextField textField, String fieldDetails) {
         fieldDetails = (fieldDetails == null) ? "" : fieldDetails;
         textField.setText(fieldDetails);
     }
-    
-    private void fillInfo(com.github.lgooddatepicker.components.DatePicker datePicker, LocalDate date) {
-        date = (date == null) ? LocalDate.now() : date;
-        datePicker.setDate(date);
-    }
-       
-    private void setDatePicker() {
-        updateBdayBorder();
-        bdayPicker.getComponentDateTextField().setEditable(false);
-        bdayPicker.getComponentDateTextField().setFocusable(false);
-        bdayPicker.getComponentDateTextField().setOpaque(true);
-    }
-    
-    private void updatePosition(String empPosition) {
-        try {
-            List<String> positions = appContext.getEmployeeService().getUniquePosition(policy);
-            loadComboBoxItems(positionComboBox, positions);
-            setSelectedValue(positionComboBox, positionTextInput, empPosition);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
 
-    private void updateSupervisor(String immSupervisor) {
-        try {
-            List<String> supervisors = appContext.getEmployeeService().getAllEmployeeNames(policy);
-            loadComboBoxItems(supervisorComboBox, supervisors);
-            supervisorComboBox.addItem("N/A");
-            setSelectedValue(supervisorComboBox, supervisorTextInput, immSupervisor);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    private void updateStatus(String empStatus) {
-        try {
-            List<String> statuses = appContext.getEmployeeService().getUniqueStatus(policy);
-            loadComboBoxItems(statusComboBox, statuses);
-            setSelectedValue(statusComboBox, statusTextInput, empStatus);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    private void loadComboBoxItems(javax.swing.JComboBox<String> comboBox, List<String> items) {
-        comboBox.removeAllItems();
-
-        for (String item : items) {
-            comboBox.addItem(item);
-        }
-    }
-
-    private void setSelectedValue(javax.swing.JComboBox<String> comboBox, 
-            javax.swing.JTextField textField, 
-            String value) {
-        if (value == null) {
-            comboBox.setSelectedIndex(0);
-            textField.setText((String) comboBox.getSelectedItem());
-        } else {
-            comboBox.setSelectedItem(value);
-            textField.setText(value);
-        }
-    }
     
     //Update visibility of the field base on the current mode
     private void updateFields() {
         setEditorTitle();
         setButtonsVisibility();
-        
-        //disable update on self account details
-//        buttonVisibility(updateBtn, !isEditing);
-//        updateBtn.setEnabled(!selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo()));
-//        
-//        buttonVisibility(closeViewBtn, !isEditing);
-//        buttonVisibility(removeBtn, isEditing);
-//        
-//        
-//        buttonVisibility(cancelAddOrUpdateBtn,isEditing);
-//        buttonVisibility(addOrUpdateBtn, isEditing);
-//        
-        fieldEnabler(firstNameTextInput);
-        fieldEnabler(lastNameTextInput);
-        fieldEnabler(bdayPicker);
-        fieldEnabler(addressTextInput);
+
+        fieldEnabler(basicTextInput);
+        fieldEnabler(riceTextInput);
         fieldEnabler(phoneTextInput);
-        
-        fieldEnabler(sssTextInput);
-        fieldEnabler(philhealthTextInput);
-        fieldEnabler(pagibigTextInput);
-        fieldEnabler(tinTextInput);
-        
-        fieldEnabler(departmentTextInput, departmentTextFieldTemp);
-        fieldEnabler(positionTextInput, positionComboBox);
-        fieldEnabler(supervisorTextInput, supervisorComboBox);
-        fieldEnabler(statusTextInput, statusComboBox);
+        fieldEnabler(clothingTextInput);
         
     }
     
     private void setEditorTitle() {
-        String viewTitle;
-        
-        if (!isViewing) {
-            viewTitle = "Add Employee";
-        } else {
-            String view = isEditing ? "Edit" : "View";
-            viewTitle = view + " Employee Details";
-        }
-        
+        String preTitle = isEditing ? "Edit" : "View";    
+        String viewTitle = preTitle + " Salary Details";
         viewLabel.setText(viewTitle);
     }
     
     private void setButtonsVisibility() {
-        boolean isAddMode = !isViewing;
-        boolean isEditMode = isViewing && isEditing;
-        boolean isViewMode = isViewing && !isEditing;
+        buttonVisibility(updateBtn, !isEditing);
+        buttonVisibility(closeBtn, !isEditing);
         
-        //update and close btn should be visible when viewing
-        buttonVisibility(updateBtn, isViewMode);
-        buttonVisibility(closeViewBtn, isViewMode);
+        buttonVisibility(cancelBtn, isEditing);
+        buttonVisibility(saveBtn, isEditing);
         
-        buttonVisibility(removeBtn, isEditMode);
-        buttonVisibility(cancelAddOrUpdateBtn, isEditing);
-        buttonVisibility(addOrUpdateBtn, isEditing);
-        
-        if (isViewMode) {
-            updateBtn.setEnabled(
-                !selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo())
-            );
-        }
-        
-        addOrUpdateBtn.setText(isAddMode ? "Add" : "Update");
-        
+        boolean currentUser = selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo());
+        updateBtn.setEnabled(!currentUser);
+           
     }
     
     private void buttonVisibility(javax.swing.JButton btn, boolean isVisible) {
@@ -219,21 +115,14 @@ public class SalaryEditor extends javax.swing.JPanel {
         btn.setVisible(isVisible);
     }
     
-    private void fieldEnabler(com.github.lgooddatepicker.components.DatePicker datePicker) {
-        //datepicker toggle
-        datePicker.getComponentDateTextField().setEnabled(isEditing);
-        datePicker.getComponentToggleCalendarButton().setEnabled(isEditing);
-        
-        //datepicker textfield
-        updateBdayBorder();
-        java.awt.Color fieldColor = isEditing ? ThemeColor.activeText() : ThemeColor.textDisabled();
-        datePicker.getComponentDateTextField().setForeground(fieldColor);
-        datePicker.setEnabled(isEditing);
-        datePicker.getComponentDateTextField().setBackground(ThemeColor.white());
-        
-    }
-    
     private void fieldEnabler(javax.swing.JTextField textfield) {
+        String currentValue = textfield.getText();
+        if (isEditing) {
+            textfield.setText(Money.parseStringSalary(currentValue));
+        } else {
+            textfield.setText(Money.displayMoney(currentValue));
+        }
+        
         fieldEnabler(textfield, isEditing);
     }
     
@@ -241,53 +130,23 @@ public class SalaryEditor extends javax.swing.JPanel {
         textField.setEnabled(isEnable);
         textField.setDisabledTextColor(ThemeColor.textDisabled());
     }
-    
-    private void fieldEnabler(javax.swing.JTextField textField, javax.swing.JTextField tempField) {
-        fieldEnabler(textField, false); 
-        textField.setVisible(!isEditing);
-        
-        fieldEnabler(tempField, false);
-        tempField.setVisible(isEditing);
-    }
-    
-    private void fieldEnabler(javax.swing.JTextField textField, javax.swing.JComboBox comboBox) {
-        textField.setEnabled(isEditing);
-        textField.setVisible(!isEditing);
-        textField.setDisabledTextColor(ThemeColor.textDisabled());
-        
-        comboBox.setEnabled(isEditing);
-        comboBox.setVisible(isEditing);
-        comboBox.setBackground(ThemeColor.white());
-        
-    }
-    
-    private void updateBdayBorder() {
-        javax.swing.border.LineBorder activeBorder = new javax.swing.border.LineBorder(ThemeColor.activeBorder(), 1);
-        javax.swing.border.Border disabledBorder = firstNameTextInput.getBorder();
-        
-        bdayPicker.getComponentDateTextField().setBorder(
-                isEditing ? 
-                        activeBorder :
-                        disabledBorder
-                        );
-    }
-    
+       
     //Check if theres changes
     private boolean hasChanges() {
-        return !Objects.equals(employeeNoTextInput.getText(), selectedEmployee.getEmployeeNo()) ||
-               !Objects.equals(firstNameTextInput.getText(), selectedEmployee.getFirstName()) ||
-               !Objects.equals(lastNameTextInput.getText(), selectedEmployee.getLastName()) ||
-               !Objects.equals(bdayPicker.getDate(), selectedEmployee.getBirthday()) ||
-               !Objects.equals(addressTextInput.getText(), selectedEmployee.getContactInfo().getAddress()) ||
-               !Objects.equals(phoneTextInput.getText(), selectedEmployee.getContactInfo().getPhoneNumber()) ||
-               !Objects.equals(sssTextInput.getText(), selectedEmployee.getGovIds().getSssNumber()) ||
-               !Objects.equals(philhealthTextInput.getText(), selectedEmployee.getGovIds().getPhilHealthNumber()) ||
-               !Objects.equals(pagibigTextInput.getText(), selectedEmployee.getGovIds().getPagibigNumber()) ||
-               !Objects.equals(tinTextInput.getText(), selectedEmployee.getGovIds().getTinNumber()) ||
-               !Objects.equals(departmentTextInput.getText(), selectedEmployee.getDepartmentInfo().getDepartment()) ||
-               !Objects.equals(positionTextInput.getText(), selectedEmployee.getDepartmentInfo().getPosition()) ||
-               !Objects.equals(supervisorTextInput.getText(), selectedEmployee.getDepartmentInfo().getSupervisor()) ||
-               !Objects.equals(statusTextInput.getText(), selectedEmployee.getDepartmentInfo().getStatus());
+        
+        return isChanged(basicTextInput, selectedEmployee.getCompProfile().getBasicSalary()) 
+                || isChanged(riceTextInput, selectedEmployee.getCompProfile().getRiceSubsidy()) 
+                || isChanged(phoneTextInput, selectedEmployee.getCompProfile().getPhoneAllowance()) 
+                || isChanged(clothingTextInput, selectedEmployee.getCompProfile().getClothingAllowance());
+    }
+    
+    private boolean isChanged (javax.swing.JTextField input, double modelValue) {
+        try {
+            double inputValue = Money.parseSalary(input.getText());
+            return Math.round(inputValue * 100) != Math.round(modelValue * 100);
+        } catch (NumberFormatException e) {
+            return true;
+        }
     }
     
     private void dialogOpener(javax.swing.JDialog dialog, String title) {
@@ -308,102 +167,46 @@ public class SalaryEditor extends javax.swing.JPanel {
     private List<String> validateForm() {
         List<String> errors = new ArrayList<>();
         
-        validateNames("First Name", firstNameTextInput, RegexPattern.namePattern(), errors);
-        validateNames("Last Name", lastNameTextInput, RegexPattern.namePattern(), errors);
-        validateBirthday(errors);
-        validateAddress(errors);
-        validatePhoneNumber(errors);
-        validateSSS(errors);
-        validatePhilhealth(errors);
-        validatePagIbig(errors);
-        validateTIN(errors);
-        validateNames("Department Name", departmentTextInput, RegexPattern.deptPattern(), errors);
-        validateNames("Position", positionTextInput, RegexPattern.deptPattern(), errors);
-        validateNames("Supervisor Name", supervisorTextInput, RegexPattern.deptPattern(), errors);
-        validateNames("Status", statusTextInput, RegexPattern.deptPattern(), errors);
+        validateMoney(basicTextInput, errors);
+        validateMoney(riceTextInput, errors);
+        validateMoney(phoneTextInput, errors);
+        validateMoney(clothingTextInput, errors);
 
         return errors;
     }
     
-    private void validateNames(String fieldName, 
-            javax.swing.JTextField textField,
-            String pattern,
-            List<String> errors) {
-        String name = textField.getText().trim();
-        if(name == null || name.isEmpty()) {
-            errors.add(fieldName + " is required.");
-        } else if (!name.matches(pattern)) {
-            errors.add(fieldName + " contains invalid characters.");
+    private void validateMoney(javax.swing.JTextField textField, List<String> errors) {
+        String label = textField.getName();
+
+        if (label == null || label.trim().isEmpty()) {
+            label = "Amount";
         }
-    }
-    private void validateBirthday(List<String> errors) {
-        LocalDate bday = bdayPicker.getDate();
-        if (bday == null) {
-            errors.add("Birthday is required.");
-        } else {
-            LocalDate today = LocalDate.now();
-            LocalDate youngestAllowed = today.minusYears(18);
-            LocalDate oldestAllowed = today.minusYears(100); 
-            if (bday.isAfter(youngestAllowed)) {
-                errors.add("Employee must be born on or before " + Dates.monthYear(youngestAllowed) + ".");
-            } else if (bday.isBefore(oldestAllowed)) {
-                errors.add("Employee must be born on or after " + Dates.monthYear(oldestAllowed) + ".");
+
+        String value = textField.getText();
+
+        if (value == null || value.trim().isEmpty()) {
+            errors.add(label + " is required.");
+            return;
+        }
+
+        try {
+            double amount = Money.parseSalary(value);
+
+            if (amount < 0) {
+                errors.add(label + " cannot be negative");
+                return;
             }
-        }
-    }
-    private void validateAddress(List<String> errors) {
-        String address = addressTextInput.getText().trim();
-        if (address.isEmpty()) {
-            errors.add("Address is required.");
-        } else if (!address.matches(RegexPattern.addressPattern())) {
-            errors.add("Address must contain letters or numbers.");
-        }
-    }
-    private void validatePhoneNumber(List<String> errors) {
-        String phone = phoneTextInput.getText().trim();
 
-        if (phone.isEmpty()) {
-            errors.add("Phone number is required.");
-        } else if (!phone.matches("^\\d{3}-\\d{3}-\\d{3}$")) {
-            errors.add("Phone number must follow the format 123-456-789.");
-        }
-    }
-    private void validateSSS(List<String> errors) {
-        String sss = sssTextInput.getText().trim();
+            if ("Basic Salary".equalsIgnoreCase(label) && amount <= 0) {
+                errors.add(label + " must be greater than 0.");
+            }
 
-        if (sss.isEmpty()) {
-            errors.add("SSS number is required.");
-        } else if (!sss.matches(RegexPattern.sssPattern())) {
-            errors.add("SSS number must follow the format 12-3456789-0.");
+        } catch (NumberFormatException e) {
+            errors.add(label + " must be a valid amount.");
         }
     }
-    private void validatePhilhealth(List<String> errors) {
-        String philHealth = philhealthTextInput.getText().trim();
+    
 
-        if (philHealth.isEmpty()) {
-            errors.add("PhilHealth number is required.");
-        } else if (!philHealth.matches(RegexPattern.philhealthPattern())) {
-            errors.add("PhilHealth number must contain exactly 12 digits.");
-        }
-    }
-    private void validatePagIbig(List<String> errors) {
-        String pagIbig = pagibigTextInput.getText().trim();
-
-        if (pagIbig.isEmpty()) {
-            errors.add("Pag-IBIG number is required.");
-        } else if (!pagIbig.matches(RegexPattern.pagibigPattern())) {
-            errors.add("Pag-IBIG number must contain exactly 12 digits.");
-        }
-    }
-    private void validateTIN(List<String> errors) {
-        String tin = tinTextInput.getText().trim();
-
-        if (tin.isEmpty()) {
-            errors.add("TIN is required.");
-        } else if (!tin.matches(RegexPattern.tinPattern())) {
-            errors.add("TIN must follow the format ###-###-###-###.");
-        }
-    }
 
     private String formatErrorsForLabel(List<String> errors) {
         List<String> formatted = new ArrayList<>();
@@ -413,20 +216,19 @@ public class SalaryEditor extends javax.swing.JPanel {
         return "<html>" + String.join("<br>", formatted) + "</html>";
     }
     
-    private void handleUpdateEmployee(Employee employee) {
+    private void handleUpdateEmployeeSalary(Employee employee) {
         try {
             this.selectedEmployee = appContext.getEmployeeService().updateEmployee(employee);
 
             isEditing = false;
             fillEmployeeInformation(selectedEmployee);
-            
             updateFields();
             updateDialog.dispose();
-            openSuccessDialog("Successfully Updated", "You successfully updated:", selectedEmployee);
+            openSuccessDialog("Successfully Updated", "Successfully updated salary of:", selectedEmployee);
         } catch (IOException e) {
             javax.swing.JOptionPane.showMessageDialog(
                     this,
-                    "Failed to update employee.",
+                    "Failed to update employee salary.",
                     "Update Error",
                     javax.swing.JOptionPane.ERROR_MESSAGE
             );
@@ -434,106 +236,67 @@ public class SalaryEditor extends javax.swing.JPanel {
         }
     }
     
-    
-    private void handleAddEmployee(Employee employee) {
-        try {
-            //Add employee
-            this.selectedEmployee = appContext.getEmployeeService().addNewEmployee(employee);
-            //add new account
-            boolean accountCreated = addUserAccount(this.selectedEmployee);
-            if (!accountCreated) {
-                return;
-            }
-            
-            updateDialog.dispose();
-            parentDialog.dispose();
-            openSuccessDialog("Successfully Added", "You succesfully added:", this.selectedEmployee);
-            
-            } catch (IllegalStateException e) {
-                javax.swing.JOptionPane.showMessageDialog(
-                        this,
-                        e.getMessage(),
-                        "Duplicate Employee",
-                        javax.swing.JOptionPane.WARNING_MESSAGE
-                );
+    private void handleMoneyInputKeyTyped(java.awt.event.KeyEvent evt) {
+        char c = evt.getKeyChar();
+        javax.swing.JTextField textField = (javax.swing.JTextField) evt.getSource();
 
-            } catch (IOException e) {
-                javax.swing.JOptionPane.showMessageDialog(
-                        this,
-                        "Failed to add new employee.",
-                        "Adding New Error",
-                        javax.swing.JOptionPane.ERROR_MESSAGE
-                );
-                e.printStackTrace();
-            }
+        // allow backspace and delete
+        if (c == java.awt.event.KeyEvent.VK_BACK_SPACE || c == java.awt.event.KeyEvent.VK_DELETE) {
+            return;
+        }
+
+        // only digits and decimal point
+        if (!Character.isDigit(c) && c != '.') {
+            evt.consume();
+            return;
+        }
+
+        String currentText = textField.getText();
+        String nextText = currentText.substring(0, textField.getSelectionStart())
+                + c
+                + currentText.substring(textField.getSelectionEnd());
+
+        // max 12 whole digits, optional decimal, max 2 decimal digits
+        if (!nextText.matches("^\\d{0,12}(\\.\\d{0,2})?$")) {
+            evt.consume();
+        }
     }
     
-    private boolean addUserAccount(Employee emp) {
-        if (emp == null || emp.getEmployeeNo() == null || emp.getEmployeeNo().isBlank()) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Cannot create account because employee data is incomplete.",
-                    "Add Employee Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            return false;
-        }
-
+    private void handleDependentField() {
+         String basicInput = basicTextInput.getText();
+        
         try {
-            appContext.getUserAccountService().createDefaultAccount(emp.getEmployeeNo());
-            return true;
-
-        } catch (IllegalStateException | IOException ex) {
-            // rollback employee if account creation fails
-            try {
-                appContext.getEmployeeService().removeEmployee(emp.getEmployeeNo());
-            } catch (Exception rollbackEx) {
-                javax.swing.JOptionPane.showMessageDialog(
-                        this,
-                        "Employee was added, but account creation failed and rollback also failed.\n"
-                                + "Manual fix may be needed.\n\nReason: " + ex.getMessage(),
-                        "Add Employee Error",
-                        javax.swing.JOptionPane.ERROR_MESSAGE
-                );
-                rollbackEx.printStackTrace();
-                return false;
+            double basicSalary = Money.parseSalary(basicInput);
+            
+            double semiMonthly = basicSalary / 2.0;
+            double hourlyRate = basicSalary / 21.0 / 8.0;
+            
+            semiTextInput.setText(Money.displayMoney(semiMonthly));
+            hourlyTextInput.setText(Money.displayMoney(hourlyRate));
+        } catch (NumberFormatException e) {
+            semiTextInput.setText("");
+            hourlyTextInput.setText("");
+        }
+    
+    }
+    
+    private void initBasicSalaryListener() {
+        basicTextInput.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                handleDependentField();
             }
 
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Employee creation was rolled back because account creation failed.\n\nReason: " + ex.getMessage(),
-                    "Add Employee Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            return false;
-        }
-   }
-    
-    private boolean removeUserAccount(Employee emp) {
-        if (emp == null || emp.getEmployeeNo() == null || emp.getEmployeeNo().isBlank()) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Cannot remove user account because employee data is incomplete.",
-                    "Remove Employee Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            return false;
-        }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                handleDependentField();
+            }
 
-        try {
-            appContext.getUserAccountService().deleteAccountByEmployeeNo(emp.getEmployeeNo());
-            return true;
-
-        } catch (IllegalArgumentException | IllegalStateException | IOException ex) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Failed to remove user account.\n\nReason: " + ex.getMessage(),
-                    "Remove Employee Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            ex.printStackTrace();
-            return false;
-        }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                handleDependentField();
+            }
+        });
     }
     
     /**
@@ -564,16 +327,6 @@ public class SalaryEditor extends javax.swing.JPanel {
         validationErrorBtn = new javax.swing.JButton();
         validationErrorHeader = new javax.swing.JLabel();
         validationErrorLabel = new javax.swing.JLabel();
-        removeDialog = new javax.swing.JDialog(this.parentDialog, true);
-        removeDialogPanel = new javax.swing.JPanel();
-        removeDialogLabel = new javax.swing.JLabel();
-        removeDialogCancelBtn = new javax.swing.JButton();
-        removeDialogConfirmBtn = new javax.swing.JButton();
-        removeDialogNumberLabel = new javax.swing.JLabel();
-        removeDialogNameLabel = new javax.swing.JLabel();
-        removeDialogNumberField = new javax.swing.JLabel();
-        removeDialogNameField = new javax.swing.JLabel();
-        removeDialogLabel1 = new javax.swing.JLabel();
         successDialog = new javax.swing.JDialog(this.parentDialog, true);
         successsPanel = new javax.swing.JPanel();
         successLabel = new javax.swing.JLabel();
@@ -583,10 +336,8 @@ public class SalaryEditor extends javax.swing.JPanel {
         lastNameLabel = new javax.swing.JLabel();
         employeeNoLabel = new javax.swing.JLabel();
         firstNameLabel = new javax.swing.JLabel();
-        birthdayLabel = new javax.swing.JLabel();
         viewLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
-        phoneLabel = new javax.swing.JLabel();
         decorLine2 = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
         decorLine = new javax.swing.JPanel();
@@ -599,30 +350,35 @@ public class SalaryEditor extends javax.swing.JPanel {
         departmentLabel = new javax.swing.JLabel();
         departmentNameLabel = new javax.swing.JLabel();
         positionLabel = new javax.swing.JLabel();
-        supervisorLabel = new javax.swing.JLabel();
         updateBtn = new javax.swing.JButton();
         employeeNoTextInput = new javax.swing.JTextField();
         firstNameTextInput = new javax.swing.JTextField();
         lastNameTextInput = new javax.swing.JTextField();
         addressTextInput = new javax.swing.JTextField();
-        phoneTextInput = new javax.swing.JTextField();
         sssTextInput = new javax.swing.JTextField();
         philhealthTextInput = new javax.swing.JTextField();
         pagibigTextInput = new javax.swing.JTextField();
         tinTextInput = new javax.swing.JTextField();
-        departmentTextInput = new javax.swing.JTextField();
         positionTextInput = new javax.swing.JTextField();
         statusTextInput = new javax.swing.JTextField();
-        addOrUpdateBtn = new javax.swing.JButton();
-        cancelAddOrUpdateBtn = new javax.swing.JButton();
-        bdayPicker = new com.github.lgooddatepicker.components.DatePicker();
-        supervisorTextInput = new javax.swing.JTextField();
-        positionComboBox = new javax.swing.JComboBox<>();
-        supervisorComboBox = new javax.swing.JComboBox<>();
-        statusComboBox = new javax.swing.JComboBox<>();
-        removeBtn = new javax.swing.JButton();
-        closeViewBtn = new javax.swing.JButton();
-        departmentTextFieldTemp = new javax.swing.JTextField();
+        saveBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        closeBtn = new javax.swing.JButton();
+        decorLine4 = new javax.swing.JPanel();
+        salaryLabel = new javax.swing.JLabel();
+        basicLabel = new javax.swing.JLabel();
+        departmentTextInput = new javax.swing.JTextField();
+        semiMonthlyLabel = new javax.swing.JLabel();
+        hourlyLabel = new javax.swing.JLabel();
+        basicTextInput = new javax.swing.JTextField();
+        semiTextInput = new javax.swing.JTextField();
+        hourlyTextInput = new javax.swing.JTextField();
+        riceLabel = new javax.swing.JLabel();
+        riceTextInput = new javax.swing.JTextField();
+        phoneLabel = new javax.swing.JLabel();
+        phoneTextInput = new javax.swing.JTextField();
+        clotihingLabel = new javax.swing.JLabel();
+        clothingTextInput = new javax.swing.JTextField();
 
         cancelDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         cancelDialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -684,6 +440,9 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         noChangeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         noChangeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                noChangeDialogWindowClosed(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 noChangeDialogWindowClosing(evt);
             }
@@ -731,12 +490,7 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addComponent(noChangePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        updateDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        updateDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                updateDialogWindowClosing(evt);
-            }
-        });
+        updateDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         updateDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -815,6 +569,10 @@ public class SalaryEditor extends javax.swing.JPanel {
         validationErrorPanel.setLayout(validationErrorPanelLayout);
         validationErrorPanelLayout.setHorizontalGroup(
             validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124))
             .addGroup(validationErrorPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -823,10 +581,6 @@ public class SalaryEditor extends javax.swing.JPanel {
                         .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(validationErrorHeader))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
         );
         validationErrorPanelLayout.setVerticalGroup(
             validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -834,8 +588,8 @@ public class SalaryEditor extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addComponent(validationErrorHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(validationErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
@@ -853,110 +607,6 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addComponent(validationErrorPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        removeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        removeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                removeDialogWindowClosing(evt);
-            }
-        });
-
-        removeDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        removeDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        removeDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        removeDialogLabel.setText("Are you sure you want to remove this employee?");
-
-        removeDialogCancelBtn.setBackground(ThemeColor.lightRed());
-        removeDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogCancelBtn.setText("Cancel");
-        removeDialogCancelBtn.addActionListener(this::removeDialogCancelBtnActionPerformed);
-
-        removeDialogConfirmBtn.setText("Remove");
-        removeDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
-        removeDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogConfirmBtn.addActionListener(this::removeDialogConfirmBtnActionPerformed);
-
-        removeDialogNumberLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        removeDialogNumberLabel.setText("Employee No. :");
-
-        removeDialogNameLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        removeDialogNameLabel.setText("Employee Name :");
-
-        removeDialogNumberField.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogNumberField.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        removeDialogNumberField.setText("10100");
-
-        removeDialogNameField.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogNameField.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        removeDialogNameField.setText("Fontanilla, Don Justine xyzaqe");
-
-        removeDialogLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        removeDialogLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        removeDialogLabel1.setText("This action cannot be undone.");
-
-        javax.swing.GroupLayout removeDialogPanelLayout = new javax.swing.GroupLayout(removeDialogPanel);
-        removeDialogPanel.setLayout(removeDialogPanelLayout);
-        removeDialogPanelLayout.setHorizontalGroup(
-            removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(removeDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(removeDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(removeDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                                .addComponent(removeDialogNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(removeDialogNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                                .addComponent(removeDialogNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(removeDialogNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(removeDialogPanelLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(removeDialogLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        removeDialogPanelLayout.setVerticalGroup(
-            removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, removeDialogPanelLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(removeDialogLabel)
-                .addGap(12, 12, 12)
-                .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(removeDialogNumberLabel)
-                    .addComponent(removeDialogNumberField))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(removeDialogNameLabel)
-                    .addComponent(removeDialogNameField))
-                .addGap(12, 12, 12)
-                .addComponent(removeDialogLabel1)
-                .addGap(24, 24, 24)
-                .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(removeDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
-        );
-
-        javax.swing.GroupLayout removeDialogLayout = new javax.swing.GroupLayout(removeDialog.getContentPane());
-        removeDialog.getContentPane().setLayout(removeDialogLayout);
-        removeDialogLayout.setHorizontalGroup(
-            removeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(removeDialogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        removeDialogLayout.setVerticalGroup(
-            removeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(removeDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-
         successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         successDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -966,18 +616,18 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         successsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         successLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successLabel.setText("You succesfully removed :");
+        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        successBtn.setText("OK");
         successBtn.setBackground(ThemeColor.lightGreen());
         successBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        successBtn.setText("OK");
         successBtn.addActionListener(this::successBtnActionPerformed);
 
-        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         successEmployeeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successEmployeeLabel.setText("Fontanilla, Don Justine T.");
+        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout successsPanelLayout = new javax.swing.GroupLayout(successsPanel);
         successsPanel.setLayout(successsPanelLayout);
@@ -1027,17 +677,11 @@ public class SalaryEditor extends javax.swing.JPanel {
         firstNameLabel.setText("First Name :");
         firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        birthdayLabel.setText("Birthday :");
-        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-
-        viewLabel.setText("View Employee Details");
+        viewLabel.setText("View Salary Details");
         viewLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
 
         addressLabel.setText("Address :");
         addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-
-        phoneLabel.setText("Phone Number : ");
-        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         decorLine2.setBackground(new java.awt.Color(240, 240, 240));
         decorLine2.setDoubleBuffered(false);
@@ -1108,10 +752,7 @@ public class SalaryEditor extends javax.swing.JPanel {
         positionLabel.setText("Position :");
         positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        supervisorLabel.setText("Supervisor :");
-        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-
-        updateBtn.setText("Update Employee");
+        updateBtn.setText("Update Salary");
         updateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         updateBtn.addActionListener(this::updateBtnActionPerformed);
 
@@ -1124,105 +765,145 @@ public class SalaryEditor extends javax.swing.JPanel {
         firstNameTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         firstNameTextInput.setText("Don Justine");
         firstNameTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        firstNameTextInput.setEnabled(false);
 
         lastNameTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         lastNameTextInput.setText("Fontanilla");
         lastNameTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        lastNameTextInput.setEnabled(false);
 
         addressTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         addressTextInput.setText("170 Fairview, Dasmarinas, Commonwealth, San Agustin, Quezon City");
         addressTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        addressTextInput.setEnabled(false);
+
+        sssTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        sssTextInput.setText("+639569978123");
+        sssTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        sssTextInput.setEnabled(false);
+
+        philhealthTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        philhealthTextInput.setText("+639569978123");
+        philhealthTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        philhealthTextInput.setEnabled(false);
+
+        pagibigTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        pagibigTextInput.setText("+639569978123");
+        pagibigTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        pagibigTextInput.setEnabled(false);
+
+        tinTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        tinTextInput.setText("+639569978123");
+        tinTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        tinTextInput.setEnabled(false);
+
+        positionTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        positionTextInput.setText("+639569978123");
+        positionTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        positionTextInput.setEnabled(false);
+
+        statusTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        statusTextInput.setText("+639569978123");
+        statusTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        statusTextInput.setEnabled(false);
+
+        saveBtn.setText("Save");
+        saveBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        saveBtn.addActionListener(this::saveBtnActionPerformed);
+
+        cancelBtn.setText("Cancel");
+        cancelBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        cancelBtn.addActionListener(this::cancelBtnActionPerformed);
+
+        closeBtn.setText("Close");
+        closeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        closeBtn.addActionListener(this::closeBtnActionPerformed);
+
+        decorLine4.setBackground(new java.awt.Color(240, 240, 240));
+        decorLine4.setDoubleBuffered(false);
+
+        javax.swing.GroupLayout decorLine4Layout = new javax.swing.GroupLayout(decorLine4);
+        decorLine4.setLayout(decorLine4Layout);
+        decorLine4Layout.setHorizontalGroup(
+            decorLine4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLine4Layout.setVerticalGroup(
+            decorLine4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+
+        salaryLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        salaryLabel.setText("Salary Details");
+
+        basicLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        basicLabel.setText("Basic Salary :");
+
+        departmentTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        departmentTextInput.setText("+639569978123");
+        departmentTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        departmentTextInput.setEnabled(false);
+
+        semiMonthlyLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        semiMonthlyLabel.setText("Semi-Monthly :");
+
+        hourlyLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        hourlyLabel.setText("Hourly Rate :");
+
+        basicTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        basicTextInput.setText("+639569978123");
+        basicTextInput.setName("Basic Salary"); // NOI18N
+        basicTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                basicTextInputKeyTyped(evt);
+            }
+        });
+
+        semiTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        semiTextInput.setText("+639569978123");
+        semiTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        semiTextInput.setEnabled(false);
+
+        hourlyTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        hourlyTextInput.setText("+639569978123");
+        hourlyTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        hourlyTextInput.setEnabled(false);
+
+        riceLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        riceLabel.setText("Rice Subsidy :");
+
+        riceTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        riceTextInput.setText("+639569978123");
+        riceTextInput.setName("Rice Subsidy"); // NOI18N
+        riceTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                riceTextInputKeyTyped(evt);
+            }
+        });
+
+        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        phoneLabel.setText("Phone Allowance :");
 
         phoneTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         phoneTextInput.setText("+639569978123");
-        phoneTextInput.setDisabledTextColor(new java.awt.Color(102, 102, 102));
+        phoneTextInput.setName("Phone Allowance"); // NOI18N
         phoneTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 phoneTextInputKeyTyped(evt);
             }
         });
 
-        sssTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        sssTextInput.setText("+639569978123");
-        sssTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
+        clotihingLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        clotihingLabel.setText("Clothing Allowance :");
+
+        clothingTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        clothingTextInput.setText("+639569978123");
+        clothingTextInput.setName("Clothing Allowance"); // NOI18N
+        clothingTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                sssTextInputKeyTyped(evt);
+                clothingTextInputKeyTyped(evt);
             }
         });
-
-        philhealthTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        philhealthTextInput.setText("+639569978123");
-        philhealthTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                philhealthTextInputKeyTyped(evt);
-            }
-        });
-
-        pagibigTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        pagibigTextInput.setText("+639569978123");
-        pagibigTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                pagibigTextInputKeyTyped(evt);
-            }
-        });
-
-        tinTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        tinTextInput.setText("+639569978123");
-        tinTextInput.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tinTextInputKeyTyped(evt);
-            }
-        });
-
-        departmentTextInput.setEditable(false);
-        departmentTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        departmentTextInput.setText("+639569978123");
-        departmentTextInput.setBackground(new java.awt.Color(255, 255, 255));
-
-        positionTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionTextInput.setText("+639569978123");
-
-        statusTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statusTextInput.setText("+639569978123");
-
-        addOrUpdateBtn.setText("Update");
-        addOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        addOrUpdateBtn.addActionListener(this::addOrUpdateBtnActionPerformed);
-
-        cancelAddOrUpdateBtn.setText("Cancel");
-        cancelAddOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
-
-        bdayPicker.setBackground(new java.awt.Color(255, 255, 255));
-        bdayPicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        bdayPicker.setForeground(new java.awt.Color(255, 255, 255));
-
-        supervisorTextInput.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        supervisorTextInput.setText("+639569978123");
-        supervisorTextInput.addActionListener(this::supervisorTextInputActionPerformed);
-
-        positionComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        positionComboBox.addActionListener(this::positionComboBoxActionPerformed);
-
-        supervisorComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        supervisorComboBox.addActionListener(this::supervisorComboBoxActionPerformed);
-
-        statusComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statusComboBox.addActionListener(this::statusComboBoxActionPerformed);
-
-        removeBtn.setText("Remove");
-        removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        removeBtn.addActionListener(this::removeBtnActionPerformed);
-
-        closeViewBtn.setText("Close");
-        closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
-
-        departmentTextFieldTemp.setEditable(false);
-        departmentTextFieldTemp.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        departmentTextFieldTemp.setText("+639569978123");
-        departmentTextFieldTemp.setBackground(new java.awt.Color(255, 255, 255));
-        departmentTextFieldTemp.setFocusable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1230,14 +911,6 @@ public class SalaryEditor extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(viewLabel)
@@ -1252,19 +925,14 @@ public class SalaryEditor extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeNoLabel)
                             .addComponent(firstNameLabel)
-                            .addComponent(phoneLabel)
                             .addComponent(addressLabel)
-                            .addComponent(birthdayLabel)
                             .addComponent(lastNameLabel))
-                        .addGap(6, 6, 6)
+                        .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(bdayPicker, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lastNameTextInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))))
+                            .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -1290,48 +958,73 @@ public class SalaryEditor extends javax.swing.JPanel {
                         .addGap(24, 24, 24)
                         .addComponent(personalInfoLabel))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(departmentNameLabel)
+                            .addComponent(positionLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(192, 192, 192)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, 0)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(supervisorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(statusComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(departmentLabel)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(positionLabel)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(departmentNameLabel)
-                                .addGap(18, 18, 18)
                                 .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, 0)
-                                .addComponent(departmentTextFieldTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(supervisorLabel)
-                            .addComponent(statusLabel))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(statusLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(decorLine4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(salaryLabel)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(282, 282, 282)
+                                    .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(12, 12, 12)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(hourlyLabel)
+                                            .addGap(32, 32, 32)
+                                            .addComponent(hourlyTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(semiMonthlyLabel)
+                                                .addComponent(basicLabel))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(basicTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                                .addComponent(semiTextInput))))
+                                    .addGap(58, 58, 58)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(phoneLabel)
+                                        .addComponent(riceLabel)
+                                        .addComponent(clotihingLabel))
+                                    .addGap(10, 10, 10)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(clothingTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(riceTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(departmentLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewLabel)
                     .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
+                .addGap(7, 7, 7)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(personalInfoLabel)
@@ -1347,19 +1040,11 @@ public class SalaryEditor extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lastNameLabel)
                     .addComponent(lastNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(birthdayLabel)
-                    .addComponent(bdayPicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressLabel)
                     .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phoneLabel)
-                    .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGap(12, 12, 12)
                 .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(govIdLabel)
@@ -1377,58 +1062,62 @@ public class SalaryEditor extends javax.swing.JPanel {
                     .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(decorLine3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(departmentLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(departmentNameLabel)
-                    .addComponent(departmentTextFieldTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(positionLabel)
-                        .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(supervisorComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(supervisorLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusLabel)
                     .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(statusLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                    .addComponent(departmentTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(positionLabel)
+                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(decorLine4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(salaryLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(basicLabel)
+                    .addComponent(basicTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(riceLabel)
+                    .addComponent(riceTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(semiMonthlyLabel)
+                    .addComponent(semiTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(phoneLabel)
+                    .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hourlyLabel)
+                    .addComponent(hourlyTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clotihingLabel)
+                    .addComponent(clothingTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         // TODO add your handling code here:
-        isEditing = !isEditing;
+        isEditing = true;
         updateFields();
     }//GEN-LAST:event_updateBtnActionPerformed
 
-    private void closeViewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeViewBtnActionPerformed
+    private void closeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBtnActionPerformed
         // TODO add your handling code here:
         parentDialog.dispose();
-    }//GEN-LAST:event_closeViewBtnActionPerformed
+    }//GEN-LAST:event_closeBtnActionPerformed
 
-    private void addOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addOrUpdateBtnActionPerformed
+    private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         // TODO add your handling code here:
-        //check for changes
-        if (!hasChanges()) {
-            dialogOpener(noChangeDialog, "Nothing to Save");
-            return;
-        }
-        
         //validity check
         List<String> validate = validateForm();
         if (!validate.isEmpty()) {
@@ -1438,28 +1127,26 @@ public class SalaryEditor extends javax.swing.JPanel {
             return;
         }
         
-        dialogOpener(updateDialog, "Save Changes");
-    }//GEN-LAST:event_addOrUpdateBtnActionPerformed
+        //check for changes
+        if (!hasChanges()) {
+            dialogOpener(noChangeDialog, "Nothing to Save");
+            return;
+        }
 
-    private void cancelAddOrUpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelAddOrUpdateBtnActionPerformed
+        dialogOpener(updateDialog, "Save Changes");
+    }//GEN-LAST:event_saveBtnActionPerformed
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        if (isViewing) {
-            if (!hasChanges()) {
-                isEditing = !isEditing;
-                updateFields();
-                return;
-            }
-        } 
-        //No changes made when adding new Employee
-        else {
-            if(!hasChanges()) {
-                parentDialog.dispose();
-                return;
-            }    
+        //no changes return
+        if (!hasChanges()) {
+            isEditing = false;
+            updateFields();
+            return;
         }
 
         dialogOpener(cancelDialog, "Cancel Editing");
-    }//GEN-LAST:event_cancelAddOrUpdateBtnActionPerformed
+    }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void cancelDialogCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDialogCancelBtnActionPerformed
         // TODO add your handling code here:
@@ -1468,216 +1155,23 @@ public class SalaryEditor extends javax.swing.JPanel {
 
     private void cancelDialogConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelDialogConfirmBtnActionPerformed
         // TODO add your handling code here:
-        if (isViewing) {
-            isEditing = !isEditing;
-            fillEmployeeInformation(selectedEmployee);
-            updateFields();
-        } else {
-            parentDialog.dispose();
-        }
+        isEditing = false;
+        fillEmployeeInformation(selectedEmployee);
+        updateFields();
+
         cancelDialog.dispose();
     }//GEN-LAST:event_cancelDialogConfirmBtnActionPerformed
 
     private void noChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noChangeButtonActionPerformed
         // TODO add your handling code here:
-        if (isViewing) {
-            isEditing = !isEditing;
-            updateFields();
-        }
-        
         noChangeDialog.dispose();
     }//GEN-LAST:event_noChangeButtonActionPerformed
 
     private void noChangeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_noChangeDialogWindowClosing
         // TODO add your handling code here:
-        isEditing = !isEditing;
-        updateFields();
+        
         noChangeDialog.dispose();
     }//GEN-LAST:event_noChangeDialogWindowClosing
-
-    private void removeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeBtnActionPerformed
-            // TODO add your handling code here:
-        if (!isViewing) {
-            return;
-        }
-
-        //If none is selected, show a warning dialog and stop the process.
-        if (this.selectedEmployee == null) {
-            //Error no selected employee
-            return;
-        }
-        
-        removeDialogNumberField.setText(this.selectedEmployee.getEmployeeNo());
-        removeDialogNameField.setText(this.selectedEmployee.getLastFirstName());
-        dialogOpener(removeDialog, "Confirm Employee Removal");
-        
-
-
-    // 2. Ask the user for confirmation before deleting.
-    //    Example logic:
-    //    - Open your custom confirmation dialog.
-    //    - Message example: "Are you sure you want to remove this employee?"
-    //    - If user cancels, exit the method immediately.
-
-    // 3. Call the EmployeeService to remove the employee.
-    //    Example idea:
-    //    appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
-
-    // 4. Handle possible exceptions from the service:
-    //    - IllegalArgumentException  → invalid employee number
-    //    - IllegalStateException     → employee does not exist
-    //    - IOException               → CSV file problem
-
-    // 5. If deletion succeeds:
-    //    - Show a success dialog (optional)
-    //    - Clear the selected employee
-    //    - Refresh the employee list/table
-    //    - Reset the employee information panel
-
-    // 6. Update UI state:
-    //    - Disable edit/remove buttons if no employee is selected
-    //    - Clear text fields if necessary
-
-    // 7. Log the error (optional) if something fails.
-        
-    }//GEN-LAST:event_removeBtnActionPerformed
-
-    private void phoneTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextInputKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-
-        // allow only digits
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            return;
-        }
-
-        String text = phoneTextInput.getText().replace("-", "");
-
-        // limit to 9 digits
-        if (text.length() >= 9) {
-            evt.consume();
-            return;
-        }
-
-        // add the new digit
-        text += c;
-
-        // rebuild formatted text
-        StringBuilder formatted = new StringBuilder();
-
-        for (int i = 0; i < text.length(); i++) {
-            if (i > 0 && i % 3 == 0) {
-                formatted.append("-");
-            }
-            formatted.append(text.charAt(i));
-        }
-
-        phoneTextInput.setText(formatted.toString());
-
-        evt.consume();
-    }//GEN-LAST:event_phoneTextInputKeyTyped
-
-    private void sssTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sssTextInputKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-
-        // allow digits only
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            return;
-        }
-
-        String text = sssTextInput.getText().replace("-", "");
-        // limit to 10 digits total
-        if (text.length() >= 10) {
-            evt.consume();
-            return;
-        }
-
-        text += c;
-
-        StringBuilder formatted = new StringBuilder();
-        for (int i = 0; i < text.length(); i++) {
-            if (i == 2 || i == 9) {
-                formatted.append("-");
-            }
-            formatted.append(text.charAt(i));
-        }
-        
-        sssTextInput.setText(formatted.toString());
-        evt.consume();
-    }//GEN-LAST:event_sssTextInputKeyTyped
-
-    private void philhealthTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_philhealthTextInputKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-
-        // allow digits only
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            return;
-        }
-
-        // limit to 12 digits
-        if (philhealthTextInput.getText().length() >= 12) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_philhealthTextInputKeyTyped
-
-    private void tinTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tinTextInputKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-
-        // digits only
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            return;
-        }
-
-        String text = tinTextInput.getText().replace("-", "");
-
-        // limit to 12 digits
-        if (text.length() >= 12) {
-            evt.consume();
-            return;
-        }
-
-        text += c;
-
-        StringBuilder formatted = new StringBuilder();
-
-        for (int i = 0; i < text.length(); i++) {
-            if (i == 3 || i == 6 || i == 9) {
-                formatted.append("-");
-            }
-            formatted.append(text.charAt(i));
-        }
-
-        tinTextInput.setText(formatted.toString());
-
-        evt.consume();
-    }//GEN-LAST:event_tinTextInputKeyTyped
-
-    private void supervisorTextInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supervisorTextInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_supervisorTextInputActionPerformed
-
-    private void supervisorComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supervisorComboBoxActionPerformed
-        // TODO add your handling code here:
-        String selected = (String) supervisorComboBox.getSelectedItem();
-        supervisorTextInput.setText(selected);
-    }//GEN-LAST:event_supervisorComboBoxActionPerformed
-
-    private void positionComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_positionComboBoxActionPerformed
-        // TODO add your handling code here:
-        String selected = (String) positionComboBox.getSelectedItem();
-        selected = (selected == null) ? "" : selected;
-        positionTextInput.setText(selected);
-        
-        departmentTextFieldTemp.setText(DepartmentResolver.getDepartmentName(selected));
-        departmentTextInput.setText(DepartmentResolver.getDepartmentName(selected));
-    }//GEN-LAST:event_positionComboBoxActionPerformed
 
     private void updateDialogCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateDialogCancelBtnActionPerformed
         // TODO add your handling code here:
@@ -1688,110 +1182,20 @@ public class SalaryEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         Employee employee = Mapper.buildEmployee(
             selectedEmployee,
-            lastNameTextInput.getText().trim(),
-            firstNameTextInput.getText().trim(),
-            Dates.formatDate(bdayPicker.getDate()),
-            addressTextInput.getText().trim(),
+            basicTextInput.getText().trim(),
+            riceTextInput.getText().trim(),
             phoneTextInput.getText().trim(),
-            sssTextInput.getText().trim(),
-            philhealthTextInput.getText().trim(),
-            tinTextInput.getText().trim(),
-            pagibigTextInput.getText().trim(),
-            statusTextInput.getText().trim(),
-            positionTextInput.getText().trim(),
-            supervisorTextInput.getText().trim()
+            clothingTextInput.getText().trim()
         );
         
         //Update existing employee    
-        if (isViewing) {
-            handleUpdateEmployee(employee);
-            return;
-        } 
-        
-        handleAddEmployee(employee);
+        handleUpdateEmployeeSalary(employee);
     }//GEN-LAST:event_updateDialogSaveBtnActionPerformed
-
-    private void updateDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_updateDialogWindowClosing
-        // TODO add your handling code here:
-        updateDialog.dispose();
-    }//GEN-LAST:event_updateDialogWindowClosing
-
-    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
-        // TODO add your handling code here:
-        String selected = (String) statusComboBox.getSelectedItem();
-        statusTextInput.setText(selected);
-    }//GEN-LAST:event_statusComboBoxActionPerformed
 
     private void validationErrorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validationErrorBtnActionPerformed
         // TODO add your handling code here:
         validationErrorDialog.dispose();
     }//GEN-LAST:event_validationErrorBtnActionPerformed
-
-    private void pagibigTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pagibigTextInputKeyTyped
-        // TODO add your handling code here:
-        char c = evt.getKeyChar();
-
-        // allow digits only
-        if (!Character.isDigit(c)) {
-            evt.consume();
-            return;
-        }
-
-        // limit to 12 digits
-        if (pagibigTextInput.getText().length() >= 12) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_pagibigTextInputKeyTyped
-
-    private void removeDialogCancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDialogCancelBtnActionPerformed
-        // TODO add your handling code here:
-        removeDialog.dispose();
-    }//GEN-LAST:event_removeDialogCancelBtnActionPerformed
-
-    private void removeDialogConfirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeDialogConfirmBtnActionPerformed
-        // TODO add your handling code here:
-        //successfully removed dialog
-        try {
-            Employee removed = appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
-            //refactor this when IT has add or delete feat
-            boolean accountRemoved = removeUserAccount(selectedEmployee);
-            if (!accountRemoved) {
-                return;
-            }
-
-            parentDialog.dispose();
-            removeDialog.dispose();
-            openSuccessDialog("Successfully Removed", "You successfully removed:", removed);
-            
-        } catch (IllegalArgumentException e) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    e.getMessage(),
-                    "Invalid Employee",
-                    javax.swing.JOptionPane.WARNING_MESSAGE
-            );
-            e.printStackTrace();
-
-        } catch (IllegalStateException e) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    e.getMessage(),
-                    "Employee Removal Error",
-                    javax.swing.JOptionPane.WARNING_MESSAGE
-            );
-            e.printStackTrace();
-
-        } catch (IOException e) {
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Failed to remove employee.",
-                    "Delete Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            e.printStackTrace();
-        }
-
-    }//GEN-LAST:event_removeDialogConfirmBtnActionPerformed
 
     private void successBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_successBtnActionPerformed
         // TODO add your handling code here:
@@ -1803,11 +1207,6 @@ public class SalaryEditor extends javax.swing.JPanel {
         successDialog.dispose();
     }//GEN-LAST:event_successDialogWindowClosing
 
-    private void removeDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_removeDialogWindowClosing
-        // TODO add your handling code here:
-        removeDialog.dispose();
-    }//GEN-LAST:event_removeDialogWindowClosing
-
     private void cancelDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_cancelDialogWindowClosing
         // TODO add your handling code here:
         cancelDialog.dispose();
@@ -1817,12 +1216,35 @@ public class SalaryEditor extends javax.swing.JPanel {
         // TODO add your handling code here:
         validationErrorDialog.dispose();
     }//GEN-LAST:event_validationErrorDialogWindowClosing
+
+    private void noChangeDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_noChangeDialogWindowClosed
+        // TODO add your handling code here:
+        isEditing = false;
+        updateFields();
+    }//GEN-LAST:event_noChangeDialogWindowClosed
+
+    private void basicTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_basicTextInputKeyTyped
+        // TODO add your handling code here:
+        handleMoneyInputKeyTyped(evt);
+    }//GEN-LAST:event_basicTextInputKeyTyped
+
+    private void riceTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_riceTextInputKeyTyped
+        // TODO add your handling code here:
+        handleMoneyInputKeyTyped(evt);
+    }//GEN-LAST:event_riceTextInputKeyTyped
+
+    private void phoneTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextInputKeyTyped
+        // TODO add your handling code here:
+        handleMoneyInputKeyTyped(evt);
+    }//GEN-LAST:event_phoneTextInputKeyTyped
+
+    private void clothingTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_clothingTextInputKeyTyped
+        // TODO add your handling code here:
+        handleMoneyInputKeyTyped(evt);
+    }//GEN-LAST:event_clothingTextInputKeyTyped
     
     
     
-    private boolean isViewing;
-    private boolean isConfirmingUpdate;
-    private boolean isConfirmingCancel;
     private boolean isEditing;
     private AccessPolicy policy;
     private final javax.swing.JDialog parentDialog;
@@ -1831,30 +1253,33 @@ public class SalaryEditor extends javax.swing.JPanel {
     private AppContext appContext;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addOrUpdateBtn;
     private javax.swing.JLabel addressLabel;
     private javax.swing.JTextField addressTextInput;
-    private com.github.lgooddatepicker.components.DatePicker bdayPicker;
-    private javax.swing.JLabel birthdayLabel;
-    private javax.swing.JButton cancelAddOrUpdateBtn;
+    private javax.swing.JLabel basicLabel;
+    private javax.swing.JTextField basicTextInput;
+    private javax.swing.JButton cancelBtn;
     private javax.swing.JPanel cancelConfirmPanel;
     private javax.swing.JDialog cancelDialog;
     private javax.swing.JButton cancelDialogCancelBtn;
     private javax.swing.JButton cancelDialogConfirmBtn;
     private javax.swing.JLabel cancelDialogLabel;
-    private javax.swing.JButton closeViewBtn;
+    private javax.swing.JButton closeBtn;
+    private javax.swing.JTextField clothingTextInput;
+    private javax.swing.JLabel clotihingLabel;
     private javax.swing.JPanel decorLine;
     private javax.swing.JPanel decorLine2;
     private javax.swing.JPanel decorLine3;
+    private javax.swing.JPanel decorLine4;
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JLabel departmentNameLabel;
-    private javax.swing.JTextField departmentTextFieldTemp;
     private javax.swing.JTextField departmentTextInput;
     private javax.swing.JLabel employeeNoLabel;
     private javax.swing.JTextField employeeNoTextInput;
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField firstNameTextInput;
     private javax.swing.JLabel govIdLabel;
+    private javax.swing.JLabel hourlyLabel;
+    private javax.swing.JTextField hourlyTextInput;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField lastNameTextInput;
     private javax.swing.JButton noChangeButton;
@@ -1868,23 +1293,16 @@ public class SalaryEditor extends javax.swing.JPanel {
     private javax.swing.JTextField philhealthTextInput;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JTextField phoneTextInput;
-    private javax.swing.JComboBox<String> positionComboBox;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JTextField positionTextInput;
-    private javax.swing.JButton removeBtn;
-    private javax.swing.JDialog removeDialog;
-    private javax.swing.JButton removeDialogCancelBtn;
-    private javax.swing.JButton removeDialogConfirmBtn;
-    private javax.swing.JLabel removeDialogLabel;
-    private javax.swing.JLabel removeDialogLabel1;
-    private javax.swing.JLabel removeDialogNameField;
-    private javax.swing.JLabel removeDialogNameLabel;
-    private javax.swing.JLabel removeDialogNumberField;
-    private javax.swing.JLabel removeDialogNumberLabel;
-    private javax.swing.JPanel removeDialogPanel;
+    private javax.swing.JLabel riceLabel;
+    private javax.swing.JTextField riceTextInput;
+    private javax.swing.JLabel salaryLabel;
+    private javax.swing.JButton saveBtn;
+    private javax.swing.JLabel semiMonthlyLabel;
+    private javax.swing.JTextField semiTextInput;
     private javax.swing.JLabel sssLabel;
     private javax.swing.JTextField sssTextInput;
-    private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField statusTextInput;
     private javax.swing.JButton successBtn;
@@ -1892,9 +1310,6 @@ public class SalaryEditor extends javax.swing.JPanel {
     private javax.swing.JLabel successEmployeeLabel;
     private javax.swing.JLabel successLabel;
     private javax.swing.JPanel successsPanel;
-    private javax.swing.JComboBox<String> supervisorComboBox;
-    private javax.swing.JLabel supervisorLabel;
-    private javax.swing.JTextField supervisorTextInput;
     private javax.swing.JLabel tinLabel;
     private javax.swing.JTextField tinTextInput;
     private javax.swing.JButton updateBtn;

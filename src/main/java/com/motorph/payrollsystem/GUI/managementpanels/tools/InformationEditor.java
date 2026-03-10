@@ -148,18 +148,7 @@ public class InformationEditor extends javax.swing.JPanel {
     private void updateFields() {
         setEditorTitle();
         setButtonsVisibility();
-        
-        //disable update on self account details
-//        buttonVisibility(updateBtn, !isEditing);
-//        updateBtn.setEnabled(!selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo()));
-//        
-//        buttonVisibility(closeViewBtn, !isEditing);
-//        buttonVisibility(removeBtn, isEditing);
-//        
-//        
-//        buttonVisibility(cancelAddOrUpdateBtn,isEditing);
-//        buttonVisibility(addOrUpdateBtn, isEditing);
-//        
+
         fieldEnabler(firstNameTextInput);
         fieldEnabler(lastNameTextInput);
         fieldEnabler(bdayPicker);

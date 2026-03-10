@@ -17,7 +17,7 @@ import com.motorph.payrollsystem.model.employee.GovIds;
 public class Mapper {
     
     //Mapper for GUI textfields into a Employee class 
-    //---- Updating employee----
+    //---- Updating employee information----
     public static Employee buildEmployee(
             Employee selectedEmployee,
             String lastName,
@@ -54,7 +54,24 @@ public class Mapper {
         );
     }
     
-    
+    //---updating employee salary----
+    public static Employee buildEmployee(
+            Employee selectedEmployee,
+            String basicSalary,
+            String rice,
+            String phoneAllowance,
+            String clothingAllowance
+    ) {
+        CompProfile compProfile = new CompProfile();
+        
+        compProfile.setBasicSalary(Money.parseSalary(basicSalary));
+        compProfile.setRiceSubsidy(Money.parseSalary(rice));
+        compProfile.setPhoneAllowance(Money.parseSalary(phoneAllowance));
+        compProfile.setClothingAllowance(Money.parseSalary(clothingAllowance));
+        
+        selectedEmployee.setCompProfile(compProfile);
+        return selectedEmployee;
+    }
     
     //Base employee mapper
     public static Employee buildEmployee(
