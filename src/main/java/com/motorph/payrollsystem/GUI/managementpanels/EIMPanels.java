@@ -10,6 +10,7 @@ import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -343,6 +344,7 @@ public class EIMPanels extends javax.swing.JPanel {
         empInfoPane.setViewportView(empInfoTable);
         if (empInfoTable.getColumnModel().getColumnCount() > 0) {
             empInfoTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+            empInfoTable.getColumnModel().getColumn(0).setCellRenderer(FontsAndFormats.cellCenterRenderer());
             empInfoTable.getColumnModel().getColumn(1).setPreferredWidth(80);
             empInfoTable.getColumnModel().getColumn(2).setPreferredWidth(80);
         }

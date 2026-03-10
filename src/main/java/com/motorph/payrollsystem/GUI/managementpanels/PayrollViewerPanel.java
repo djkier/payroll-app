@@ -7,10 +7,12 @@ package com.motorph.payrollsystem.gui.managementpanels;
 import com.motorph.payrollsystem.gui.managementpanels.tools.InformationEditor;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.SalaryEditor;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,9 +54,7 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
         try {
             this.employeeList = employeeService.getEmployeeList(policy);
             displayedEmployees = new ArrayList<>(employeeList);
-            
-            fillStats(policy, employeeService);
-            //use displayedEmployees to have a parallel ui and logic list
+           
             fillTable(displayedEmployees);
             
         } catch (Exception ex){
@@ -64,41 +64,21 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
         customizeCellColumns();
     }
     
-    private void fillStats(AccessPolicy policy, EmployeeService employeeService) {
-        String stats;
-        
-        try {
-            String all = String.valueOf(employeeService.getStatusTotalStats(policy));
-            String probStats = String.valueOf(employeeService.getStatusStats("Probationary", policy));
-            String regStats = String.valueOf(employeeService.getStatusStats("Regular", policy));
-            
-            stats = "All: " + all +
-                    " Regular: " + regStats +
-                    " Probationary: " + probStats;
-            
-        } catch (Exception ex) {
-            stats = "Failed to load employee stats";
-            ex.printStackTrace();
-        }
-        
-        statsLabel.setText(stats);
-    }
-    
+
     private void customizeCellColumns() {
-        empSalaryInfo.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
+        empTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
     }
     
     private void fillTable(List<Employee> list) {
-        DefaultTableModel model = (DefaultTableModel) clearTable(empSalaryInfo);
+        DefaultTableModel model = (DefaultTableModel) clearTable(empTable);
         
         for (Employee emp : list) {
             model.addRow(new Object[]{
                 emp.getEmployeeNo(),
-                emp.getLastNameInitial(),
-                emp.getGovIds().getSssNumber(),
-                emp.getGovIds().getPhilHealthNumber(),
-                emp.getGovIds().getPagibigNumber(),
-                emp.getGovIds().getTinNumber()
+                emp.getLastName(),
+                emp.getFirstName(),
+                emp.getDepartmentInfo().getDepartment(),
+                emp.getDepartmentInfo().getPosition()
             });
         }
     }
@@ -111,18 +91,18 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
     }
     
     private void hookRowDoubleClick() {
-        empSalaryInfo.addMouseListener(new java.awt.event.MouseAdapter() {
+        empTable.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() != 2) return;
                 
-                int viewRow = empSalaryInfo.getSelectedRow();
+                int viewRow = empTable.getSelectedRow();
                 if (viewRow < 0) return;
                 
-                int modelRow = empSalaryInfo.convertRowIndexToModel(viewRow);
+                int modelRow = empTable.convertRowIndexToModel(viewRow);
                 if (modelRow < 0 || modelRow >= displayedEmployees.size()) return;
 
-                showSalaryInfo(displayedEmployees.get(modelRow));
+                showPayslipInfo(displayedEmployees.get(modelRow));
             }
         });
     }
@@ -181,20 +161,20 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
         applySearch();
     }
 
-    private void showSalaryInfo(Employee selectedEmployee) {
-        String title = "Employee Salary Information : " + selectedEmployee.getFullName();
-        SalaryEditor salaryEditor = new SalaryEditor(appContext, selectedEmployee, editSalaryDialog);
-        openInfoDialog(title, salaryEditor);
+    private void showPayslipInfo(Employee selectedEmployee) {
+        String title = "Payslip Viewer for : " + selectedEmployee.getFullName();
+        PayslipViewer payslipViewer = new PayslipViewer(appContext, selectedEmployee, payslipViewerDialog);
+        openInfoDialog(title, payslipViewer);
     }
     
-    private void openInfoDialog(String title, SalaryEditor salaryEditor) {
-        editSalaryDialog.setTitle(title);
-        editSalaryDialog.setContentPane(salaryEditor);
-        editSalaryDialog.pack();
-        editSalaryDialog.setResizable(false);
-        editSalaryDialog.setLocationRelativeTo(null);
+    private void openInfoDialog(String title, PayslipViewer payslipViewer) {
+        payslipViewerDialog.setTitle(title);
+        payslipViewerDialog.setContentPane(payslipViewer);
+        payslipViewerDialog.pack();
+        payslipViewerDialog.setResizable(false);
+        payslipViewerDialog.setLocationRelativeTo(null);
         
-        editSalaryDialog.setVisible(true);
+        payslipViewerDialog.setVisible(true);
     }
     
 
@@ -209,93 +189,36 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         radioBtnGroup = new javax.swing.ButtonGroup();
-        editSalaryDialog = new javax.swing.JDialog(this.dialog, true);
-        exitEditorDialog = new javax.swing.JDialog(editSalaryDialog, true);
-        cancelConfirmPanel = new javax.swing.JPanel();
-        cancelConfrimLabel = new javax.swing.JLabel();
-        cancelBtnConfirm = new javax.swing.JButton();
-        confirmBtnConfirm = new javax.swing.JButton();
+        payslipViewerDialog = new javax.swing.JDialog(this.dialog, true);
         searchBarTextField = new javax.swing.JTextField();
-        statsLabel = new javax.swing.JLabel();
         headerLabel = new javax.swing.JLabel();
         empInfoPane = new javax.swing.JScrollPane();
-        empSalaryInfo = new javax.swing.JTable();
+        empTable = new javax.swing.JTable();
         idRadio = new javax.swing.JRadioButton();
         lastNameRadio = new javax.swing.JRadioButton();
         searchByLabel = new javax.swing.JLabel();
         noteLabel = new javax.swing.JLabel();
 
-        editSalaryDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        editSalaryDialog.setAlwaysOnTop(true);
-        editSalaryDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        payslipViewerDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        payslipViewerDialog.setAlwaysOnTop(true);
+        payslipViewerDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                editSalaryDialogWindowClosed(evt);
+                payslipViewerDialogWindowClosed(evt);
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                editSalaryDialogWindowClosing(evt);
+                payslipViewerDialogWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout editSalaryDialogLayout = new javax.swing.GroupLayout(editSalaryDialog.getContentPane());
-        editSalaryDialog.getContentPane().setLayout(editSalaryDialogLayout);
-        editSalaryDialogLayout.setHorizontalGroup(
-            editSalaryDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 893, Short.MAX_VALUE)
+        javax.swing.GroupLayout payslipViewerDialogLayout = new javax.swing.GroupLayout(payslipViewerDialog.getContentPane());
+        payslipViewerDialog.getContentPane().setLayout(payslipViewerDialogLayout);
+        payslipViewerDialogLayout.setHorizontalGroup(
+            payslipViewerDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 544, Short.MAX_VALUE)
         );
-        editSalaryDialogLayout.setVerticalGroup(
-            editSalaryDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 653, Short.MAX_VALUE)
-        );
-
-        cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cancelConfrimLabel.setText("Are you sure you want to exit?");
-
-        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
-        cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtnConfirm.setText("Cancel");
-        cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
-
-        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
-        confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtnConfirm.setText("Confirm");
-        confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
-
-        javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
-        cancelConfirmPanel.setLayout(cancelConfirmPanelLayout);
-        cancelConfirmPanelLayout.setHorizontalGroup(
-            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
-            .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        cancelConfirmPanelLayout.setVerticalGroup(
-            cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addComponent(cancelConfrimLabel)
-                .addGap(18, 18, 18)
-                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24))
-        );
-
-        javax.swing.GroupLayout exitEditorDialogLayout = new javax.swing.GroupLayout(exitEditorDialog.getContentPane());
-        exitEditorDialog.getContentPane().setLayout(exitEditorDialogLayout);
-        exitEditorDialogLayout.setHorizontalGroup(
-            exitEditorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        exitEditorDialogLayout.setVerticalGroup(
-            exitEditorDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cancelConfirmPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        payslipViewerDialogLayout.setVerticalGroup(
+            payslipViewerDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -303,60 +226,58 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
         searchBarTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         searchBarTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        statsLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        statsLabel.setText("Total : 36  Regular : 12  Probationary : 24");
-
+        headerLabel.setText("EMPLOYEE PAYSLIP VIEWER");
         headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
-        headerLabel.setText("EMPLOYEE SALARY MANAGEMENT");
 
-        empSalaryInfo.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        empSalaryInfo.setModel(new javax.swing.table.DefaultTableModel(
+        empTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Employee No.", "Name", "SSS", "PhillHealth", "Pag IBIG", "TIN"
+                "Employee No.", "Last Name", "First Name", "Department", "Position"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        empSalaryInfo.setRowHeight(28);
-        empSalaryInfo.getTableHeader().setResizingAllowed(false);
-        empSalaryInfo.getTableHeader().setReorderingAllowed(false);
-        empInfoPane.setViewportView(empSalaryInfo);
-        if (empSalaryInfo.getColumnModel().getColumnCount() > 0) {
-            empSalaryInfo.getColumnModel().getColumn(0).setPreferredWidth(40);
-            empSalaryInfo.getColumnModel().getColumn(1).setPreferredWidth(80);
-            empSalaryInfo.getColumnModel().getColumn(2).setPreferredWidth(80);
+        empTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        empTable.setRowHeight(28);
+        empTable.getTableHeader().setResizingAllowed(false);
+        empTable.getTableHeader().setReorderingAllowed(false);
+        empInfoPane.setViewportView(empTable);
+        if (empTable.getColumnModel().getColumnCount() > 0) {
+            empTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+            empTable.getColumnModel().getColumn(0).setCellRenderer(FontsAndFormats.cellCenterRenderer());
+            empTable.getColumnModel().getColumn(1).setPreferredWidth(80);
+            empTable.getColumnModel().getColumn(2).setPreferredWidth(80);
         }
 
-        idRadio.setBackground(new java.awt.Color(255, 255, 255));
         radioBtnGroup.add(idRadio);
-        idRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         idRadio.setSelected(true);
         idRadio.setText("ID Number");
+        idRadio.setBackground(new java.awt.Color(255, 255, 255));
+        idRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         idRadio.addActionListener(this::idRadioActionPerformed);
 
-        lastNameRadio.setBackground(new java.awt.Color(255, 255, 255));
         radioBtnGroup.add(lastNameRadio);
-        lastNameRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         lastNameRadio.setText("Last Name");
+        lastNameRadio.setBackground(new java.awt.Color(255, 255, 255));
+        lastNameRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         lastNameRadio.addActionListener(this::lastNameRadioActionPerformed);
 
-        searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         searchByLabel.setText("Search by :");
+        searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
+        noteLabel.setText("Double-click a row to view employee payslip records.");
         noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
-        noteLabel.setText("Double-click a row to edit employee salary details.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -366,15 +287,13 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(noteLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(statsLabel))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(searchByLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(noteLabel))
                     .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
                     .addComponent(headerLabel)
                     .addComponent(searchBarTextField))
@@ -391,48 +310,29 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRadio)
                     .addComponent(lastNameRadio)
-                    .addComponent(searchByLabel))
+                    .addComponent(searchByLabel)
+                    .addComponent(noteLabel))
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(noteLabel)
-                    .addComponent(statsLabel))
-                .addGap(0, 0, 0)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
         idRadio.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnConfirmActionPerformed
+    private void payslipViewerDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_payslipViewerDialogWindowClosing
         // TODO add your handling code here:
-        exitEditorDialog.dispose();
-    }//GEN-LAST:event_cancelBtnConfirmActionPerformed
+        payslipViewerDialog.dispose();
+    }//GEN-LAST:event_payslipViewerDialogWindowClosing
 
-    private void confirmBtnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnConfirmActionPerformed
-        // TODO add your handling code here:
-        exitEditorDialog.dispose();
-        editSalaryDialog.dispose();
-    }//GEN-LAST:event_confirmBtnConfirmActionPerformed
-
-    private void editSalaryDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editSalaryDialogWindowClosing
-        // TODO add your handling code here:
-        exitEditorDialog.pack();
-        exitEditorDialog.setResizable(false);
-        exitEditorDialog.setLocationRelativeTo(null);
-        exitEditorDialog.setTitle("Exiting editor");
-
-        exitEditorDialog.setVisible(true);  
-    }//GEN-LAST:event_editSalaryDialogWindowClosing
-
-    private void editSalaryDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_editSalaryDialogWindowClosed
+    private void payslipViewerDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_payslipViewerDialogWindowClosed
         // TODO add your handling code here:
         resetSearchAndTable();
         isIDSelected = true;
         idRadio.setSelected(true);
         
         loadEmployees();
-    }//GEN-LAST:event_editSalaryDialogWindowClosed
+    }//GEN-LAST:event_payslipViewerDialogWindowClosed
 
     private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
         // TODO add your handling code here:
@@ -456,21 +356,15 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
     private List<Employee> displayedEmployees;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelBtnConfirm;
-    private javax.swing.JPanel cancelConfirmPanel;
-    private javax.swing.JLabel cancelConfrimLabel;
-    private javax.swing.JButton confirmBtnConfirm;
-    private javax.swing.JDialog editSalaryDialog;
     private javax.swing.JScrollPane empInfoPane;
-    private javax.swing.JTable empSalaryInfo;
-    private javax.swing.JDialog exitEditorDialog;
+    private javax.swing.JTable empTable;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JRadioButton idRadio;
     private javax.swing.JRadioButton lastNameRadio;
     private javax.swing.JLabel noteLabel;
+    private javax.swing.JDialog payslipViewerDialog;
     private javax.swing.ButtonGroup radioBtnGroup;
     private javax.swing.JTextField searchBarTextField;
     private javax.swing.JLabel searchByLabel;
-    private javax.swing.JLabel statsLabel;
     // End of variables declaration//GEN-END:variables
 }

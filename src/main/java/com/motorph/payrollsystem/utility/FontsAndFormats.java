@@ -79,4 +79,19 @@ public class FontsAndFormats {
             }
         };
     }
+    
+    public static DefaultTableCellRenderer cellCenterRenderer() {
+        return new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(
+                JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+                setHorizontalAlignment(javax.swing.JLabel.CENTER);
+                Component cell = super.getTableCellRendererComponent(
+                        table, value, isSelected, hasFocus, row, column);
+
+                return cell;
+            }
+        };
+    }
 }

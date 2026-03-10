@@ -10,6 +10,7 @@ import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
 import com.motorph.payrollsystem.gui.managementpanels.ESMPanel;
+import com.motorph.payrollsystem.gui.managementpanels.PayrollViewerPanel;
 import com.motorph.payrollsystem.gui.managementpanels.ReviewLeavePanel;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
@@ -564,7 +565,7 @@ public class ManagementPanel extends javax.swing.JPanel {
                 ")";
         openNewWindow(
                 title,
-                new ESMPanel(appContext, dialog),
+                new PayrollViewerPanel(appContext, dialog),
                 new Dimension(822, 700)
         );
     }//GEN-LAST:event_employeePayrollCardMouseClicked

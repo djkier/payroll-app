@@ -10,6 +10,7 @@ import com.motorph.payrollsystem.gui.managementpanels.tools.LeaveHistoryPanel;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.util.List;
 import java.util.ArrayList;
@@ -697,7 +698,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Date Filed", "Employee ID", "Employee Name", "Subject", "Leave Start", "Leave End"
+                "Date Filed", "Employee No.", "Employee Name", "Subject", "Leave Start", "Leave End"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -711,6 +712,9 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         leaveMngtTable.setRowHeight(24);
         leaveMngtTable.getTableHeader().setReorderingAllowed(false);
         tablePane.setViewportView(leaveMngtTable);
+        if (leaveMngtTable.getColumnModel().getColumnCount() > 0) {
+            leaveMngtTable.getColumnModel().getColumn(1).setCellRenderer(FontsAndFormats.cellCenterRenderer());
+        }
 
         searchField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         searchField.addKeyListener(new java.awt.event.KeyAdapter() {

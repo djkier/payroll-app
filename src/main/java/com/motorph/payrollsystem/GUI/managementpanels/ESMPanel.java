@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.gui.managementpanels.tools.SalaryEditor;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -335,6 +336,7 @@ public class ESMPanel extends javax.swing.JPanel {
         empInfoPane.setViewportView(empSalaryInfo);
         if (empSalaryInfo.getColumnModel().getColumnCount() > 0) {
             empSalaryInfo.getColumnModel().getColumn(0).setPreferredWidth(40);
+            empSalaryInfo.getColumnModel().getColumn(0).setCellRenderer(FontsAndFormats.cellCenterRenderer());
             empSalaryInfo.getColumnModel().getColumn(1).setPreferredWidth(80);
             empSalaryInfo.getColumnModel().getColumn(2).setPreferredWidth(80);
         }
