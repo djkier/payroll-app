@@ -10,8 +10,11 @@ import com.motorph.payrollsystem.dao.EmployeeRepository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -157,6 +160,38 @@ public class EmployeeService {
         Collections.sort(empNames);
         
         return empNames;
+    }
+    
+    public int getStatusStats(String statusType, AccessPolicy policy) throws IOException {
+        return getStatusStats(policy).get(statusType);
+    } 
+    
+    public int getStatusTotalStats(AccessPolicy policy) throws IOException{
+        int total = 0;
+        List<String> statuses = getUniqueStatus(policy);
+        Map<String, Integer> counts = getStatusStats(policy);
+        
+        for (String status : statuses) {
+            total += counts.get(status);
+        }
+        return total;
+    }
+    
+    public Map<String, Integer> getStatusStats(AccessPolicy policy) throws IOException {
+        List<Employee> list = getEmployeeList(policy);
+        List<String> statuses = getUniqueStatus(policy);
+        Map<String, Integer> counts = new HashMap<>();
+        
+        for (String status : statuses) {
+            counts.put(status, 0);
+        }
+        
+        for (Employee employee : list) {
+            String employeeStatus = employee.getDepartmentInfo().getStatus();
+            counts.put(employeeStatus, counts.get(employeeStatus) + 1);
+        }
+        
+        return counts;
     }
     
     private List<String> hashSetSorter(Set<String> set) {

@@ -53,6 +53,7 @@ public class EIMPanels extends javax.swing.JPanel {
             displayedEmployees = new ArrayList<>(employeeList);
             
             //should use tableEmployeeList
+            fillStats(policy, employeeService);
             fillTable(displayedEmployees);
             
         } catch (Exception ex){
@@ -60,6 +61,26 @@ public class EIMPanels extends javax.swing.JPanel {
         }
         
         customizeCellColumns();
+    }
+    
+    private void fillStats(AccessPolicy policy, EmployeeService employeeService) {
+        String stats;
+        
+        try {
+            String all = String.valueOf(employeeService.getStatusTotalStats(policy));
+            String probStats = String.valueOf(employeeService.getStatusStats("Probationary", policy));
+            String regStats = String.valueOf(employeeService.getStatusStats("Regular", policy));
+            
+            stats = "All: " + all +
+                    " Regular: " + regStats +
+                    " Probationary: " + probStats;
+            
+        } catch (Exception ex) {
+            stats = "Failed to load employee stats";
+            ex.printStackTrace();
+        }
+        
+        statsLabel.setText(stats);
     }
     
     private void customizeCellColumns() {
