@@ -116,7 +116,10 @@ public class EmployeeService {
     }
     
     public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
-        if (policy == null || (!policy.canManageEmployees() && !policy.canUpdateEmployeeSalary())) {
+        if (policy == null|| 
+                            (!policy.canManageEmployees() 
+                            && !policy.canUpdateEmployeeSalary() 
+                            && !policy.canViewEmployeePayroll())) {
             throw new SecurityException("Access denied.");
         }
         
@@ -163,7 +166,13 @@ public class EmployeeService {
     }
     
     public int getStatusStats(String statusType, AccessPolicy policy) throws IOException {
-        return getStatusStats(policy).get(statusType);
+        if (statusType == null || statusType.isBlank()) {
+            return 0;
+        }
+        
+        Map<String, Integer> counts = getStatusStats(policy);
+        
+        return counts.getOrDefault(statusType, 0);
     } 
     
     public int getStatusTotalStats(AccessPolicy policy) throws IOException{

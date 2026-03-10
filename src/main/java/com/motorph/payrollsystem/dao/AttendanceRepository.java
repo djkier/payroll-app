@@ -5,6 +5,7 @@
 package com.motorph.payrollsystem.dao;
 
 import com.motorph.payrollsystem.model.attendance.AttendanceRecord;
+import com.motorph.payrollsystem.utility.Csv;
 import com.motorph.payrollsystem.utility.Dates;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class AttendanceRepository extends CsvRepositoryBase {
                 if(line.trim().isEmpty()) continue;
                 
                 //the line should have 6 column if not skip
-                String[] columnData = line.split(",", -1);
+                String[] columnData = parseLine(line);
                 if (columnData.length < 6) continue;
                 
                 //skip records that dont belong to the employee

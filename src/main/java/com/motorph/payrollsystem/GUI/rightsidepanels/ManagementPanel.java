@@ -261,6 +261,9 @@ public class ManagementPanel extends javax.swing.JPanel {
         employeePayrollCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         employeePayrollCard.setPreferredSize(new java.awt.Dimension(280, 200));
         employeePayrollCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                employeePayrollCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 employeePayrollCardMouseEntered(evt);
             }
@@ -271,7 +274,7 @@ public class ManagementPanel extends javax.swing.JPanel {
 
         employeePayrollLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         employeePayrollLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        employeePayrollLabel.setText("EMPLOYEE PAYROLL");
+        employeePayrollLabel.setText("EMPLOYEE PAYSLIP VIEWER");
 
         javax.swing.GroupLayout employeePayrollCardLayout = new javax.swing.GroupLayout(employeePayrollCard);
         employeePayrollCard.setLayout(employeePayrollCardLayout);
@@ -546,6 +549,25 @@ public class ManagementPanel extends javax.swing.JPanel {
                 new Dimension(822, 700)
         );
     }//GEN-LAST:event_updateEmployeeSalaryCardMouseClicked
+
+    private void employeePayrollCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_employeePayrollCardMouseClicked
+        // TODO add your handling code here:
+        if (policy == null || !policy.canViewEmployeePayroll()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
+            return;
+        }
+        
+        String title = "Employee Payslip Viewer(" + 
+                appContext.getSessionManager().getCurrentEmployee().getLastNameInitial() +
+                " - " +
+                appContext.getSessionManager().getAccessPolicy().roleName() + 
+                ")";
+        openNewWindow(
+                title,
+                new ESMPanel(appContext, dialog),
+                new Dimension(822, 700)
+        );
+    }//GEN-LAST:event_employeePayrollCardMouseClicked
     
     private ImageIcon moduleIcon;
     private AccessPolicy policy;

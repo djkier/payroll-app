@@ -20,17 +20,17 @@ public class PositionPolicyResolver {
     public AccessPolicy resolve(Employee employee) {
         String department = employee.getDepartmentInfo().getDepartment();
         
-        switch (department) {
-            case "Executive":
+        switch (department.toLowerCase().trim()) {
+            case "executive":
                 return new AdminPolicy();
             
-            case "Human Resources":
+            case "human resources":
                 return new HrPolicy();
                 
-            case "Accounting":
+            case "accounting":
                 return new PayrollPolicy();
                 
-            case "Information Technology":
+            case "information technology":
                 return new ItPolicy();
                 
             default:

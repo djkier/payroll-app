@@ -306,6 +306,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="employeePayrollCardMouseClicked"/>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="employeePayrollCardMouseEntered"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="employeePayrollCardMouseExited"/>
           </Events>
@@ -333,7 +334,7 @@
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="EMPLOYEE PAYROLL"/>
+                <Property name="text" type="java.lang.String" value="EMPLOYEE PAYSLIP VIEWER"/>
               </Properties>
             </Component>
           </SubComponents>

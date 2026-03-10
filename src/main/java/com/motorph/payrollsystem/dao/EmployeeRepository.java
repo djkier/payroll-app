@@ -45,7 +45,7 @@ public class EmployeeRepository extends CsvRepositoryBase {
                 if (line.trim().isEmpty()) continue;
 
                 //parse csv properly so splitting of "," from an address or salary can be prevented
-                String[] details = Csv.parseLine(line);
+                String[] details = parseLine(line);
 
                 if (details.length < 19) continue;
 
@@ -70,7 +70,7 @@ public class EmployeeRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 
-                String[] details = Csv.parseLine(line);
+                String[] details = parseLine(line);
                 if (details.length < 19) continue;
                 
                 Employee emp = map(details);

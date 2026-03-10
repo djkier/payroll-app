@@ -14,8 +14,6 @@ import java.time.LocalTime;
  */
 public class AttendanceRecord {
     private String employeeNo;
-    private String lastName;
-    private String firstName;
     private LocalDate date;
     private LocalTime timeIn;
     private LocalTime timeOut;

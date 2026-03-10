@@ -43,7 +43,7 @@ public class LeaveRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
                 
-                String[] cols = Csv.parseLine(line);
+                String[] cols = parseLine(line);
                 if (cols.length < 9) continue;
                 if (!cols[1].trim().equals(employeeNo)) continue;
 
@@ -66,7 +66,7 @@ public class LeaveRepository extends CsvRepositoryBase {
             br.readLine();
             while ((line = br.readLine()) != null){
                 if (line.trim().isEmpty()) continue;
-                String[] cols = Csv.parseLine(line);
+                String[] cols = parseLine(line);
                 if (cols.length < 1) continue;
                 
                 try {
@@ -94,7 +94,7 @@ public class LeaveRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] cols = Csv.parseLine(line);
+                String[] cols = parseLine(line);
                 if (cols.length < 9) continue;
 
                 requests.add(map(cols));
@@ -114,7 +114,7 @@ public class LeaveRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] cols = Csv.parseLine(line);
+                String[] cols = parseLine(line);
                 if (cols.length < 9) continue;
 
                 LeaveRequest request = map(cols);

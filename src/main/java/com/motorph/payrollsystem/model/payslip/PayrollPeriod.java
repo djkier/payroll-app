@@ -99,7 +99,7 @@ public class PayrollPeriod {
     //Override hashcode so it can be use for hashset
     @Override
     public int hashCode() {
-        return Objects.hash(startDate, endDate);
+        return Objects.hash(startDate, endDate, periodType, cutoff);
     }
     
     //Override toString() so it can be use on the combobox 

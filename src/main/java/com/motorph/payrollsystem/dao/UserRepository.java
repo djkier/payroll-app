@@ -74,7 +74,7 @@ public class UserRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] parts = line.split(",", -1);
+                String[] parts = parseLine(line);
                 if (parts.length < 3) continue;
 
                 String fileEmpNo = parts[0].trim();
