@@ -7,6 +7,7 @@ package com.motorph.payrollsystem.gui.managementpanels;
 import com.motorph.payrollsystem.gui.managementpanels.tools.InformationEditor;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.gui.managementpanels.tools.SalaryEditor;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
@@ -182,17 +183,17 @@ public class ESMPanel extends javax.swing.JPanel {
 
     private void showSalaryInfo(Employee selectedEmployee) {
         String title = "Employee Salary Information : " + selectedEmployee.getFullName();
-        showEmployeeEditor(selectedEmployee, title, true);
+        showSalaryEditor(selectedEmployee, title, true);
     }
     
-    private void showEmployeeEditor(Employee employee, String title, boolean isViewing) {
-        InformationEditor infoEditor = new InformationEditor(appContext, employee, isViewing, editEmployeeDialog);
-        openInfoDialog(title, infoEditor);
+    private void showSalaryEditor(Employee employee, String title, boolean isViewing) {
+        SalaryEditor salaryEditor = new SalaryEditor(appContext, employee, isViewing, editEmployeeDialog);
+        openInfoDialog(title, salaryEditor);
     }
     
-    private void openInfoDialog(String title, InformationEditor infoEditor) {
+    private void openInfoDialog(String title, SalaryEditor salaryEditor) {
         editEmployeeDialog.setTitle(title);
-        editEmployeeDialog.setContentPane(infoEditor);
+        editEmployeeDialog.setContentPane(salaryEditor);
         editEmployeeDialog.pack();
         editEmployeeDialog.setResizable(false);
         editEmployeeDialog.setLocationRelativeTo(null);
