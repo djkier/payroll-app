@@ -116,7 +116,7 @@ public class EmployeeService {
     }
     
     public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
-        if (policy == null || !policy.canManageEmployees()) {
+        if (policy == null || (!policy.canManageEmployees() && !policy.canUpdateEmployeeSalary())) {
             throw new SecurityException("Access denied.");
         }
         

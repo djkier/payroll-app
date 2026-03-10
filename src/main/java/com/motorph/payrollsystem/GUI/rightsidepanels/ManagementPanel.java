@@ -9,6 +9,7 @@ import com.motorph.payrollsystem.gui.managementpanels.EIMPanels;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.config.SessionManager;
+import com.motorph.payrollsystem.gui.managementpanels.ESMPanel;
 import com.motorph.payrollsystem.gui.managementpanels.ReviewLeavePanel;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
@@ -529,6 +530,21 @@ public class ManagementPanel extends javax.swing.JPanel {
 
     private void updateEmployeeSalaryCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateEmployeeSalaryCardMouseClicked
         // TODO add your handling code here:
+        if (policy == null || !policy.canUpdateEmployeeSalary()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
+            return;
+        }
+        
+        String title = "Employee Salary Management (" + 
+                appContext.getSessionManager().getCurrentEmployee().getLastNameInitial() +
+                " - " +
+                appContext.getSessionManager().getAccessPolicy().roleName() + 
+                ")";
+        openNewWindow(
+                title,
+                new ESMPanel(appContext, dialog),
+                new Dimension(822, 700)
+        );
     }//GEN-LAST:event_updateEmployeeSalaryCardMouseClicked
     
     private ImageIcon moduleIcon;
