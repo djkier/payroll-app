@@ -148,26 +148,22 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="noteLabel" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="searchByLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="idRadio" min="-2" pref="102" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lastNameRadio" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="statsLabel" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="empInfoPane" alignment="0" max="32767" attributes="0"/>
-                      <Component id="headerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="searchBarTextField" min="-2" pref="577" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="addNewBtn" min="-2" pref="157" max="-2" attributes="0"/>
-                      </Group>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="noteLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="statsLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="searchByLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="idRadio" min="-2" pref="102" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="lastNameRadio" min="-2" pref="100" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="empInfoPane" alignment="0" pref="758" max="32767" attributes="0"/>
+                  <Component id="headerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="searchBarTextField" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
@@ -179,21 +175,20 @@
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="headerLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="addNewBtn" alignment="0" pref="43" max="32767" attributes="0"/>
-                  <Component id="searchBarTextField" alignment="0" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <Component id="searchBarTextField" min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="idRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lastNameRadio" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchByLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="noteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="statsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="noteLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="empInfoPane" pref="460" max="32767" attributes="0"/>
+              <Component id="empInfoPane" pref="480" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -226,17 +221,6 @@
         <Property name="text" type="java.lang.String" value="EMPLOYEE INFORMATION MANAGEMENT"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="addNewBtn">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="12" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Add new employee"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewBtnActionPerformed"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JScrollPane" name="empInfoPane">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
@@ -244,7 +228,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="empInfoTable">
+        <Component class="javax.swing.JTable" name="empSalaryInfo">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="0"/>
@@ -252,11 +236,11 @@
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="4">
                 <Column editable="false" title="Employee No." type="java.lang.Object"/>
-                <Column editable="false" title="Last Name" type="java.lang.Object"/>
-                <Column editable="false" title="First Name" type="java.lang.Object"/>
-                <Column editable="false" title="Department" type="java.lang.Object"/>
-                <Column editable="false" title="Position" type="java.lang.Object"/>
-                <Column editable="false" title="Status" type="java.lang.Object"/>
+                <Column editable="false" title="Name" type="java.lang.Object"/>
+                <Column editable="false" title="SSS" type="java.lang.Object"/>
+                <Column editable="false" title="PhillHealth" type="java.lang.Object"/>
+                <Column editable="false" title="Pag IBIG" type="java.lang.Object"/>
+                <Column editable="false" title="TIN" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

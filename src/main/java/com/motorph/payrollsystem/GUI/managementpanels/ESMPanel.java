@@ -40,7 +40,7 @@ public class ESMPanel extends javax.swing.JPanel {
         initComponents();
         
         loadEmployees();
-        hookRowDoubleClick();
+//        hookRowDoubleClick();
         hookSearch();
     }
     
@@ -52,8 +52,8 @@ public class ESMPanel extends javax.swing.JPanel {
             this.employeeList = employeeService.getEmployeeList(policy);
             displayedEmployees = new ArrayList<>(employeeList);
             
-            //should use tableEmployeeList
             fillStats(policy, employeeService);
+            //use displayedEmployees to have a parallel ui and logic list
             fillTable(displayedEmployees);
             
         } catch (Exception ex){
@@ -84,20 +84,20 @@ public class ESMPanel extends javax.swing.JPanel {
     }
     
     private void customizeCellColumns() {
-        empInfoTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
+        empSalaryInfo.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
     }
     
     private void fillTable(List<Employee> list) {
-        DefaultTableModel model = (DefaultTableModel) clearTable(empInfoTable);
+        DefaultTableModel model = (DefaultTableModel) clearTable(empSalaryInfo);
         
         for (Employee emp : list) {
             model.addRow(new Object[]{
                 emp.getEmployeeNo(),
-                emp.getLastName(),
-                emp.getFirstName(),
-                emp.getDepartmentInfo().getDepartment(),
-                emp.getDepartmentInfo().getPosition(),
-                emp.getDepartmentInfo().getStatus()
+                emp.getLastNameInitial(),
+                emp.getGovIds().getSssNumber(),
+                emp.getGovIds().getPhilHealthNumber(),
+                emp.getGovIds().getPagibigNumber(),
+                emp.getGovIds().getTinNumber()
             });
         }
     }
@@ -110,18 +110,18 @@ public class ESMPanel extends javax.swing.JPanel {
     }
     
     private void hookRowDoubleClick() {
-        empInfoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        empSalaryInfo.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (evt.getClickCount() != 2) return;
                 
-                int viewRow = empInfoTable.getSelectedRow();
+                int viewRow = empSalaryInfo.getSelectedRow();
                 if (viewRow < 0) return;
                 
-                int modelRow = empInfoTable.convertRowIndexToModel(viewRow);
+                int modelRow = empSalaryInfo.convertRowIndexToModel(viewRow);
                 if (modelRow < 0 || modelRow >= displayedEmployees.size()) return;
 
-                showEmployeeInfo(displayedEmployees.get(modelRow));
+                showSalaryInfo(displayedEmployees.get(modelRow));
             }
         });
     }
@@ -180,8 +180,8 @@ public class ESMPanel extends javax.swing.JPanel {
         applySearch();
     }
 
-    private void showEmployeeInfo(Employee selectedEmployee) {
-        String title = "Employee Information : " + selectedEmployee.getFullName();
+    private void showSalaryInfo(Employee selectedEmployee) {
+        String title = "Employee Salary Information : " + selectedEmployee.getFullName();
         showEmployeeEditor(selectedEmployee, title, true);
     }
     
@@ -221,9 +221,8 @@ public class ESMPanel extends javax.swing.JPanel {
         searchBarTextField = new javax.swing.JTextField();
         statsLabel = new javax.swing.JLabel();
         headerLabel = new javax.swing.JLabel();
-        addNewBtn = new javax.swing.JButton();
         empInfoPane = new javax.swing.JScrollPane();
-        empInfoTable = new javax.swing.JTable();
+        empSalaryInfo = new javax.swing.JTable();
         idRadio = new javax.swing.JRadioButton();
         lastNameRadio = new javax.swing.JRadioButton();
         searchByLabel = new javax.swing.JLabel();
@@ -307,18 +306,14 @@ public class ESMPanel extends javax.swing.JPanel {
         searchBarTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         searchBarTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        statsLabel.setText("Total : 36  Regular : 12  Probationary : 24");
         statsLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        statsLabel.setText("Total : 36  Regular : 12  Probationary : 24");
 
         headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
         headerLabel.setText("EMPLOYEE INFORMATION MANAGEMENT");
 
-        addNewBtn.setText("Add new employee");
-        addNewBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        addNewBtn.addActionListener(this::addNewBtnActionPerformed);
-
-        empInfoTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        empInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+        empSalaryInfo.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        empSalaryInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -326,7 +321,7 @@ public class ESMPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Employee No.", "Last Name", "First Name", "Department", "Position", "Status"
+                "Employee No.", "Name", "SSS", "PhillHealth", "Pag IBIG", "TIN"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -337,14 +332,14 @@ public class ESMPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        empInfoTable.setRowHeight(28);
-        empInfoTable.getTableHeader().setResizingAllowed(false);
-        empInfoTable.getTableHeader().setReorderingAllowed(false);
-        empInfoPane.setViewportView(empInfoTable);
-        if (empInfoTable.getColumnModel().getColumnCount() > 0) {
-            empInfoTable.getColumnModel().getColumn(0).setPreferredWidth(40);
-            empInfoTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-            empInfoTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+        empSalaryInfo.setRowHeight(28);
+        empSalaryInfo.getTableHeader().setResizingAllowed(false);
+        empSalaryInfo.getTableHeader().setReorderingAllowed(false);
+        empInfoPane.setViewportView(empSalaryInfo);
+        if (empSalaryInfo.getColumnModel().getColumnCount() > 0) {
+            empSalaryInfo.getColumnModel().getColumn(0).setPreferredWidth(40);
+            empSalaryInfo.getColumnModel().getColumn(1).setPreferredWidth(80);
+            empSalaryInfo.getColumnModel().getColumn(2).setPreferredWidth(80);
         }
 
         idRadio.setBackground(new java.awt.Color(255, 255, 255));
@@ -372,23 +367,20 @@ public class ESMPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(noteLabel)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(searchByLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(statsLabel))
-                        .addComponent(empInfoPane)
-                        .addComponent(headerLabel)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(24, 24, 24)
-                            .addComponent(addNewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(noteLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(statsLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchByLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
+                    .addComponent(headerLabel)
+                    .addComponent(searchBarTextField))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -397,19 +389,18 @@ public class ESMPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(headerLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(addNewBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
-                    .addComponent(searchBarTextField))
-                .addGap(6, 6, 6)
+                .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRadio)
                     .addComponent(lastNameRadio)
-                    .addComponent(searchByLabel)
-                    .addComponent(statsLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(noteLabel)
+                    .addComponent(searchByLabel))
                 .addGap(0, 0, 0)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(noteLabel)
+                    .addComponent(statsLabel))
+                .addGap(0, 0, 0)
+                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
@@ -446,26 +437,6 @@ public class ESMPanel extends javax.swing.JPanel {
         loadEmployees();
     }//GEN-LAST:event_editEmployeeDialogWindowClosed
 
-    private void addNewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNewBtnActionPerformed
-        try {
-            Employee employee = new Employee();
-            employee.setEmployeeNo(appContext.getEmployeeService().getNextEmployeeNo());
-
-            String title = "Adding Employee";
-            showEmployeeEditor(employee, title, false);
-
-        } catch (IOException e) {
-            // Replace this with your custom dialog opener
-            javax.swing.JOptionPane.showMessageDialog(
-                    this,
-                    "Failed to generate employee number.",
-                    "Add Employee Error",
-                    javax.swing.JOptionPane.ERROR_MESSAGE
-            );
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_addNewBtnActionPerformed
-
     private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
         // TODO add your handling code here:
         if (isIDSelected) return;
@@ -488,14 +459,13 @@ public class ESMPanel extends javax.swing.JPanel {
     private List<Employee> displayedEmployees;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addNewBtn;
     private javax.swing.JButton cancelBtnConfirm;
     private javax.swing.JPanel cancelConfirmPanel;
     private javax.swing.JLabel cancelConfrimLabel;
     private javax.swing.JButton confirmBtnConfirm;
     private javax.swing.JDialog editEmployeeDialog;
     private javax.swing.JScrollPane empInfoPane;
-    private javax.swing.JTable empInfoTable;
+    private javax.swing.JTable empSalaryInfo;
     private javax.swing.JDialog exitEditorDialog;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JRadioButton idRadio;
