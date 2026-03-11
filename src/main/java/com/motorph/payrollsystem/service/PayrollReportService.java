@@ -55,6 +55,21 @@ public class PayrollReportService {
 
         return PayrollPeriodFactory.reverseList(uniquePeriods);
     }
+    
+    public List<Integer> getAllAvailablePayrollYears() throws Exception {
+        List<PayrollPeriod> periods = getAllAvailablePayrollPeriods();
+        Set<Integer> uniqueYears = new LinkedHashSet<>();
+
+        for (PayrollPeriod period : periods) {
+            if (period == null || period.getStartDate() == null) {
+                continue;
+            }
+
+            uniqueYears.add(period.getStartDate().getYear());
+        }
+
+        return new ArrayList<>(uniqueYears);
+    }
 
     public boolean hasExistingReport(PayrollPeriod period) throws IOException {
         validatePeriod(period);
@@ -68,6 +83,10 @@ public class PayrollReportService {
 
     public List<PayrollReportInfo> getAllGeneratedReports() throws IOException {
         return payrollReportRepo.findAllReportInfos();
+    }
+    
+    public PayrollReport loadPayrollReport(PayrollPeriod period) throws IOException {
+        return loadPayrollReport(getExistingReportInfo(period));
     }
 
     public PayrollReport loadPayrollReport(PayrollReportInfo reportInfo) throws IOException {
@@ -88,11 +107,10 @@ public class PayrollReportService {
         return report;
     }
 
-    public PayrollReport recreatePayrollReport(PayrollPeriod period, String generatedByName) throws Exception {
-        return generatePayrollReport(period, generatedByName);
-    }
-
-    private PayrollReport buildPayrollReport(PayrollPeriod period, String generatedByName) throws Exception {
+    private PayrollReport buildPayrollReport(
+            PayrollPeriod period, 
+            String generatedByName) throws Exception {
+        
         List<Employee> employees = employeeService.getAllEmployees();
         List<PayrollReportRow> reportRows = new ArrayList<>();
 
@@ -104,7 +122,8 @@ public class PayrollReportService {
             if (employee == null) continue;
 
             Payslip payslip = payrollService.generatePayslip(employee, period);
-            //change progress (add method that check the value of progrees bar below 95)
+
+            
             if (payslip == null) continue;
 
             if (payslip.getTotalHours() <= 0) {
@@ -113,7 +132,7 @@ public class PayrollReportService {
 
             PayrollReportRow row = toReportRow(employee, payslip);
             reportRows.add(row);
-            //change progress (add method that check the value of progrees bar below 95)
+            
             totalGrossPay += row.getGrossPay();
             totalDeductions += row.getTotalDeductions();
             totalNetPay += row.getNetPay();
@@ -132,10 +151,10 @@ public class PayrollReportService {
         report.setReportInfo(info);
         report.setRows(reportRows);
         
-        //the progress bar will be 100 here
-        
         return report;
     }
+    
+
 
     private PayrollReportInfo buildReportInfo(
             PayrollPeriod period,

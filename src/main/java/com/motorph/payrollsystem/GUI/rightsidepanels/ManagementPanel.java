@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.gui.managementpanels.ESMPanel;
 import com.motorph.payrollsystem.gui.managementpanels.PayrollReportsPanel;
 import com.motorph.payrollsystem.gui.managementpanels.PayrollViewerPanel;
+import com.motorph.payrollsystem.gui.managementpanels.ReportViewerPanel;
 import com.motorph.payrollsystem.gui.managementpanels.ReviewLeavePanel;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Dimension;
@@ -332,6 +333,9 @@ public class ManagementPanel extends javax.swing.JPanel {
         viewPayrollReportsCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         viewPayrollReportsCard.setPreferredSize(new java.awt.Dimension(280, 200));
         viewPayrollReportsCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                viewPayrollReportsCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 viewPayrollReportsCardMouseEntered(evt);
             }
@@ -590,6 +594,25 @@ public class ManagementPanel extends javax.swing.JPanel {
         );
 //        new Dimension(560, 600)
     }//GEN-LAST:event_payrollReportsCardMouseClicked
+
+    private void viewPayrollReportsCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewPayrollReportsCardMouseClicked
+        // TODO add your handling code here:
+        if (policy == null || !policy.canViewPayrollReports()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
+            return;
+        }
+        
+        String title = "Payroll Reports(" + 
+                appContext.getSessionManager().getCurrentEmployee().getLastNameInitial() +
+                " - " +
+                appContext.getSessionManager().getAccessPolicy().roleName() + 
+                ")";
+        openNewWindow(
+                title,
+                new ReportViewerPanel(appContext, dialog),
+                null
+        );
+    }//GEN-LAST:event_viewPayrollReportsCardMouseClicked
     
     private ImageIcon moduleIcon;
     private AccessPolicy policy;

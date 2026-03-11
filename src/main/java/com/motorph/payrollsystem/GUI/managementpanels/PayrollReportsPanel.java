@@ -10,8 +10,11 @@ import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.ReportsPanel;
 import com.motorph.payrollsystem.gui.managementpanels.tools.SalaryEditor;
+import com.motorph.payrollsystem.gui.managementpanels.tools.reportviewermodal.MainReportViewer;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
+import com.motorph.payrollsystem.model.report.PayrollReport;
+import com.motorph.payrollsystem.model.report.PayrollReportInfo;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
@@ -38,6 +41,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
             javax.swing.JDialog dialog) {
         this.appContext = appContext;
         this.parentDialog = dialog;
+        this.selectedPeriod = null;
 
         initComponents();
         loadPayrollPeriods();
@@ -56,6 +60,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
             
             if (periods == null || periods.isEmpty()) {
                 payrollPeriodComboBox.setEnabled(false);
+                generateBtn.setEnabled(false);
                 return;
             }
             
@@ -65,6 +70,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
             
             payrollPeriodComboBox.setEnabled(true);
             payrollPeriodComboBox.setSelectedIndex(0);
+            generateBtn.setEnabled(true);
             
             
         } catch (IllegalStateException | IllegalArgumentException ex) {
@@ -94,10 +100,38 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         reportBox.repaint();
     }
     
-    private void handleExistingPeriod(PayrollPeriod period) {
-        
+    private void handleGeneration() {
+
+        try {
+            generateBtn.setEnabled(false);
+            String currentUserName = appContext.getSessionManager().getCurrentEmployee().getLastNameInitial();
+            PayrollReport report = appContext
+                    .getPayrollReportService()
+                    .generatePayrollReport(selectedPeriod, currentUserName);
+            
+            generateBtn.setEnabled(true);
+            
+            reportViewerDialog.setContentPane(new MainReportViewer(report, reportViewerDialog));
+            dialogOpener("Payroll Report Viewer", reportViewerDialog);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed create payroll report",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
     }
     
+    private void dialogOpener(String title, javax.swing.JDialog dialog) {
+        dialog.setTitle(title);
+        dialog.pack();
+        dialog.setResizable(false);
+        dialog.setLocationRelativeTo(null);
+        
+        dialog.setVisible(true);
+    }
 
     
 
@@ -124,14 +158,14 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
         radioBtnGroup = new javax.swing.ButtonGroup();
         otherDialog = new javax.swing.JDialog(this.parentDialog, true);
-        generatingDialog = new javax.swing.JDialog(this.parentDialog, true);
         existingReportDialog = new javax.swing.JDialog(this.parentDialog, true);
         existingPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        existingLabel1 = new javax.swing.JLabel();
+        existingLabel2 = new javax.swing.JLabel();
+        viewBtn = new javax.swing.JButton();
+        regenerateBtn = new javax.swing.JButton();
+        cancelBtn = new javax.swing.JButton();
+        reportViewerDialog = new javax.swing.JDialog(this.parentDialog, true);
         headerLabel = new javax.swing.JLabel();
         generateLabel = new javax.swing.JLabel();
         generateBox = new javax.swing.JPanel();
@@ -163,51 +197,32 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
             .addGap(0, 569, Short.MAX_VALUE)
         );
 
-        generatingDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        generatingDialog.setAlwaysOnTop(true);
-        generatingDialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                generatingDialogWindowClosed(evt);
-            }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                generatingDialogWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout generatingDialogLayout = new javax.swing.GroupLayout(generatingDialog.getContentPane());
-        generatingDialog.getContentPane().setLayout(generatingDialogLayout);
-        generatingDialogLayout.setHorizontalGroup(
-            generatingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 544, Short.MAX_VALUE)
-        );
-        generatingDialogLayout.setVerticalGroup(
-            generatingDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 569, Short.MAX_VALUE)
-        );
-
         existingReportDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         existingReportDialog.setAlwaysOnTop(true);
         existingReportDialog.setBackground(new java.awt.Color(255, 255, 255));
 
         existingPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        jLabel1.setText("The payroll report for this period already exists.");
+        existingLabel1.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        existingLabel1.setText("The payroll report for this period already exists.");
 
-        jLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel2.setText("Do you want to view it instead?");
+        existingLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        existingLabel2.setText("Do you want to view it instead?");
 
-        jButton1.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jButton1.setText("View Report");
-        jButton1.setFocusPainted(false);
+        viewBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        viewBtn.setText("View Report");
+        viewBtn.setFocusPainted(false);
+        viewBtn.addActionListener(this::viewBtnActionPerformed);
 
-        jButton2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jButton2.setText("Regenerate Report");
-        jButton2.setFocusPainted(false);
+        regenerateBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        regenerateBtn.setText("Regenerate Report");
+        regenerateBtn.setFocusPainted(false);
+        regenerateBtn.addActionListener(this::regenerateBtnActionPerformed);
 
-        jButton3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        jButton3.setText("Cancel");
-        jButton3.setFocusPainted(false);
+        cancelBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        cancelBtn.setText("Cancel");
+        cancelBtn.setFocusPainted(false);
+        cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
         javax.swing.GroupLayout existingPanelLayout = new javax.swing.GroupLayout(existingPanel);
         existingPanel.setLayout(existingPanelLayout);
@@ -216,30 +231,30 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
             .addGroup(existingPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(existingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(existingLabel1)
+                    .addComponent(existingLabel2))
                 .addContainerGap(69, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(viewBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(regenerateBtn)
                 .addGap(12, 12, 12)
-                .addComponent(jButton3)
+                .addComponent(cancelBtn)
                 .addGap(24, 24, 24))
         );
         existingPanelLayout.setVerticalGroup(
             existingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(existingPanelLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(jLabel1)
+                .addComponent(existingLabel1)
                 .addGap(12, 12, 12)
-                .addComponent(jLabel2)
+                .addComponent(existingLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(existingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(viewBtn)
+                    .addComponent(regenerateBtn)
+                    .addComponent(cancelBtn))
                 .addGap(24, 24, 24))
         );
 
@@ -252,6 +267,28 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         existingReportDialogLayout.setVerticalGroup(
             existingReportDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(existingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        reportViewerDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        reportViewerDialog.setAlwaysOnTop(true);
+        reportViewerDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                reportViewerDialogWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                reportViewerDialogWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout reportViewerDialogLayout = new javax.swing.GroupLayout(reportViewerDialog.getContentPane());
+        reportViewerDialog.getContentPane().setLayout(reportViewerDialogLayout);
+        reportViewerDialogLayout.setHorizontalGroup(
+            reportViewerDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 544, Short.MAX_VALUE)
+        );
+        reportViewerDialogLayout.setVerticalGroup(
+            reportViewerDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 569, Short.MAX_VALUE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -267,6 +304,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
         payrollPeriodComboBox.setBackground(new java.awt.Color(255, 255, 255));
         payrollPeriodComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        payrollPeriodComboBox.addActionListener(this::payrollPeriodComboBoxActionPerformed);
 
         payrollPeriodLabel.setBackground(new java.awt.Color(255, 255, 255));
         payrollPeriodLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -350,18 +388,19 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
     private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
         // TODO add your handling code here:
-        PayrollPeriod period = (PayrollPeriod) payrollPeriodComboBox.getSelectedItem();
-        if (period == null) {
+        if (selectedPeriod == null) {
             generateBtn.setEnabled(false);
             //open error dialog
             return;
         }
 
         try {
-            if (appContext.getPayrollReportService().hasExistingReport(period)) {
-                handleExistingPeriod(period);
+            if (appContext.getPayrollReportService().hasExistingReport(selectedPeriod)) {
+                String title = "Existing Report";
+                dialogOpener(title, existingReportDialog);
             } else {
                 //generate
+                handleGeneration();
             }
             
         } catch (Exception ex) {
@@ -377,34 +416,76 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_generateBtnActionPerformed
 
-    private void generatingDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_generatingDialogWindowClosed
+    private void payrollPeriodComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payrollPeriodComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_generatingDialogWindowClosed
+        this.selectedPeriod = (PayrollPeriod) payrollPeriodComboBox.getSelectedItem();
+        generateBtn.setEnabled(true);
+    }//GEN-LAST:event_payrollPeriodComboBoxActionPerformed
 
-    private void generatingDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_generatingDialogWindowClosing
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_generatingDialogWindowClosing
+        existingReportDialog.dispose();
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void regenerateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regenerateBtnActionPerformed
+        // TODO add your handling code here:
+        existingReportDialog.dispose();
+        handleGeneration();
+    }//GEN-LAST:event_regenerateBtnActionPerformed
+
+    private void viewBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBtnActionPerformed
+        // TODO add your handling code here:
+        //view report dialog
+        existingReportDialog.dispose();
+        
+        try {
+            generateBtn.setEnabled(false);
+            PayrollReport report = appContext
+                    .getPayrollReportService().loadPayrollReport(selectedPeriod);
+            generateBtn.setEnabled(true);
+            
+            reportViewerDialog.setContentPane(new MainReportViewer(report, reportViewerDialog));
+            dialogOpener("Payroll Report Viewer", reportViewerDialog);
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Failed create payroll report",
+                    "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_viewBtnActionPerformed
+
+    private void reportViewerDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_reportViewerDialogWindowClosed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportViewerDialogWindowClosed
+
+    private void reportViewerDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_reportViewerDialogWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reportViewerDialogWindowClosing
 
     private javax.swing.JDialog parentDialog;
     private AppContext appContext;
+    private PayrollPeriod selectedPeriod;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JLabel existingLabel1;
+    private javax.swing.JLabel existingLabel2;
     private javax.swing.JPanel existingPanel;
     private javax.swing.JDialog existingReportDialog;
     private javax.swing.JPanel generateBox;
     private javax.swing.JButton generateBtn;
     private javax.swing.JLabel generateLabel;
-    private javax.swing.JDialog generatingDialog;
     private javax.swing.JLabel headerLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JDialog otherDialog;
     private javax.swing.JComboBox<PayrollPeriod> payrollPeriodComboBox;
     private javax.swing.JLabel payrollPeriodLabel;
     private javax.swing.ButtonGroup radioBtnGroup;
+    private javax.swing.JButton regenerateBtn;
     private javax.swing.JPanel reportBox;
     private javax.swing.JLabel reportLabel;
+    private javax.swing.JDialog reportViewerDialog;
+    private javax.swing.JButton viewBtn;
     // End of variables declaration//GEN-END:variables
 }

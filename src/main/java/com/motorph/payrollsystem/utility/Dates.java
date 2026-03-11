@@ -51,6 +51,12 @@ public class Dates {
         return dateTime.format(formatter);
     }
     
+    public static String fullDateAndTime(LocalDateTime dateTime) {
+        String date = fullDate(dateTime);
+        String time = formattedTime(dateTime);
+        return date + " - " + time;
+    }
+    
     //January 1, 1990
     public static String fullDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");

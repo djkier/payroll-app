@@ -4,6 +4,7 @@
  */
 package com.motorph.payrollsystem.model.report;
 
+import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,4 +44,6 @@ public class PayrollReport {
             this.rows.addAll(rows);
         }
     }
+    
+
 }
