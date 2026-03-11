@@ -61,7 +61,7 @@ public class AppContext {
                         Csv.payrollReportsDirPath()
                 );
         this.payrollReportService = new PayrollReportService(
-                employeeRepo,
+                employeeService,
                 payrollService,
                 payrollReportRepository
         );

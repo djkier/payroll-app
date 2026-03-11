@@ -146,7 +146,7 @@
               <Component id="payslipView" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Component id="printPayBtn" min="-2" pref="49" max="-2" attributes="0"/>
-              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -936,7 +936,7 @@
     <Component class="javax.swing.JLabel" name="dashboardLabel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="24" style="1"/>
+          <Font name="Poppins" size="18" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="VIEW EMPLOYEE PAYSLIP"/>
       </Properties>

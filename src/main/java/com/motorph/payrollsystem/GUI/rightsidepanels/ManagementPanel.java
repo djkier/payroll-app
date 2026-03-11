@@ -8,14 +8,12 @@ package com.motorph.payrollsystem.gui.rightsidepanels;
 import com.motorph.payrollsystem.gui.managementpanels.EIMPanels;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
-import com.motorph.payrollsystem.config.SessionManager;
 import com.motorph.payrollsystem.gui.managementpanels.ESMPanel;
+import com.motorph.payrollsystem.gui.managementpanels.PayrollReportsPanel;
 import com.motorph.payrollsystem.gui.managementpanels.PayrollViewerPanel;
 import com.motorph.payrollsystem.gui.managementpanels.ReviewLeavePanel;
-import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Dimension;
-import java.time.LocalDateTime;
 import javax.swing.ImageIcon;
 
 /**
@@ -298,6 +296,9 @@ public class ManagementPanel extends javax.swing.JPanel {
         payrollReportsCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         payrollReportsCard.setPreferredSize(new java.awt.Dimension(280, 200));
         payrollReportsCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                payrollReportsCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 payrollReportsCardMouseEntered(evt);
             }
@@ -569,6 +570,26 @@ public class ManagementPanel extends javax.swing.JPanel {
                 new Dimension(822, 700)
         );
     }//GEN-LAST:event_employeePayrollCardMouseClicked
+
+    private void payrollReportsCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payrollReportsCardMouseClicked
+        // TODO add your handling code here:
+        if (policy == null || !policy.canMakePayrollReports()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
+            return;
+        }
+        
+        String title = "Payroll Reports(" + 
+                appContext.getSessionManager().getCurrentEmployee().getLastNameInitial() +
+                " - " +
+                appContext.getSessionManager().getAccessPolicy().roleName() + 
+                ")";
+        openNewWindow(
+                title,
+                new PayrollReportsPanel(appContext, dialog),
+                null
+        );
+//        new Dimension(560, 600)
+    }//GEN-LAST:event_payrollReportsCardMouseClicked
     
     private ImageIcon moduleIcon;
     private AccessPolicy policy;

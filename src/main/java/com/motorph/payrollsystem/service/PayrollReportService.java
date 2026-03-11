@@ -4,7 +4,7 @@
  */
 package com.motorph.payrollsystem.service;
 
-import com.motorph.payrollsystem.dao.EmployeeRepository;
+
 import com.motorph.payrollsystem.dao.PayrollReportRepository;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
@@ -17,7 +17,6 @@ import com.motorph.payrollsystem.utility.Dates;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,22 +27,22 @@ import java.util.Set;
  * @author djjus
  */
 public class PayrollReportService {
-    private final EmployeeRepository employeeRepo;
+    private final EmployeeService employeeService;
     private final PayrollService payrollService;
     private final PayrollReportRepository payrollReportRepo;
 
     public PayrollReportService(
-            EmployeeRepository employeeRepository,
+            EmployeeService employeeService,
             PayrollService payrollService,
             PayrollReportRepository payrollReportRepository
     ) {
-        this.employeeRepo = employeeRepository;
+        this.employeeService = employeeService;
         this.payrollService = payrollService;
         this.payrollReportRepo = payrollReportRepository;
     }
 
     public List<PayrollPeriod> getAllAvailablePayrollPeriods() throws Exception {
-        List<Employee> employees = employeeRepo.getEmployeeList();
+        List<Employee> employees = employeeService.getAllEmployees();
         Set<PayrollPeriod> uniquePeriods = new LinkedHashSet<>();
 
         for (Employee employee : employees) {
@@ -93,7 +92,7 @@ public class PayrollReportService {
     }
 
     private PayrollReport buildPayrollReport(PayrollPeriod period, String generatedByName) throws Exception {
-        List<Employee> employees = employeeRepo.getEmployeeList();
+        List<Employee> employees = employeeService.getAllEmployees();
         List<PayrollReportRow> reportRows = new ArrayList<>();
 
         double totalGrossPay = 0.0;

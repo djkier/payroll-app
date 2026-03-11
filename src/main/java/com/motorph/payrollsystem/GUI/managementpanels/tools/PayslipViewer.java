@@ -707,7 +707,7 @@ public class PayslipViewer extends javax.swing.JPanel {
             .addComponent(payslipLayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
         dashboardLabel.setText("VIEW EMPLOYEE PAYSLIP");
 
         printPayBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -756,7 +756,7 @@ public class PayslipViewer extends javax.swing.JPanel {
                 .addComponent(payslipView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24)
                 .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

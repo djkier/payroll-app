@@ -10,7 +10,6 @@ import com.motorph.payrollsystem.dao.EmployeeRepository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -124,10 +123,11 @@ public class EmployeeService {
     //refactor gettingEmployeeList remove policy in service 
     //restrict the policy on the frontend
     public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
-        if (policy == null|| 
-                            (!policy.canManageEmployees() 
-                            && !policy.canUpdateEmployeeSalary() 
-                            && !policy.canViewEmployeePayroll())) {
+        if (policy == null
+            || 
+            (!policy.canManageEmployees() 
+            && !policy.canUpdateEmployeeSalary() 
+            && !policy.canViewEmployeePayroll())) {
             throw new SecurityException("Access denied.");
         }
         
