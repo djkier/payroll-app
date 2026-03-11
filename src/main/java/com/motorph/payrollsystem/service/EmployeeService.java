@@ -115,6 +115,14 @@ public class EmployeeService {
         return employeeRepo.getNextEmployeeNo();
     }
     
+    //payroll report solution for now
+    public List<Employee> getAllEmployees() throws IOException {
+        return employeeRepo.getEmployeeList();
+    }
+    
+    
+    //refactor gettingEmployeeList remove policy in service 
+    //restrict the policy on the frontend
     public List<Employee> getEmployeeList(AccessPolicy policy) throws IOException{
         if (policy == null|| 
                             (!policy.canManageEmployees() 

@@ -8,9 +8,16 @@ import com.motorph.payrollsystem.dao.EmployeeRepository;
 import com.motorph.payrollsystem.dao.PayrollReportRepository;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
+import com.motorph.payrollsystem.model.payslip.Payslip;
+import com.motorph.payrollsystem.model.report.PayrollReport;
 import com.motorph.payrollsystem.model.report.PayrollReportInfo;
+import com.motorph.payrollsystem.model.report.PayrollReportRow;
 import com.motorph.payrollsystem.service.payroll.PayrollService;
+import com.motorph.payrollsystem.utility.Dates;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -82,13 +89,7 @@ public class PayrollReportService {
     }
 
     public PayrollReport recreatePayrollReport(PayrollPeriod period, String generatedByName) throws Exception {
-        validatePeriod(period);
-        validateGeneratedByName(generatedByName);
-
-        PayrollReport report = buildPayrollReport(period, generatedByName);
-        payrollReportRepo.saveReport(report);
-
-        return report;
+        return generatePayrollReport(period, generatedByName);
     }
 
     private PayrollReport buildPayrollReport(PayrollPeriod period, String generatedByName) throws Exception {
@@ -103,6 +104,7 @@ public class PayrollReportService {
             if (employee == null) continue;
 
             Payslip payslip = payrollService.generatePayslip(employee, period);
+            //change progress (add method that check the value of progrees bar below 95)
             if (payslip == null) continue;
 
             if (payslip.getTotalHours() <= 0) {
@@ -111,7 +113,7 @@ public class PayrollReportService {
 
             PayrollReportRow row = toReportRow(employee, payslip);
             reportRows.add(row);
-
+            //change progress (add method that check the value of progrees bar below 95)
             totalGrossPay += row.getGrossPay();
             totalDeductions += row.getTotalDeductions();
             totalNetPay += row.getNetPay();
@@ -129,7 +131,9 @@ public class PayrollReportService {
         PayrollReport report = new PayrollReport();
         report.setReportInfo(info);
         report.setRows(reportRows);
-
+        
+        //the progress bar will be 100 here
+        
         return report;
     }
 
@@ -182,12 +186,10 @@ public class PayrollReportService {
     }
 
     private String buildReportName(PayrollPeriod period) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-
         return "Payroll Report - "
-                + period.getStartDate().format(formatter)
+                + Dates.shortFullExtraDate(period.getStartDate())
                 + " to "
-                + period.getEndDate().format(formatter);
+                + Dates.shortFullExtraDate(period.getEndDate());
     }
 
     private void validatePeriod(PayrollPeriod period) {

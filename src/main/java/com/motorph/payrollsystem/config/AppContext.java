@@ -9,11 +9,13 @@ import com.motorph.payrollsystem.service.payroll.PayrollEngine;
 import com.motorph.payrollsystem.dao.AttendanceRepository;
 import com.motorph.payrollsystem.dao.EmployeeRepository;
 import com.motorph.payrollsystem.dao.LeaveRepository;
+import com.motorph.payrollsystem.dao.PayrollReportRepository;
 import com.motorph.payrollsystem.dao.UserRepository;
 import com.motorph.payrollsystem.service.AttendanceService;
 import com.motorph.payrollsystem.service.UserAccountService;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.service.LeaveService;
+import com.motorph.payrollsystem.service.PayrollReportService;
 import com.motorph.payrollsystem.service.payroll.PayrollService;
 import com.motorph.payrollsystem.utility.Csv;
 
@@ -30,6 +32,7 @@ public class AppContext {
     private final AttendanceService attendanceService;
     private final PayrollService payrollService;
     private final LeaveService leaveService;
+    private final PayrollReportService payrollReportService;
     
     
     
@@ -46,11 +49,23 @@ public class AppContext {
         AttendanceRepository attendanceRepository = new AttendanceRepository(Csv.attendanceCsvPath());
         this.attendanceService = new AttendanceService(attendanceRepository);
         
+        LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath());
+        this.leaveService = new LeaveService(leaveRepository);
+        
         PayrollEngine payrollEngine = new PayrollEngine();
         this.payrollService = new PayrollService(attendanceService, payrollEngine);
         
-        LeaveRepository leaveRepository = new LeaveRepository(Csv.leavesCsvPath());
-        this.leaveService = new LeaveService(leaveRepository);
+        PayrollReportRepository payrollReportRepository = 
+                new PayrollReportRepository(
+                        Csv.payrollReportIndexCsvPath(),
+                        Csv.payrollReportsDirPath()
+                );
+        this.payrollReportService = new PayrollReportService(
+                employeeRepo,
+                payrollService,
+                payrollReportRepository
+        );
+        
         
     }
 
@@ -72,6 +87,10 @@ public class AppContext {
 
     public PayrollService getPayrollService() {
         return payrollService;
+    }
+
+    public PayrollReportService getPayrollReportService() {
+        return payrollReportService;
     }
     
     public LeaveService getLeaveService() {

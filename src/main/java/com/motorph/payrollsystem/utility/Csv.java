@@ -24,6 +24,18 @@ public class Csv {
         
     }
     
+    public static Path reportsDirPath() {
+    return appDataDir().resolve("reports");
+}
+
+    public static Path payrollReportsDirPath() {
+        return reportsDirPath().resolve("payroll");
+    }
+
+    public static Path payrollReportIndexCsvPath() {
+        return reportsDirPath().resolve("payroll-report-index.csv");
+    }
+    
     public static Path leavesCsvPath() {
         return appDataDir().resolve("leave-requests.csv");
     }
@@ -59,6 +71,8 @@ public class Csv {
     public static String userResourcePath() {
         return resourcePath("user-accounts.csv");
     }
+    
+    
     
     
 

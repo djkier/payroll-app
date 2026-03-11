@@ -67,6 +67,12 @@ public class Dates {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d, yyyy");
         return date.format(formatter);
     }
+
+    //Jan 1, 1990
+    public static String shortFullExtraDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
+        return date.format(formatter);
+    }
     
     //January 2000
     public static String monthYear(LocalDate date) {
