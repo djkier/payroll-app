@@ -45,7 +45,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
         initComponents();
         loadPayrollPeriods();
-        initReportsPanel();
+        loadReportsPanel();
         
 
     }
@@ -94,7 +94,8 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         
     }
     
-    private void initReportsPanel() {
+    private void loadReportsPanel() {
+        reportBox.removeAll();
         reportBox.add(new ReportsPanel(appContext, parentDialog));
         reportBox.revalidate();
         reportBox.repaint();
@@ -459,6 +460,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
     private void reportViewerDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_reportViewerDialogWindowClosed
         // TODO add your handling code here:
+        loadReportsPanel();
     }//GEN-LAST:event_reportViewerDialogWindowClosed
 
     private void reportViewerDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_reportViewerDialogWindowClosing

@@ -33,7 +33,7 @@ public class AdminPolicy implements AccessPolicy{
     
     @Override
     public boolean canViewEmployeePayroll() {
-        return true;
+        return false;
     }
     
     @Override

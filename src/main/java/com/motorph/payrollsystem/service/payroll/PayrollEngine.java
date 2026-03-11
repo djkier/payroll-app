@@ -16,7 +16,6 @@ import com.motorph.payrollsystem.service.payroll.deduction.SssRule;
 import com.motorph.payrollsystem.service.payroll.deduction.WithholdingTaxRule;
 import com.motorph.payrollsystem.utility.PayrollPeriodFactory;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
