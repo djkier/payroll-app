@@ -14,6 +14,7 @@ import com.motorph.payrollsystem.model.report.PayrollReportInfo;
 import com.motorph.payrollsystem.model.report.PayrollReportRow;
 import com.motorph.payrollsystem.service.payroll.PayrollService;
 import com.motorph.payrollsystem.utility.Dates;
+import com.motorph.payrollsystem.utility.PayrollPeriodFactory;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -52,7 +53,7 @@ public class PayrollReportService {
             uniquePeriods.addAll(employeePeriods);
         }
 
-        return new ArrayList<>(uniquePeriods);
+        return PayrollPeriodFactory.reverseList(uniquePeriods);
     }
 
     public boolean hasExistingReport(PayrollPeriod period) throws IOException {

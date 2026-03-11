@@ -105,6 +105,6 @@ public class PayrollPeriod {
     //Override toString() so it can be use on the combobox 
     @Override
     public String toString() {
-        return Dates.shortFullDate(startDate) + " - " + Dates.shortFullDate(endDate);
+        return Dates.shortFullExtraDate(startDate) + " - " + Dates.shortFullExtraDate(endDate);
     }
 }

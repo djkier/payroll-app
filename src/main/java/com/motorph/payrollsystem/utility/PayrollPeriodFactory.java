@@ -44,10 +44,14 @@ public class PayrollPeriodFactory {
             unique.add(payrollPeriod);
         }
         
+        return reverseList(unique);
+    }
+    
+    public static List<PayrollPeriod> reverseList(Set<PayrollPeriod> unique) {
         List<PayrollPeriod> list = new ArrayList<>(unique);
         list.sort(Comparator.comparing(PayrollPeriod::getStartDate).reversed());
-        return list;
         
+        return list;
     }
     
     //get the payroll period to for the first cutoff to be use by 2nd cutoff reconciliation
