@@ -29,12 +29,29 @@ public class PasswordFrame extends javax.swing.JFrame {
         setSize(418, 500);
         setResizable(false);
         setLocationRelativeTo(null);
+        setIconImage();
         
+    }
+    
+    private void setIconImage() {
         ImageIcon icon = new ImageIcon(
                 getClass().getResource("/images/keyIcon.png")
         );
         
         setIconImage(icon.getImage());
+    }
+    
+    private void customizeDialog(String title, String label) {
+        customDialog.setSize(225, 160);
+        customDialog.setResizable(false);
+        customDialog.setLocationRelativeTo(null);
+        customDialog.setTitle(title);
+        
+        customDialogLabel.setText(label);
+        
+        this.setEnabled(false);
+        customDialog.setVisible(true);
+        
     }
 
     /**
@@ -245,18 +262,7 @@ public class PasswordFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_checkPassword
     
-    private void customizeDialog(String title, String label) {
-        customDialog.setSize(225, 160);
-        customDialog.setResizable(false);
-        customDialog.setLocationRelativeTo(null);
-        customDialog.setTitle(title);
-        
-        customDialogLabel.setText(label);
-        
-        this.setEnabled(false);
-        customDialog.setVisible(true);
-        
-    }
+    
     
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
@@ -292,12 +298,6 @@ public class PasswordFrame extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new PasswordFrame(this.appContext).setVisible(true);
-//            }
-//        });
     }
     
     private javax.swing.JLabel imageLogo;

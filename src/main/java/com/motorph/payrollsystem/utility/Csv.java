@@ -21,7 +21,6 @@ public class Csv {
     public static Path appDataDir() {
         String home = System.getProperty("user.home");
         return Paths.get(home, "MotorPhPayrollFiles", "data");
-        
     }
     
     public static Path reportsDirPath() {
