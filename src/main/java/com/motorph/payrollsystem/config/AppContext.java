@@ -39,12 +39,12 @@ public class AppContext {
     public AppContext() {
         this.sessionManager = new SessionManager();
         this.positionPolicyResolver = new PositionPolicyResolver();
-        
-        UserRepository userRepo = new UserRepository(Csv.userCsvPath());
-        this.userAccountService = new UserAccountService(userRepo);
-        
+ 
         EmployeeRepository employeeRepo = new EmployeeRepository(Csv.employeeCsvPath());
         this.employeeService = new EmployeeService(employeeRepo);
+        
+        UserRepository userRepo = new UserRepository(Csv.userCsvPath());
+        this.userAccountService = new UserAccountService(userRepo, employeeRepo);
         
         AttendanceRepository attendanceRepository = new AttendanceRepository(Csv.attendanceCsvPath());
         this.attendanceService = new AttendanceService(attendanceRepository);

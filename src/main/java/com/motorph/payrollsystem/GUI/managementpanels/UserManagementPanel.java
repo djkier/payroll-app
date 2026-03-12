@@ -195,6 +195,12 @@ public class UserManagementPanel extends javax.swing.JPanel {
         lastNameRadio = new javax.swing.JRadioButton();
         searchByLabel = new javax.swing.JLabel();
         noteLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
 
         payslipViewerDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         payslipViewerDialog.setAlwaysOnTop(true);
@@ -224,28 +230,28 @@ public class UserManagementPanel extends javax.swing.JPanel {
         searchBarTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
-        headerLabel.setText("EMPLOYEE PAYSLIP VIEWER");
+        headerLabel.setText("User Account Management");
 
+        empTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         empTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Employee No.", "Last Name", "First Name", "Department", "Position"
+                "Employee No", "UserName", "Status", "Employee Name"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        empTable.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         empTable.setRowHeight(28);
         empTable.getTableHeader().setResizingAllowed(false);
         empTable.getTableHeader().setReorderingAllowed(false);
@@ -255,6 +261,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
             empTable.getColumnModel().getColumn(0).setCellRenderer(FontsAndFormats.cellCenterRenderer());
             empTable.getColumnModel().getColumn(1).setPreferredWidth(80);
             empTable.getColumnModel().getColumn(2).setPreferredWidth(80);
+            empTable.getColumnModel().getColumn(3).setPreferredWidth(200);
         }
 
         idRadio.setBackground(new java.awt.Color(255, 255, 255));
@@ -274,7 +281,26 @@ public class UserManagementPanel extends javax.swing.JPanel {
         searchByLabel.setText("Search by :");
 
         noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
-        noteLabel.setText("Double-click a row to view employee payslip records.");
+        noteLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        noteLabel.setText("Select a row to manage the user account.");
+
+        jButton1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton1.setText("Reset Password");
+
+        jButton2.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton2.setText("Change Username");
+
+        jButton3.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton3.setText("Activate");
+
+        jButton4.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton4.setText("Deactivate");
+
+        jButton5.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton5.setText("Delete Account");
+
+        jButton6.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        jButton6.setText("Refresh");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -284,22 +310,33 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton6))
+                    .addComponent(noteLabel)
+                    .addComponent(headerLabel)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(searchByLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(noteLabel))
-                    .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
-                    .addComponent(headerLabel)
+                        .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(empInfoPane)
                     .addComponent(searchBarTextField))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(6, 6, 6)
                 .addComponent(headerLabel)
                 .addGap(6, 6, 6)
                 .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,11 +344,20 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRadio)
                     .addComponent(lastNameRadio)
-                    .addComponent(searchByLabel)
-                    .addComponent(noteLabel))
-                .addGap(0, 0, 0)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                .addGap(24, 24, 24))
+                    .addComponent(searchByLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(empInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(noteLabel)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         idRadio.getAccessibleContext().setAccessibleDescription("");
@@ -357,6 +403,12 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private javax.swing.JTable empTable;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JRadioButton idRadio;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JRadioButton lastNameRadio;
     private javax.swing.JLabel noteLabel;
     private javax.swing.JDialog payslipViewerDialog;

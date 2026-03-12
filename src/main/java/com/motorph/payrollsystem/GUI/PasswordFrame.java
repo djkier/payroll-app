@@ -209,26 +209,35 @@ public class PasswordFrame extends javax.swing.JFrame {
         try {
             UserAccountService authService = appContext.getUserAccountService();
             UserAccount userAccount = authService.login(empNo, username, password);
-            
-            if (userAccount != null) {
-                Employee employee = appContext.getEmployeeService().findByEmployeeNo(userAccount.getEmployeeNo());
-                if (employee == null) {
-                    customizeDialog("Login Error", "Employee record not found for this account.");
-                    return;
-                }
- 
-                AccessPolicy policy = appContext.getPositionPolicyResolver().resolve(employee);
-                if (policy == null) policy = new EmployeePolicy();
-                appContext.getSessionManager().startSession(userAccount, employee, policy);
-                
-                MainFrame mainFrame = new MainFrame(appContext);
-                mainFrame.setVisible(true);
-                this.dispose();
-            } else {
-                customizeDialog("Login Failed", "Invalid Credentials");
+
+            if (userAccount == null) {
+                customizeDialog("Login Failed", "Invalid credentials or inactive account");
                 passwordField.setText("");
                 passwordField.requestFocus();
+                return;
             }
+
+            Employee employee = appContext.getEmployeeService()
+                    .findByEmployeeNo(userAccount.getEmployeeNo());
+
+            if (employee == null) {
+                customizeDialog("Login Error", "Employee record not found for this account.");
+                passwordField.setText("");
+                passwordField.requestFocus();
+                return;
+            }
+
+            AccessPolicy policy = appContext.getPositionPolicyResolver().resolve(employee);
+            if (policy == null) {
+                policy = new EmployeePolicy();
+            }
+
+            appContext.getSessionManager().startSession(userAccount, employee, policy);
+
+            MainFrame mainFrame = new MainFrame(appContext);
+            mainFrame.setVisible(true);
+            this.dispose();
+            
         } catch (Exception ex) {
             customizeDialog("Check Resource", "Invalid Path");
             ex.printStackTrace();

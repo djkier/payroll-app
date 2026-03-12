@@ -1493,42 +1493,18 @@ public class InformationEditor extends javax.swing.JPanel {
         //If none is selected, show a warning dialog and stop the process.
         if (this.selectedEmployee == null) {
             //Error no selected employee
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Employee is not existing",
+                    "Invalid Employee",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
             return;
         }
         
         removeDialogNumberField.setText(this.selectedEmployee.getEmployeeNo());
         removeDialogNameField.setText(this.selectedEmployee.getLastFirstName());
         dialogOpener(removeDialog, "Confirm Employee Removal");
-        
-
-
-    // 2. Ask the user for confirmation before deleting.
-    //    Example logic:
-    //    - Open your custom confirmation dialog.
-    //    - Message example: "Are you sure you want to remove this employee?"
-    //    - If user cancels, exit the method immediately.
-
-    // 3. Call the EmployeeService to remove the employee.
-    //    Example idea:
-    //    appContext.getEmployeeService().removeEmployee(selectedEmployee.getEmployeeNo());
-
-    // 4. Handle possible exceptions from the service:
-    //    - IllegalArgumentException  → invalid employee number
-    //    - IllegalStateException     → employee does not exist
-    //    - IOException               → CSV file problem
-
-    // 5. If deletion succeeds:
-    //    - Show a success dialog (optional)
-    //    - Clear the selected employee
-    //    - Refresh the employee list/table
-    //    - Reset the employee information panel
-
-    // 6. Update UI state:
-    //    - Disable edit/remove buttons if no employee is selected
-    //    - Clear text fields if necessary
-
-    // 7. Log the error (optional) if something fails.
-        
     }//GEN-LAST:event_removeBtnActionPerformed
 
     private void phoneTextInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneTextInputKeyTyped

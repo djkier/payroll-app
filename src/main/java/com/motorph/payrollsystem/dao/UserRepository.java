@@ -40,21 +40,16 @@ public class UserRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                //employeeNo,username,password
-                String[] parts = line.split(",", -1);
-                if (parts.length < 3) continue;
-
-                String fileEmpNo = parts[0].trim();
-                String fileUsername = parts[1].trim();
-                String filePassword = parts[2].trim();
+                UserAccount account = parseAccount(line);
+                if (account == null) continue;
 
                 boolean match =
-                        fileEmpNo.equals(employeeNo) &&
-                        fileUsername.equals(username) &&
-                        filePassword.equals(password);
+                        account.getEmployeeNo().equals(employeeNo) &&
+                        account.getUsername().equals(username) &&
+                        account.getPassword().equals(password);
 
                 if (match) {
-                    return new UserAccount(fileEmpNo, fileUsername, filePassword);
+                    return account;
                 }
             }
         }
@@ -72,15 +67,11 @@ public class UserRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] parts = parseLine(line);
-                if (parts.length < 3) continue;
+                UserAccount account = parseAccount(line);
+                if (account == null) continue;
 
-                String fileEmpNo = parts[0].trim();
-                String fileUsername = parts[1].trim();
-                String filePassword = parts[2].trim();
-
-                if (fileEmpNo.equals(employeeNo)) {
-                    return new UserAccount(fileEmpNo, fileUsername, filePassword);
+                if (account.getEmployeeNo().equals(employeeNo)) {
+                    return account;
                 }
             }
         }
@@ -98,15 +89,11 @@ public class UserRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] parts = line.split(",", -1);
-                if (parts.length < 3) continue;
+                UserAccount account = parseAccount(line);
+                if (account == null) continue;
 
-                String fileEmpNo = parts[0].trim();
-                String fileUsername = parts[1].trim();
-                String filePassword = parts[2].trim();
-
-                if (fileUsername.equalsIgnoreCase(username.trim())) {
-                    return new UserAccount(fileEmpNo, fileUsername, filePassword);
+                if (account.getUsername().equalsIgnoreCase(username.trim())) {
+                    return account;
                 }
             }
         }
@@ -125,14 +112,10 @@ public class UserRepository extends CsvRepositoryBase {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;
 
-                String[] parts = line.split(",", -1);
-                if (parts.length < 3) continue;
-
-                accounts.add(new UserAccount(
-                        parts[0].trim(),
-                        parts[1].trim(),
-                        parts[2].trim()
-                ));
+                UserAccount account = parseAccount(line);
+                if (account != null) {
+                    accounts.add(account);
+                }
             }
         }
 
@@ -150,9 +133,35 @@ public class UserRepository extends CsvRepositoryBase {
                 acc.getEmployeeNo() != null &&
                 acc.getEmployeeNo().equals(employeeNo)
         );
+        
 
         if (!removed) {
             throw new IllegalStateException("User account not found: " + employeeNo);
+        }
+
+        rewriteCsvFile(accounts);
+    }
+    
+    public void update(UserAccount updatedAccount) throws IOException {
+        if (updatedAccount == null || updatedAccount.getEmployeeNo() == null || updatedAccount.getEmployeeNo().isBlank()) {
+            throw new IllegalArgumentException("Updated account is invalid.");
+        }
+
+        List<UserAccount> accounts = getAllAccounts();
+        boolean updated = false;
+
+        for (int i = 0; i < accounts.size(); i++) {
+            UserAccount current = accounts.get(i);
+
+            if (current.getEmployeeNo().equals(updatedAccount.getEmployeeNo())) {
+                accounts.set(i, updatedAccount);
+                updated = true;
+                break;
+            }
+        }
+
+        if (!updated) {
+            throw new IllegalStateException("User account not found: " + updatedAccount.getEmployeeNo());
         }
 
         rewriteCsvFile(accounts);
@@ -181,15 +190,34 @@ public class UserRepository extends CsvRepositoryBase {
             }
         }
 
-        Files.move(tmp, csvPath,
+        Files.move(
+                tmp, 
+                csvPath,
                 StandardCopyOption.REPLACE_EXISTING,
                 StandardCopyOption.ATOMIC_MOVE);
+    }
+    
+    private UserAccount parseAccount(String line) {
+        String[] parts = parseLine(line);
+        if (parts.length < 3) return null;
+
+        String employeeNo = parts[0].trim();
+        String username = parts[1].trim();
+        String password = parts[2].trim();
+
+        boolean active = true;
+        if (parts.length >= 4) {
+            active = Boolean.parseBoolean(parts[3].trim());
+        }
+
+        return new UserAccount(employeeNo, username, password, active);
     }
 
     private String toCsvRow(UserAccount account) {
         return csv(account.getEmployeeNo()) + "," +
                csv(account.getUsername()) + "," +
-               csv(account.getPassword());
+               csv(account.getPassword()) + "," +
+               csv(String.valueOf(account.isActive()));
     }
 
     private String csv(String str) {
@@ -220,7 +248,7 @@ public class UserRepository extends CsvRepositoryBase {
     
     @Override
     protected String getHeader() {
-        return "Employee #,Username,Password";
+        return "Employee #,Username,Password,Active";
     }
 
 }
