@@ -9,6 +9,7 @@ import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
+import com.motorph.payrollsystem.gui.managementpanels.tools.useraccountpanel.ResetPasswordPanel;
 import com.motorph.payrollsystem.model.auth.UserAccount;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
@@ -37,6 +38,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         this.parentDialog = dialog;
         this.userList = new ArrayList<>();
         this.displayedUser = new ArrayList<>();
+        this.selectedUser = null;
         this.currentUser = appContext.getSessionManager().getCurrentEmployee();
         
         this.isIDSelected = true;
@@ -136,8 +138,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
             return;
         }
 
-        UserAccount selectedAccount = displayedUser.get(modelRow);
-        String employeeNo = selectedAccount.getEmployeeNo();
+        this.selectedUser = displayedUser.get(modelRow);
+        String employeeNo = selectedUser.getEmployeeNo();
         initButtonState();
         
 
@@ -147,7 +149,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
             boolean isCurrentUser = employeeNo.equals(currentEmployeeNo);
             boolean hasEmployeeRecord = employee != null;
-            boolean isActive = selectedAccount.isActive();
+            boolean isActive = selectedUser.isActive();
 
             if (!hasEmployeeRecord) {
                 deleteBtn.setEnabled(!isCurrentUser);
@@ -167,6 +169,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
             initButtonState();
             ex.printStackTrace();
         }
+        
+        System.out.println(selectedUser.getUsername());
     }
     
 
@@ -274,14 +278,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
         refreshBtn = new javax.swing.JButton();
         decorLine = new javax.swing.JPanel();
 
-        btnActionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        btnActionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         btnActionDialog.setAlwaysOnTop(true);
         btnActionDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 btnActionDialogWindowClosed(evt);
-            }
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                btnActionDialogWindowClosing(evt);
             }
         });
 
@@ -443,7 +444,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(empNameRadioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(24, Short.MAX_VALUE))))
+                        .addContainerGap(21, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,18 +478,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
         idRadio.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnActionDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_btnActionDialogWindowClosing
-        // TODO add your handling code here:
-        btnActionDialog.dispose();
-    }//GEN-LAST:event_btnActionDialogWindowClosing
-
     private void btnActionDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_btnActionDialogWindowClosed
         // TODO add your handling code here:
-//        resetSearchAndTable();
-//        isIDSelected = true;
-//        idRadio.setSelected(true);
-//        
-//        loadEmployees();
+        resetSearchAndTable();
+        isIDSelected = true;
+        idRadio.setSelected(true);
+        
+        loadUserAccounts();
     }//GEN-LAST:event_btnActionDialogWindowClosed
 
     private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
@@ -496,7 +492,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         if (isIDSelected) return;
         
         isIDSelected = true;
-//        resetSearchAndTable();
+        resetSearchAndTable();
     }//GEN-LAST:event_idRadioActionPerformed
 
     private void empNameRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empNameRadioBtnActionPerformed
@@ -504,17 +500,21 @@ public class UserManagementPanel extends javax.swing.JPanel {
         if (!isIDSelected) return;
         
         isIDSelected = false;
-//        resetSearchAndTable();
+        resetSearchAndTable();
     }//GEN-LAST:event_empNameRadioBtnActionPerformed
 
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
+        String title = "Reset Password";
+        ResetPasswordPanel rpp = new ResetPasswordPanel(appContext, selectedUser, btnActionDialog);
+        openActionDialog(title, rpp);
     }//GEN-LAST:event_resetBtnActionPerformed
 
     private javax.swing.JDialog parentDialog;
     private boolean isIDSelected;
     private List<UserAccount> userList;
     private List<UserAccount> displayedUser;
+    private UserAccount selectedUser;
     private Employee currentUser;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
