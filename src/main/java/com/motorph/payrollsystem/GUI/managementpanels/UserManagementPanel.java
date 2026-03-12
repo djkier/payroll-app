@@ -34,16 +34,19 @@ public class UserManagementPanel extends javax.swing.JPanel {
             AppContext appContext,
             javax.swing.JDialog dialog) {
         this.appContext = appContext;
-        this.dialog = dialog;
+        this.parentDialog = dialog;
         this.userList = new ArrayList<>();
         this.displayedUser = new ArrayList<>();
+        this.currentUser = appContext.getSessionManager().getCurrentEmployee();
+        
         this.isIDSelected = true;
         
         initComponents();
         
         loadUserAccounts();
-//        hookRowDoubleClick();
-//        hookSearch();
+        initButtonState();
+        hookTableSelection();
+        hookSearch();
     }
     
     private void loadUserAccounts() {
@@ -61,7 +64,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
         
         customizeCellColumns();
     }
-    
 
     private void customizeCellColumns() {
         userTable.getTableHeader().setFont(new java.awt.Font("Poppins", java.awt.Font.BOLD, 12));
@@ -75,7 +77,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
             model.addRow(new Object[]{
                 user.getEmployeeNo(),
                 user.getUsername(),
-                user.isActive(),
+                isActiveEquiv(user.isActive()),
                 getUserEmployeeName(user.getEmployeeNo())
             });
         }
@@ -94,6 +96,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         return name;
     }
     
+    private String isActiveEquiv(boolean isActive) {
+        return isActive ? "ACTIVE" : "INACTIVE";
+    }
+    
     private DefaultTableModel clearTable(javax.swing.JTable table) {
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
@@ -101,92 +107,143 @@ public class UserManagementPanel extends javax.swing.JPanel {
         return model;
     }
     
-//    private void hookRowDoubleClick() {
-//        userTable.addMouseListener(new java.awt.event.MouseAdapter() {
-//            @Override
-//            public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                if (evt.getClickCount() != 2) return;
-//                
-//                int viewRow = userTable.getSelectedRow();
-//                if (viewRow < 0) return;
-//                
-//                int modelRow = userTable.convertRowIndexToModel(viewRow);
-//                if (modelRow < 0 || modelRow >= displayedUser.size()) return;
-//
-//                showPayslipInfo(displayedUser.get(modelRow));
-//            }
-//        });
-//    }
-//    
-//    private void hookSearch() {
-//        searchBarTextField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-//            @Override
-//            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-//                applySearch();
-//            }
-//
-//            @Override
-//            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-//                applySearch();
-//            }
-//
-//            @Override
-//            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-//                applySearch();
-//            }
-//        });
-//    }
-//    
-//    private void applySearch() {
-//        String keyword = searchBarTextField.getText().trim().toLowerCase();
-//
-//        if (keyword.isEmpty()) {
-//            displayedUser = new ArrayList<>(userList);
-//            fillTable(displayedUser);
-//            return;
-//        }
-//
-//        List<Employee> filtered = new ArrayList<>();
-//
-//        for (Employee emp : userList) {
-//            if (idRadio.isSelected()) {
-//                String empNo = String.valueOf(emp.getEmployeeNo()).toLowerCase();
-//                if (empNo.contains(keyword)) {
-//                    filtered.add(emp);
-//                }
-//            } else if (lastNameRadio.isSelected()) {
-//                String lastName = emp.getLastName() == null ? "" : emp.getLastName().toLowerCase();
-//                if (lastName.contains(keyword)) {
-//                    filtered.add(emp);
-//                }
-//            }
-//        }
-//
-//        displayedUser = filtered;
-//        fillTable(displayedUser);
-//    }
-//    
-//    private void resetSearchAndTable() {
-//        searchBarTextField.setText("");
-//        searchBarTextField.requestFocus();
-//        applySearch();
-//    }
-//
-//    private void showPayslipInfo(Employee selectedEmployee) {
-//        String title = "Payslip Viewer for : " + selectedEmployee.getFullName();
-//        PayslipViewer payslipViewer = new PayslipViewer(appContext, selectedEmployee, payslipViewerDialog);
-//        openInfoDialog(title, payslipViewer);
-//    }
-//    
-//    private void openInfoDialog(String title, PayslipViewer payslipViewer) {
-//        payslipViewerDialog.setTitle(title);
-//        payslipViewerDialog.setContentPane(payslipViewer);
-//        payslipViewerDialog.pack();
-//        payslipViewerDialog.setResizable(false);
-//        payslipViewerDialog.setLocationRelativeTo(null);
-//        
-//        payslipViewerDialog.setVisible(true);
-//    }
+    private void initButtonState() {
+        resetBtn.setEnabled(false);
+        userNameBtn.setEnabled(false);
+        activateBtn.setEnabled(false);
+        deactivateBtn.setEnabled(false);
+        deleteBtn.setEnabled(false);
+    }
+    
+    private void hookTableSelection() {
+        userTable.getSelectionModel().addListSelectionListener(e -> {
+            if (e.getValueIsAdjusting()) return;
+            updateButtonState();
+        });
+    }
+      
+    private void updateButtonState() {
+        int viewRow = userTable.getSelectedRow();
+
+        if (viewRow < 0) {
+            initButtonState();
+            return;
+        }
+
+        int modelRow = userTable.convertRowIndexToModel(viewRow);
+        if (modelRow < 0 || modelRow >= displayedUser.size()) {
+            initButtonState();
+            return;
+        }
+
+        UserAccount selectedAccount = displayedUser.get(modelRow);
+        String employeeNo = selectedAccount.getEmployeeNo();
+        initButtonState();
+        
+
+        try {
+            Employee employee = appContext.getEmployeeService().findByEmployeeNo(employeeNo);
+            String currentEmployeeNo = this.currentUser.getEmployeeNo();
+
+            boolean isCurrentUser = employeeNo.equals(currentEmployeeNo);
+            boolean hasEmployeeRecord = employee != null;
+            boolean isActive = selectedAccount.isActive();
+
+            if (!hasEmployeeRecord) {
+                deleteBtn.setEnabled(!isCurrentUser);
+                return;
+            }
+
+            resetBtn.setEnabled(true);
+            userNameBtn.setEnabled(true);
+
+            if (isActive) {
+                deactivateBtn.setEnabled(!isCurrentUser);
+            } else {
+                activateBtn.setEnabled(true);
+            }
+
+        } catch (Exception ex) {
+            initButtonState();
+            ex.printStackTrace();
+        }
+    }
+    
+
+
+    private void hookSearch() {
+        searchBarTextField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                applySearch();
+            }
+        });
+    }
+    
+    private void applySearch() {
+        String keyword = searchBarTextField.getText().trim().toLowerCase();
+
+        if (keyword.isEmpty()) {
+            displayedUser = new ArrayList<>(userList);
+            fillTable(displayedUser);
+            return;
+        }
+
+        List<UserAccount> filtered = new ArrayList<>();
+
+        for (UserAccount user : userList) {
+            String empNo = String.valueOf(user.getEmployeeNo()).toLowerCase();
+            if (idRadio.isSelected()) {
+                if (empNo.contains(keyword)) {
+                    filtered.add(user);
+                }
+            } else if (empNameRadioBtn.isSelected()) {
+                try {
+                    Employee emp = appContext.getEmployeeService().findByEmployeeNo(empNo);
+
+                    if (emp == null) {
+                        continue;
+                    }
+
+                    if (emp.getLastFirstName().toLowerCase().contains(keyword)) {
+                        filtered.add(user);
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace(); 
+                }
+            }
+        }
+
+        displayedUser = filtered;
+        fillTable(displayedUser);
+    }
+    
+    private void resetSearchAndTable() {
+        searchBarTextField.setText("");
+        searchBarTextField.requestFocus();
+        applySearch();
+    }
+
+    private void openActionDialog(String title, javax.swing.JPanel panel) {
+        btnActionDialog.setTitle(title);
+        btnActionDialog.setContentPane(panel);
+        btnActionDialog.pack();
+        btnActionDialog.setResizable(false);
+        btnActionDialog.setLocationRelativeTo(parentDialog);
+        
+        btnActionDialog.setVisible(true);
+    }
     
 
 
@@ -200,13 +257,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         radioBtnGroup = new javax.swing.ButtonGroup();
-        payslipViewerDialog = new javax.swing.JDialog(this.dialog, true);
+        btnActionDialog = new javax.swing.JDialog(this.parentDialog, true);
         searchBarTextField = new javax.swing.JTextField();
         headerLabel = new javax.swing.JLabel();
         userPane = new javax.swing.JScrollPane();
         userTable = new javax.swing.JTable();
         idRadio = new javax.swing.JRadioButton();
-        lastNameRadio = new javax.swing.JRadioButton();
+        empNameRadioBtn = new javax.swing.JRadioButton();
         searchByLabel = new javax.swing.JLabel();
         noteLabel = new javax.swing.JLabel();
         resetBtn = new javax.swing.JButton();
@@ -217,25 +274,25 @@ public class UserManagementPanel extends javax.swing.JPanel {
         refreshBtn = new javax.swing.JButton();
         decorLine = new javax.swing.JPanel();
 
-        payslipViewerDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        payslipViewerDialog.setAlwaysOnTop(true);
-        payslipViewerDialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        btnActionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        btnActionDialog.setAlwaysOnTop(true);
+        btnActionDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
-                payslipViewerDialogWindowClosed(evt);
+                btnActionDialogWindowClosed(evt);
             }
             public void windowClosing(java.awt.event.WindowEvent evt) {
-                payslipViewerDialogWindowClosing(evt);
+                btnActionDialogWindowClosing(evt);
             }
         });
 
-        javax.swing.GroupLayout payslipViewerDialogLayout = new javax.swing.GroupLayout(payslipViewerDialog.getContentPane());
-        payslipViewerDialog.getContentPane().setLayout(payslipViewerDialogLayout);
-        payslipViewerDialogLayout.setHorizontalGroup(
-            payslipViewerDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout btnActionDialogLayout = new javax.swing.GroupLayout(btnActionDialog.getContentPane());
+        btnActionDialog.getContentPane().setLayout(btnActionDialogLayout);
+        btnActionDialogLayout.setHorizontalGroup(
+            btnActionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 544, Short.MAX_VALUE)
         );
-        payslipViewerDialogLayout.setVerticalGroup(
-            payslipViewerDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        btnActionDialogLayout.setVerticalGroup(
+            btnActionDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 569, Short.MAX_VALUE)
         );
 
@@ -253,6 +310,18 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -267,20 +336,16 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        userTable.setRowHeight(28);
+        userTable.setRowHeight(34);
         userTable.getTableHeader().setResizingAllowed(false);
         userTable.getTableHeader().setReorderingAllowed(false);
         userPane.setViewportView(userTable);
         if (userTable.getColumnModel().getColumnCount() > 0) {
-            userTable.getColumnModel().getColumn(0).setPreferredWidth(40);
-            userTable.getColumnModel().getColumn(0).setHeaderValue("Employee No");
+            userTable.getColumnModel().getColumn(0).setPreferredWidth(60);
             userTable.getColumnModel().getColumn(0).setCellRenderer(FontsAndFormats.cellCenterRenderer());
             userTable.getColumnModel().getColumn(1).setPreferredWidth(80);
-            userTable.getColumnModel().getColumn(1).setHeaderValue("UserName");
             userTable.getColumnModel().getColumn(2).setPreferredWidth(80);
-            userTable.getColumnModel().getColumn(2).setHeaderValue("Status");
             userTable.getColumnModel().getColumn(3).setPreferredWidth(200);
-            userTable.getColumnModel().getColumn(3).setHeaderValue("Employee Name");
         }
 
         idRadio.setBackground(new java.awt.Color(255, 255, 255));
@@ -290,11 +355,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
         idRadio.setText("ID Number");
         idRadio.addActionListener(this::idRadioActionPerformed);
 
-        lastNameRadio.setBackground(new java.awt.Color(255, 255, 255));
-        radioBtnGroup.add(lastNameRadio);
-        lastNameRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        lastNameRadio.setText("Last Name");
-        lastNameRadio.addActionListener(this::lastNameRadioActionPerformed);
+        empNameRadioBtn.setBackground(new java.awt.Color(255, 255, 255));
+        radioBtnGroup.add(empNameRadioBtn);
+        empNameRadioBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        empNameRadioBtn.setText("Employee Name");
+        empNameRadioBtn.addActionListener(this::empNameRadioBtnActionPerformed);
 
         searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         searchByLabel.setText("Search by :");
@@ -354,27 +419,30 @@ public class UserManagementPanel extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(resetBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(userNameBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(activateBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deactivateBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(deleteBtn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(refreshBtn))
-                            .addComponent(headerLabel)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(searchByLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lastNameRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(searchBarTextField)
-                            .addComponent(decorLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(decorLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(resetBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(userNameBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(activateBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deactivateBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(deleteBtn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(refreshBtn))
+                                    .addComponent(headerLabel)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(searchByLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(idRadio, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(empNameRadioBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap(24, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -387,7 +455,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRadio)
-                    .addComponent(lastNameRadio)
+                    .addComponent(empNameRadioBtn)
                     .addComponent(searchByLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userPane, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,19 +477,19 @@ public class UserManagementPanel extends javax.swing.JPanel {
         idRadio.getAccessibleContext().setAccessibleDescription("");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void payslipViewerDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_payslipViewerDialogWindowClosing
+    private void btnActionDialogWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_btnActionDialogWindowClosing
         // TODO add your handling code here:
-        payslipViewerDialog.dispose();
-    }//GEN-LAST:event_payslipViewerDialogWindowClosing
+        btnActionDialog.dispose();
+    }//GEN-LAST:event_btnActionDialogWindowClosing
 
-    private void payslipViewerDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_payslipViewerDialogWindowClosed
+    private void btnActionDialogWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_btnActionDialogWindowClosed
         // TODO add your handling code here:
 //        resetSearchAndTable();
 //        isIDSelected = true;
 //        idRadio.setSelected(true);
 //        
 //        loadEmployees();
-    }//GEN-LAST:event_payslipViewerDialogWindowClosed
+    }//GEN-LAST:event_btnActionDialogWindowClosed
 
     private void idRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idRadioActionPerformed
         // TODO add your handling code here:
@@ -431,33 +499,34 @@ public class UserManagementPanel extends javax.swing.JPanel {
 //        resetSearchAndTable();
     }//GEN-LAST:event_idRadioActionPerformed
 
-    private void lastNameRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameRadioActionPerformed
+    private void empNameRadioBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empNameRadioBtnActionPerformed
         // TODO add your handling code here:
         if (!isIDSelected) return;
         
         isIDSelected = false;
 //        resetSearchAndTable();
-    }//GEN-LAST:event_lastNameRadioActionPerformed
+    }//GEN-LAST:event_empNameRadioBtnActionPerformed
 
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_resetBtnActionPerformed
 
-    private javax.swing.JDialog dialog;
+    private javax.swing.JDialog parentDialog;
     private boolean isIDSelected;
     private List<UserAccount> userList;
     private List<UserAccount> displayedUser;
+    private Employee currentUser;
     private AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton activateBtn;
+    private javax.swing.JDialog btnActionDialog;
     private javax.swing.JButton deactivateBtn;
     private javax.swing.JPanel decorLine;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JRadioButton empNameRadioBtn;
     private javax.swing.JLabel headerLabel;
     private javax.swing.JRadioButton idRadio;
-    private javax.swing.JRadioButton lastNameRadio;
     private javax.swing.JLabel noteLabel;
-    private javax.swing.JDialog payslipViewerDialog;
     private javax.swing.ButtonGroup radioBtnGroup;
     private javax.swing.JButton refreshBtn;
     private javax.swing.JButton resetBtn;

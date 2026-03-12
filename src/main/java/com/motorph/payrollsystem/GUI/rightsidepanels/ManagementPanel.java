@@ -13,6 +13,7 @@ import com.motorph.payrollsystem.gui.managementpanels.PayrollReportsPanel;
 import com.motorph.payrollsystem.gui.managementpanels.PayrollViewerPanel;
 import com.motorph.payrollsystem.gui.managementpanels.ReportViewerPanel;
 import com.motorph.payrollsystem.gui.managementpanels.ReviewLeavePanel;
+import com.motorph.payrollsystem.gui.managementpanels.UserManagementPanel;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
@@ -387,6 +388,9 @@ public class ManagementPanel extends javax.swing.JPanel {
         userAccountMngtCard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         userAccountMngtCard.setPreferredSize(new java.awt.Dimension(280, 200));
         userAccountMngtCard.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                userAccountMngtCardMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 userAccountMngtCardMouseEntered(evt);
             }
@@ -631,6 +635,25 @@ public class ManagementPanel extends javax.swing.JPanel {
                 null
         );
     }//GEN-LAST:event_viewPayrollReportsCardMouseClicked
+
+    private void userAccountMngtCardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userAccountMngtCardMouseClicked
+        // TODO add your handling code here:
+         if (policy == null || !policy.canManageUserAccount()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Access denied.");
+            return;
+        }
+        
+        String title = "Payroll Reports(" + 
+                appContext.getSessionManager().getCurrentEmployee().getLastNameInitial() +
+                " - " +
+                appContext.getSessionManager().getAccessPolicy().roleName() + 
+                ")";
+        openNewWindow(
+                title,
+                new UserManagementPanel(appContext, dialog),
+                null
+        );
+    }//GEN-LAST:event_userAccountMngtCardMouseClicked
     
     private ImageIcon moduleIcon;
     private AccessPolicy policy;
