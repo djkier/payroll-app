@@ -96,6 +96,7 @@ public class ManagementPanel extends javax.swing.JPanel {
         layoutManager = new javax.swing.JPanel();
         eimCard = new javax.swing.JPanel();
         eimLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         reviewLeaveCard = new javax.swing.JPanel();
         reviewLeaveLabel = new javax.swing.JLabel();
         updateEmployeeSalaryCard = new javax.swing.JPanel();
@@ -168,18 +169,35 @@ public class ManagementPanel extends javax.swing.JPanel {
         eimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eimLabel.setText("EMPLOYEE INFORMATION MANAGEMENT");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 147, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout eimCardLayout = new javax.swing.GroupLayout(eimCard);
         eimCard.setLayout(eimCardLayout);
         eimCardLayout.setHorizontalGroup(
             eimCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(eimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+            .addGroup(eimCardLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         eimCardLayout.setVerticalGroup(
             eimCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eimCardLayout.createSequentialGroup()
-                .addContainerGap(153, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(eimLabel)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
 
         layoutManager.add(eimCard);
@@ -624,6 +642,7 @@ public class ManagementPanel extends javax.swing.JPanel {
     private javax.swing.JLabel eimLabel;
     private javax.swing.JPanel employeePayrollCard;
     private javax.swing.JLabel employeePayrollLabel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel layoutManager;
     private javax.swing.JLabel managementLabel;
     private javax.swing.JPanel payrollReportsCard;

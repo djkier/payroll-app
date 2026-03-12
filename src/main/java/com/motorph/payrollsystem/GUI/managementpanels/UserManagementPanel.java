@@ -4,8 +4,10 @@
  */
 package com.motorph.payrollsystem.gui.managementpanels;
 
+import com.motorph.payrollsystem.gui.managementpanels.*;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
+import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
@@ -19,14 +21,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author djjus
  */
-public class PayrollViewerPanel extends javax.swing.JPanel {
+public class UserManagementPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form EIMPanels
      * 
      * @param appContext use to get employee contexts
      */
-    public PayrollViewerPanel(
+    public UserManagementPanel(
             AppContext appContext,
             javax.swing.JDialog dialog) {
         this.appContext = appContext;
@@ -221,8 +223,8 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
         searchBarTextField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         searchBarTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        headerLabel.setText("EMPLOYEE PAYSLIP VIEWER");
         headerLabel.setFont(new java.awt.Font("Poppins", 1, 20)); // NOI18N
+        headerLabel.setText("EMPLOYEE PAYSLIP VIEWER");
 
         empTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,24 +257,24 @@ public class PayrollViewerPanel extends javax.swing.JPanel {
             empTable.getColumnModel().getColumn(2).setPreferredWidth(80);
         }
 
+        idRadio.setBackground(new java.awt.Color(255, 255, 255));
         radioBtnGroup.add(idRadio);
+        idRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         idRadio.setSelected(true);
         idRadio.setText("ID Number");
-        idRadio.setBackground(new java.awt.Color(255, 255, 255));
-        idRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         idRadio.addActionListener(this::idRadioActionPerformed);
 
-        radioBtnGroup.add(lastNameRadio);
-        lastNameRadio.setText("Last Name");
         lastNameRadio.setBackground(new java.awt.Color(255, 255, 255));
+        radioBtnGroup.add(lastNameRadio);
         lastNameRadio.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        lastNameRadio.setText("Last Name");
         lastNameRadio.addActionListener(this::lastNameRadioActionPerformed);
 
-        searchByLabel.setText("Search by :");
         searchByLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        searchByLabel.setText("Search by :");
 
-        noteLabel.setText("Double-click a row to view employee payslip records.");
         noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
+        noteLabel.setText("Double-click a row to view employee payslip records.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
