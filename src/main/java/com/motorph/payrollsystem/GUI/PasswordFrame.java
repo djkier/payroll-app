@@ -27,12 +27,14 @@ public class PasswordFrame extends javax.swing.JFrame {
     public PasswordFrame(AppContext appContext) {
         this.appContext = appContext;
         this.pack();
+        
+        
+        initComponents();
+        
+        setTitle("Login");
         setResizable(false);
         setLocationRelativeTo(null);
         setIconImage(passwordIcon());
-        setTitle("Login");
-        initComponents();
-        
         
         
     }

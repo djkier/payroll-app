@@ -262,13 +262,11 @@ public class HomePanel extends javax.swing.JPanel {
         timeOutDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         timeOutDialogLabel.setText("Are you sure you want to time out now?");
 
-        timeOutDialogCancelBtn.setBackground(ThemeColor.lightRed());
         timeOutDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeOutDialogCancelBtn.setText("Cancel");
         timeOutDialogCancelBtn.setFocusPainted(false);
         timeOutDialogCancelBtn.addActionListener(this::timeOutDialogCancelBtnActionPerformed);
 
-        timeOutDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
         timeOutDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeOutDialogConfirmBtn.setText("Confirm");
         timeOutDialogConfirmBtn.setFocusPainted(false);
@@ -508,7 +506,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeInBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(timeOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGap(36, 36, 36)
                 .addComponent(attendanceBtn)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -556,7 +554,7 @@ public class HomePanel extends javax.swing.JPanel {
                     .addComponent(nameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(attendanceTrackerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
