@@ -12,6 +12,7 @@ import com.motorph.payrollsystem.gui.rightsidepanels.ManagementPanel;
 import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
@@ -99,6 +100,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void logoutClosing() {
         this.logoutConfirm.dispose();
     }
+    
+    private ImageIcon motorPhLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/iconRightSidePanel.png"));
+        
+        Image img = newIcon.getImage();
+        Image scaledImg = img.getScaledInstance(216, 118, Image.SCALE_SMOOTH);
+        
+        return new ImageIcon(scaledImg);
+    }
         
 
     /**
@@ -128,6 +138,8 @@ public class MainFrame extends javax.swing.JFrame {
         leaveLabel = new javax.swing.JLabel();
         mngtBtn = new javax.swing.JPanel();
         mngtlabel = new javax.swing.JLabel();
+        logoPanel = new javax.swing.JPanel();
+        logoIcon = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
 
         logoutConfirm.setAlwaysOnTop(true);
@@ -408,17 +420,39 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(mngtBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        logoPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        logoIcon.setBackground(new java.awt.Color(255, 255, 255));
+        logoIcon.setIcon(motorPhLogo());
+
+        javax.swing.GroupLayout logoPanelLayout = new javax.swing.GroupLayout(logoPanel);
+        logoPanel.setLayout(logoPanelLayout);
+        logoPanelLayout.setHorizontalGroup(
+            logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+        );
+        logoPanelLayout.setVerticalGroup(
+            logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(logoIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout leftSidePanelLayout = new javax.swing.GroupLayout(leftSidePanel);
         leftSidePanel.setLayout(leftSidePanelLayout);
         leftSidePanelLayout.setHorizontalGroup(
             leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(logoutBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(navBar, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+            .addGroup(leftSidePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         leftSidePanelLayout.setVerticalGroup(
             leftSidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leftSidePanelLayout.createSequentialGroup()
-                .addGap(136, 136, 136)
+                .addContainerGap()
+                .addComponent(logoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(navBar, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -616,6 +650,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel leaveBtn;
     private javax.swing.JLabel leaveLabel;
     private javax.swing.JPanel leftSidePanel;
+    private javax.swing.JLabel logoIcon;
+    private javax.swing.JPanel logoPanel;
     private javax.swing.JPanel logoutBtn;
     private javax.swing.JDialog logoutConfirm;
     private javax.swing.JLabel logoutLabel;

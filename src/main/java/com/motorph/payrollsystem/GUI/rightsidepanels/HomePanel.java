@@ -13,10 +13,12 @@ import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.Timer;
@@ -202,6 +204,11 @@ public class HomePanel extends javax.swing.JPanel {
         };
     }
     
+    private Image attendanceLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/attendance.png"));
+        return newIcon.getImage();
+    }
+    
 
 
     /**
@@ -242,6 +249,7 @@ public class HomePanel extends javax.swing.JPanel {
 
         timeOutDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         timeOutDialog.setAlwaysOnTop(true);
+        timeOutDialog.setIconImage(attendanceLogo());
         timeOutDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 timeOutDialogWindowClosing(evt);
@@ -300,6 +308,7 @@ public class HomePanel extends javax.swing.JPanel {
         );
 
         historyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        historyDialog.setIconImage(attendanceLogo());
 
         historyPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -331,7 +340,6 @@ public class HomePanel extends javax.swing.JPanel {
         if (historyTable.getColumnModel().getColumnCount() > 0) {
             historyTable.getColumnModel().getColumn(0).setPreferredWidth(100);
             historyTable.getColumnModel().getColumn(0).setCellRenderer(this.timeRenderer());
-            historyTable.getColumnModel().getColumn(1).setCellRenderer(null);
             historyTable.getColumnModel().getColumn(2).setCellRenderer(this.timeRenderer());
             historyTable.getColumnModel().getColumn(3).setCellRenderer(this.timeRenderer());
         }
