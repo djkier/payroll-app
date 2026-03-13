@@ -13,8 +13,10 @@ import com.motorph.payrollsystem.model.leave.LeaveStatus;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Image;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -225,6 +227,11 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
         
         return filteredList;
     }
+    
+    private Image leaveLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/leave.png"));
+        return newIcon.getImage();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -271,7 +278,7 @@ public class LeaveHistoryPanel extends javax.swing.JPanel {
         viewLeaveDetailsDialog.setAlwaysOnTop(true);
         viewLeaveDetailsDialog.setBackground(new java.awt.Color(255, 255, 255));
         viewLeaveDetailsDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        viewLeaveDetailsDialog.setIconImage(null);
+        viewLeaveDetailsDialog.setIconImage(leaveLogo());
         viewLeaveDetailsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         viewLeaveDetailsDialog.setName("viewLeaveDetailsDialog"); // NOI18N
         viewLeaveDetailsDialog.setResizable(false);

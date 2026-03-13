@@ -12,8 +12,10 @@ import com.motorph.payrollsystem.model.leave.LeaveRequest;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Image;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -292,6 +294,11 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         dialogOpener(successDialog, "Successful");
     }
     
+    private Image leaveLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/leave.png"));
+        return newIcon.getImage();
+    }
+    
     
     
 
@@ -353,7 +360,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         leaveDetailsDialog.setAlwaysOnTop(true);
         leaveDetailsDialog.setBackground(new java.awt.Color(255, 255, 255));
         leaveDetailsDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        leaveDetailsDialog.setIconImage(null);
+        leaveDetailsDialog.setIconImage(leaveLogo());
         leaveDetailsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         leaveDetailsDialog.setName("leaveDetailsDialog"); // NOI18N
         leaveDetailsDialog.setResizable(false);
@@ -533,6 +540,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         );
 
         rejectOrApprove.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        rejectOrApprove.setIconImage(leaveLogo());
         rejectOrApprove.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 rejectOrApproveWindowClosing(evt);
@@ -627,6 +635,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         );
 
         successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        successDialog.setIconImage(leaveLogo());
 
         successPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -670,6 +679,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         );
 
         historyDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        historyDialog.setIconImage(leaveLogo());
 
         javax.swing.GroupLayout historyDialogLayout = new javax.swing.GroupLayout(historyDialog.getContentPane());
         historyDialog.getContentPane().setLayout(historyDialogLayout);

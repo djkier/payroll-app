@@ -13,9 +13,11 @@ import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -198,6 +200,11 @@ public class ESMPanel extends javax.swing.JPanel {
         editSalaryDialog.setVisible(true);
     }
     
+    private Image updateSalaryLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/update-salary.png"));
+        return newIcon.getImage();
+    }
+    
 
 
     /**
@@ -228,6 +235,7 @@ public class ESMPanel extends javax.swing.JPanel {
 
         editSalaryDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         editSalaryDialog.setAlwaysOnTop(true);
+        editSalaryDialog.setIconImage(updateSalaryLogo());
         editSalaryDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 editSalaryDialogWindowClosed(evt);
@@ -248,6 +256,9 @@ public class ESMPanel extends javax.swing.JPanel {
             .addGap(0, 653, Short.MAX_VALUE)
         );
 
+        exitEditorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        exitEditorDialog.setIconImage(updateSalaryLogo());
+
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
@@ -256,12 +267,12 @@ public class ESMPanel extends javax.swing.JPanel {
 
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtnConfirm.setText("Cancel");
+        cancelBtnConfirm.setText("CANCEL");
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
         confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtnConfirm.setText("Confirm");
+        confirmBtnConfirm.setText("CONFIRM");
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
 
         javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
@@ -271,7 +282,7 @@ public class ESMPanel extends javax.swing.JPanel {
             .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(36, 36, 36)
                 .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -388,7 +399,7 @@ public class ESMPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(headerLabel)
                 .addGap(6, 6, 6)
-                .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchBarTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idRadio)
@@ -399,7 +410,7 @@ public class ESMPanel extends javax.swing.JPanel {
                     .addComponent(noteLabel)
                     .addComponent(statsLabel))
                 .addGap(0, 0, 0)
-                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+                .addComponent(empInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, 487, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
         );
 
