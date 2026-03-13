@@ -240,11 +240,13 @@ public class StatusChangePanel extends javax.swing.JPanel {
         currentStatus.setText("Current Status :");
 
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtn.setText("Cancel");
+        cancelBtn.setText("CANCEL");
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
         resetBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        resetBtn.setText("Confirm");
+        resetBtn.setText("CONFIRM");
+        resetBtn.setFocusPainted(false);
         resetBtn.addActionListener(this::resetBtnActionPerformed);
 
         decorLine.setBackground(new java.awt.Color(204, 204, 204));
@@ -299,9 +301,9 @@ public class StatusChangePanel extends javax.swing.JPanel {
                                         .addComponent(changeToLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(currentStatusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         resestPasswordPanelLayout.setVerticalGroup(

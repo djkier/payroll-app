@@ -10,7 +10,9 @@ import com.motorph.payrollsystem.gui.managementpanels.tools.ReportsPanel;
 import com.motorph.payrollsystem.gui.managementpanels.tools.reportviewermodal.MainReportViewer;
 import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
 import com.motorph.payrollsystem.model.report.PayrollReport;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -133,6 +135,11 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         otherDialog.setVisible(true);
     }
     
+    private Image updateReportLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/payroll-report.png"));
+        return newIcon.getImage();
+    }
+    
 
 
     /**
@@ -165,6 +172,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
         otherDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         otherDialog.setAlwaysOnTop(true);
+        otherDialog.setIconImage(updateReportLogo());
         otherDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 otherDialogWindowClosed(evt);
@@ -188,6 +196,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         existingReportDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         existingReportDialog.setAlwaysOnTop(true);
         existingReportDialog.setBackground(new java.awt.Color(255, 255, 255));
+        existingReportDialog.setIconImage(updateReportLogo());
 
         existingPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -197,18 +206,18 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
         existingLabel2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         existingLabel2.setText("Do you want to view it instead?");
 
-        viewBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        viewBtn.setText("View Report");
+        viewBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        viewBtn.setText("VIEW REPORT");
         viewBtn.setFocusPainted(false);
         viewBtn.addActionListener(this::viewBtnActionPerformed);
 
-        regenerateBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        regenerateBtn.setText("Regenerate Report");
+        regenerateBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        regenerateBtn.setText("REGENERATE REPORT");
         regenerateBtn.setFocusPainted(false);
         regenerateBtn.addActionListener(this::regenerateBtnActionPerformed);
 
-        cancelBtn.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        cancelBtn.setText("Cancel");
+        cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelBtn.setText("CANCEL");
         cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
@@ -219,17 +228,15 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
             .addGroup(existingPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(existingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(existingPanelLayout.createSequentialGroup()
+                        .addComponent(viewBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(regenerateBtn)
+                        .addGap(12, 12, 12)
+                        .addComponent(cancelBtn))
                     .addComponent(existingLabel1)
                     .addComponent(existingLabel2))
-                .addContainerGap(69, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, existingPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(viewBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(regenerateBtn)
-                .addGap(12, 12, 12)
-                .addComponent(cancelBtn)
-                .addGap(24, 24, 24))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         existingPanelLayout.setVerticalGroup(
             existingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,9 +247,9 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
                 .addComponent(existingLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(existingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewBtn)
-                    .addComponent(regenerateBtn)
-                    .addComponent(cancelBtn))
+                    .addComponent(viewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(regenerateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
 
@@ -259,6 +266,7 @@ public class PayrollReportsPanel extends javax.swing.JPanel {
 
         reportViewerDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         reportViewerDialog.setAlwaysOnTop(true);
+        reportViewerDialog.setIconImage(updateReportLogo());
         reportViewerDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 reportViewerDialogWindowClosed(evt);

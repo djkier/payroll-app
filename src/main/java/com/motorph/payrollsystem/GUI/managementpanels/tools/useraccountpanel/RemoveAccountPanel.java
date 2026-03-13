@@ -235,11 +235,13 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
         currentStatus.setText("Warning :");
 
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtn.setText("Cancel");
+        cancelBtn.setText("CANCEL");
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
         resetBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        resetBtn.setText("Confirm");
+        resetBtn.setText("CONFIRM");
+        resetBtn.setFocusPainted(false);
         resetBtn.addActionListener(this::resetBtnActionPerformed);
 
         decorLine.setBackground(new java.awt.Color(204, 204, 204));
@@ -272,9 +274,9 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
                             .addGap(12, 12, 12)
                             .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(currentStatus)
                                     .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)

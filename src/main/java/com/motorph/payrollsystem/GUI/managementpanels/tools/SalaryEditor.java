@@ -383,6 +383,7 @@ public class SalaryEditor extends javax.swing.JPanel {
         clothingTextInput = new javax.swing.JTextField();
 
         cancelDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        cancelDialog.setIconImage(updateSalaryLogo());
         cancelDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 cancelDialogWindowClosing(evt);
@@ -391,18 +392,18 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        cancelDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cancelDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cancelDialogLabel.setText("You have unsaved changes. Discard them?");
-        cancelDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        cancelDialogCancelBtn.setText("Cancel");
-        cancelDialogCancelBtn.setBackground(ThemeColor.lightRed());
         cancelDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelDialogCancelBtn.setText("CANCEL");
+        cancelDialogCancelBtn.setFocusPainted(false);
         cancelDialogCancelBtn.addActionListener(this::cancelDialogCancelBtnActionPerformed);
 
-        cancelDialogConfirmBtn.setText("Confirm");
-        cancelDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
         cancelDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        cancelDialogConfirmBtn.setText("CONFIRM");
+        cancelDialogConfirmBtn.setFocusPainted(false);
         cancelDialogConfirmBtn.addActionListener(this::cancelDialogConfirmBtnActionPerformed);
 
         javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
@@ -412,7 +413,7 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(cancelDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(36, 36, 36)
                 .addComponent(cancelDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(cancelDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -441,6 +442,7 @@ public class SalaryEditor extends javax.swing.JPanel {
         );
 
         noChangeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        noChangeDialog.setIconImage(updateSalaryLogo());
         noChangeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 noChangeDialogWindowClosed(evt);
@@ -452,24 +454,26 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         noChangePanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         noChangeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         noChangeLabel.setText("No changes made.");
-        noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        noChangeButton.setText("OK");
-        noChangeButton.setBackground(ThemeColor.lightGreen());
         noChangeButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        noChangeButton.setText("OK");
+        noChangeButton.setFocusPainted(false);
         noChangeButton.addActionListener(this::noChangeButtonActionPerformed);
 
         javax.swing.GroupLayout noChangePanelLayout = new javax.swing.GroupLayout(noChangePanel);
         noChangePanel.setLayout(noChangePanelLayout);
         noChangePanelLayout.setHorizontalGroup(
             noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noChangeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
             .addGroup(noChangePanelLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(noChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(noChangeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, noChangePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(noChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
         noChangePanelLayout.setVerticalGroup(
             noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,21 +497,22 @@ public class SalaryEditor extends javax.swing.JPanel {
         );
 
         updateDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        updateDialog.setIconImage(updateSalaryLogo());
 
         updateDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        updateDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         updateDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateDialogLabel.setText("Do you want to save your changes?");
-        updateDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        updateDialogCancelBtn.setText("Cancel");
-        updateDialogCancelBtn.setBackground(ThemeColor.lightRed());
         updateDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        updateDialogCancelBtn.setText("CANCEL");
+        updateDialogCancelBtn.setFocusPainted(false);
         updateDialogCancelBtn.addActionListener(this::updateDialogCancelBtnActionPerformed);
 
-        updateDialogSaveBtn.setText("Save");
-        updateDialogSaveBtn.setBackground(ThemeColor.lightGreen());
         updateDialogSaveBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        updateDialogSaveBtn.setText("SAVE");
+        updateDialogSaveBtn.setFocusPainted(false);
         updateDialogSaveBtn.addActionListener(this::updateDialogSaveBtnActionPerformed);
 
         javax.swing.GroupLayout updateDialogPanelLayout = new javax.swing.GroupLayout(updateDialogPanel);
@@ -517,7 +522,7 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addGroup(updateDialogPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(updateDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(36, 36, 36)
                 .addComponent(updateDialogSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(updateDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -546,6 +551,7 @@ public class SalaryEditor extends javax.swing.JPanel {
         );
 
         validationErrorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        validationErrorDialog.setIconImage(updateSalaryLogo());
         validationErrorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 validationErrorDialogWindowClosing(evt);
@@ -554,34 +560,35 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         validationErrorPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        validationErrorBtn.setText("OK");
-        validationErrorBtn.setBackground(ThemeColor.lightGreen());
         validationErrorBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        validationErrorBtn.setText("OK");
+        validationErrorBtn.setFocusPainted(false);
         validationErrorBtn.addActionListener(this::validationErrorBtnActionPerformed);
 
-        validationErrorHeader.setText("The following field/s contain errors :");
         validationErrorHeader.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        validationErrorHeader.setText("The following field/s contain errors :");
 
+        validationErrorLabel.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
         validationErrorLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         validationErrorLabel.setText("- Last name contains invalid characters.");
         validationErrorLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        validationErrorLabel.setFont(new java.awt.Font("Poppins", 0, 11)); // NOI18N
 
         javax.swing.GroupLayout validationErrorPanelLayout = new javax.swing.GroupLayout(validationErrorPanel);
         validationErrorPanel.setLayout(validationErrorPanelLayout);
         validationErrorPanelLayout.setHorizontalGroup(
             validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
             .addGroup(validationErrorPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(validationErrorPanelLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(validationErrorHeader))
+                        .addGap(24, 24, 24)
+                        .addGroup(validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(validationErrorPanelLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(validationErrorHeader)))
+                    .addGroup(validationErrorPanelLayout.createSequentialGroup()
+                        .addGap(134, 134, 134)
+                        .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         validationErrorPanelLayout.setVerticalGroup(
@@ -591,9 +598,9 @@ public class SalaryEditor extends javax.swing.JPanel {
                 .addComponent(validationErrorHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout validationErrorDialogLayout = new javax.swing.GroupLayout(validationErrorDialog.getContentPane());
@@ -610,6 +617,7 @@ public class SalaryEditor extends javax.swing.JPanel {
         );
 
         successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        successDialog.setIconImage(updateSalaryLogo());
         successDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 successDialogWindowClosing(evt);
@@ -618,29 +626,34 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         successsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         successLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successLabel.setText("You succesfully removed :");
-        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        successBtn.setText("OK");
-        successBtn.setBackground(ThemeColor.lightGreen());
         successBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        successBtn.setText("OK");
+        successBtn.setFocusPainted(false);
         successBtn.addActionListener(this::successBtnActionPerformed);
 
+        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         successEmployeeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successEmployeeLabel.setText("Fontanilla, Don Justine T.");
-        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout successsPanelLayout = new javax.swing.GroupLayout(successsPanel);
         successsPanel.setLayout(successsPanelLayout);
         successsPanelLayout.setHorizontalGroup(
             successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(successLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(successEmployeeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(successsPanelLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGroup(successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(successsPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(successLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                            .addComponent(successEmployeeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(successsPanelLayout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         successsPanelLayout.setVerticalGroup(
             successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -649,9 +662,9 @@ public class SalaryEditor extends javax.swing.JPanel {
                 .addComponent(successLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(successEmployeeLabel)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout successDialogLayout = new javax.swing.GroupLayout(successDialog.getContentPane());
@@ -667,23 +680,23 @@ public class SalaryEditor extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        personalInfoLabel.setText("Personal Information");
         personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        personalInfoLabel.setText("Personal Information");
 
-        lastNameLabel.setText("Last Name :");
         lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        lastNameLabel.setText("Last Name :");
 
-        employeeNoLabel.setText("Employee No :");
         employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        employeeNoLabel.setText("Employee No :");
 
-        firstNameLabel.setText("First Name :");
         firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        firstNameLabel.setText("First Name :");
 
-        viewLabel.setText("View Salary Details");
         viewLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
+        viewLabel.setText("View Salary Details");
 
-        addressLabel.setText("Address :");
         addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        addressLabel.setText("Address :");
 
         decorLine2.setBackground(new java.awt.Color(240, 240, 240));
         decorLine2.setDoubleBuffered(false);
@@ -699,8 +712,8 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        statusLabel.setText("Status :");
         statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        statusLabel.setText("Status :");
 
         decorLine.setBackground(new java.awt.Color(240, 240, 240));
         decorLine.setDoubleBuffered(false);
@@ -716,20 +729,20 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        govIdLabel.setText("Government ID");
         govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        govIdLabel.setText("Government ID");
 
-        sssLabel.setText("Social Security # :");
         sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        sssLabel.setText("Social Security # :");
 
-        philHealthLabel.setText("PhilHealth # :");
         philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        philHealthLabel.setText("PhilHealth # :");
 
-        pagibigLabel.setText("PAG-IBIG # :");
         pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        pagibigLabel.setText("PAG-IBIG # :");
 
-        tinLabel.setText("Tax Identification # :");
         tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        tinLabel.setText("Tax Identification # :");
 
         decorLine3.setBackground(new java.awt.Color(240, 240, 240));
         decorLine3.setDoubleBuffered(false);
@@ -745,14 +758,14 @@ public class SalaryEditor extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        departmentLabel.setText("Department");
         departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
+        departmentLabel.setText("Department");
 
-        departmentNameLabel.setText("Department Name :");
         departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        departmentNameLabel.setText("Department Name :");
 
-        positionLabel.setText("Position :");
         positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        positionLabel.setText("Position :");
 
         updateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         updateBtn.setText("UPDATE SALARY");

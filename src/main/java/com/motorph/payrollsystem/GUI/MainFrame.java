@@ -96,6 +96,11 @@ public class MainFrame extends javax.swing.JFrame {
         logoutConfirm.setVisible(true);
  
     }
+    
+    private Image mainIcon() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/motorPhFrame.png"));
+        return newIcon.getImage();
+    }
    
     
     private ImageIcon motorPhLogo() {
@@ -142,6 +147,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         logoutConfirm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         logoutConfirm.setAlwaysOnTop(true);
+        logoutConfirm.setIconImage(mainIcon());
         logoutConfirm.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
         bgPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -500,7 +506,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                    .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(leftSidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))))

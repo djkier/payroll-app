@@ -6,6 +6,8 @@ package com.motorph.payrollsystem.gui.managementpanels;
 
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.gui.managementpanels.tools.ReportsPanel;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -32,6 +34,7 @@ public class ReportViewerPanel extends javax.swing.JPanel {
         reportBox.revalidate();
         reportBox.repaint();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

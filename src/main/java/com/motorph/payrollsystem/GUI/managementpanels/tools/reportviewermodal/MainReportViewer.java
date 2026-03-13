@@ -75,6 +75,11 @@ public class MainReportViewer extends javax.swing.JPanel {
         netTotal.setText(Money.displayMoney(info.getTotalNetPay()));
         
     }
+    
+    private Image viewReportLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/view-report.png"));
+        return newIcon.getImage();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -140,6 +145,7 @@ public class MainReportViewer extends javax.swing.JPanel {
         printDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         printDialog.setAlwaysOnTop(true);
         printDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        printDialog.setIconImage(viewReportLogo());
         printDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         printDialog.setName("printingDialog"); // NOI18N
         printDialog.setResizable(false);
@@ -590,6 +596,7 @@ public class MainReportViewer extends javax.swing.JPanel {
 
         printBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         printBtn.setText("PRINT");
+        printBtn.setFocusPainted(false);
         printBtn.addActionListener(this::printBtnActionPerformed);
 
         javax.swing.GroupLayout viewerPanelLayout = new javax.swing.GroupLayout(viewerPanel);
@@ -602,7 +609,7 @@ public class MainReportViewer extends javax.swing.JPanel {
                     .addGroup(viewerPanelLayout.createSequentialGroup()
                         .addComponent(viewerLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(viewerPane, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );

@@ -142,6 +142,11 @@ public class PayslipViewer extends javax.swing.JPanel {
         
         printDialog.setVisible(true);
     }
+    
+    private Image payrollViewerLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/view-payslip.png"));
+        return newIcon.getImage();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,37 +218,43 @@ public class PayslipViewer extends javax.swing.JPanel {
         printDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         printDialog.setAlwaysOnTop(true);
         printDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        printDialog.setIconImage(payrollViewerLogo());
         printDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         printDialog.setName("printingDialog"); // NOI18N
         printDialog.setResizable(false);
 
         bgPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        printNote.setFont(new java.awt.Font("Poppins", 2, 14)); // NOI18N
+        printNote.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         printNote.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         printNote.setText("This element is for printing simulation only");
 
-        printBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        printBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         printBtn.setText("CLOSE");
+        printBtn.setFocusPainted(false);
         printBtn.addActionListener(this::printBtnActionPerformed);
 
         javax.swing.GroupLayout bgPanelLayout = new javax.swing.GroupLayout(bgPanel);
         bgPanel.setLayout(bgPanelLayout);
         bgPanelLayout.setHorizontalGroup(
             bgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(printNote, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
+            .addGroup(bgPanelLayout.createSequentialGroup()
+                .addGroup(bgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bgPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(printNote, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bgPanelLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         bgPanelLayout.setVerticalGroup(
             bgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(printNote)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(printBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
 
@@ -711,12 +722,11 @@ public class PayslipViewer extends javax.swing.JPanel {
         dashboardLabel.setText("VIEW EMPLOYEE PAYSLIP");
 
         printPayBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
-        printPayBtn.setText("Print Payslip");
+        printPayBtn.setText("PRINT PAYSLIP");
         printPayBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        printPayBtn.setMaximumSize(null);
-        printPayBtn.setMinimumSize(null);
         printPayBtn.addActionListener(this::printPayBtnActionPerformed);
 
+        comboBoxPeriod.setBackground(new java.awt.Color(255, 255, 255));
         comboBoxPeriod.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         comboBoxPeriod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboBoxPeriod.addActionListener(this::comboBoxPeriodActionPerformed);
@@ -740,7 +750,7 @@ public class PayslipViewer extends javax.swing.JPanel {
                             .addComponent(dashboardLabel)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
-                        .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
@@ -754,9 +764,9 @@ public class PayslipViewer extends javax.swing.JPanel {
                 .addComponent(comboBoxPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(payslipView, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(printPayBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 

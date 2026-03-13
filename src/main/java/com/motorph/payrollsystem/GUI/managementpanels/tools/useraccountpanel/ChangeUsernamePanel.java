@@ -235,11 +235,13 @@ public class ChangeUsernamePanel extends javax.swing.JPanel {
         newLabel.setText("New Username :");
 
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtn.setText("Cancel");
+        cancelBtn.setText("CANCEL");
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
         resetBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        resetBtn.setText("Update");
+        resetBtn.setText("UPDATE");
+        resetBtn.setFocusPainted(false);
         resetBtn.addActionListener(this::resetBtnActionPerformed);
 
         newUsernameField.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
@@ -275,9 +277,9 @@ public class ChangeUsernamePanel extends javax.swing.JPanel {
                         .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(resestPasswordPanelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(resestPasswordPanelLayout.createSequentialGroup()
                                 .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(newLabel)

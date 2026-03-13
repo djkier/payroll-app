@@ -17,8 +17,10 @@ import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.service.UserAccountService;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -257,6 +259,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
         openActionDialog(title, scp);
     }
     
+    private Image userAccountLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/user-account.png"));
+        return newIcon.getImage();
+    }
+    
 
 
     /**
@@ -288,6 +295,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         btnActionDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         btnActionDialog.setAlwaysOnTop(true);
+        btnActionDialog.setIconImage(userAccountLogo());
         btnActionDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 btnActionDialogWindowClosed(evt);
