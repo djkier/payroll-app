@@ -57,7 +57,7 @@ public class ThemeColor {
     }
     
     public static Color hoverIn() {
-        return new Color(240, 240, 240);
+        return new Color(84,73,95);
     }
     
     public static Color hoverOut() {
