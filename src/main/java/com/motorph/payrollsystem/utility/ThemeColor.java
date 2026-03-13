@@ -92,6 +92,14 @@ public class ThemeColor {
         return new Color(255, 51, 51);
     }
     
+    public static Color hardGreen() {
+        return new Color(0,153,51);
+    }
+    
+    public static Color hardRed() {
+        return new Color(255, 51, 51);
+    }
+    
     
     
     

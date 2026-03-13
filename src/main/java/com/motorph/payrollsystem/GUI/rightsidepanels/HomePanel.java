@@ -449,14 +449,14 @@ public class HomePanel extends javax.swing.JPanel {
         currentTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentTimeLabel.setText("Current Time");
 
-        timeInBtn.setBackground(ThemeColor.softGreen());
         timeInBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        timeInBtn.setForeground(new java.awt.Color(0, 0, 0));
         timeInBtn.setText("TIME IN");
         timeInBtn.setFocusPainted(false);
         timeInBtn.addActionListener(this::timeInBtnActionPerformed);
 
-        timeOutBtn.setBackground(ThemeColor.softRed());
         timeOutBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        timeOutBtn.setForeground(new java.awt.Color(0, 0, 0));
         timeOutBtn.setText("TIME OUT");
         timeOutBtn.setFocusPainted(false);
         timeOutBtn.addActionListener(this::timeOutBtnActionPerformed);
@@ -474,9 +474,6 @@ public class HomePanel extends javax.swing.JPanel {
             .addComponent(dateTodayLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, attendanceTrackerPanelLayout.createSequentialGroup()
                 .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(attendanceTrackerPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(attendanceBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, attendanceTrackerPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,6 +489,7 @@ public class HomePanel extends javax.swing.JPanel {
                         .addComponent(timeOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(attendanceBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         attendanceTrackerPanelLayout.setVerticalGroup(
             attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -500,7 +498,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addGroup(attendanceTrackerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(attendanceTrackerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                     .addComponent(statusBarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addComponent(currentTimeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(timerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -512,7 +510,7 @@ public class HomePanel extends javax.swing.JPanel {
                     .addComponent(timeOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(attendanceBtn)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -529,9 +527,9 @@ public class HomePanel extends javax.swing.JPanel {
                 .addComponent(preTimeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loggedInTimeLabel)
-                .addGap(89, 89, 89))
+                .addGap(47, 47, 47))
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
@@ -558,7 +556,7 @@ public class HomePanel extends javax.swing.JPanel {
                     .addComponent(nameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(attendanceTrackerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(223, Short.MAX_VALUE))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
