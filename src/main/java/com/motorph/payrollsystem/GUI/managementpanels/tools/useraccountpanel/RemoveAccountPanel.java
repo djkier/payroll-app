@@ -33,14 +33,11 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
     private void loadDetails() {
         String employeeNo = selectedUser.getEmployeeNo();
         String selectedName = getEmployeeName(employeeNo);
-        String from = selectedUser.isActive() ? "ACTIVE" : "INACTIVE";
-        String to = !selectedUser.isActive() ? "ACTIVE" : "INACTIVE";
+
         
         employeeField.setText(selectedName);
         userNameField.setText(selectedUser.getUsername());
-        currentStatusLabel.setText(from);
-        changeToLabel.setText(to);
-        
+   
     }
     
     private String getEmployeeName(String employeeNo) {
@@ -53,16 +50,16 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
     }
     
     
-    private void handleStatusChange() {
+    private void handleDelete() {
         
         try {
             UserAccount account = 
                     appContext
                     .getUserAccountService()
-                    .setAccountActive(selectedUser.getEmployeeNo(), !selectedUser.isActive());
+                    .deleteAccountByEmployeeNo(selectedUser.getEmployeeNo());
             
             //success
-            String label = "Staus successfully changed.";
+            String label = "Successfully deleted.";
             parentDialog.dispose();
             showSuccessDialog(label);
             
@@ -121,8 +118,6 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
         cancelBtn = new javax.swing.JButton();
         resetBtn = new javax.swing.JButton();
         decorLine = new javax.swing.JPanel();
-        currentStatusLabel = new javax.swing.JLabel();
-        changeToStatus = new javax.swing.JLabel();
         changeToLabel = new javax.swing.JLabel();
 
         successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -222,7 +217,7 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
         resestPasswordPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         header.setFont(new java.awt.Font("Poppins", 1, 18)); // NOI18N
-        header.setText("Change Status");
+        header.setText("Delete Account");
 
         employeeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         employeeLabel.setText("Employee :");
@@ -237,7 +232,7 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
         userNameField.setText("Don Justine Fontanilla");
 
         currentStatus.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        currentStatus.setText("Current Status :");
+        currentStatus.setText("Warning :");
 
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelBtn.setText("Cancel");
@@ -253,21 +248,15 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
         decorLine.setLayout(decorLineLayout);
         decorLineLayout.setHorizontalGroup(
             decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 250, Short.MAX_VALUE)
         );
         decorLineLayout.setVerticalGroup(
             decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        currentStatusLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        currentStatusLabel.setText("ACTIVE");
-
-        changeToStatus.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        changeToStatus.setText("Change to :");
-
         changeToLabel.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-        changeToLabel.setText("INACTIVE");
+        changeToLabel.setText("This will permanently delete the account.");
 
         javax.swing.GroupLayout resestPasswordPanelLayout = new javax.swing.GroupLayout(resestPasswordPanel);
         resestPasswordPanel.setLayout(resestPasswordPanelLayout);
@@ -275,33 +264,29 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
             resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resestPasswordPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(header)
-                    .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(header)
+                        .addGroup(resestPasswordPanelLayout.createSequentialGroup()
+                            .addGap(12, 12, 12)
+                            .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                    .addComponent(employeeLabel)
-                                    .addGap(14, 14, 14)
-                                    .addComponent(employeeField, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE))
-                                .addComponent(decorLine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                    .addComponent(userNameLabel)
+                                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(userNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                    .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(currentStatus)
-                                        .addComponent(changeToStatus))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(changeToLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(currentStatusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(currentStatus)
+                                    .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, resestPasswordPanelLayout.createSequentialGroup()
+                                            .addComponent(employeeLabel)
+                                            .addGap(14, 14, 14)
+                                            .addComponent(employeeField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, resestPasswordPanelLayout.createSequentialGroup()
+                                            .addComponent(userNameLabel)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(userNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(changeToLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         resestPasswordPanelLayout.setVerticalGroup(
@@ -317,17 +302,13 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
                 .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userNameLabel)
                     .addComponent(userNameField))
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(currentStatus)
-                    .addComponent(currentStatusLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(changeToStatus)
-                    .addComponent(changeToLabel))
-                .addGap(24, 24, 24)
+                .addComponent(currentStatus)
+                .addGap(0, 0, 0)
+                .addComponent(changeToLabel)
+                .addGap(18, 18, 18)
                 .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -354,7 +335,7 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
     private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
         
-        handleStatusChange();
+        handleDelete();
         
     }//GEN-LAST:event_resetBtnActionPerformed
 
@@ -376,9 +357,7 @@ public class RemoveAccountPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel changeToLabel;
-    private javax.swing.JLabel changeToStatus;
     private javax.swing.JLabel currentStatus;
-    private javax.swing.JLabel currentStatusLabel;
     private javax.swing.JPanel decorLine;
     private javax.swing.JLabel employeeField;
     private javax.swing.JLabel employeeLabel;
