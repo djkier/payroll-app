@@ -12,9 +12,11 @@ import com.motorph.payrollsystem.service.EmployeeService;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -201,6 +203,11 @@ public class EIMPanels extends javax.swing.JPanel {
         editEmployeeDialog.setVisible(true);
     }
     
+    private Image salaryLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/eim.png"));
+        return newIcon.getImage();
+    }
+    
 
 
     /**
@@ -232,6 +239,7 @@ public class EIMPanels extends javax.swing.JPanel {
 
         editEmployeeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         editEmployeeDialog.setAlwaysOnTop(true);
+        editEmployeeDialog.setIconImage(salaryLogo());
         editEmployeeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 editEmployeeDialogWindowClosed(evt);
@@ -252,20 +260,22 @@ public class EIMPanels extends javax.swing.JPanel {
             .addGap(0, 653, Short.MAX_VALUE)
         );
 
+        exitEditorDialog.setIconImage(salaryLogo());
+
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cancelConfrimLabel.setText("Are you sure you want to exit?");
 
-        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtnConfirm.setText("Cancel");
+        cancelBtnConfirm.setText("CANCEL");
+        cancelBtnConfirm.setFocusPainted(false);
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
-        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtnConfirm.setText("Confirm");
+        confirmBtnConfirm.setText("CONFIRM");
+        confirmBtnConfirm.setFocusPainted(false);
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
 
         javax.swing.GroupLayout cancelConfirmPanelLayout = new javax.swing.GroupLayout(cancelConfirmPanel);
@@ -275,7 +285,7 @@ public class EIMPanels extends javax.swing.JPanel {
             .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(36, 36, 36)
                 .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(cancelConfrimLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)

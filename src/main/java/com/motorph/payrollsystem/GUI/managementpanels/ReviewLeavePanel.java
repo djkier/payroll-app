@@ -437,7 +437,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         leaveDetailsPanelLayout.setHorizontalGroup(
             leaveDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(leaveDetailsPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(24, 24, 24)
                 .addGroup(leaveDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leaveDetailsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -473,7 +473,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                                     .addComponent(leaveDateField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(statusField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(21, 21, 21))
+                .addGap(24, 24, 24))
         );
         leaveDetailsPanelLayout.setVerticalGroup(
             leaveDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,13 +512,13 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                     .addComponent(statusField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(messageLabel)
-                .addGap(12, 12, 12)
+                .addGap(6, 6, 6)
                 .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(leaveDetailsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(denyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(approveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout leaveDetailsDialogLayout = new javax.swing.GroupLayout(leaveDetailsDialog.getContentPane());
@@ -541,18 +541,18 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
 
         rejectOrApprovePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        rejectOrApproveLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        rejectOrApproveLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         rejectOrApproveLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rejectOrApproveLabel.setText("Reject leave request?");
 
-        cancelBtn.setBackground(ThemeColor.lightRed());
         cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        cancelBtn.setText("Cancel");
+        cancelBtn.setText("CANCEL");
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
-        confirmBtn.setBackground(ThemeColor.lightGreen());
         confirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        confirmBtn.setText("Confirm");
+        confirmBtn.setText("CONFIRM");
+        confirmBtn.setFocusPainted(false);
         confirmBtn.addActionListener(this::confirmBtnActionPerformed);
 
         employeeLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -577,24 +577,23 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
             rejectOrApprovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(rejectOrApproveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(rejectOrApprovePanelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addGroup(rejectOrApprovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rejectOrApprovePanelLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(leavePeriodLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(leavePeriodField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(rejectOrApprovePanelLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(rejectOrApprovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(rejectOrApprovePanelLayout.createSequentialGroup()
-                                .addComponent(leavePeriodLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(leavePeriodField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(rejectOrApprovePanelLayout.createSequentialGroup()
-                                .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(employeeNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(employeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(employeeNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rejectOrApprovePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         rejectOrApprovePanelLayout.setVerticalGroup(
             rejectOrApprovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -609,7 +608,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                 .addGroup(rejectOrApprovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(leavePeriodLabel)
                     .addComponent(leavePeriodField))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(rejectOrApprovePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,7 +634,6 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
         successDialogMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successDialogMessage.setText("Leave request approved successfully.");
 
-        successDialogOkBtn.setBackground(ThemeColor.lightGreen());
         successDialogOkBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         successDialogOkBtn.setText("OK");
         successDialogOkBtn.addActionListener(this::successDialogOkBtnActionPerformed);
@@ -728,6 +726,7 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
 
         historyBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         historyBtn.setText("View Leave History");
+        historyBtn.setFocusPainted(false);
         historyBtn.addActionListener(this::historyBtnActionPerformed);
 
         noteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
@@ -762,15 +761,15 @@ public class ReviewLeavePanel extends javax.swing.JPanel {
                 .addComponent(leaveMngtHeader)
                 .addGap(6, 6, 6)
                 .addComponent(filterLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(historyBtn))
-                .addGap(12, 12, 12)
+                    .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(historyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addComponent(noteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(tablePane, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 

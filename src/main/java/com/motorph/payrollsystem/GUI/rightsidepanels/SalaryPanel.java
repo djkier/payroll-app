@@ -81,13 +81,7 @@ public class SalaryPanel extends javax.swing.JPanel {
     }
 
     private void changeSalaryUI() {
-        //For testing incorrect data
-//        System.out.println("Period: " + payslip.getPeriod().toString());
-//        System.out.println("Basic Salary: " + payslip.getEmployee().getCompProfile().getBasicSalary());
-//        System.out.println("Total hours: " + payslip.getTotalHours());
-//        System.out.println("Hourly rate: " + payslip.getEmployee().getCompProfile().getHourlyRate());
-//        System.out.println("Gross pay: " + payslip.getGrossPay()); 
-//        
+   
         //MAIN
         //Main summary
         mainGrossPayText.setText(Money.displayMoney(payslip.getGrossPay()));
@@ -164,6 +158,12 @@ public class SalaryPanel extends javax.swing.JPanel {
         
         printDialog.setVisible(true);
     }
+    
+    private Image salaryIcon() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/view-payslip.png"));
+        return newIcon.getImage();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -304,6 +304,7 @@ public class SalaryPanel extends javax.swing.JPanel {
         printDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         printDialog.setAlwaysOnTop(true);
         printDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        printDialog.setIconImage(salaryIcon());
         printDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         printDialog.setName("printingDialog"); // NOI18N
 

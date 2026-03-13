@@ -12,11 +12,13 @@ import com.motorph.payrollsystem.utility.DepartmentResolver;
 import com.motorph.payrollsystem.utility.Mapper;
 import com.motorph.payrollsystem.utility.RegexPattern;
 import com.motorph.payrollsystem.utility.ThemeColor;
+import java.awt.Image;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -525,6 +527,11 @@ public class InformationEditor extends javax.swing.JPanel {
         }
     }
     
+    private Image salaryLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/module-icon/eim.png"));
+        return newIcon.getImage();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -614,6 +621,7 @@ public class InformationEditor extends javax.swing.JPanel {
         departmentTextFieldTemp = new javax.swing.JTextField();
 
         cancelDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        cancelDialog.setIconImage(salaryLogo());
         cancelDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 cancelDialogWindowClosing(evt);
@@ -626,13 +634,13 @@ public class InformationEditor extends javax.swing.JPanel {
         cancelDialogLabel.setText("You have unsaved changes. Discard them?");
         cancelDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        cancelDialogCancelBtn.setText("Cancel");
-        cancelDialogCancelBtn.setBackground(ThemeColor.lightRed());
+        cancelDialogCancelBtn.setText("CANCEL");
+        cancelDialogCancelBtn.setFocusPainted(false);
         cancelDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelDialogCancelBtn.addActionListener(this::cancelDialogCancelBtnActionPerformed);
 
-        cancelDialogConfirmBtn.setText("Confirm");
-        cancelDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
+        cancelDialogConfirmBtn.setText("CONFIRM");
+        cancelDialogConfirmBtn.setFocusPainted(false);
         cancelDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelDialogConfirmBtn.addActionListener(this::cancelDialogConfirmBtnActionPerformed);
 
@@ -641,12 +649,16 @@ public class InformationEditor extends javax.swing.JPanel {
         cancelConfirmPanelLayout.setHorizontalGroup(
             cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(cancelDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addComponent(cancelDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
-            .addComponent(cancelDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(cancelDialogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(cancelDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(cancelDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         cancelConfirmPanelLayout.setVerticalGroup(
             cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,6 +684,7 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         noChangeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        noChangeDialog.setIconImage(salaryLogo());
         noChangeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 noChangeDialogWindowClosing(evt);
@@ -685,7 +698,7 @@ public class InformationEditor extends javax.swing.JPanel {
         noChangeLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         noChangeButton.setText("OK");
-        noChangeButton.setBackground(ThemeColor.lightGreen());
+        noChangeButton.setFocusPainted(false);
         noChangeButton.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         noChangeButton.addActionListener(this::noChangeButtonActionPerformed);
 
@@ -693,11 +706,15 @@ public class InformationEditor extends javax.swing.JPanel {
         noChangePanel.setLayout(noChangePanelLayout);
         noChangePanelLayout.setHorizontalGroup(
             noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noChangeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
             .addGroup(noChangePanelLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(noChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(noChangePanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(noChangeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(noChangePanelLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(noChangeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         noChangePanelLayout.setVerticalGroup(
             noChangePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -721,6 +738,7 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         updateDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        updateDialog.setIconImage(salaryLogo());
         updateDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 updateDialogWindowClosing(evt);
@@ -733,13 +751,13 @@ public class InformationEditor extends javax.swing.JPanel {
         updateDialogLabel.setText("Do you want to save your changes?");
         updateDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        updateDialogCancelBtn.setText("Cancel");
-        updateDialogCancelBtn.setBackground(ThemeColor.lightRed());
+        updateDialogCancelBtn.setText("CANCEL");
+        updateDialogCancelBtn.setFocusPainted(false);
         updateDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         updateDialogCancelBtn.addActionListener(this::updateDialogCancelBtnActionPerformed);
 
-        updateDialogSaveBtn.setText("Save");
-        updateDialogSaveBtn.setBackground(ThemeColor.lightGreen());
+        updateDialogSaveBtn.setText("SAVE");
+        updateDialogSaveBtn.setFocusPainted(false);
         updateDialogSaveBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         updateDialogSaveBtn.addActionListener(this::updateDialogSaveBtnActionPerformed);
 
@@ -750,7 +768,7 @@ public class InformationEditor extends javax.swing.JPanel {
             .addGroup(updateDialogPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(updateDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(36, 36, 36)
                 .addComponent(updateDialogSaveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(updateDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -775,10 +793,11 @@ public class InformationEditor extends javax.swing.JPanel {
         );
         updateDialogLayout.setVerticalGroup(
             updateDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(updateDialogPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(updateDialogPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         validationErrorDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        validationErrorDialog.setIconImage(salaryLogo());
         validationErrorDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 validationErrorDialogWindowClosing(evt);
@@ -788,7 +807,7 @@ public class InformationEditor extends javax.swing.JPanel {
         validationErrorPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         validationErrorBtn.setText("OK");
-        validationErrorBtn.setBackground(ThemeColor.lightGreen());
+        validationErrorBtn.setFocusPainted(false);
         validationErrorBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         validationErrorBtn.addActionListener(this::validationErrorBtnActionPerformed);
 
@@ -805,28 +824,29 @@ public class InformationEditor extends javax.swing.JPanel {
         validationErrorPanelLayout.setHorizontalGroup(
             validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(validationErrorPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(validationErrorPanelLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(validationErrorHeader))
+                        .addGap(24, 24, 24)
+                        .addGroup(validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(validationErrorPanelLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(validationErrorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(validationErrorHeader)))
+                    .addGroup(validationErrorPanelLayout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
         );
         validationErrorPanelLayout.setVerticalGroup(
             validationErrorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, validationErrorPanelLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(12, 12, 12)
                 .addComponent(validationErrorHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(validationErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addComponent(validationErrorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(validationErrorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout validationErrorDialogLayout = new javax.swing.GroupLayout(validationErrorDialog.getContentPane());
@@ -843,6 +863,7 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         removeDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        removeDialog.setIconImage(salaryLogo());
         removeDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 removeDialogWindowClosing(evt);
@@ -855,13 +876,13 @@ public class InformationEditor extends javax.swing.JPanel {
         removeDialogLabel.setText("Are you sure you want to remove this employee?");
         removeDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        removeDialogCancelBtn.setText("Cancel");
-        removeDialogCancelBtn.setBackground(ThemeColor.lightRed());
+        removeDialogCancelBtn.setText("CANCEL");
+        removeDialogCancelBtn.setFocusPainted(false);
         removeDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         removeDialogCancelBtn.addActionListener(this::removeDialogCancelBtnActionPerformed);
 
-        removeDialogConfirmBtn.setText("Remove");
-        removeDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
+        removeDialogConfirmBtn.setText("REMOVE");
+        removeDialogConfirmBtn.setFocusPainted(false);
         removeDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         removeDialogConfirmBtn.addActionListener(this::removeDialogConfirmBtnActionPerformed);
 
@@ -928,7 +949,7 @@ public class InformationEditor extends javax.swing.JPanel {
                     .addComponent(removeDialogNameField))
                 .addGap(12, 12, 12)
                 .addComponent(removeDialogLabel1)
-                .addGap(24, 24, 24)
+                .addGap(18, 18, 18)
                 .addGroup(removeDialogPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(removeDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -947,6 +968,7 @@ public class InformationEditor extends javax.swing.JPanel {
         );
 
         successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        successDialog.setIconImage(salaryLogo());
         successDialog.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 successDialogWindowClosing(evt);
@@ -960,7 +982,6 @@ public class InformationEditor extends javax.swing.JPanel {
         successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         successBtn.setText("OK");
-        successBtn.setBackground(ThemeColor.lightGreen());
         successBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         successBtn.addActionListener(this::successBtnActionPerformed);
 
@@ -972,12 +993,17 @@ public class InformationEditor extends javax.swing.JPanel {
         successsPanel.setLayout(successsPanelLayout);
         successsPanelLayout.setHorizontalGroup(
             successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(successLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(successEmployeeLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(successsPanelLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addGroup(successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(successsPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(successLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(successEmployeeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(successsPanelLayout.createSequentialGroup()
+                        .addGap(113, 113, 113)
+                        .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         successsPanelLayout.setVerticalGroup(
             successsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -986,9 +1012,9 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addComponent(successLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(successEmployeeLabel)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(successBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout successDialogLayout = new javax.swing.GroupLayout(successDialog.getContentPane());
