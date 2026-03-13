@@ -291,6 +291,9 @@
         <Property name="text" type="java.lang.String" value="Activate"/>
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="activateBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="deactivateBtn">
       <Properties>
@@ -300,6 +303,9 @@
         <Property name="text" type="java.lang.String" value="Deactivate"/>
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deactivateBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="deleteBtn">
       <Properties>

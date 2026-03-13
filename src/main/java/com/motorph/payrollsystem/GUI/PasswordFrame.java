@@ -41,15 +41,16 @@ public class PasswordFrame extends javax.swing.JFrame {
         setIconImage(icon.getImage());
     }
     
-    private void customizeDialog(String title, String label) {
-        customDialog.setSize(225, 160);
+    private void dialogOpener(String title, String label) {
+        customDialog.setTitle(title);
+        customDialog.pack();
         customDialog.setResizable(false);
         customDialog.setLocationRelativeTo(null);
-        customDialog.setTitle(title);
+        
         
         customDialogLabel.setText(label);
         
-        this.setEnabled(false);
+//        this.setEnabled(false);
         customDialog.setVisible(true);
         
     }
@@ -63,7 +64,7 @@ public class PasswordFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        customDialog = new javax.swing.JDialog();
+        customDialog = new javax.swing.JDialog(this, true);
         customDialogLabel = new javax.swing.JLabel();
         okBtn = new javax.swing.JButton();
         passwordPanel = new javax.swing.JPanel();
@@ -77,13 +78,14 @@ public class PasswordFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         customDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        customDialog.setAlwaysOnTop(true);
         customDialog.setBackground(new java.awt.Color(255, 255, 255));
         customDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         customDialog.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        customDialogLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        customDialogLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         customDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        customDialogLabel.setText("template");
+        customDialogLabel.setText("Invalid credentials or inactive account");
 
         okBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         okBtn.setText("OK");
@@ -98,20 +100,23 @@ public class PasswordFrame extends javax.swing.JFrame {
         customDialogLayout.setHorizontalGroup(
             customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(customDialogLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(customDialogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(customDialogLayout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(okBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(customDialogLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(customDialogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(customDialogLayout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(okBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         customDialogLayout.setVerticalGroup(
             customDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, customDialogLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(customDialogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(okBtn)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(customDialogLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(okBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -219,7 +224,7 @@ public class PasswordFrame extends javax.swing.JFrame {
         String password = new String(passwordField.getPassword());
         
         if (empNo.isEmpty() || username.isEmpty() || password.isEmpty()) {
-            customizeDialog("Missing Inputs", "All fields are required");
+            dialogOpener("Missing Inputs", "All fields are required");
             return;
         }
         
@@ -228,7 +233,7 @@ public class PasswordFrame extends javax.swing.JFrame {
             UserAccount userAccount = authService.login(empNo, username, password);
 
             if (userAccount == null) {
-                customizeDialog("Login Failed", "Invalid credentials or inactive account");
+                dialogOpener("Login Failed", "Invalid credentials or inactive account");
                 passwordField.setText("");
                 passwordField.requestFocus();
                 return;
@@ -238,7 +243,7 @@ public class PasswordFrame extends javax.swing.JFrame {
                     .findByEmployeeNo(userAccount.getEmployeeNo());
 
             if (employee == null) {
-                customizeDialog("Login Error", "Employee record not found for this account.");
+                dialogOpener("Login Error", "Employee record not found for this account.");
                 passwordField.setText("");
                 passwordField.requestFocus();
                 return;
@@ -256,7 +261,7 @@ public class PasswordFrame extends javax.swing.JFrame {
             this.dispose();
             
         } catch (Exception ex) {
-            customizeDialog("Check Resource", "Invalid Path");
+            dialogOpener("Check Resource", "Invalid Path");
             ex.printStackTrace();
         }
         
@@ -266,7 +271,7 @@ public class PasswordFrame extends javax.swing.JFrame {
     
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
-        this.setEnabled(true);
+//        this.setEnabled(true);
         customDialog.dispose();
     }//GEN-LAST:event_okBtnActionPerformed
 

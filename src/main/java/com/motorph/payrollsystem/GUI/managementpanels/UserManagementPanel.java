@@ -11,6 +11,7 @@ import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.useraccountpanel.ChangeUsernamePanel;
 import com.motorph.payrollsystem.gui.managementpanels.tools.useraccountpanel.ResetPasswordPanel;
+import com.motorph.payrollsystem.gui.managementpanels.tools.useraccountpanel.StatusChangePanel;
 import com.motorph.payrollsystem.model.auth.UserAccount;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.service.EmployeeService;
@@ -170,8 +171,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
             initButtonState();
             ex.printStackTrace();
         }
-        
-        System.out.println(selectedUser.getUsername());
+
     }
     
 
@@ -248,6 +248,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
         btnActionDialog.setLocationRelativeTo(parentDialog);
         
         btnActionDialog.setVisible(true);
+    }
+    
+    private void handleStatusChange() {
+        String isActive = selectedUser.isActive() ? "ACTIVE" : "INACTIVE";
+        String title = "Change Status: " + isActive;
+        StatusChangePanel scp = new StatusChangePanel(appContext, selectedUser, btnActionDialog);
+        openActionDialog(title, scp);
     }
     
 
@@ -383,10 +390,12 @@ public class UserManagementPanel extends javax.swing.JPanel {
         activateBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         activateBtn.setText("Activate");
         activateBtn.setFocusPainted(false);
+        activateBtn.addActionListener(this::activateBtnActionPerformed);
 
         deactivateBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         deactivateBtn.setText("Deactivate");
         deactivateBtn.setFocusPainted(false);
+        deactivateBtn.addActionListener(this::deactivateBtnActionPerformed);
 
         deleteBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         deleteBtn.setText("Delete Account");
@@ -520,6 +529,16 @@ public class UserManagementPanel extends javax.swing.JPanel {
         ChangeUsernamePanel cup = new ChangeUsernamePanel(appContext, selectedUser, btnActionDialog);
         openActionDialog(title, cup);
     }//GEN-LAST:event_userNameBtnActionPerformed
+
+    private void activateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activateBtnActionPerformed
+        // TODO add your handling code here:
+        handleStatusChange();
+    }//GEN-LAST:event_activateBtnActionPerformed
+
+    private void deactivateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deactivateBtnActionPerformed
+        // TODO add your handling code here:
+        handleStatusChange();
+    }//GEN-LAST:event_deactivateBtnActionPerformed
 
     private javax.swing.JDialog parentDialog;
     private boolean isIDSelected;

@@ -70,9 +70,8 @@ public class ResetPasswordPanel extends javax.swing.JPanel {
                     .resetPassword(selectedUser.getEmployeeNo(), newPassword);
             //success
             String label = "Password successfully reset";
-            showSuccessDialog(label);
-            
             parentDialog.dispose();
+            showSuccessDialog(label);
             
         } catch (IllegalStateException ex) {
             showErrorDialog(ex.getMessage());
@@ -132,6 +131,7 @@ public class ResetPasswordPanel extends javax.swing.JPanel {
         cancelBtn = new javax.swing.JButton();
         resetBtn = new javax.swing.JButton();
         showPasswordCheck = new javax.swing.JCheckBox();
+        decorLine = new javax.swing.JPanel();
 
         successDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -269,6 +269,19 @@ public class ResetPasswordPanel extends javax.swing.JPanel {
         showPasswordCheck.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         showPasswordCheck.setText("Show Password");
 
+        decorLine.setBackground(new java.awt.Color(204, 204, 204));
+
+        javax.swing.GroupLayout decorLineLayout = new javax.swing.GroupLayout(decorLine);
+        decorLine.setLayout(decorLineLayout);
+        decorLineLayout.setHorizontalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        decorLineLayout.setVerticalGroup(
+            decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout resestPasswordPanelLayout = new javax.swing.GroupLayout(resestPasswordPanel);
         resestPasswordPanel.setLayout(resestPasswordPanelLayout);
         resestPasswordPanelLayout.setHorizontalGroup(
@@ -288,23 +301,22 @@ public class ResetPasswordPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(confirmPasswordField)
-                            .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(showPasswordCheck)
-                                    .addComponent(confirmLabel)
-                                    .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(newLabel)
-                                        .addGroup(resestPasswordPanelLayout.createSequentialGroup()
-                                            .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(employeeLabel)
-                                                .addComponent(userNameLabel))
-                                            .addGap(12, 12, 12)
-                                            .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(employeeField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                                .addComponent(userNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addComponent(newPasswordField)))
-                                .addGap(0, 5, Short.MAX_VALUE)))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                            .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(showPasswordCheck)
+                                .addComponent(confirmLabel)
+                                .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(newLabel)
+                                    .addGroup(resestPasswordPanelLayout.createSequentialGroup()
+                                        .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(employeeLabel)
+                                            .addComponent(userNameLabel))
+                                        .addGap(12, 12, 12)
+                                        .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(employeeField, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                            .addComponent(userNameField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(newPasswordField)
+                                    .addComponent(decorLine, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                .addGap(36, 36, 36))
         );
         resestPasswordPanelLayout.setVerticalGroup(
             resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,13 +331,15 @@ public class ResetPasswordPanel extends javax.swing.JPanel {
                 .addGroup(resestPasswordPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userNameField)
                     .addComponent(userNameLabel))
-                .addGap(11, 11, 11)
+                .addGap(12, 12, 12)
+                .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(newLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(newPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(confirmLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(confirmPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(showPasswordCheck)
@@ -395,6 +409,7 @@ public class ResetPasswordPanel extends javax.swing.JPanel {
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel confirmLabel;
     private javax.swing.JPasswordField confirmPasswordField;
+    private javax.swing.JPanel decorLine;
     private javax.swing.JLabel employeeField;
     private javax.swing.JLabel employeeLabel;
     private javax.swing.JButton errorBtn;
