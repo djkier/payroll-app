@@ -324,6 +324,9 @@
         <Property name="text" type="java.lang.String" value="Refresh"/>
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="refreshBtnActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine">
       <Properties>

@@ -375,7 +375,7 @@ public class ChangeUsernamePanel extends javax.swing.JPanel {
         errorDialog.dispose();
     }//GEN-LAST:event_errorBtnActionPerformed
 
-    private char defaultEcho;
+
     private AppContext appContext;
     private UserAccount selectedUser;
     private javax.swing.JDialog parentDialog;

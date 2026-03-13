@@ -404,6 +404,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         refreshBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         refreshBtn.setText("Refresh");
         refreshBtn.setFocusPainted(false);
+        refreshBtn.addActionListener(this::refreshBtnActionPerformed);
 
         decorLine.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -539,6 +540,15 @@ public class UserManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         handleStatusChange();
     }//GEN-LAST:event_deactivateBtnActionPerformed
+
+    private void refreshBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshBtnActionPerformed
+        // TODO add your handling code here:
+        resetSearchAndTable();
+        isIDSelected = true;
+        idRadio.setSelected(true);
+        
+        loadUserAccounts();
+    }//GEN-LAST:event_refreshBtnActionPerformed
 
     private javax.swing.JDialog parentDialog;
     private boolean isIDSelected;
