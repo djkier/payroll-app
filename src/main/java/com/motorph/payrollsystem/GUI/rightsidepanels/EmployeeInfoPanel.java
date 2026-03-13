@@ -133,32 +133,32 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         personalInfoLabel.setText("Personal Information");
+        personalInfoLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
 
-        lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         lastNameLabel.setText("Last Name :");
+        lastNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         employeeNoLabel.setText("Employee No :");
+        employeeNoLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        employeeNoText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         employeeNoText.setText("00000");
+        employeeNoText.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         firstNameLabel.setText("First Name :");
+        firstNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         birthdayLabel.setText("Birthday :");
+        birthdayLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
+        dashboardLabel.setText("EMPLOYEE INFORMATION");
         dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
-        dashboardLabel.setText("EMPLOYEE");
 
-        addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         addressLabel.setText("Address :");
+        addressLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         phoneLabel.setText("Phone Number : ");
+        phoneLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         decorLine1.setBackground(new java.awt.Color(240, 240, 240));
         decorLine1.setDoubleBuffered(false);
@@ -174,20 +174,20 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         govIdLabel.setText("Government ID");
+        govIdLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
 
-        sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         sssLabel.setText("Social Security # :");
+        sssLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         philHealthLabel.setText("PhilHealth # :");
+        philHealthLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         pagibigLabel.setText("PAG-IBIG # :");
+        pagibigLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         tinLabel.setText("Tax Identification # :");
+        tinLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         decorLine2.setBackground(new java.awt.Color(240, 240, 240));
         decorLine2.setDoubleBuffered(false);
@@ -203,59 +203,59 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
             .addGap(0, 2, Short.MAX_VALUE)
         );
 
-        departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
         departmentLabel.setText("Department");
+        departmentLabel.setFont(new java.awt.Font("Poppins", 1, 16)); // NOI18N
 
-        departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         departmentNameLabel.setText("Department Name :");
+        departmentNameLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         positionLabel.setText("Position :");
+        positionLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         supervisorLabel.setText("Supervisor :");
+        supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         statusLabel.setText("Status :");
+        statusLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
-        lastNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         lastNameText.setText("Fontanilla");
+        lastNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        phoneNumberText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         phoneNumberText.setText("+639569999999");
+        phoneNumberText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        sssText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         sssText.setText("44-4506057-3");
+        sssText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        addressText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         addressText.setText("17 Nothing St., Nowhere District, Brgy. There, Quezon City");
+        addressText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        birthdayText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         birthdayText.setText("January 1, 1990");
+        birthdayText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        firstNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         firstNameText.setText("Don Justine");
+        firstNameText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        pagibigText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         pagibigText.setText("691295330870");
+        pagibigText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        philHealthText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         philHealthText.setText("820126853951");
+        philHealthText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        tinText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         tinText.setText("442-605-657-000");
+        tinText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        departmentText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         departmentText.setText("Executive");
+        departmentText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        positionText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         positionText.setText("Chief Operating Manager");
+        positionText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        statusText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         statusText.setText("Regular");
+        statusText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        supervisorText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         supervisorText.setText("Manuel Garcia III");
+        supervisorText.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -286,7 +286,7 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                             .addComponent(pagibigText)
                             .addComponent(tinText)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(24, 24, 24)
                         .addComponent(dashboardLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -339,7 +339,7 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addComponent(dashboardLabel)
                 .addGap(6, 6, 6)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addComponent(personalInfoLabel)
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -365,9 +365,9 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneLabel)
                     .addComponent(phoneNumberText))
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addComponent(decorLine1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addComponent(govIdLabel)
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -381,9 +381,9 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                     .addComponent(tinLabel)
                     .addComponent(tinText)
                     .addComponent(philHealthText))
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
+                .addGap(12, 12, 12)
                 .addComponent(departmentLabel)
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -401,7 +401,7 @@ public class EmployeeInfoPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(statusLabel)
                     .addComponent(statusText))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

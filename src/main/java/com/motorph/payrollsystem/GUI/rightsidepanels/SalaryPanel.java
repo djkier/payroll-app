@@ -5,16 +5,12 @@
 package com.motorph.payrollsystem.gui.rightsidepanels;
 
 import com.motorph.payrollsystem.config.AppContext;
-import com.motorph.payrollsystem.model.attendance.AttendanceRecord;
 import com.motorph.payrollsystem.model.employee.Employee;
 import com.motorph.payrollsystem.model.payslip.PayrollPeriod;
 import com.motorph.payrollsystem.model.payslip.Payslip;
 import com.motorph.payrollsystem.utility.Dates;
 import com.motorph.payrollsystem.utility.Money;
-import com.motorph.payrollsystem.utility.PayrollPeriodFactory;
 import java.awt.Image;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 /**
