@@ -9,6 +9,7 @@ import com.motorph.payrollsystem.access.AccessPolicy;
 import com.motorph.payrollsystem.config.AppContext;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
 import com.motorph.payrollsystem.gui.managementpanels.tools.PayslipViewer;
+import com.motorph.payrollsystem.gui.managementpanels.tools.useraccountpanel.ChangeUsernamePanel;
 import com.motorph.payrollsystem.gui.managementpanels.tools.useraccountpanel.ResetPasswordPanel;
 import com.motorph.payrollsystem.model.auth.UserAccount;
 import com.motorph.payrollsystem.model.employee.Employee;
@@ -377,6 +378,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         userNameBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         userNameBtn.setText("Change Username");
         userNameBtn.setFocusPainted(false);
+        userNameBtn.addActionListener(this::userNameBtnActionPerformed);
 
         activateBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         activateBtn.setText("Activate");
@@ -393,6 +395,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
         refreshBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         refreshBtn.setText("Refresh");
         refreshBtn.setFocusPainted(false);
+
+        decorLine.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout decorLineLayout = new javax.swing.GroupLayout(decorLine);
         decorLine.setLayout(decorLineLayout);
@@ -509,6 +513,13 @@ public class UserManagementPanel extends javax.swing.JPanel {
         ResetPasswordPanel rpp = new ResetPasswordPanel(appContext, selectedUser, btnActionDialog);
         openActionDialog(title, rpp);
     }//GEN-LAST:event_resetBtnActionPerformed
+
+    private void userNameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userNameBtnActionPerformed
+        // TODO add your handling code here:
+        String title = "Update Username";
+        ChangeUsernamePanel cup = new ChangeUsernamePanel(appContext, selectedUser, btnActionDialog);
+        openActionDialog(title, cup);
+    }//GEN-LAST:event_userNameBtnActionPerformed
 
     private javax.swing.JDialog parentDialog;
     private boolean isIDSelected;

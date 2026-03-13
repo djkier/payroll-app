@@ -115,7 +115,7 @@ public class UserAccountService {
         UserAccount existingByUsername = userRepo.findByUsername(cleanUsername);
         if (existingByUsername != null &&
                 !existingByUsername.getEmployeeNo().equals(cleanEmployeeNo)) {
-            throw new IllegalStateException("Username already exists: " + cleanUsername);
+            throw new IllegalStateException("Username already exists.");
         }
 
         UserAccount updated = existing.withUsername(cleanUsername);

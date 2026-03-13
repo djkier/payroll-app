@@ -279,6 +279,9 @@
         <Property name="text" type="java.lang.String" value="Change Username"/>
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="userNameBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="activateBtn">
       <Properties>
@@ -317,6 +320,11 @@
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">

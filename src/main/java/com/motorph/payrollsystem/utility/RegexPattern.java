@@ -41,5 +41,8 @@ public class RegexPattern {
         return "^(N/A|[\\p{L}0-9][\\p{L}0-9\\s&/().,'-]*[\\p{L}0-9)])$";
     }
     
+    public static String usernamePatter() {
+        return "^[a-zA-Z0-9._@-]+$";
+    }
     
 }
