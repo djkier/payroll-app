@@ -16,9 +16,11 @@ import com.motorph.payrollsystem.utility.FontsAndFormats;
 import com.motorph.payrollsystem.utility.ThemeColor;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -325,6 +327,13 @@ public class LeavePanel extends javax.swing.JPanel {
                 "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private Image leaveLogo() {
+        ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/payslip.png"));
+        return newIcon.getImage();
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -335,6 +344,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         leaveDetailsDialog = new javax.swing.JDialog();
+        leaveDetailsBg = new javax.swing.JPanel();
         subjectLabel = new javax.swing.JLabel();
         filedLabel = new javax.swing.JLabel();
         leaveLabel = new javax.swing.JLabel();
@@ -350,6 +360,7 @@ public class LeavePanel extends javax.swing.JPanel {
         messageTextArea = new javax.swing.JTextArea();
         leaveDetailsCloseBtn = new javax.swing.JButton();
         newRequestDialog = new javax.swing.JDialog();
+        newRequestBgPanel = new javax.swing.JPanel();
         subjectLabel1 = new javax.swing.JLabel();
         filedLabel1 = new javax.swing.JLabel();
         leaveLabel1 = new javax.swing.JLabel();
@@ -378,10 +389,12 @@ public class LeavePanel extends javax.swing.JPanel {
         leaveDetailsDialog.setAlwaysOnTop(true);
         leaveDetailsDialog.setBackground(new java.awt.Color(255, 255, 255));
         leaveDetailsDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        leaveDetailsDialog.setIconImage(null);
+        leaveDetailsDialog.setIconImage(leaveLogo());
         leaveDetailsDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         leaveDetailsDialog.setName("leaveDetailsDialog"); // NOI18N
         leaveDetailsDialog.setResizable(false);
+
+        leaveDetailsBg.setBackground(new java.awt.Color(255, 255, 255));
 
         subjectLabel.setText("Subject :");
         subjectLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -418,8 +431,8 @@ public class LeavePanel extends javax.swing.JPanel {
 
         scrollPaneMessage.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        messageTextArea.setEditable(false);
         messageTextArea.setColumns(20);
+        messageTextArea.setEditable(false);
         messageTextArea.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         messageTextArea.setLineWrap(true);
         messageTextArea.setRows(5);
@@ -428,79 +441,91 @@ public class LeavePanel extends javax.swing.JPanel {
         scrollPaneMessage.setViewportView(messageTextArea);
 
         leaveDetailsCloseBtn.setText("CLOSE");
+        leaveDetailsCloseBtn.setFocusPainted(false);
         leaveDetailsCloseBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         leaveDetailsCloseBtn.addActionListener(this::leaveDetailsCloseBtnActionPerformed);
+
+        javax.swing.GroupLayout leaveDetailsBgLayout = new javax.swing.GroupLayout(leaveDetailsBg);
+        leaveDetailsBg.setLayout(leaveDetailsBgLayout);
+        leaveDetailsBgLayout.setHorizontalGroup(
+            leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leaveDetailsBgLayout.createSequentialGroup()
+                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(leaveDetailsBgLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(leaveDetailsBgLayout.createSequentialGroup()
+                                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(filedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(subjectLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(approveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(leaveLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(subjectText, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(filedText, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(leaveText, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(statusText, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(approvedText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(messageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(leaveDetailsBgLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(leaveDetailsCloseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        leaveDetailsBgLayout.setVerticalGroup(
+            leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(leaveDetailsBgLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(subjectLabel)
+                    .addComponent(subjectText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filedLabel)
+                    .addComponent(filedText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(leaveLabel)
+                    .addComponent(leaveText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusLabel)
+                    .addComponent(statusText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(leaveDetailsBgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(approveLabel)
+                    .addComponent(approvedText))
+                .addGap(12, 12, 12)
+                .addComponent(messageLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(leaveDetailsCloseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
+        );
 
         javax.swing.GroupLayout leaveDetailsDialogLayout = new javax.swing.GroupLayout(leaveDetailsDialog.getContentPane());
         leaveDetailsDialog.getContentPane().setLayout(leaveDetailsDialogLayout);
         leaveDetailsDialogLayout.setHorizontalGroup(
             leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(filedLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(subjectLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(messageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(approveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(leaveLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, 0)
-                                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(filedText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(leaveText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(statusText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(approvedText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
-                                    .addComponent(subjectText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                        .addGap(171, 171, 171)
-                        .addComponent(leaveDetailsCloseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leaveDetailsDialogLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(leaveDetailsBg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         leaveDetailsDialogLayout.setVerticalGroup(
             leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(leaveDetailsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                        .addComponent(subjectText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filedText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(leaveText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(statusText)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(approvedText)
-                        .addGap(31, 31, 31))
-                    .addGroup(leaveDetailsDialogLayout.createSequentialGroup()
-                        .addComponent(subjectLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filedLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(leaveLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(statusLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(approveLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(messageLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(leaveDetailsCloseBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+            .addComponent(leaveDetailsBg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         newRequestDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         newRequestDialog.setAlwaysOnTop(true);
         newRequestDialog.setBackground(new java.awt.Color(255, 255, 255));
         newRequestDialog.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        newRequestDialog.setIconImage(null);
+        newRequestDialog.setIconImage(leaveLogo());
         newRequestDialog.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
         newRequestDialog.setName("leaveDetailsDialog"); // NOI18N
         newRequestDialog.setResizable(false);
@@ -509,6 +534,8 @@ public class LeavePanel extends javax.swing.JPanel {
                 newRequestDialogWindowClosing(evt);
             }
         });
+
+        newRequestBgPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         subjectLabel1.setText("Subject :");
         subjectLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
@@ -530,13 +557,15 @@ public class LeavePanel extends javax.swing.JPanel {
         newRequestTextArea.setRows(5);
         scrollPaneNewRequest.setViewportView(newRequestTextArea);
 
-        cancelRequestBtn.setText("Cancel");
+        cancelRequestBtn.setText("CANCEL");
         cancelRequestBtn.setBackground(ThemeColor.lightRed());
+        cancelRequestBtn.setFocusPainted(false);
         cancelRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelRequestBtn.addActionListener(this::cancelRequestBtnActionPerformed);
 
-        submitRequestBtn.setText("Submit");
+        submitRequestBtn.setText("SUBMIT");
         submitRequestBtn.setBackground(ThemeColor.lightBlue());
+        submitRequestBtn.setFocusPainted(false);
         submitRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         submitRequestBtn.addActionListener(this::submitRequestBtnActionPerformed);
 
@@ -545,71 +574,90 @@ public class LeavePanel extends javax.swing.JPanel {
         startDatePicker.setFocusable(false);
         startDatePicker.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 
-        javax.swing.GroupLayout newRequestDialogLayout = new javax.swing.GroupLayout(newRequestDialog.getContentPane());
-        newRequestDialog.getContentPane().setLayout(newRequestDialogLayout);
-        newRequestDialogLayout.setHorizontalGroup(
-            newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newRequestDialogLayout.createSequentialGroup()
+        javax.swing.GroupLayout newRequestBgPanelLayout = new javax.swing.GroupLayout(newRequestBgPanel);
+        newRequestBgPanel.setLayout(newRequestBgPanelLayout);
+        newRequestBgPanelLayout.setHorizontalGroup(
+            newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newRequestBgPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scrollPaneNewRequest)
-                    .addGroup(newRequestDialogLayout.createSequentialGroup()
-                        .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(leaveLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(subjectLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(filedLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(messageLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(subjectTextField))
-                        .addGap(46, 46, 46)))
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newRequestDialogLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cancelRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(submitRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
+                .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(newRequestBgPanelLayout.createSequentialGroup()
+                        .addComponent(cancelRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(submitRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(messageLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(newRequestBgPanelLayout.createSequentialGroup()
+                            .addComponent(leaveLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 0, 0)
+                            .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(newRequestBgPanelLayout.createSequentialGroup()
+                            .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(filedLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                .addComponent(subjectLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(0, 0, 0)
+                            .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(subjectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(scrollPaneNewRequest)))
+                .addGap(24, 24, 24))
         );
-        newRequestDialogLayout.setVerticalGroup(
-            newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(newRequestDialogLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(subjectTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(subjectLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        newRequestBgPanelLayout.setVerticalGroup(
+            newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, newRequestBgPanelLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(subjectLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(subjectTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filedLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(startDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(12, 12, 12)
+                .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(leaveLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
                 .addComponent(messageLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneNewRequest, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(newRequestBgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(submitRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24))
         );
+
+        javax.swing.GroupLayout newRequestDialogLayout = new javax.swing.GroupLayout(newRequestDialog.getContentPane());
+        newRequestDialog.getContentPane().setLayout(newRequestDialogLayout);
+        newRequestDialogLayout.setHorizontalGroup(
+            newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(newRequestBgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        newRequestDialogLayout.setVerticalGroup(
+            newRequestDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(newRequestDialogLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(newRequestBgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        cancelConfirmDialog.setIconImage(leaveLogo());
 
         cancelConfirmPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         cancelConfrimLabel.setText("You have unsaved changes. Discard them?");
         cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-        cancelBtnConfirm.setText("Cancel");
+        cancelBtnConfirm.setText("CANCEL");
         cancelBtnConfirm.setBackground(ThemeColor.lightRed());
+        cancelBtnConfirm.setFocusPainted(false);
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
-        confirmBtnConfirm.setText("Confirm");
+        confirmBtnConfirm.setText("CONFIRM");
         confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
+        confirmBtnConfirm.setFocusPainted(false);
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
 
@@ -619,14 +667,14 @@ public class LeavePanel extends javax.swing.JPanel {
             cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cancelConfrimLabel)
-                    .addGroup(cancelConfirmPanelLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(cancelConfrimLabel)
                 .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cancelConfirmPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(confirmBtnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
         cancelConfirmPanelLayout.setVerticalGroup(
             cancelConfirmPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,6 +720,7 @@ public class LeavePanel extends javax.swing.JPanel {
         );
 
         newRequestBtn.setText("+   New Request");
+        newRequestBtn.setFocusPainted(false);
         newRequestBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         newRequestBtn.addActionListener(this::newRequestBtnActionPerformed);
 
@@ -740,16 +789,19 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(newRequestBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(dashboardLabel)
-                        .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(requestLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(counts, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(newRequestBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(requestLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(counts, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(dashboardLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -761,13 +813,13 @@ public class LeavePanel extends javax.swing.JPanel {
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(newRequestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(requestLabel)
                     .addComponent(counts))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addComponent(scrollPaneTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -828,6 +880,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel filedLabel;
     private javax.swing.JLabel filedLabel1;
     private javax.swing.JLabel filedText;
+    private javax.swing.JPanel leaveDetailsBg;
     private javax.swing.JButton leaveDetailsCloseBtn;
     private javax.swing.JDialog leaveDetailsDialog;
     private javax.swing.JLabel leaveLabel;
@@ -836,6 +889,7 @@ public class LeavePanel extends javax.swing.JPanel {
     private javax.swing.JLabel messageLabel;
     private javax.swing.JLabel messageLabel1;
     private javax.swing.JTextArea messageTextArea;
+    private javax.swing.JPanel newRequestBgPanel;
     private javax.swing.JButton newRequestBtn;
     private javax.swing.JDialog newRequestDialog;
     private javax.swing.JTextArea newRequestTextArea;

@@ -851,39 +851,39 @@ public class InformationEditor extends javax.swing.JPanel {
 
         removeDialogPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        removeDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         removeDialogLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         removeDialogLabel.setText("Are you sure you want to remove this employee?");
+        removeDialogLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        removeDialogCancelBtn.setText("Cancel");
         removeDialogCancelBtn.setBackground(ThemeColor.lightRed());
         removeDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogCancelBtn.setText("Cancel");
         removeDialogCancelBtn.addActionListener(this::removeDialogCancelBtnActionPerformed);
 
+        removeDialogConfirmBtn.setText("Remove");
         removeDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
         removeDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        removeDialogConfirmBtn.setText("Remove");
         removeDialogConfirmBtn.addActionListener(this::removeDialogConfirmBtnActionPerformed);
 
-        removeDialogNumberLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         removeDialogNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         removeDialogNumberLabel.setText("Employee No. :");
+        removeDialogNumberLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        removeDialogNameLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         removeDialogNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         removeDialogNameLabel.setText("Employee Name :");
+        removeDialogNameLabel.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        removeDialogNumberField.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         removeDialogNumberField.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         removeDialogNumberField.setText("10100");
+        removeDialogNumberField.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        removeDialogNameField.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         removeDialogNameField.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         removeDialogNameField.setText("Fontanilla, Don Justine xyzaqe");
+        removeDialogNameField.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
 
-        removeDialogLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         removeDialogLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         removeDialogLabel1.setText("This action cannot be undone.");
+        removeDialogLabel1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout removeDialogPanelLayout = new javax.swing.GroupLayout(removeDialogPanel);
         removeDialogPanel.setLayout(removeDialogPanelLayout);
@@ -955,18 +955,18 @@ public class InformationEditor extends javax.swing.JPanel {
 
         successsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         successLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successLabel.setText("You succesfully removed :");
+        successLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
+        successBtn.setText("OK");
         successBtn.setBackground(ThemeColor.lightGreen());
         successBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
-        successBtn.setText("OK");
         successBtn.addActionListener(this::successBtnActionPerformed);
 
-        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         successEmployeeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         successEmployeeLabel.setText("Fontanilla, Don Justine T.");
+        successEmployeeLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout successsPanelLayout = new javax.swing.GroupLayout(successsPanel);
         successsPanel.setLayout(successsPanelLayout);
@@ -1052,7 +1052,7 @@ public class InformationEditor extends javax.swing.JPanel {
         decorLine.setLayout(decorLineLayout);
         decorLineLayout.setHorizontalGroup(
             decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         decorLineLayout.setVerticalGroup(
             decorLineLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1101,6 +1101,7 @@ public class InformationEditor extends javax.swing.JPanel {
         supervisorLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
 
         updateBtn.setText("Update Employee");
+        updateBtn.setFocusPainted(false);
         updateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         updateBtn.addActionListener(this::updateBtnActionPerformed);
 
@@ -1175,10 +1176,12 @@ public class InformationEditor extends javax.swing.JPanel {
         statusTextInput.setText("+639569978123");
 
         addOrUpdateBtn.setText("Update");
+        addOrUpdateBtn.setFocusPainted(false);
         addOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         addOrUpdateBtn.addActionListener(this::addOrUpdateBtnActionPerformed);
 
         cancelAddOrUpdateBtn.setText("Cancel");
+        cancelAddOrUpdateBtn.setFocusPainted(false);
         cancelAddOrUpdateBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         cancelAddOrUpdateBtn.addActionListener(this::cancelAddOrUpdateBtnActionPerformed);
 
@@ -1200,10 +1203,12 @@ public class InformationEditor extends javax.swing.JPanel {
         statusComboBox.addActionListener(this::statusComboBoxActionPerformed);
 
         removeBtn.setText("Remove");
+        removeBtn.setFocusPainted(false);
         removeBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         removeBtn.addActionListener(this::removeBtnActionPerformed);
 
         closeViewBtn.setText("Close");
+        closeViewBtn.setFocusPainted(false);
         closeViewBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
         closeViewBtn.addActionListener(this::closeViewBtnActionPerformed);
 
@@ -1217,27 +1222,25 @@ public class InformationEditor extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(viewLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(viewLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeNoLabel)
                             .addComponent(firstNameLabel)
@@ -1250,13 +1253,12 @@ public class InformationEditor extends javax.swing.JPanel {
                             .addComponent(employeeNoTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(firstNameTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(bdayPicker, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lastNameTextInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))))
-                    .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lastNameTextInput, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE))
+                            .addComponent(addressTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(sssLabel)
                             .addComponent(philHealthLabel))
@@ -1273,28 +1275,23 @@ public class InformationEditor extends javax.swing.JPanel {
                             .addComponent(pagibigTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(25, 25, 25)
                         .addComponent(govIdLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(25, 25, 25)
                         .addComponent(personalInfoLabel))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(193, 193, 193)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(192, 192, 192)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(supervisorTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, 0)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(supervisorComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(statusComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(positionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1310,19 +1307,23 @@ public class InformationEditor extends javax.swing.JPanel {
                                 .addGap(0, 0, 0)
                                 .addComponent(departmentTextFieldTemp, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(supervisorLabel)
-                            .addComponent(statusLabel))))
+                            .addComponent(statusLabel)
+                            .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(decorLine3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(decorLine2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(decorLine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(viewLabel)
                     .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(personalInfoLabel)
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1348,9 +1349,9 @@ public class InformationEditor extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneLabel)
                     .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
-                .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
+                .addComponent(decorLine2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(govIdLabel)
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1364,9 +1365,9 @@ public class InformationEditor extends javax.swing.JPanel {
                     .addComponent(tinLabel)
                     .addComponent(philhealthTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tinTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addGap(12, 12, 12)
                 .addComponent(decorLine3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
+                .addGap(12, 12, 12)
                 .addComponent(departmentLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1389,13 +1390,13 @@ public class InformationEditor extends javax.swing.JPanel {
                     .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(statusLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelAddOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addOrUpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(closeViewBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(removeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                .addGap(24, 24, 24))
         );
     }// </editor-fold>//GEN-END:initComponents
 
