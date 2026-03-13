@@ -88,18 +88,15 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void logoutDialog() {
-        logoutConfirm.setSize(340, 176);
+        logoutConfirm.setTitle("Logging out...");
+        logoutConfirm.pack();
         logoutConfirm.setResizable(false);
         logoutConfirm.setLocationRelativeTo(this);
-        logoutConfirm.setTitle("Logging out...");
         
         logoutConfirm.setVisible(true);
  
     }
-    
-    private void logoutClosing() {
-        this.logoutConfirm.dispose();
-    }
+   
     
     private ImageIcon motorPhLogo() {
         ImageIcon newIcon = new ImageIcon(getClass().getResource("/images/tab-icon/iconRightSidePanel.png"));
@@ -121,6 +118,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         logoutConfirm = new javax.swing.JDialog();
+        bgPanel = new javax.swing.JPanel();
         logoutMessage = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JButton();
         yesBtn = new javax.swing.JButton();
@@ -142,50 +140,60 @@ public class MainFrame extends javax.swing.JFrame {
         logoIcon = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
 
+        logoutConfirm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         logoutConfirm.setAlwaysOnTop(true);
         logoutConfirm.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
-        logoutConfirm.addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                logoutConfirmWindowClosing(evt);
-            }
-        });
+
+        bgPanel.setBackground(new java.awt.Color(255, 255, 255));
+        bgPanel.setPreferredSize(new java.awt.Dimension(334, 128));
 
         logoutMessage.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         logoutMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoutMessage.setText("Are you sure you want to log out ?");
+        logoutMessage.setText("Are you sure you want to log out?");
 
-        cancelBtn.setBackground(ThemeColor.lightRed());
-        cancelBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        cancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelBtn.setText("Cancel");
+        cancelBtn.setFocusPainted(false);
         cancelBtn.addActionListener(this::cancelBtnActionPerformed);
 
-        yesBtn.setBackground(ThemeColor.lightGreen());
-        yesBtn.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
+        yesBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         yesBtn.setText("Yes");
+        yesBtn.setFocusPainted(false);
         yesBtn.addActionListener(this::yesBtnActionPerformed);
+
+        javax.swing.GroupLayout bgPanelLayout = new javax.swing.GroupLayout(bgPanel);
+        bgPanel.setLayout(bgPanelLayout);
+        bgPanelLayout.setHorizontalGroup(
+            bgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bgPanelLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addComponent(logoutMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        bgPanelLayout.setVerticalGroup(
+            bgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(logoutMessage)
+                .addGap(18, 18, 18)
+                .addGroup(bgPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
+        );
 
         javax.swing.GroupLayout logoutConfirmLayout = new javax.swing.GroupLayout(logoutConfirm.getContentPane());
         logoutConfirm.getContentPane().setLayout(logoutConfirmLayout);
         logoutConfirmLayout.setHorizontalGroup(
             logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logoutConfirmLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(cancelBtn)
-                .addGap(75, 75, 75)
-                .addComponent(yesBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
-            .addComponent(logoutMessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         logoutConfirmLayout.setVerticalGroup(
             logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(logoutConfirmLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(logoutMessage)
-                .addGap(18, 18, 18)
-                .addGroup(logoutConfirmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelBtn)
-                    .addComponent(yesBtn))
-                .addContainerGap(32, Short.MAX_VALUE))
+            .addComponent(bgPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -429,7 +437,7 @@ public class MainFrame extends javax.swing.JFrame {
         logoPanel.setLayout(logoPanelLayout);
         logoPanelLayout.setHorizontalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logoIcon, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+            .addComponent(logoIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         logoPanelLayout.setVerticalGroup(
             logoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,7 +590,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         // TODO add your handling code here:
-        logoutClosing();
+        logoutConfirm.dispose();
     }//GEN-LAST:event_cancelBtnActionPerformed
 
     private void yesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yesBtnActionPerformed
@@ -594,11 +602,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_yesBtnActionPerformed
-
-    private void logoutConfirmWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_logoutConfirmWindowClosing
-        // TODO add your handling code here:
-        logoutClosing();
-    }//GEN-LAST:event_logoutConfirmWindowClosing
 
     private void mngtBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mngtBtnMouseClicked
         // TODO add your handling code here:
@@ -644,6 +647,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private final AppContext appContext;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bgPanel;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JPanel homeBtn;
     private javax.swing.JLabel homeLabel;

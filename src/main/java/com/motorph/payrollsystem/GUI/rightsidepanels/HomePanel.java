@@ -265,11 +265,13 @@ public class HomePanel extends javax.swing.JPanel {
         timeOutDialogCancelBtn.setBackground(ThemeColor.lightRed());
         timeOutDialogCancelBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeOutDialogCancelBtn.setText("Cancel");
+        timeOutDialogCancelBtn.setFocusPainted(false);
         timeOutDialogCancelBtn.addActionListener(this::timeOutDialogCancelBtnActionPerformed);
 
         timeOutDialogConfirmBtn.setBackground(ThemeColor.lightGreen());
         timeOutDialogConfirmBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeOutDialogConfirmBtn.setText("Confirm");
+        timeOutDialogConfirmBtn.setFocusPainted(false);
         timeOutDialogConfirmBtn.addActionListener(this::timeOutDialogConfirmBtnActionPerformed);
 
         javax.swing.GroupLayout timeOutDialogPanelLayout = new javax.swing.GroupLayout(timeOutDialogPanel);
@@ -279,7 +281,7 @@ public class HomePanel extends javax.swing.JPanel {
             .addGroup(timeOutDialogPanelLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(timeOutDialogCancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(36, 36, 36)
                 .addComponent(timeOutDialogConfirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(timeOutDialogLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -447,11 +449,13 @@ public class HomePanel extends javax.swing.JPanel {
         currentTimeLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         currentTimeLabel.setText("Current Time");
 
+        timeInBtn.setBackground(ThemeColor.softGreen());
         timeInBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeInBtn.setText("TIME IN");
         timeInBtn.setFocusPainted(false);
         timeInBtn.addActionListener(this::timeInBtnActionPerformed);
 
+        timeOutBtn.setBackground(ThemeColor.softRed());
         timeOutBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         timeOutBtn.setText("TIME OUT");
         timeOutBtn.setFocusPainted(false);
@@ -519,7 +523,7 @@ public class HomePanel extends javax.swing.JPanel {
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addGap(24, 24, 24)
                 .addComponent(dashboardLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(preTimeLabel)
