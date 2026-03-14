@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -80,8 +81,20 @@ public class PayrollReportService {
         validatePeriod(period);
         return payrollReportRepo.findByPeriod(period);
     }
+    
+    public List<PayrollReportInfo> getReportsSortedByPeriod() throws IOException {
+        List<PayrollReportInfo> reports = new ArrayList<>(getAllGeneratedReports());
 
-    public List<PayrollReportInfo> getAllGeneratedReports() throws IOException {
+        reports.sort(
+                Comparator.comparing(
+                        (PayrollReportInfo r) -> r.getPayrollPeriod().getEndDate()
+                ).reversed()
+        );
+
+        return reports;
+    }
+
+    private List<PayrollReportInfo> getAllGeneratedReports() throws IOException {
         return payrollReportRepo.findAllReportInfos();
     }
     

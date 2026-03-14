@@ -50,7 +50,7 @@ public class ReportsPanel extends javax.swing.JPanel {
     
     private void loadPayrollReports() {
         try {
-            this.reportList = appContext.getPayrollReportService().getAllGeneratedReports();
+            this.reportList = appContext.getPayrollReportService().getReportsSortedByPeriod();
             this.displayList = new ArrayList<>(reportList);
             
             fillTable(displayList);
