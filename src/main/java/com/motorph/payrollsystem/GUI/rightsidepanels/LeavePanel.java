@@ -558,13 +558,11 @@ public class LeavePanel extends javax.swing.JPanel {
         scrollPaneNewRequest.setViewportView(newRequestTextArea);
 
         cancelRequestBtn.setText("CANCEL");
-        cancelRequestBtn.setBackground(ThemeColor.lightRed());
         cancelRequestBtn.setFocusPainted(false);
         cancelRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelRequestBtn.addActionListener(this::cancelRequestBtnActionPerformed);
 
         submitRequestBtn.setText("SUBMIT");
-        submitRequestBtn.setBackground(ThemeColor.lightBlue());
         submitRequestBtn.setFocusPainted(false);
         submitRequestBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         submitRequestBtn.addActionListener(this::submitRequestBtnActionPerformed);
@@ -650,13 +648,11 @@ public class LeavePanel extends javax.swing.JPanel {
         cancelConfrimLabel.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
         cancelBtnConfirm.setText("CANCEL");
-        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFocusPainted(false);
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
         confirmBtnConfirm.setText("CONFIRM");
-        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
         confirmBtnConfirm.setFocusPainted(false);
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);

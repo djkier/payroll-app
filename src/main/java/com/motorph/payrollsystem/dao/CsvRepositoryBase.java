@@ -17,7 +17,7 @@ import java.util.List;
  *
  * @author djjus
  */
-public abstract class CsvRepositoryBase {
+public abstract class CsvRepositoryBase implements CsvRepository {
     protected final Path csvPath;
 
     protected CsvRepositoryBase(Path csvPath) {
@@ -25,7 +25,32 @@ public abstract class CsvRepositoryBase {
     }
 
     protected abstract String getHeader();
+    
+    @Override
+    public String getCsvHeader() {
+        return getHeader();
+    }
 
+    @Override
+    public void initializeStorage() throws IOException {
+        ensureFileExistsWithHeader();
+    }
+
+    @Override
+    public String[] parseCsvLine(String line) {
+        return parseLine(line);
+    }
+
+    @Override
+    public void appendCsvRow(String row) throws IOException {
+        appendRow(row);
+    }
+
+    @Override
+    public void rewriteCsvRows(List<String> rows) throws IOException {
+        rewriteAll(rows);
+    }
+    
     protected void ensureFileExistsWithHeader() throws IOException {
         if (Files.exists(csvPath)) return;
 

@@ -271,6 +271,7 @@ public class ReportsPanel extends javax.swing.JPanel {
 
         yearComboBox.setBackground(new java.awt.Color(255, 255, 255));
         yearComboBox.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        yearComboBox.setSelectedIndex(0);
         yearComboBox.addActionListener(this::yearComboBoxActionPerformed);
 
         noteLabel1.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N

@@ -436,9 +436,6 @@
             <Component class="javax.swing.JButton" name="cancelRequestBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CANCEL"/>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="ThemeColor.lightRed()" type="code"/>
-                </Property>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
@@ -451,9 +448,6 @@
             <Component class="javax.swing.JButton" name="submitRequestBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="SUBMIT"/>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="ThemeColor.lightBlue()" type="code"/>
-                </Property>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
@@ -556,9 +550,6 @@
             <Component class="javax.swing.JButton" name="cancelBtnConfirm">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CANCEL"/>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="ThemeColor.lightRed()" type="code"/>
-                </Property>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
@@ -571,9 +562,6 @@
             <Component class="javax.swing.JButton" name="confirmBtnConfirm">
               <Properties>
                 <Property name="text" type="java.lang.String" value="CONFIRM"/>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="ThemeColor.lightGreen()" type="code"/>
-                </Property>
                 <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
