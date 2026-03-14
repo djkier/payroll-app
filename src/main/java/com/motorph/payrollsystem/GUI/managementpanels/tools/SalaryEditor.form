@@ -521,18 +521,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="decorLine2" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="viewLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="updateBtn" min="-2" pref="156" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-          </Group>
           <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
@@ -578,10 +566,6 @@
                       <Component id="govIdLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="personalInfoLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="departmentNameLabel" min="-2" max="-2" attributes="0"/>
@@ -600,70 +584,81 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="salaryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="closeBtn" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="cancelBtn" min="-2" pref="95" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="saveBtn" min="-2" pref="95" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="hourlyLabel" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                              <Component id="hourlyTextInput" pref="180" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="semiMonthlyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="basicLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="basicTextInput" pref="180" max="32767" attributes="0"/>
-                                                  <Component id="semiTextInput" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="riceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="clotihingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="clothingTextInput" min="-2" pref="180" max="-2" attributes="0"/>
-                                          <Component id="phoneTextInput" min="-2" pref="180" max="-2" attributes="0"/>
-                                          <Component id="riceTextInput" min="-2" pref="180" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="departmentLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace pref="24" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
           <Component id="decorLine3" alignment="0" max="32767" attributes="0"/>
           <Component id="decorLine4" alignment="0" max="32767" attributes="0"/>
           <Component id="decorLine" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="personalInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="probationaryNoteLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="decorLine2" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="viewLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="updateBtn" min="-2" pref="156" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="closeBtn" min="-2" pref="100" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="cancelBtn" min="-2" pref="95" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="saveBtn" min="-2" pref="95" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="semiMonthlyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="basicLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="hourlyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="hourlyTextInput" max="32767" attributes="0"/>
+                                              <Component id="basicTextInput" pref="180" max="32767" attributes="0"/>
+                                              <Component id="semiTextInput" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="riceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="clotihingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="clothingTextInput" min="-2" pref="180" max="-2" attributes="0"/>
+                                              <Component id="phoneTextInput" min="-2" pref="180" max="-2" attributes="0"/>
+                                              <Component id="riceTextInput" min="-2" pref="180" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="salaryLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="594" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="departmentLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -677,7 +672,10 @@
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Component id="decorLine" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-              <Component id="personalInfoLabel" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="personalInfoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="probationaryNoteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="employeeNoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1281,6 +1279,20 @@
       <Events>
         <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="clothingTextInputKeyTyped"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="probationaryNoteLabel">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="12" style="2"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="0" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="(Only Regular employees can receive salary updates)"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

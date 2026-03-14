@@ -55,15 +55,17 @@ public class PayrollEngine {
     
     private Payslip createPayslipWithEarnings(Employee employee, List<AttendanceRecord> records, PayrollPeriod period) {
         double totalHours = computeTotalHours(records, period);
+        boolean isRegular = checkEmployment(employee);
         
         Payslip payslip = new Payslip(employee, period);
         payslip.setTotalHours(totalHours);
         
+        
         //Payslip EARNINGS
         double basicPay = employee.getCompProfile().getHourlyRate() * totalHours;
-        double riceSubsidy = basicPay > 0 ? computeAllowance(employee.getCompProfile().getRiceSubsidy(), period) : 0;
-        double phoneAllowance = basicPay > 0 ? computeAllowance(employee.getCompProfile().getPhoneAllowance(), period) : 0;
-        double clothingAllowance = basicPay > 0 ? computeAllowance(employee.getCompProfile().getClothingAllowance(), period) : 0;
+        double riceSubsidy = isRegular ? computeAllowance(employee.getCompProfile().getRiceSubsidy(), period) : 0;
+        double phoneAllowance = isRegular ? computeAllowance(employee.getCompProfile().getPhoneAllowance(), period) : 0;
+        double clothingAllowance = isRegular ? computeAllowance(employee.getCompProfile().getClothingAllowance(), period) : 0;
         //add payslip line for EARNINGS
         addEarningPayslipLine(payslip, "Basic", basicPay);
         addEarningPayslipLine(payslip, "Rice Subsidy", riceSubsidy);
@@ -74,6 +76,11 @@ public class PayrollEngine {
         payslip.computeTotals();
 
         return payslip;
+    }
+    
+    private boolean checkEmployment(Employee employee) {
+        String regular = "Regular";
+        return regular.equalsIgnoreCase(employee.getDepartmentInfo().getStatus());
     }
     
     private void addEarningPayslipLine(Payslip payslip, String name, double amount) {

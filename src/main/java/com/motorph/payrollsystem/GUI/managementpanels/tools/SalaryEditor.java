@@ -102,8 +102,11 @@ public class SalaryEditor extends javax.swing.JPanel {
         buttonVisibility(cancelBtn, isEditing);
         buttonVisibility(saveBtn, isEditing);
         
+        String regular = "Regular";
+        boolean isRegular = regular.equalsIgnoreCase(selectedEmployee.getDepartmentInfo().getStatus());
         boolean currentUser = selectedEmployee.getEmployeeNo().equals(currentEmployee.getEmployeeNo());
-        updateBtn.setEnabled(!currentUser);
+        updateBtn.setEnabled(!currentUser && isRegular);
+        probationaryNoteLabel.setVisible(!isRegular);
            
     }
     
@@ -381,6 +384,7 @@ public class SalaryEditor extends javax.swing.JPanel {
         phoneTextInput = new javax.swing.JTextField();
         clotihingLabel = new javax.swing.JLabel();
         clothingTextInput = new javax.swing.JTextField();
+        probationaryNoteLabel = new javax.swing.JLabel();
 
         cancelDialog.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         cancelDialog.setIconImage(updateSalaryLogo());
@@ -924,19 +928,15 @@ public class SalaryEditor extends javax.swing.JPanel {
             }
         });
 
+        probationaryNoteLabel.setBackground(new java.awt.Color(255, 255, 255));
+        probationaryNoteLabel.setFont(new java.awt.Font("Poppins", 2, 12)); // NOI18N
+        probationaryNoteLabel.setForeground(new java.awt.Color(0, 0, 0));
+        probationaryNoteLabel.setText("(Only Regular employees can receive salary updates)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(decorLine2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(viewLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -973,9 +973,6 @@ public class SalaryEditor extends javax.swing.JPanel {
                         .addGap(25, 25, 25)
                         .addComponent(govIdLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(personalInfoLabel))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(departmentNameLabel)
@@ -989,53 +986,63 @@ public class SalaryEditor extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(statusTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(positionTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 42, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(salaryLabel)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(hourlyLabel)
-                                                .addGap(32, 32, 32)
-                                                .addComponent(hourlyTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(semiMonthlyLabel)
-                                                    .addComponent(basicLabel))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(basicTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                                    .addComponent(semiTextInput))))
-                                        .addGap(58, 58, 58)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(phoneLabel)
-                                            .addComponent(riceLabel)
-                                            .addComponent(clotihingLabel))
-                                        .addGap(10, 10, 10)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(clothingTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(riceTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(departmentLabel)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addComponent(decorLine3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(decorLine4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(decorLine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(personalInfoLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(probationaryNoteLabel))
+                    .addComponent(decorLine2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(viewLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(closeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(semiMonthlyLabel)
+                                                .addComponent(basicLabel)
+                                                .addComponent(hourlyLabel))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(hourlyTextInput)
+                                                .addComponent(basicTextInput, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                                .addComponent(semiTextInput))
+                                            .addGap(64, 64, 64)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(phoneLabel)
+                                                .addComponent(riceLabel)
+                                                .addComponent(clotihingLabel))
+                                            .addGap(10, 10, 10)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(clothingTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(phoneTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(riceTextInput, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(salaryLabel)
+                                        .addGap(594, 594, 594))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(departmentLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1047,7 +1054,9 @@ public class SalaryEditor extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(personalInfoLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(personalInfoLabel)
+                    .addComponent(probationaryNoteLabel))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(employeeNoLabel)
@@ -1315,6 +1324,7 @@ public class SalaryEditor extends javax.swing.JPanel {
     private javax.swing.JTextField phoneTextInput;
     private javax.swing.JLabel positionLabel;
     private javax.swing.JTextField positionTextInput;
+    private javax.swing.JLabel probationaryNoteLabel;
     private javax.swing.JLabel riceLabel;
     private javax.swing.JTextField riceTextInput;
     private javax.swing.JLabel salaryLabel;
