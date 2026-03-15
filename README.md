@@ -12,11 +12,11 @@ git clone https://github.com/djkier/payroll-app.git
 2. Ensure Java is installed on your system (Java 21 recommended). Download Java [here](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 3. Run the project using one of the following methods:
 
-- **Using an IDE (Recommended)**
+**Using an IDE (Recommended)**
 
 Open the project using Apache NetBeans, IntelliJ IDEA, or Eclipse, then run the main application class.
 
-- **Using the Command Line**
+**Using the Command Line**
 ```bash
 mvn clean install
 mvn exec:java
@@ -51,6 +51,7 @@ After successful authentication, the system determines the user's **role** and g
 | Admin | 10001 – 10004 |
 
 **Access Control by Role**
+
 **Regular & Probationary Employee**
 -   View personal employee information
 -   View generated payslips
