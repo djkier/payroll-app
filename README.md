@@ -7,7 +7,7 @@ To run the MotorPH Payroll System locally, clone the repository and run the proj
 1. Clone the project
 
 ```bash
-git clone https://link-to-project
+git clone https://github.com/djkier/payroll-app.git
 ```
 2. Ensure Java is installed on your system (Java 21 recommended) . Download Java [here](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
 3. Run the project using one of the following methods:
