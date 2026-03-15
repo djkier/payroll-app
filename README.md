@@ -81,3 +81,10 @@ After successful authentication, the system determines the user's **role** and g
 -  All employees access
 - Review leave requests
 -   View payroll reports
+
+---
+#### Probationary Employee Limits
+
+Probationary employees have certain restrictions in the system.
+- Payslips will show **zero allowances**.
+- Payroll/Finance staff **cannot update** the salary or allowances of probationary employees.
