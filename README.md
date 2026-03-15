@@ -86,5 +86,5 @@ After successful authentication, the system determines the user's **role** and g
 #### Probationary Employee Limits
 
 Probationary employees have certain restrictions in the system.
-- Payslips will show **zero allowances**.
-- Payroll/Finance staff **cannot update** the salary or allowances of probationary employees.
+- Allowances are automatically set to **0** in the generated payslip.
+- Payroll/Finance staff are **not allowed to update** the salary or allowances of probationary employees.
