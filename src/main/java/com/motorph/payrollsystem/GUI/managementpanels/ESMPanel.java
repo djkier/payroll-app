@@ -265,12 +265,10 @@ public class ESMPanel extends javax.swing.JPanel {
         cancelConfrimLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cancelConfrimLabel.setText("Are you sure you want to exit?");
 
-        cancelBtnConfirm.setBackground(ThemeColor.lightRed());
         cancelBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         cancelBtnConfirm.setText("CANCEL");
         cancelBtnConfirm.addActionListener(this::cancelBtnConfirmActionPerformed);
 
-        confirmBtnConfirm.setBackground(ThemeColor.lightGreen());
         confirmBtnConfirm.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         confirmBtnConfirm.setText("CONFIRM");
         confirmBtnConfirm.addActionListener(this::confirmBtnConfirmActionPerformed);
