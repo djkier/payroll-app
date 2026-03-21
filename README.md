@@ -1,9 +1,9 @@
 # MotorPH Payroll System
 
-A Java desktop application developed to help MotorPH manage employee payroll operations, including attendance tracking, leave management, payroll computation, and payroll reporting. The system centralizes payroll-related processes to improve accuracy, reduce manual workload, and allow employees to view their personal information and payslips.
+A Java-based desktop application for handling employee payroll processes, including attendance monitoring, leave management, salary computation, and report generation. The system centralizes payroll-related processes to improve accuracy, reduce manual workload, and allow employees to view their personal information and payslips.
 
 ## Run Locally
-To run the MotorPH Payroll System locally, clone the repository and run the project using either a Java IDE or the command line.
+To run the payroll application locally, clone the repository and run the project using either a Java IDE or the command line.
 1. Clone the project
 
 ```bash
