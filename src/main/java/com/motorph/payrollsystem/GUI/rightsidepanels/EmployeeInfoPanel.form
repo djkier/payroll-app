@@ -35,32 +35,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="sssLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="philHealthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="sssText" min="-2" max="-2" attributes="0"/>
-                          <Component id="philHealthText" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="pagibigLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pagibigText" min="-2" max="-2" attributes="0"/>
-                          <Component id="tinText" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                      <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="employeeNoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="firstNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="phoneLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -83,33 +57,64 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="govIdLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="departmentLabel" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="departmentNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="positionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="supervisorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="statusLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="sssLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="philHealthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="sssText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="philHealthText" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="tinLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="pagibigLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="pagibigText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tinText" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="govIdLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="departmentLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="departmentNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="positionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="supervisorLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="statusLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="statusText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="positionText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="departmentText" min="-2" max="-2" attributes="0"/>
+                                  <Component id="supervisorText" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="personalInfoLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="dashboardLabel" min="-2" pref="571" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="statusText" min="-2" max="-2" attributes="0"/>
-                          <Component id="positionText" min="-2" max="-2" attributes="0"/>
-                          <Component id="departmentText" min="-2" max="-2" attributes="0"/>
-                          <Component id="supervisorText" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="personalInfoLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -274,10 +279,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="dashboardLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" value="EMPLOYEE INFORMATION"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="24" style="1"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="EMPLOYEE INFORMATION"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="addressLabel">

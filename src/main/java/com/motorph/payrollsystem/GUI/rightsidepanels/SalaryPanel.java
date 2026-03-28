@@ -1241,8 +1241,8 @@ public class SalaryPanel extends javax.swing.JPanel {
 
         payslipViewScrollPane.setViewportView(payslipView);
 
-        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
         dashboardLabel.setText("SALARY DETAILS");
+        dashboardLabel.setFont(new java.awt.Font("Poppins", 1, 24)); // NOI18N
 
         decorLine.setBackground(new java.awt.Color(240, 240, 240));
         decorLine.setDoubleBuffered(false);
@@ -1265,8 +1265,8 @@ public class SalaryPanel extends javax.swing.JPanel {
         printPayBtn.addActionListener(this::printPayBtnActionPerformed);
 
         comboBoxPeriod.setBackground(new java.awt.Color(255, 255, 255));
-        comboBoxPeriod.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         comboBoxPeriod.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboBoxPeriod.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
         comboBoxPeriod.addActionListener(this::comboBoxPeriodActionPerformed);
 
         periodCoveredLabel.setFont(new java.awt.Font("Poppins", 1, 14)); // NOI18N
@@ -1374,10 +1374,6 @@ public class SalaryPanel extends javax.swing.JPanel {
                 .addComponent(decorLine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(dashboardLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1429,6 +1425,10 @@ public class SalaryPanel extends javax.swing.JPanel {
                         .addGap(78, 78, 78)))
                 .addComponent(payslipViewScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(dashboardLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -62,7 +62,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="userPane" min="-2" pref="706" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="23" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -73,7 +73,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="resetBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="userNameBtn" min="-2" max="-2" attributes="0"/>
+                                      <Component id="userNameBtn" min="-2" pref="148" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="activateBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -83,7 +83,6 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="refreshBtn" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="headerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="searchByLabel" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -91,11 +90,12 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="empNameRadioBtn" min="-2" pref="160" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="headerLabel" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="21" max="32767" attributes="0"/>
+                      <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>

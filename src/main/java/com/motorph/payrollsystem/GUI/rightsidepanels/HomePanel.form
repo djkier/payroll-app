@@ -68,20 +68,20 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="timeOutDialogLabel">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="Are you sure you want to time out now?"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="14" style="0"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Are you sure you want to time out now?"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="timeOutDialogCancelBtn">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Cancel"/>
+                <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Cancel"/>
-                <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeOutDialogCancelBtnActionPerformed"/>
@@ -89,11 +89,11 @@
             </Component>
             <Component class="javax.swing.JButton" name="timeOutDialogConfirmBtn">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Confirm"/>
+                <Property name="focusPainted" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Confirm"/>
-                <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeOutDialogConfirmBtnActionPerformed"/>
@@ -162,10 +162,10 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="historyHeader">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Attendance History"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Poppins" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Attendance History"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JScrollPane" name="tablePane">
@@ -259,7 +259,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
+              <Component id="dashboardLabel" min="-2" pref="387" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="preTimeLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -309,34 +309,34 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="welcomeLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Welcome back,"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Welcome back,"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="nameLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="John Doe"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="John Doe"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="preTimeLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="You logged in at:"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="You logged in at:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="loggedInTimeLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="00:00 AM"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="00:00 AM"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="dashboardLabel">
@@ -442,10 +442,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="attendanceTrackerLabel">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Attendance Tracker"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="14" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Attendance Tracker"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="statusBarPanel">
@@ -473,6 +473,8 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="statusLabel">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="You are currently Time Out"/>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
@@ -482,49 +484,47 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="You are currently Time Out"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="timerLabel">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="--:--:-- AM"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="36" style="1"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="--:--:-- AM"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="dateTodayLabel">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value=" Monday, March 08, 2026"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="16" style="0"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value=" Monday, March 08, 2026"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="currentTimeLabel">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Current Time"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="1"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Current Time"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="timeInBtn">
           <Properties>
+            <Property name="text" type="java.lang.String" value="TIME IN"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TIME IN"/>
-            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeInBtnActionPerformed"/>
@@ -532,14 +532,14 @@
         </Component>
         <Component class="javax.swing.JButton" name="timeOutBtn">
           <Properties>
+            <Property name="text" type="java.lang.String" value="TIME OUT"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="TIME OUT"/>
-            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timeOutBtnActionPerformed"/>
@@ -547,11 +547,11 @@
         </Component>
         <Component class="javax.swing.JButton" name="attendanceBtn">
           <Properties>
+            <Property name="text" type="java.lang.String" value="View Attendance History"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="View Attendance History"/>
-            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="attendanceBtnActionPerformed"/>

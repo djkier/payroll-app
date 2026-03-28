@@ -376,69 +376,69 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="companyName1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="MotorPH"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="14" style="1"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="MotorPH"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="address3">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Bagong Nayon, Quezon City"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Bagong Nayon, Quezon City"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="address4">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="7 Jupiter Avenue Cor F. Sandoval Jr."/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="7 Jupiter Avenue Cor F. Sandoval Jr."/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="empLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Employee No :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Employee No :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="nameLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Name :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Name :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="positionLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Position :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Position :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="startLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Period Start :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Period Start :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="endLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Period End :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Period End :"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="decorLine4">
@@ -464,95 +464,95 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="earningsLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Earnings"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Earnings"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="basicLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Basic Salary"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Basic Salary"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="riceLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Rice Subsidy"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Rice Subsidy"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="phoneLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Phone Allowance"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Phone Allowance"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="clothingLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Clothing Allowance"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Clothing Allowance"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="basicText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="riceText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="phoneText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="clothingText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="grossLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="grossText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="decorLine10">
@@ -578,95 +578,95 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="deductionsLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Deductions"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Deductions"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="sssLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="SSS"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="SSS"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="philhealthLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="PhilHealth"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="PhilHealth"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="pagibigLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="taxLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Withholding Tax"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Withholding Tax"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="sssText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="philHealthText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="pagIbigText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="taxText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.0"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.0"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="totalDeductionLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Total Deduction"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Total Deduction"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="totalDeductionText1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="decorLine11">
@@ -692,44 +692,44 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="summaryLabel1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Summary"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Summary"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="gross2Label1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="deduction2Label1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Deduction"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Deduction"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="gross2Text1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="180, 000.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="totalDeduction2Text1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="netPanel1">
@@ -771,61 +771,61 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="previewNetPayLabel1">
                       <Properties>
+                        <Property name="text" type="java.lang.String" value="Net Pay"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Poppins" size="14" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Net Pay"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="previewNetPayText1">
                       <Properties>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Poppins" size="14" style="1"/>
                         </Property>
-                        <Property name="horizontalAlignment" type="int" value="4"/>
-                        <Property name="text" type="java.lang.String" value="16,180,000.00"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JLabel" name="employeeNoText1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="10010"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="10010"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="nameText1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Don Justine Fontanilla"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Don Justine Fontanilla"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="positionText1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Chief Operating Executive"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Chief Operating Executive"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="startText1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="2026/01/15"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="2026/01/15"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="endText1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="2026/01/31"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="2026/01/31"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -834,20 +834,20 @@
         </Container>
         <Component class="javax.swing.JLabel" name="printNote">
           <Properties>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="This element is for simulation only"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="14" style="0"/>
             </Property>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="This element is for simulation only"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="printBtn">
           <Properties>
+            <Property name="text" type="java.lang.String" value="CLOSE"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Poppins" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="CLOSE"/>
-            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printBtnActionPerformed"/>
@@ -882,11 +882,6 @@
           <Group type="102" attributes="0">
               <Component id="decorLine" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="dashboardLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -956,6 +951,11 @@
               </Group>
               <Component id="payslipViewScrollPane" min="-2" pref="389" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="dashboardLabel" min="-2" pref="549" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -1363,69 +1363,69 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="companyName">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="MotorPH"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="14" style="1"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="MotorPH"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="address2">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Bagong Nayon, Quezon City"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="Bagong Nayon, Quezon City"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="address1">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="0"/>
+                    <Property name="text" type="java.lang.String" value="7 Jupiter Avenue Cor F. Sandoval Jr."/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="7 Jupiter Avenue Cor F. Sandoval Jr."/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="empLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Employee No :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Employee No :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="nameLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Name :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Name :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="positionLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Position :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Position :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="startLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Period Start :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Period Start :"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="endLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Period End :"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Period End :"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="decorLine2">
@@ -1451,95 +1451,95 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="earningsLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Earnings"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Earnings"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="basicLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Basic Salary"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Basic Salary"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="riceLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Rice Subsidy"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Rice Subsidy"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="phoneLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Phone Allowance"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Phone Allowance"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="clothingLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Clothing Allowance"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Clothing Allowance"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="basicText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="riceText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="phoneText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="clothingText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="grossLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="grossText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="decorLine5">
@@ -1565,95 +1565,95 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="deductionsLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Deductions"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Deductions"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="sssLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="SSS"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="SSS"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="philhealthLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="PhilHealth"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="PhilHealth"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="pagibigLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="taxLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Withholding Tax"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Withholding Tax"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="sssText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="philHealthText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="pagIbigText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="taxText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="totalDeductionLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Total Deduction"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Total Deduction"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="totalDeductionText">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="decorLine6">
@@ -1679,44 +1679,44 @@
                 </Container>
                 <Component class="javax.swing.JLabel" name="summaryLabel">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Summary"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Summary"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="gross2Label">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Gross Pay"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="deduction2Label">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Deduction"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Deduction"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="gross2Text">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="totalDeduction2Text">
                   <Properties>
+                    <Property name="horizontalAlignment" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="0.00"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="horizontalAlignment" type="int" value="4"/>
-                    <Property name="text" type="java.lang.String" value="0.00"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="netPanel">
@@ -1758,61 +1758,61 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="previewNetPayLabel">
                       <Properties>
+                        <Property name="text" type="java.lang.String" value="Net Pay"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Poppins" size="14" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Net Pay"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="previewNetPayText">
                       <Properties>
+                        <Property name="horizontalAlignment" type="int" value="4"/>
+                        <Property name="text" type="java.lang.String" value="0.00"/>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Poppins" size="14" style="1"/>
                         </Property>
-                        <Property name="horizontalAlignment" type="int" value="4"/>
-                        <Property name="text" type="java.lang.String" value="0.00"/>
                       </Properties>
                     </Component>
                   </SubComponents>
                 </Container>
                 <Component class="javax.swing.JLabel" name="employeeNoText">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="10010"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="10010"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="nameText">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="              "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="              "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="positionText">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="                               "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="                               "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="startText">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="                                               "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="                                               "/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="endText">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="                                                              "/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Poppins" size="12" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="                                                              "/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1823,10 +1823,10 @@
     </Container>
     <Component class="javax.swing.JLabel" name="dashboardLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="SALARY DETAILS"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="SALARY DETAILS"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine">
@@ -1852,11 +1852,11 @@
     </Container>
     <Component class="javax.swing.JButton" name="printPayBtn">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Print Payslip"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Print Payslip"/>
-        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <Events>
@@ -1865,17 +1865,17 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="comboBoxPeriod">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Poppins" size="14" style="0"/>
-        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="0"/>
         </Property>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Hand Cursor"/>
+        </Property>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Poppins" size="14" style="0"/>
         </Property>
       </Properties>
       <Events>
@@ -1887,101 +1887,101 @@
     </Component>
     <Component class="javax.swing.JLabel" name="periodCoveredLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Period Covered"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Period Covered"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="summary2Label">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Summary"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Summary"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainGrossPayLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Gross Pay"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Gross Pay"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="taxableIncomeLabel">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Taxable Income"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Taxable Income"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="netPay2Label">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Net Pay"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Net Pay"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainPhilHealthText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainTaxableText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainNetPayText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="180,000.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="14" style="1"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="180,000.00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="sss2Label">
       <Properties>
+        <Property name="text" type="java.lang.String" value="SSS Contribution"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="SSS Contribution"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="philHealth2Label">
       <Properties>
+        <Property name="text" type="java.lang.String" value="PhilHealth"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="PhilHealth"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="pagibig2Label">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Pag-IBIG"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="tax2Label">
       <Properties>
+        <Property name="text" type="java.lang.String" value="Withholding Tax"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Withholding Tax"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="decorLine7">
@@ -2049,38 +2049,38 @@
     </Container>
     <Component class="javax.swing.JLabel" name="mainPagIbigText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainSssText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainGrossPayText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mainTaxText">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="0.00"/>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Poppins" size="12" style="0"/>
         </Property>
-        <Property name="horizontalAlignment" type="int" value="4"/>
-        <Property name="text" type="java.lang.String" value="0.00"/>
       </Properties>
     </Component>
   </SubComponents>
